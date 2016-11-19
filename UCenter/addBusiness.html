@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人主页-加盟商入驻</title>
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+	      <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
+        <link rel="stylesheet" href="../Public/Css/weui.css"/>
+        <link rel="stylesheet" href="../Public/Css/center.css"/>
+        <link rel="stylesheet" href="../Public/Css/login.css"/>
+</head>
+<body >
+		<!-- hello:{{name}} -->
+		 <div id="header">
+		    <div id="header-buttons">
+		   				 <a href="javascript:history.go(-1);">
+		                    <div id="header-left" class="header-menu-link" data-back="false">
+		                    </div>
+		                </a>
+                <div id="header-center" class="header-menu-link">
+                	加盟商入驻
+                </div>
+                <div id="header-right" class="header-menu-link">
+                </div>
+		    </div>
+		</div>
+		<!--内容页面  -->
+		<div class="addVip">
+			<div class="weui-cells__title"></div>
+			<div class="weui-cells">
+			    <div class="weui-cell">
+			        <div class="weui-cell__bd">
+			            <p>年度黄金会员</p>
+			        </div>
+			        <div class="weui-cell__ft">￥480</div>
+			    </div>
+			</div>
+			<div class="weui-cells">
+			    <div class="weui-cell">
+			        <div class="weui-cell__bd">
+			            <p>季度黄金会员</p>
+			        </div>
+			        <div class="weui-cell__ft">￥250</div>
+			    </div>
+			</div>
+			<div class="weui-cells">
+			    <div class="weui-cell">
+			        <div class="weui-cell__bd">
+			            <p>月度黄金会员</p>
+			        </div>
+			        <div class="weui-cell__ft">￥50</div>
+			    </div>
+			    </div>
+			<!--支付方式  -->
+			<div class="weui-cells__title">选择支付方式</div>
+			<div class="weui-cells weui-cells_radio">
+			    <label class="weui-cell weui-check__label" for="x11">
+			        <div class="weui-cell__bd">
+			            <p>支付宝</p>
+			        </div>
+			        <div class="weui-cell__ft">
+			            <input type="radio" class="weui-check" name="radio1" id="x11">
+			            <span class="weui-icon-checked"></span>
+			        </div>
+			    </label>
+			     <label class="weui-cell weui-check__label" for="x12">
+			        <div class="weui-cell__bd">
+			            <p>微信支付</p>
+			        </div>
+			        <div class="weui-cell__ft">
+			            <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
+			            <span class="weui-icon-checked"></span>
+			        </div>
+			    </label>
+				</div>
+			<a href="javascript:;" class="weui-btn weui-btn_warn">确定支付&nbsp;<span>￥50</span></a>
+	</div>
+</body>
+<script src="../Public/js/zepto.js"></script>
+<script src="../Public/js/vue.js"></script>
+<script>
+ 	var datademo={
+ 		name:'mps',
+ 	} 
+	var vue = new Vue({
+			el:'#app',
+			data:datademo,
+	})
+</script>
+</html>
