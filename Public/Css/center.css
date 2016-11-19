@@ -74,3 +74,75 @@
 .description span{
 	margin-right:50px;
 }
+/* 固定尾部开始    与张涛做的css代码一致*/
+
+.menu{
+    position: fixed;
+    left:0px;
+    bottom:0px;
+    margin-top:10px;
+    width: 100%;
+    height:80px;
+    background: #F5F4F3;
+}
+.menu .menu1{
+    margin-top:10px;
+    width: 33%;
+    float: left;
+}
+.menu .menu1 li a{
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+    color:#D55700;
+}
+.home_page a {
+    display: block;
+     width:50px;
+     height:30px;
+     background:url("../images/home%20page/01.png")no-repeat -380px 0;
+ }
+.menu .menu2{
+    margin-top:10px;
+    width: 33%;
+     float: left;
+ }
+.menu .menu2 li a{
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+    color:#696763;
+}
+.supply a{
+    display: block;
+    width:50px;
+    height:30px;
+    background:url("../images/home%20page/01.png")no-repeat -200px 0;
+}
+.menu .menu3{
+    margin-top:10px;
+    width: 33%;
+    float: left;
+}
+.menu .menu3 li a{
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 40px;
+    line-height: 40px;
+    color:#696763;
+}
+.my a{
+    display: block;
+    width:50px;
+    height:30px;
+    background:url("../images/home%20page/01.png")no-repeat -318px 0;
+}
+/* 固定尾部 结束*/

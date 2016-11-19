@@ -4,7 +4,14 @@
 	<meta charset="UTF-8">
 	<title>个人主页</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../public/css/weui.css">
+	     <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
+        <link rel="stylesheet" href="../Public/Css/weui.css"/>
+        <link rel="stylesheet" href="../Public/Css/center.css"/>
+        <link rel="stylesheet" href="../Public/Css/login.css"/>
+        <!-- 多语言 -->
+        <script>  
+			var lang_flag = 1;  
+		</script> 
 </head>
 <body >
 <div id="app">
@@ -16,6 +23,8 @@
 </body>
 <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
+<script src="../Public/js/center.js"></script>
+<script src="../Public/js/language.js"></script>
 <script>
  	var datademo={
  		name:'mps',
@@ -24,5 +33,9 @@
 			el:'#app',
 			data:datademo,
 	})
+ 	/* 多语言切换 开始*/
+	document.write(love[lang_flag]);  
+	fun();  
+	/* 多语言切换 结束*/
 </script>
 </html>
