@@ -1,0 +1,60 @@
+*{
+    margin:0;
+    padding:0;
+}
+.cl{
+    clear: both;
+}
+body{
+    background: #F1F1F1;
+    font-family: "Microsoft YaHei UI";
+}
+#header{
+    padding:10px 20px;
+    height:40px;
+    background: #BF6E09;
+    line-height: 40px;
+    color: #fff;
+}
+#header a{
+    display: inline-block;
+    padding: 0 5px;
+    font-size: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#main{
+    margin-top: 15px;
+}
+#main .menu_4{
+    background: #fff;
+    padding:10px 15px;
+    text-align: center;
+    border-bottom: 1px solid #D7D4D4;
+}
+#main .menu_4_box{
+    position: relative;
+}
+#main .menu_4_box img{
+    display: block;
+    width:50%;
+    margin:0 auto;
+    padding:5px 0;
+}
+
+.menu_order{
+    border-top:1px solid #D7D4D4;
+}
+.menu_order:after{
+    left:15px;
+    right:15px;
+    border-bottom: 1px solid #CBCBCB;
+}
+#main .dianliang_button{
+    padding: 0 20px;
+    margin-top: 60px;
+}
+#main .dianliang_button .weui-btn_primary{
+    background: #D04B02;
+}

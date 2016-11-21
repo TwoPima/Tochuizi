@@ -1,0 +1,108 @@
+*{
+    margin:0;
+    padding:0;
+}
+.cl{
+    clear: both;
+}
+body{
+    background: #F1F1F1;
+    font-family: "Microsoft YaHei UI";
+}
+#header{
+    padding:10px 20px;
+    height:40px;
+    background: #BF6E09;
+    line-height: 40px;
+    color: #fff;
+}
+#header a{
+    display: inline-block;
+    padding: 0 5px;
+    font-size: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#main .setting_count{
+    background: #fff;
+    padding:20px;
+    height:50px;
+}
+#main .setting_count img{
+    width:50px;
+    height:50px;
+    display: inline-block;
+    float: left;
+}
+#main .setting_count .setting_count_title{
+    display: inline-block;
+    float: left;
+    font-size: 15px;
+    color: #BF6E09;
+    height:50px;
+    line-height:50px;
+    margin-left: 5px;
+}
+#main .setting_count .setting_count_num{
+    display: inline-block;
+    float: right;
+    font-size: 25px;
+    color: #BF6E09;
+    height:50px;
+    line-height:50px;
+}
+
+#main .setting_tab{
+    margin-top: 10px;
+    background: #ffffff;
+    padding:0 20px;
+    text-align: center;
+}
+#main .setting_tab .weui-flex__item {
+    font-size: 16px;
+    color: #000;
+    padding:15px 0 10px 0;
+}
+#main .setting_tab .action{
+    border-bottom: 5px solid red;
+}
+#main .setting_list{
+    margin-top: 10px;
+    background: #ffffff;
+    padding:20px;
+    float: left;
+}
+#main .setting_list ul{
+    list-style: none;
+    width:100%;
+    float: left;
+}
+#main .setting_list li{
+    width:100%;
+    float: left;
+    height:30px;
+    line-height: 30px;
+    font-size: 16px;
+    padding:8px 0;
+    border-bottom:1px solid #EAEAEA;
+}
+#main .setting_list .add{
+    color: #E2840C;
+}
+#main .setting_list .reduce{
+    color: #E34A1A;
+}
+#main .setting_list .setting_list_num{
+    float: left;
+}
+#main .setting_list .setting_list_event{
+    float: right;
+    color: #5D5D5D;
+
+}
+#main .setting_list .setting_list_time{
+    padding: 0 10px;
+    float: right;
+    color: #5D5D5D;
+}
