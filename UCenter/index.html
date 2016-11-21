@@ -8,110 +8,10 @@
 	     <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
         <link rel="stylesheet" href="../Public/Css/weui.css"/>
         <link rel="stylesheet" href="../Public/Css/center.css"/>
-        <link rel="stylesheet" href="../Public/Css/login.css"/>
         <!-- 多语言 -->
         <script>  
 			var lang_flag = 1;  
 		</script> 
-	<style>
-		*{
-			margin:0;
-			padding:0;
-		}
-		body{
-			font-family: "Microsoft YaHei UI";
-			background: #F3F3F3;
-		}
-		#header{
-			height:150px;
-			background: #BF6E09;
-			padding: 0 15px;
-			position: relative;
-			display: -webkit-box;
-			display: -webkit-flex;
-			display: flex;
-			-webkit-box-align: center;
-			-webkit-align-items: center;
-			align-items: center;
-		}
-		#header .head_img{
-
-		}
-		#header .head_img img{
-			width: 80px;
-			height:80px;
-			-webkit-border-radius:41px;
-			-moz-border-radius:41px;
-			border-radius:41px;
-			margin-right: 5px;
-			border:2px solid #ffffff;
-			display: block;
-		}
-		#header .head_title{
-			color: #ffffff;
-			-webkit-box-flex: 1;
-			-webkit-flex: 1;
-			flex: 1;
-		}
-		#header .head_title p{
-		}
-		#header .head_job{
-			position: relative;
-			text-align: center;
-			color: #ffffff;
-		}
-		#header .head_job img{
-		}
-		#main{
-			margin-top: 15px;
-		}
-		#main .menu_4{
-			background: #fff;
-			padding:10px 15px;
-			text-align: center;
-			border-bottom: 1px solid #D7D4D4;
-		}
-		#main .menu_4_box{
-			position: relative;
-		}
-		#main .menu_4_box img{
-			display: block;
-			width:50%;
-			margin:0 auto;
-			padding:5px 0;
-		}
-		 #main .menu_4_box .icon_num_float{
-			 border:2px solid #ffffff;
-			 -webkit-border-radius:	11px ;
-			 -moz-border-radius:11px;
-			 border-radius:11px;
-			 position: absolute;
-			 top:2%;
-			 right: 18%;
-		 }
-
-		#main .icon_num{
-			display: block;
-			-webkit-border-radius:10px;
-			-moz-border-radius:10px;
-			border-radius:10px;
-			background: red;
-			color: #ffffff;
-			font-size: 14px;
-			line-height: 20px;
-			height: 20px;
-			width:20px;
-			text-align: center;
-		}
-		.menu_order{
-			border-top:1px solid #D7D4D4;
-		}
-		.menu_order:after{
-			left:15px;
-			right:15px;
-			border-bottom: 1px solid #CBCBCB;
-		}
-	</style>
 </head>
 <body>
 <div id="app">
@@ -125,14 +25,14 @@
 			<p>认证类型:个人(普通)</p>
 		</div>
 		<div class="head_job">
-			<img src="../public/img/index/index_headjob.jpg" alt="">
+			<img src="../public/img/index/headright.png" alt="">
 			<p>设计师</p>
 		</div>
 	</div>
 	<div id="main">
 		<div class="page">
 			<div class="weui-panel menu_order">
-				<a class="weui-cell weui-cell_access" href="javascript:;">
+				<a class="weui-cell weui-cell_access" href="myOrder.html">
 					<div class="weui-cell__hd"><img src="../public/img/index/index_001.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>我的订单</p>
@@ -142,29 +42,29 @@
 			</div>
 			<div  class="weui-flex menu_4">
 				<div class="weui-flex__item menu_4_box">
-					<img src="../public/img/index/icon_01.jpg" >
+					<img src="../public/img/index/nopay.png" >
 					<p>待付款</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 				<div class="weui-flex__item menu_4_box">
-					<img src="../public/img/index/icon_02.jpg" >
+					<img src="../public/img/index/noget.png" >
 					<p>待收货</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 				<div class="weui-flex__item menu_4_box">
-					<img src="../public/img/index/icon_03.jpg" >
+					<img src="../public/img/index/pingjia.png" >
 					<p>待评价</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 				<div class="weui-flex__item menu_4_box">
-					<img src="../public/img/index/icon_04.jpg" >
+					<img src="../public/img/index/tuihuo.png" >
 					<p>待退货</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 			</div>
 
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="javascript:;">
+					<a class="weui-cell weui-cell_access" href="mySupply.html">
 						<div class="weui-cell__hd"><img src="../public/img/index/index_002.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的供求</p>
@@ -174,7 +74,7 @@
 			</div>
 
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="javascript:;">
+					<a class="weui-cell weui-cell_access" href="myCollect.html">
 						<div class="weui-cell__hd"><img src="../public/img/index/index_003.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的收藏</p>
@@ -184,7 +84,7 @@
 			</div>
 
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="javascript:;">
+					<a class="weui-cell weui-cell_access" href="evaluate.html">
 						<div class="weui-cell__hd"><img src="../public/img/index/index_004.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的评价</p>
@@ -194,7 +94,7 @@
 			</div>
 
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="javascript:;">
+				<a class="weui-cell weui-cell_access" href="notice.html">
 					<div class="weui-cell__hd"><img src="../public/img/index/index_005.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>消息通知</p>
@@ -204,7 +104,7 @@
 			</div>
 
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="javascript:;">
+				<a class="weui-cell weui-cell_access" href="addBusiness.html">
 					<div class="weui-cell__hd"><img src="../public/img/index/index_006.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>加盟商入驻申请</p>
@@ -214,7 +114,7 @@
 			</div>
 
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="javascript:;">
+				<a class="weui-cell weui-cell_access" href="addVip.html">
 					<div class="weui-cell__hd"><img src="../public/img/index/index_007.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>成为VIP</p>
