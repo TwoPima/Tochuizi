@@ -181,73 +181,38 @@ body{
 }
 /* 固定尾部开始    与张涛做的css代码一致*/
 
-.menu{
+.bottom_menu {
+    height: 50px;
+    padding: 0 10px;
     position: fixed;
-    left:0px;
-    bottom:0px;
-    margin-top:10px;
-    width: 100%;
-    height:80px;
-    background: #F5F4F3;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    display: -webkit-box;
 }
-.menu .menu1{
-    margin-top:10px;
-    width: 33%;
-    float: left;
+.bottom_menu .home {
+    background:url("../Img/footer/home.png") no-repeat center 8px; 
+   /*  background:url("../Img/footer/index-footer-icon.png") no-repeat;
+	background-position:-80px 10px;   */
+    background-size: 22px 22px; 
 }
-.menu .menu1 li a{
+.bottom_menu a {
+    display: block;
+    -webkit-box-flex: 1;
+    padding-top: 30px;
     text-align: center;
-    display: block;
-    margin: 0 auto;
-    width: 50px;
-    height: 40px;
-    line-height: 40px;
-    color:#D55700;
+    color: #888;
+    font-size: 14px;
 }
-.home_page a {
-    display: block;
-     width:50px;
-     height:30px;
-     background:url("../images/home%20page/01.png")no-repeat -380px 0;
- }
-.menu .menu2{
-    margin-top:10px;
-    width: 33%;
-     float: left;
- }
-.menu .menu2 li a{
-    text-align: center;
-    display: block;
-    margin: 0 auto;
-    width: 50px;
-    height: 40px;
-    line-height: 40px;
-    color:#696763;
+.bottom_menu .cart {
+    background: url(../Img/footer/supply.png) no-repeat center 8px;
+    background-size: 22px 22px;
+    position: relative;
 }
-.supply a{
-    display: block;
-    width:50px;
-    height:30px;
-    background:url("../images/home%20page/01.png")no-repeat -200px 0;
-}
-.menu .menu3{
-    margin-top:10px;
-    width: 33%;
-    float: left;
-}
-.menu .menu3 li a{
-    text-align: center;
-    display: block;
-    margin: 0 auto;
-    width: 50px;
-    height: 40px;
-    line-height: 40px;
-    color:#696763;
-}
-.my a{
-    display: block;
-    width:50px;
-    height:30px;
-    background:url("../images/home%20page/01.png")no-repeat -318px 0;
+.bottom_menu .center {
+    background: url(../Img/footer/center.png) no-repeat center 8px;
+    background-size: 22px 22px;
 }
 /* 固定尾部 结束*/

@@ -2,15 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>个人主页-设置</title>
+	<title>个人主页-地址管理</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
+	  <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
         <link rel="stylesheet" href="../Public/Css/weui.css"/>
         <link rel="stylesheet" href="../Public/Css/center.css"/>
-	<!-- 多语言 -->
-	<script>
-		var lang_flag = 1;
-	</script>
 </head>
 <body>
 <div id="app">
@@ -21,42 +17,27 @@
 		                    </div>
 		                </a>
                 <div id="header-center" class="header-menu-link">
-                	设置
+                	地址管理
                 </div>
                 <div id="header-right" class="header-menu-link">
+                		<a href="addRegion.html">新增</a>
                 </div>
 		    </div>
 		</div>
+	
 	<div id="main">
-		<div class="weui-cells">
-		    <div class="weui-cell">
-		         <a href="">
-		         <div class="weui-cell__bd">
-		           <p>更改密码</p>
-		        </div>
-		        </a>
-		    </div>
-		    <div class="weui-cell">
-		     <a href="">
-		        <div class="weui-cell__bd">
-		            <p>关于土锤</p>
-		        </div>
-		        </a>
-		    </div>
-		    <div class="weui-cell">
-		     <a href="">
-		        <div class="weui-cell__bd">
-		            <p>意见反馈</p>
-		        </div>
-		        </a>
-		    </div>
-		</div>
-		<div class="height20px"></div>
-		<div class="height20px"></div>
-		<div class="button-sp-area">
-		    <a href="javascript:;" class="weui-btn weui-btn_plain-primary">按钮</a>
-		</div>
-		<div class="height20px"></div>
+		<div class="page">
+			<div class="weui-cells">
+			    <div class="weui-cell">
+			        <div class="weui-cell__bd">
+			            <p><span>妥成龙</span><span>18195099882</span></p>
+			            <p>宁夏银川市金凤区万达广场B座1707</p>
+			        </div>
+			         <div class="weui-cell__bd">
+			           <p><img alt="" src="../Public/Img/edit.png"></p>
+			        </div>
+			    </div>
+			</div>
 	</div><!--main-->
 </div><!--app-->
 </body>
@@ -65,9 +46,10 @@
 <script src="../Public/js/center.js"></script>
 <script src="../Public/js/language.js"></script>
 <script>
-	/* 多语言切换 开始*/
-	document.write(love[lang_flag]);
-	fun();
+
+ 	/* 多语言切换 开始*/
+	document.write(love[lang_flag]);  
+	fun();  
 	/* 多语言切换 结束*/
 </script>
 </html>
