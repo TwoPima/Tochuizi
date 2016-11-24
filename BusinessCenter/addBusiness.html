@@ -4,87 +4,44 @@
 	<meta charset="UTF-8">
 	<title>个人主页-加盟商入驻</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	      <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
-        <link rel="stylesheet" href="../Public/Css/weui.css"/>
-        <link rel="stylesheet" href="../Public/Css/center.css"/>
-        <link rel="stylesheet" href="../Public/Css/login.css"/>
+	<link rel="stylesheet" href="../Public/Css/weui.css"/><!--weui css  文件先引入这个最后替换一下不需要现在引入文件-->
+	<link rel="stylesheet" href="../Public/Css/common.css"/>
+	<link rel="stylesheet" href="../Public/Css/addBusiness.css"/>
 </head>
-<body >
-		<!-- hello:{{name}} -->
+<body>
 	<div id="topback-header">
-		    <div class="header-buttons">
-		   				 <a href="javascript:history.go(-1);">
-		                    <div id="header-left" class="header-menu-link" data-back="false">
-		                    </div>
-		                </a>
-                <div id="header-center" class="header-menu-link">
-                	加盟商入驻
-                </div>
-                <div id="header-right" class="header-menu-link">
-                </div>
-		    </div>
-		</div>
-		<!--内容页面  -->
-		<div class="addVip">
-			<div class="weui-cells__title"></div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>年度黄金会员</p>
-			        </div>
-			        <div class="weui-cell__ft">￥480</div>
-			    </div>
-			</div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>季度黄金会员</p>
-			        </div>
-			        <div class="weui-cell__ft">￥250</div>
-			    </div>
-			</div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>月度黄金会员</p>
-			        </div>
-			        <div class="weui-cell__ft">￥50</div>
-			    </div>
-			    </div>
-			<!--支付方式  -->
-			<div class="weui-cells__title">选择支付方式</div>
-			<div class="weui-cells weui-cells_radio">
-			    <label class="weui-cell weui-check__label" for="x11">
-			        <div class="weui-cell__bd">
-			            <p>支付宝</p>
-			        </div>
-			        <div class="weui-cell__ft">
-			            <input type="radio" class="weui-check" name="radio1" id="x11">
-			            <span class="weui-icon-checked"></span>
-			        </div>
-			    </label>
-			     <label class="weui-cell weui-check__label" for="x12">
-			        <div class="weui-cell__bd">
-			            <p>微信支付</p>
-			        </div>
-			        <div class="weui-cell__ft">
-			            <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
-			            <span class="weui-icon-checked"></span>
-			        </div>
-			    </label>
+		<div class="header-buttons">
+			 <a href="javascript:history.go(-1);">
+				<div id="header-left" class="header-menu-link" data-back="false">
 				</div>
-			<a href="javascript:;" class="weui-btn weui-btn_warn">确定支付&nbsp;<span>￥50</span></a>
+			</a>
+			<div id="header-center" class="header-menu-link">
+				申请加盟
+			</div>
+			<div id="header-right" class="header-menu-link">
+			</div>
+		</div>
+	</div>
+	<!--内容页面  -->
+	<div id="box-main">
+		<div class="addbu_logo">
+			<img src="../Public/img/addbusiness/logo.jpg" >
+		</div>
+		<div class="addbu_text">
+			史上最浅显易懂的Git教程！
+			为什么要编写这个教程？因为我在学习Git的过程中，买过书，也在网上Google了一堆Git相关的文章和教程，但令人失望的是，这些教程不是难得令人发指，就是简单得一笔带过，或者，只支离破碎地介绍Git的某几个命令，还有直接从Git手册粘贴帮助文档的，总之，初学者很难找到一个由浅入深，学完后能立刻上手的Git教程。
+			既然号称史上最浅显易懂的Git教程，那这个教程有什么让你怦然心动的特点呢？
+			首先，本教程绝对面向初学者，没有接触过版本控制概念的读者也可以轻松入门，不必担心起步难度；
+			其次，本教程实用性超强，边学边练，一点也不觉得枯燥。而且，你所学的Git命令是“充分且必要”的，掌握了这些东西，你就可以通过Git轻松地完成你的工作。
+			文字+图片还看不明白？有视频！！！
+			本教程只会让你成为Git用户，不会让你成为Git专家。很多Git命令只有那些专家才明白（事实上我也不明白，因为我不是Git专家），但我保证这些命令可能你一辈子都不会用到。既然Git是一个工具，就没必要把时间浪费在那些“高级”但几乎永远不会用到的命令上。一旦你真的非用不可了，到时候再自行Google或者请教专家也未迟。
+			如果你是一个开发人员，想用上这个世界上目前最先进的分布式版本控制系统，那么，赶快开始学习吧！
+		</div>
+		<div class="addbu_button">
+			<a href="addBusinessInfo.html" class="weui-btn weui-btn_warn">下一步</a>
+		</div>
 	</div>
 </body>
 <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
-<script>
- 	var datademo={
- 		name:'mps',
- 	} 
-	var vue = new Vue({
-			el:'#app',
-			data:datademo,
-	})
-</script>
 </html>
