@@ -15,9 +15,16 @@
 	margin:0;
 	padding:0;
 }
+.text-center{
+	text-align:center ;
+	margin:0 auto;
+}
 body{
 	font-family: "Microsoft YaHei UI";
 	background: #F3F3F3;
+}
+.hidden{
+	display: none;
 }
 /* 公共返回头部 */
 #topback-header {
@@ -92,10 +99,7 @@ body{
 	-webkit-align-items: center;
 	align-items: center;
 }
-#header .head_img{
-
-}
-#header .head_img img{
+ .head_img img{
 	width: 80px;
 	height:80px;
 	-webkit-border-radius:41px;
@@ -247,5 +251,56 @@ body{
 .myOrder .weui-bar__item_on{
 	border-bottom:5px solid #E54E1F;
 	background-color: #FFFFFF;
+}
+/* 我的订单 结束*/
+/* 基本信息修改*/
+.info-head{
+	height:100px;
+	padding: 0 15px;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+.info-head .head_img{
+	width:100px;
+	position:absolute;left:35%;
+}
+/* 基本信息 结束*/
+/* 我的订单 开始*/
+.order-foot{
+	border-top: 1px solid #CCCCCC ;
+	border-bottom: 1px solid #CCCCCC ;
+	height:60px;
+	padding-top:15px;
+}
+.order-title{
+	height:60px;
+	padding-top:15px;
+}
+.order-del{
+	height:60px;
+}
+.cb.disabled {
+	border: 2px solid #898989;
+}
+.cb {
+	width: 18px;
+	height: 18px;
+	border: 3px solid #333333;
+	display: inline-block;
+	cursor: pointer;
+	color: #9b0e0e;
+	-webkit-border-radius: 14px;
+	border-radius: 14px;
+	position: relative;
+	margin-right:8px;
+}
+.button-pay{
+	border:1px solid red;
+	color:red;
 }
 /* 我的订单 结束*/

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人主页-查看物流</title>
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
+    <link rel="stylesheet" href="../Public/Css/weui.css"/>
+    <link rel="stylesheet" href="../Public/Css/center.css"/>
+
+</head>
+<body>
+<div id="app">
+    <div id="main">
+        <div class="addEvaluate">
+            <!--   <div class="weui-cells__title">带说明、跳转的列表项</div>-->
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p id="name">宁夏亿次元科技有限公司APP开发</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+                    <div class="weui-uploader">
+                        <div class="weui-cells">
+                            <div class="weui-uploader__bd">
+                                <ul class="weui-uploader__files" id="uploaderFiles">
+
+                                    <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                        <div class="weui-uploader__file-content">
+                                            <i class="weui-icon-warn"></i>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
+                                           <div class="weui-uploader__file-content">50%</div>
+                                       </li>-->
+                                </ul>
+                                <div class="weui-uploader__input-box">
+                                    <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="weui-cells">
+                <div class="weui-cell weui-cell_select">
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="select1">
+                            <option selected="" value="1">选择分类</option>
+                            <option value="2">QQ号</option>
+                            <option value="3">Email</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
+                            <!-- <div class="weui-textarea-counter"><span>0</span>/200</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p id="name">
+                            供求类型：
+                            <span>
+                             <div class="weui-cells weui-cells_radio">
+                                <label class="weui-cell weui-check__label" for="x11">
+                                        <div class="weui-cell__bd">
+                                                        <p>供应</p>
+                                                    </div>
+                                    <div class="weui-cell__ft">
+                                        <input type="radio" class="weui-check" name="radio1" id="x11">
+                                        <span class="weui-icon-checked"></span>
+                                    </div>
+                    <div class="weui-cell__bd">
+                        <p>求购</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
+                        <span class="weui-icon-checked"></span>
+                    </div>
+                                    </label>
+
+
+                 </span></p>
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p id="name">价&nbsp;&nbsp;格：<span>X</span></p>
+                    </div>
+                </a>
+            </div>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__bd">
+                        <p id="name">联系电话：<span>X</span></p>
+                    </div>
+                </a>
+            </div>
+            <div class="height20px"></div>
+            <div class="button-sp-area">
+                <a href="javascript:;" class="weui-btn weui-btn_plain-default ">按钮</a>
+            </div>
+        </div><!--main-->
+    </div><!--app-->
+</body>
+<script src="../Public/js/zepto.js"></script>
+<script src="../Public/js/vue.js"></script>
+<script src="../Public/js/center.js"></script>
+<script src="../Public/js/language.js"></script>
+<script>
+    /* 多语言切换 开始*/
+    document.write(love[lang_flag]);
+    fun();
+    /* 多语言切换 结束*/
+</script>
+</html>
