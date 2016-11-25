@@ -26,6 +26,12 @@ body{
 .hidden{
 	display: none;
 }
+.padding-left-10px{
+	padding-left:10px;
+}
+.btn-custom-theme{
+	    background-color: #bd6600;
+}
 /* 公共返回头部 */
 #topback-header {
     box-sizing: border-box;
@@ -304,3 +310,30 @@ body{
 	color:red;
 }
 /* 我的订单 结束*/
+/* 我的收藏*/
+#main .collect_count{
+    background: #fff;
+    padding:20px;
+    height:50px;
+}
+#main .collect_count img{
+    width:50px;
+    height:50px;
+    display: inline-block;
+    float: left;
+}
+#main .collect_count{
+	color:#eb8f1b;
+}
+#main .collect_count .count-left{
+	margin-top:15px;
+	margin-left:20px;
+	font-size:0.8em;
+}
+#main .collect_count .count_number{
+	margin-top:5px;
+	margin-left:20px;
+	margin-right:10px;
+}
+
+/* 我的收藏结束*/
