@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>个人</title>
+	<title>个人中心-基本信息修改</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-
-	     <link rel="stylesheet" href="../public/css/weui.min.css"/>
-        <link rel="stylesheet" href="../public/css/weui.css"/>
-        <link rel="stylesheet" href="../public/css/center.css"/>
+        <link rel="stylesheet" href="../Public/Css/weui.css"/>
+        <link rel="stylesheet" href="../Public/Css/center.css"/>
+        <link rel="stylesheet" href="../Public/Css/common.css"/>
 </head>
 <body>
 <div id="app">
-	
 	<div id="main">
 		<div class="page">
             <div class="info-head ">
@@ -26,6 +24,12 @@
                             <input class="weui-input" type="text" pattern="" placeholder="请输入称呼"/>
                         </div>
                     </div>
+                     <div class="weui_cell">
+				    <div class="weui_cell_hd"><label class="weui-label">手机号</label></div>
+				    <div class="weui_cell_bd">
+				      <input class="weui_input" type="tel" placeholder="请输入手机号">
+				    </div>
+				  </div>
                    <div class="weui-cell weui-cells_radio">
                        <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
                        <label class="weui-cell weui-check__label" for="x11">
@@ -47,27 +51,21 @@
                            </div>
                        </label>
                    </div>
-                       <div class="weui-cell">
-                           <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
-                           <div class="weui-cell__bd">
-                               <input class="weui-input" type="date" value=""->
-                           </div>
-                       </div>
                        <div class="weui-cell weui-cell_select weui-cell_select-after">
                            <div class="weui-cell__hd">
-                               <label for="" class="weui-label">地区</label>
+                               <label for="" class="weui-label">收货地址</label>
                            </div>
+                             <a href="region.html">
                            <div class="weui-cell__bd">
                                <select class="weui-select" name="select2">
                                    <option value="1">宁夏银川市金凤区</option>
-                                   <option value="2">宁夏银川市金凤区</option>
-                                   <option value="3">宁夏银川市金凤区</option>
                                </select>
                            </div>
+                           </a>
                        </div>
                     <div class="height20px" ></div>
                     <div class="height20px" ></div>
-             <a href="" class="weui-btn weui-btn_primary">保存</a>
+             <a href="" id="btn-custom-theme" class="weui-btn weui-btn_primary">保存</a>
 		</div>
 	</div><!--main-->		
 </div><!--app-->

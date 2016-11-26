@@ -1,6 +1,5 @@
 /*公共部分的css  全部文件都引入的部分*/
 body{
-    font-family: "Microsoft YaHei UI";
 }
 /* 公共返回头部 */
 #topback-header {
@@ -23,39 +22,41 @@ body{
     -ms-transform: translate3d(0,0,0);
     -o-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
+	background-color:#bf6e09;
+	height: 48px;
+	color: #ffffff;
 }
-#topback-header .header-buttons {
-    background-color:#D04C02;
-    height: 48px;
-    color: #ffffff;
+#topback-header   .header-left .icon-xiangzuo{
+	font-size:25px;
 }
-#topback-header   #header-left {
-    box-sizing: border-box;
-    background: url(../Img/b-left.png) no-repeat center;
-    background-size: auto 80%;
+#topback-header   .header-left .title{
+	font-size:18px;
+	font-family: "微软雅黑 Regular";
+}
+#topback-header   .header-left {
     height: 48px;
-    width: 61px;
     margin-top: 0;
-    margin-left: 0;
     position: absolute;
     top: 0;
-    left: 0;
-}
-#topback-header   #header-center{
-    box-sizing: border-box;
-    height: 48px;
-    line-height: 48px;
-    text-align: center;
-    left: 50%;
+    left: 10px;
+	color: #ffffff;
 }
 #topback-header  #header-right{
-    box-sizing: border-box;
+	box-sizing: border-box;
     height: 48px;
     margin-top: 0;
-    margin-left: 0;
-    padding-top:10px;
-    float:right;
+    margin-right: 10px;
+	padding-top:10px;
+	float:right;
 }
 #topback-header  #header-right a{
-    color: #ffffff;
+	color: #ffffff;
+	font-size:18px;
+	font-family: "微软雅黑 Regular";
+}
+/* 按钮 */
+#btn-custom-theme{
+	 background-color: #bd6600;
+	margin-left:20px;
+	margin-right:20px;
 }

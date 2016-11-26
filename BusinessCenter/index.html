@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>登陆</title>
+        <link rel="stylesheet" type="text/css"  href="../Public/Css/weui.css"/>
+        <link rel="stylesheet" type="text/css" href="../Public/Css/common.css"/>
+        <link rel="stylesheet" type="text/css" href="../Public/Css/center.css"/>
+        <link rel="stylesheet" type="text/css" href="../Public/Css/login.css"/>
+         <link rel="stylesheet" type="text/css" href="../Public/Font/iconfont.css">
+         	<link rel="stylesheet" href="../Public/Css/jquery-weui.min.css">
+        <script>
+/**
+ * 全局变量
+ */
+var SITE_URL  = '<php> echo SITE_URL;</php>';
+var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
+var THEME_URL = '__THEME__';
+var APPNAME   = '<php> echo APP_NAME;</php>';
+var MID       = '<php> echo $mid;</php>';
+var UID       = '<php> echo $uid;</php>';
+var initNums  =  '<php> echo $initNums;</php>';
+var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
+var _CITY = '{:session("init_city")}';
+var ISWAP = 1;
+var USER_UN_SETTING = '{$unsetting}';
+// Js语言变量
+var LANG = new Array();
+</script>
+    </head>
+    <body id="">
+    		<div id="topback-header">
+   				 <a href="javascript:history.go(-1);" class="header-left">
+                      <i class="icon iconfont icon-xiangzuo"></i>
+                  	    <span class="title">商铺管理中心</span>
+                </a>
+                <div id="header-right" class="header-menu-link">
+                	 <a href="javascript:;"><i class="icon iconfont icon-shezhi"></i></a>
+                </div>
+		</div>
+    </body>
+      <script src="../Public/Js/zepto.js"></script>
+<script src="../Public/Js/vue.js"></script>
+<script src="../Public/Js/jquery-2.1.4.js"></script>
+<script src="../Public/Js/jquery-weui.min.js"></script>
+</html>
