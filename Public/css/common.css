@@ -1,3 +1,14 @@
+/*针对苹果兼容性做处理*/
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+select,
+button {
+    font-family: "Microsoft YaHei UI";
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+}
+
 /*公共部分的css  全部文件都引入的部分*/
 body{
     font-family: "Microsoft YaHei UI";
