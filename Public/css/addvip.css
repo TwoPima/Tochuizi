@@ -1,0 +1,154 @@
+body{
+    background-color: #F1F1F1;
+}
+.vip_box{
+    margin-top:15px;
+    background: #fff;
+    width: 100%;
+
+}
+.top .vip_box_logo{
+    margin:0 20px;
+    height:70px;
+    border-bottom:1px dashed #ddd;
+}
+.top .vip_box_logo img{
+    height:100%;
+    display: block;
+    margin:0 auto;
+}
+.top .menu_4{
+    background: #fff;
+    padding:10px 15px;
+    text-align: center;
+    border-bottom: 1px solid #D7D4D4;
+}
+
+.top .menu_4_box{
+    position: relative;
+}
+.top .menu_4_box img{
+    display: block;
+    width:50%;
+    margin:0 auto;
+    padding:5px 0;
+}
+/*--------------buy_box-----------*/
+.buy_vip{
+    padding:10px 15px;
+}
+.buy_vip .menu_3_box{
+    margin:0 3px;
+    padding:5px 0;
+    border:1px solid #E0E0E0;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.buy_vip .menu_3_box img{
+    width:25%;
+    margin-right: 3px;
+    margin-left: 3px;
+
+}
+.buy_vip .menu_3_box .vip_money{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.buy_vip .menu_3_box .vip_money_line1{
+    font-size:18px;
+    font-weight:500;
+    color: #000000;
+}
+.buy_vip .menu_3_box .vip_money_line2{
+    font-size:14px;
+    color: #8C8C8C;
+}
+.buy_box .menu_order:after{
+    left:15px;
+    right:15px;
+    border-bottom: 1px solid #CBCBCB;
+}
+
+.buy_box .input_vip{
+    padding: 10px 15px;
+}
+.buy_box .input_vip input{
+    width:90%;
+    font-size: 16px;
+    height:40px;
+    line-height: 40px;
+    padding:2px 3%;
+    border:1px solid #D5D5D5;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    outline: none;
+}
+/*----------------------------*/
+.zhifu_vip{
+    padding:10px 15px 20px 15px ;
+}
+.zhifu_vip .menu_2_box{
+    margin:0 5px;
+    padding:5px 0;
+    border:1px solid #E0E0E0;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.zhifu_vip .menu_2_box img{
+    width:25%;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+.zhifu_vip .menu_2_box .vip_money{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.zhifu_vip .menu_3_box .vip_money_line1{
+    font-size:18px;
+    font-weight:500;
+    color: #000000;
+}
+/*-------------*/
+#vip-app .vip_button{
+    padding:40px 0;
+}
+#vip-app .vip_button .weui-btn_warn{
+    background: #D04C02;
+}
+
+.weui-flex__item{
+    position: relative;
+}
+
+.vip_action{
+    position: absolute;
+    right:5px ;
+    bottom:3px;
+    /*visibility: hidden;*/
+    height:30px;
+    width: 30px;
+}
+.vip_action .vip_action_img{
+    width: 100%;
+    height:100%;
+}
+

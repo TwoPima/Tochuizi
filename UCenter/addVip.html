@@ -4,87 +4,136 @@
 	<meta charset="UTF-8">
 	<title>个人主页-成为VIP</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	      <link rel="stylesheet" href="../Public/Css/weui.min.css"/>
         <link rel="stylesheet" href="../Public/Css/weui.css"/>
         <link rel="stylesheet" href="../Public/Css/center.css"/>
-        <link rel="stylesheet" href="../Public/Css/login.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/Font/iconfont.css">
           <link rel="stylesheet" href="../Public/Css/common.css"/>
+	<link rel="stylesheet" href="../Public/Css/addvip.css"/>
 </head>
 <body >
-		<!-- hello:{{name}} -->
+<div id="vip-app">
 	<div id="topback-header">
-		    <div class="header-buttons">
-		   				 <a href="javascript:history.go(-1);">
-		                    <div id="header-left" class="header-menu-link" data-back="false">
-		                    </div>
-		                </a>
-                <div id="header-center" class="header-menu-link">
-                	提交订单
-                </div>
+   				 <a href="javascript:history.go(-1);" class="header-left">
+                      <i class="icon iconfont icon-xiangzuo"></i>
+                  	    <span class="title">VIP特权</span>
+                </a>
                 <div id="header-right" class="header-menu-link">
                 </div>
-		    </div>
 		</div>
-		<!--内容页面  -->
-		<div class="addVip">
-			<div class="weui-cells__title"></div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>年度黄金会员</p>
-			        </div>
-			        <div class="weui-cell__ft">￥480</div>
-			    </div>
+	<div class="vip_box top">
+		<div class="vip_box_logo">
+			<img src="../public/img/vip/vip001.jpg" alt="">
+		</div>
+		<div  class="weui-flex menu_4">
+			<div class="weui-flex__item menu_4_box">
+				<img src="../public/img/vip/vip002.jpg" >
+				<p>简历查阅</p>
 			</div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>季度黄金会员</p>
-			        </div>
-			        <div class="weui-cell__ft">￥250</div>
-			    </div>
+			<div class="weui-flex__item menu_4_box">
+				<img src="../public/img/vip/vip003.jpg" >
+				<p>供求查阅</p>
 			</div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>月度黄金会员</p>
-			        </div>
-			        <div class="weui-cell__ft">￥50</div>
-			    </div>
-			    </div>
-			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd">
-			            <p>合计</p>
-			        </div>
-			        <div class="weui-cell__ft red">￥50</div>
-			    </div>
+			<div class="weui-flex__item menu_4_box">
+				<img src="../public/img/vip/vip004.jpg" >
+				<p>资质查阅</p>
 			</div>
-			<!--支付方式  -->
-			<div class="weui-cells__title">选择支付方式</div>
-			<div class="weui-cells weui-cells_radio">
-			    <label class="weui-cell weui-check__label" for="x11">
-			        <div class="weui-cell__bd">
-			            <p>支付宝</p>
-			        </div>
-			        <div class="weui-cell__ft">
-			            <input type="radio" class="weui-check" name="radio1" id="x11">
-			            <span class="weui-icon-checked"></span>
-			        </div>
-			    </label>
-			     <label class="weui-cell weui-check__label" for="x12">
-			        <div class="weui-cell__bd">
-			            <p>微信支付</p>
-			        </div>
-			        <div class="weui-cell__ft">
-			            <input type="radio" name="radio1" class="weui-check" id="x12" checked="checked">
-			            <span class="weui-icon-checked"></span>
-			        </div>
-			    </label>
-				</div>
-			<a href="javascript:;" class="weui-btn weui-btn_warn">确定支付&nbsp;<span>￥50</span></a>
+			<div class="weui-flex__item menu_4_box">
+				<img src="../public/img/vip/vip005.jpg" >
+				<p>招标查阅</p>
+			</div>
+		</div>
 	</div>
+	<div class="vip_box buy_box">
+		<div class="weui-panel menu_order">
+			<div class="weui-cell ">
+				<div class="weui-cell__hd"><img src="../public/img/vip/vip012.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
+				<div class="weui-cell__bd">
+					<p>vip充值</p>
+				</div>
+			</div>
+		</div>
+		<div  class="weui-flex buy_vip">
+			<div class="weui-flex__item">
+				<div class="menu_3_box">
+					<img src="../public/img/vip/vip007.jpg" >
+					<div class="vip_money">
+						<p class="vip_money_line1">100元</p>
+						<p class="vip_money_line2">120次查询</p>
+					</div>
+				</div>
+				<div class="vip_action">
+					<img class="vip_action_img" src="../public/img/vip/vip008.jpg" >
+				</div>
+			</div>
+
+			<div class="weui-flex__item  ">
+				<div class="menu_3_box">
+					<img src="../public/img/vip/vip007.jpg" >
+					<div class="vip_money">
+						<p class="vip_money_line1">300元</p>
+						<p class="vip_money_line2">120次查询</p>
+					</div>
+				</div>
+				<div class="vip_action">
+					<img class="vip_action_img" src="../public/img/vip/vip008.jpg" >
+				</div>
+			</div>
+			<div class="weui-flex__item ">
+				<div class="menu_3_box">
+					<img src="../public/img/vip/vip007.jpg" >
+					<div class="vip_money">
+						<p class="vip_money_line1">500元</p>
+						<p class="vip_money_line2">120次查询</p>
+					</div>
+				</div>
+				<div class="vip_action">
+					<img class="vip_action_img" src="../public/img/vip/vip008.jpg" >
+				</div>
+			</div>
+		</div>
+		<div class="input_vip">
+			<input type="text" placeholder="点击输入自定义金额,1元/次">
+		</div>
+	</div>
+	<div class="vip_box ">
+		<div class="weui-panel menu_order">
+			<div class="weui-cell ">
+				<div class="weui-cell__hd"><img src="../public/img/vip/vip009.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
+				<div class="weui-cell__bd">
+					<p>选择支付方式</p>
+				</div>
+			</div>
+		</div>
+		<div  class="weui-flex zhifu_vip">
+
+			<div class="weui-flex__item ">
+				<div class="menu_2_box">
+					<img src="../public/img/vip/vip010.jpg" >
+					<div class="vip_money">
+						<p class="vip_money_line1">支付宝</p>
+					</div>
+				</div>
+				<div class="vip_action">
+					<img class="vip_action_img" src="../public/img/vip/vip008.jpg" >
+				</div>
+			</div>
+			<div class="weui-flex__item ">
+				<div class="menu_2_box">
+					<img src="../public/img/vip/vip011.jpg" >
+					<div class="vip_money">
+						<p class="vip_money_line1">微信支付</p>
+					</div>
+				</div>
+				<div class="vip_action">
+					<img class="vip_action_img" src="../public/img/vip/vip008.jpg" >
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="vip_button">
+		<a href="addBusinessInfo.html" class="weui-btn weui-btn_warn">下一步</a>
+	</div>
+</div>
 </body>
 <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
@@ -97,19 +146,4 @@
 			data:datademo,
 	})
 </script>
-<!-- <div id="demo2">
-  <img title="{{name}}" alt="{{name}}" v-attr="src: url">
-  <input v-model="name">
-  <input v-model="url">
-</div>
-
-<script>
-  var vm = new Vue({
-    el: '#demo2',
-    data: {
-      name: 'taobao',
-      url: 'https://www.taobao.com/favicon.ico'
-    }
-  })
-</script> -->
 </html>
