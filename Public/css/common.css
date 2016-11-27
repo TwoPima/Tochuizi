@@ -8,7 +8,9 @@ button {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-appearance: none;
 }
-
+.margin-bottom-10px{
+	margin-bottom:10px;
+}
 /*公共部分的css  全部文件都引入的部分*/
 body{
 }

@@ -1,0 +1,205 @@
+body{
+    background: #F1F1F1;
+}
+/* 申请加盟商开始 */
+#box-main{
+    background: #ffffff;
+    margin-top: 10px;
+    padding:0 20px  30px 20px;
+}
+#box-main .addbu_logo{
+    height:80px;
+    padding:10px 0;
+    text-align: center;
+}
+#box-main .addbu_logo img{
+    height:100%;
+    display: block;
+    margin: 0 auto;
+}
+#box-main .addbu_button{
+    padding:40px 0;
+}
+#box-main .addbu_button .weui-btn_warn{
+    background: #D04C02;
+}
+
+#addbuin-main .weui-cell{
+    padding:15px 15px;
+    font-size: 18px;
+}
+
+#addbuin-main .addbuin_form form{
+    padding-bottom:50px;
+}
+#addbuin-main .addbuin_title{
+    background: #fff;
+    padding:10px 10px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+#addbuin-main .addbuin_title_img img{
+    width: 80px;
+    height:80px;
+    margin-right: 8px;
+}
+#addbuin-main .addbuin_title_info {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+#addbuin-main .weui-uploader__input-box_title{
+    margin-left: 80px;
+    height:80px;
+}
+.box-in{
+    height:10px;
+    background: #F1F1F1;
+}
+#addbuin-main .weui-cell-box{
+    padding:0 15px;
+}
+#addbuin-main .weui-cell-textarea{
+    display: block;
+    width: 100%;
+    border:none;
+    padding:10px 0;
+    outline: none;
+    font-size: 16px;
+    font-family: "Microsoft YaHei UI";
+    height:120px;
+    color: #000;
+    border-top:1px solid #E6E6E6;
+}
+#addbuin-main .addbuin_form_button{
+    padding:15px 15px  50px 15px;
+}
+
+#addbuin-main .addbuin_form_button .weui-btn_warn{
+    background: #D04C02;
+}
+
+.line{
+    border-top:1px solid #E6E6E6;
+    padding:10px 0;
+}
+/* 申请加盟商结束*/
+/* 商铺中心开始*/
+#shopIndex{
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:5px;
+}
+.navSecond .weui-tab{
+	padding:10px 5px  10px 5px;
+}
+.navSecond .weui-tabbar{
+	position: relative;
+	background: #ffffff;
+}
+.navSecond .weui-tabbar__icon{
+}
+.navSecond .weui-tabbar__label{
+	color:#5e5d5d;
+}
+.navSecond{
+	display:inline;
+}
+.navSecond .weui-tabbar__item img{
+	display: block;
+	width:50%;
+	height:50%;
+	margin:0 auto;
+}
+#job div{
+	border-right:1px solid #b0b0af;
+}
+#order div{
+	border-right:1px solid #b0b0af;
+}
+#shop-index div{
+	border-right:1px solid #b0b0af;
+}
+#cash div{
+	border-right:1px solid #ffffff;
+}
+#job,#order,#shop-index,#cash{
+	padding-bottom:10px;
+}
+#wait-fahuo{
+	padding-left:5px;
+	padding-right:5px;
+}
+#wait-fahuo .weui-media-box_text{
+	width:50%;
+}
+.big-title{
+	 padding-bottom: 5px;
+	 padding-top: px;
+	height:30px;
+}
+.big-title img{
+	float:left;
+	top:3px;
+	position:absolute;
+}
+.big-title .title{
+	float:left;
+	margin-left:15%;
+}
+#wait-fahuo .order-time{
+	color:#eb5904;
+	margin-top:5px;
+}
+#wait-fahuo .weui-media-box__title{
+	font-size:16px;
+}
+#wait-fahuo #guige{
+	top:60%;
+	right:8%;
+	float:left;
+	 position:absolute;
+	 display: block;
+}
+.thumb-img{
+	/* width:100px; height:100px; border-radius:50%; overflow:hidden; */
+	float:left;
+}
+.thumb-img img{
+	width:40px;
+	height:40px;
+	border-radius:50px;display:block
+}
+#waitJudge .weui-cell .weui-cell__hd{
+	width:70%;
+}
+#waitJudge .weui-cell{
+	clear:both;
+}
+#waitJudge .description{
+	float:left;
+	font-size:14px;
+	padding-left:20px;
+	font-family: "Microsoft YaHei UI";
+	color:#5e5d5d;
+}
+#waitJudge{
+	padding-left:5px;
+	padding-right:5px;
+	margin-top:5px;
+}
+#waitJudge .weui-article{
+	color:#5e5d5d;
+	font-size:14px;
+}
+#waitJudge .weui-article img{
+	width:15%;
+	height:15%;
+}
+/* 商铺中心结束*/
