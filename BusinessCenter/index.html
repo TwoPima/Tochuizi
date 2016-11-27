@@ -3,31 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>登陆</title>
+        <title>商铺管理中心-首页</title>
+         <link rel="stylesheet" type="text/css" href="../Public/css/jquery-weui.min.css">
         <link rel="stylesheet" type="text/css"  href="../Public/css/weui.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
-        <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
-        <link rel="stylesheet" type="text/css" href="../Public/css/login.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-         	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
-        <script>
-/**
- * 全局变量
- */
-var SITE_URL  = '<php> echo SITE_URL;</php>';
-var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
-var THEME_URL = '__THEME__';
-var APPNAME   = '<php> echo APP_NAME;</php>';
-var MID       = '<php> echo $mid;</php>';
-var UID       = '<php> echo $uid;</php>';
-var initNums  =  '<php> echo $initNums;</php>';
-var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
-var _CITY = '{:session("init_city")}';
-var ISWAP = 1;
-var USER_UN_SETTING = '{$unsetting}';
-// js语言变量
-var LANG = new Array();
-</script>
     </head>
     <body id="">
     		<div id="topback-header">
@@ -38,10 +18,34 @@ var LANG = new Array();
                 <div id="header-right" class="header-menu-link">
                 	 <a href="javascript:;"><i class="icon iconfont icon-shezhi"></i></a>
                 </div>
-		</div>
+			</div>
+			<div class="weui_panel weui_panel_access">
+  <div class="weui_panel_hd">图文组合列表</div>
+  <div class="weui_panel_bd">
+    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+      <div class="weui_media_hd">
+        <img class="weui_media_appmsg_thumb" src="" alt="">
+      </div>
+      <div class="weui_media_bd">
+        <h4 class="weui_media_title">标题一</h4>
+        <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+      </div>
+    </a>
+    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+      <div class="weui_media_hd">
+        <img class="weui_media_appmsg_thumb" src="" alt="">
+      </div>
+      <div class="weui_media_bd">
+        <h4 class="weui_media_title">标题二</h4>
+        <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+      </div>
+    </a>
+  </div>
+  <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+</div>
+			
     </body>
       <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 </html>

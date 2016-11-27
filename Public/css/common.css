@@ -37,27 +37,33 @@ body{
 	height: 48px;
 	color: #ffffff;
 }
-#topback-header   .header-left .icon-xiangzuo{
+#topback-header   #header-left .icon-xiangzuo{
 	font-size:25px;
 }
-#topback-header   .header-left .title{
+#topback-header   #header-left .title{
 	font-size:18px;
 	font-family: "微软雅黑 Regular";
+	margin-top:10px;
+	margin-left:10px;
 }
 #topback-header   .header-left {
     height: 48px;
     margin-top: 0;
+	padding-top:5px;
     position: absolute;
     top: 0;
     left: 10px;
 	color: #ffffff;
+}
+#topback-header  #header-right .icon-shezhi{
+	font-size:22px;
 }
 #topback-header  #header-right{
 	box-sizing: border-box;
     height: 48px;
     margin-top: 0;
     margin-right: 10px;
-	padding-top:10px;
+	padding-top:5px;
 	float:right;
 }
 #topback-header  #header-right a{
