@@ -8,19 +8,21 @@
         <link rel="stylesheet" type="text/css"  href="../Public/css/weui.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
-         <link rel="stylesheet" href="../Public/css/business.css"/>
+         <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
     </head>
     <body id="">
-    		<div id="topback-header">
-   				 <a href="javascript:history.go(-1);" class="header-left">
-                      <i class="icon iconfont icon-xiangzuo"></i>
-                  	    <span class="title">商铺管理中心</span>
-                </a>
-                <div id="header-right" class="header-menu-link">
-                	 <a href="javascript:;"><i class="icon iconfont icon-shezhi"></i></a>
+			<div id="topback-header">
+ 				<div id="header-left">
+	 				 <a href="javascript:history.go(-1);" >
+	                      <i class="icon iconfont icon-xiangzuo"></i>
+	                  	    <span class="title">商铺管理中心</span>
+	               	 </a>
+ 				</div>
+                <div id="header-right">
+                	<a href="addBusinessInfo.html"><i class="icon iconfont icon-shezhi"></i></a>
                 </div>
-			</div>
+		</div>
 			<section id="shopIndex">
 				<div class="weui-panel weui-panel_access">
 				    <div class="weui-panel__bd">
@@ -49,11 +51,11 @@
   <div><img src="../Public/img/business/order.png" alt="" class="weui-tabbar__icon"></div>
 			            <p class="weui-tabbar__label">货单管理</p>
 			        </a>
-			        <a href="javascript:;" class="weui-tabbar__item" id="job">
+			        <a href="employ.html" class="weui-tabbar__item" id="job">
 			           <div><img src="../Public/img/business/job.png" alt="" class="weui-tabbar__icon"></div>
 			            <p class="weui-tabbar__label">招聘管理</p>
 			        </a>
-			        <a href="javascript:;" class="weui-tabbar__item margin-bottom-10px" id="cash">
+			        <a href="cash.html" class="weui-tabbar__item margin-bottom-10px" id="cash">
   					<div class=""><img src="../Public/img/business/cash.png" alt="" class="weui-tabbar__icon"></div>
 			            <p class="weui-tabbar__label">提现管理</p>
 			        </a>
@@ -67,12 +69,9 @@
 				    <div class="weui-panel__bd">
 				        <div class="weui-media-box weui-media-box_text">
 				          <h5 class="weui-media-box__title">订单号：1232255555</h5>
-				            <p class="weui-media-box__desc">各种网站建设开发及其APP手机应用软件开发</p>
+				            <p class="weui-media-box__desc">各种网站建设开发及其APP手机应用软件开发 <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
 				            <p class="weui-media-box__desc order-time"><span>1</span>小时前下单</p>
 				        </div>
-				          <div class="">
-				         <p class="weui-media-box__desc float-right" id="guige">规格套餐: <span>官方标配套餐</span></p>
-				         </div>
 				    </div>
 				</div>
 			</section>

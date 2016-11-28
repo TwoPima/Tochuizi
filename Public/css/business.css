@@ -136,9 +136,6 @@ body{
 	padding-left:5px;
 	padding-right:5px;
 }
-#wait-fahuo .weui-media-box_text{
-	width:50%;
-}
 .big-title{
 	 padding-bottom: 5px;
 	 padding-top: px;
@@ -159,13 +156,6 @@ body{
 }
 #wait-fahuo .weui-media-box__title{
 	font-size:16px;
-}
-#wait-fahuo #guige{
-	top:60%;
-	right:8%;
-	float:left;
-	 position:absolute;
-	 display: block;
 }
 .thumb-img{
 	/* width:100px; height:100px; border-radius:50%; overflow:hidden; */
@@ -203,3 +193,111 @@ body{
 	height:15%;
 }
 /* 商铺中心结束*/
+/* 货单管理开始*/
+.order-list .weui_tab_bd_item{
+	background: #ffffff;
+	margin-top:15px;
+	/*  color: #888;
+	color: #666; */
+}
+.order-list .weui_navbar{
+	background: #ffffff;
+	margin-top:5px;
+	border:0px;
+}
+.order-list .weui_bar_item_on{
+	border-bottom:5px solid #E54E1F;
+	background: #ffffff;
+}
+.order-list .order-time{
+	color:#eb5904;
+	margin-top:5px;
+}
+.tab-content .weui-media-box__title{
+	font-size:16px;
+}
+ #guige{
+	float:right;
+	display:block;
+}
+/* 货单管理结束*/
+/*我的招聘开始*/
+.employ .weui_cell_primary{
+	font-size:14px;
+}
+.employ .weui_cell_ft{
+		font-size:0.8em;
+}
+/*我的招聘结束*/
+/*提现开始*/
+.cash .weui_cell_primary{
+	margin-left:30px;
+	padding-top:10px;
+	font-size:16px;
+}
+.cash .weui_cell_hd{
+	margin-left:10px;
+}
+.cash i{
+	font-size:3em;
+	color:#F6AF05;
+}
+.cash #price{
+	color:#EC5C2A;
+	margin-right:5px;
+	margin-left:0px;
+}
+.cash  .weui_btn.weui_btn_mini {
+    line-height: 2.5;
+    font-size: 14px;
+    padding: 0 .75em;
+	width:100px;
+    display: inline-block;
+	margin-right:20px;
+	margin-top:20px;
+}
+.cash  .weui_btn_default{
+	background: #4DCE69;
+	color:#ffffff;
+}
+.cash .weui_btn_default:not(.weui_btn_disabled):visited {
+    color:#ffffff;
+}
+.jieSuan-right{
+	width:30%;
+	margin-top:40px;
+	color: #4DCE69;
+}
+.jieSuan-left{
+	width:50%;
+}
+.jieSuanStatus .weui_media_title{
+	  font-size: 14px;
+}
+/*************************** */
+.cashSubmit .tips{
+	text-align:center;
+	font-family: "Microsoft YaHei UI";
+	color:#888;
+	font-size:14px;
+	line-height:3;
+	margin-bottom:20px;
+}
+.cashSubmit .weui_media_desc{
+	line-height:5;
+}
+#bank{
+	color:#F6AF05;
+	margin-right:30px;	
+}
+#bank-num-key{
+	float:left;
+	font-size:14px;
+	padding-left:20px;
+	font-family: "Microsoft YaHei UI";
+	color:#888;
+}
+#bank-num-val{
+	font-size:30px;
+}
+/*提现结束*/

@@ -11,6 +11,9 @@ button {
 .margin-bottom-10px{
 	margin-bottom:10px;
 }
+.clear{
+	clear:both;
+}
 /*公共部分的css  全部文件都引入的部分*/
 body{
 }
@@ -22,12 +25,8 @@ body{
     -ms-transition: all 0.2s ease-out;
     -o-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
-    clear: both;
-    text-align: center;
     width: 100%;
     height: 48px;
-    top: 0;
-    left: 0;
     z-index: 100;
     -webkit-overflow-scrolling: touch;
     -webkit-transform: translate3d(0,0,0);
@@ -36,42 +35,48 @@ body{
     -o-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 	background-color:#bf6e09;
-	height: 48px;
 	color: #ffffff;
 }
 #topback-header   #header-left .icon-xiangzuo{
+	color: #ffffff;
 	font-size:25px;
+	margin-left:10px;
 }
 #topback-header   #header-left .title{
 	font-size:18px;
 	font-family: "微软雅黑 Regular";
-	margin-top:10px;
 	margin-left:10px;
-}
-#topback-header   .header-left {
-    height: 48px;
-    margin-top: 0;
-	padding-top:5px;
-    position: absolute;
-    top: 0;
-    left: 10px;
 	color: #ffffff;
+	position:absolute;top:20%;
+}
+#topback-header #header-left {
+	width:40%;
+	height:100%;
+	color: #ffffff;
+	padding-top:2px;
+	float:left;
 }
 #topback-header  #header-right .icon-shezhi{
-	font-size:22px;
+	color: #ffffff;
+	font-size:25px;
 }
 #topback-header  #header-right{
-	box-sizing: border-box;
-    height: 48px;
-    margin-top: 0;
-    margin-right: 10px;
-	padding-top:5px;
 	float:right;
+	width:40%;
+	color: #ffffff;
+	height:100%;
+}
+#topback-header  #header-right img{
+	 width:50%;
+	 height:50%;
+	margin-top:30%;
 }
 #topback-header  #header-right a{
 	color: #ffffff;
 	font-size:18px;
 	font-family: "微软雅黑 Regular";
+	float:right;
+	position:absolute;right:15px;
 }
 /* 按钮 */
 #btn-custom-theme{
