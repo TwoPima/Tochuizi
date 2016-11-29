@@ -29,7 +29,11 @@ body{
 .padding-left-10px{
 	padding-left:10px;
 }
-
+/*tab 选中边框  */
+.weui_bar_item_on{
+	border-bottom:5px solid #E54E1F;
+	background: #ffffff;
+}
 /* 首页开始 */
 #header{
 	height:150px;
@@ -53,6 +57,12 @@ body{
 	border:2px solid #ffffff;
 	display: block;
 }
+#header  .header-a-1{
+	width:80%;
+}
+#header  .header-a-2{
+	width:20%;
+}
 #header .head_title{
 	color: #ffffff;
 	-webkit-box-flex: 1;
@@ -66,8 +76,7 @@ body{
 	text-align: center;
 	color: #ffffff;
 }
-#header .head_job img{
-}
+/*首页头部结束  */
 #main{
 	margin-top: 15px;
 }
@@ -275,6 +284,11 @@ body{
 }
 
 /* 我的收藏结束*/
+/*设置开始*/
+.setting a{
+	color:#888;
+}
+/* 设置结束*/
 /* 关于我们开始*/
 .about-content{
 	background-color:#FCF7F1;

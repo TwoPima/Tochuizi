@@ -60,6 +60,12 @@ body{
 	color: #ffffff;
 	font-size:25px;
 }
+#topback-header  #header-right span{
+	width:100%;
+	display:block;
+	margin-top:13px;
+	font-size:14px;
+}
 #topback-header  #header-right{
 	float:right;
 	width:40%;
@@ -70,6 +76,7 @@ body{
 	 width:50%;
 	 height:50%;
 	margin-top:30%;
+	float:right;
 }
 #topback-header  #header-right a{
 	color: #ffffff;
@@ -83,4 +90,6 @@ body{
 	 background-color: #bd6600;
 	margin-left:20px;
 	margin-right:20px;
+	color:#ffffff;
+	border:0px;
 }

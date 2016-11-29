@@ -17,22 +17,19 @@
 <body>
 <div id="app">
 	<div id="topback-header">
-		<div class="header-buttons myorder-header">
-			 <a href="javascript:history.go(-1);">
-				<div id="header-left" class="header-menu-link" data-back="false">
-				</div>
-			</a>
-			<div id="header-center" class="header-menu-link">
-				设置
-			</div>
-			<div id="header-right" class="header-menu-link">
-			</div>
+ 				<div id="header-left">
+	 				 <a href="javascript:history.go(-1);" >
+	                      <i class="icon iconfont icon-xiangzuo"></i>
+	                  	    <span class="title">设置</span>
+	               	 </a>
+ 				</div>
+                <div id="header-right">
+                </div>
 		</div>
-	</div>
-	<div id="main">
+	<div id="main" class="setting">
 		<div class="weui-cells">
 		    <div class="weui-cell">
-		         <a href="password.html">
+		         <a href="password.html" >
 		         <div class="weui-cell__bd">
 		           <p>更改密码</p>
 		        </div>
@@ -55,8 +52,11 @@
 		</div>
 		<div class="height20px"></div>
 		<div class="height20px"></div>
+		<div class="height20px"></div>
+		<div class="height20px"></div>
+		<div class="height20px"></div>
 		<div class="button-sp-area">
-		    <a href="javascript:;" class="weui-btn weui-btn_plain-primary">按钮</a>
+		    <a href="javascript:;" class="weui-btn weui-btn_plain-primary" id="btn-custom-theme">退出登录</a>
 		</div>
 		<div class="height20px"></div>
 	</div><!--main-->

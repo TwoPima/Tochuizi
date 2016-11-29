@@ -1,14 +1,63 @@
- <div class="menu">
-        <ul class="menu1">
-            <li class="home_page"><a href="#"></a></li>
-            <li><a href="#">首页</a></li>
-        </ul>
-        <ul class="menu2">
-            <li class="supply"><a href="#"></a></li>
-            <li><a href="">供求</a></li>
-        </ul>
-        <ul class="menu3">
-            <li class="my"><a href="#"></a></li>
-            <li><a href="">我的</a></li>
-        </ul>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <title>设置-意见反馈</title>
+         <link rel="stylesheet" href="../Public/css/weui.min.css"/>
+	 <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
+	 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
+        <link rel="stylesheet" href="../Public/css/center.css"/>
+          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+          <link rel="stylesheet" href="../Public/css/common.css"/>
+         <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
+        <script>
+/**
+ * 全局变量
+ */
+var SITE_URL  = '<php> echo SITE_URL;</php>';
+var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
+var THEME_URL = '__THEME__';
+var APPNAME   = '<php> echo APP_NAME;</php>';
+var MID       = '<php> echo $mid;</php>';
+var UID       = '<php> echo $uid;</php>';
+var initNums  =  '<php> echo $initNums;</php>';
+var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
+var _CITY = '{:session("init_city")}';
+var ISWAP = 1;
+var USER_UN_SETTING = '{$unsetting}';
+// js语言变量
+var LANG = new Array();
+</script>
+    </head>
+    <body id="login">
+    <div id="topback-header">
+ 				<div id="header-left">
+	 				 <a href="javascript:history.go(-1);" >
+	                      <i class="icon iconfont icon-xiangzuo"></i>
+	                  	    <span class="title">意见反馈</span>
+	               	 </a>
+ 				</div>
+                <div id="header-right">
+                </div>
+		</div>
+			<div class="weui_cells weui_cells_form login-form clear">
+				<div class="weui_cells weui_cells_form">
+				  <div class="weui_cell">
+				    <div class="weui_cell_bd weui_cell_primary">
+				      <textarea class="weui_textarea" placeholder="请输入反馈意见" rows="3"></textarea>
+				      <div class="weui_textarea_counter"><span>0</span>/200</div>
+				    </div>
+				  </div>
+				</div>
+				</div>
+				<div class="height20px"></div>
+            <div class="button-sp-area">
+                <a href="javascript:;" class="weui-btn weui-btn_plain-default "id="btn-custom-theme">提&nbsp;&nbsp;&nbsp;&nbsp;交</a>
+            </div>
+    </body>
+      <script src="../Public/js/zepto.js"></script>
+<script src="../Public/js/vue.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+</html>
