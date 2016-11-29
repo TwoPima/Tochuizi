@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人主页-发布求职</title>
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../Public/css/weui.css"/>
+    <link rel="stylesheet" href="../Public/css/setting.css"/>
+    <link rel="stylesheet" href="../Public/css/common.css"/>
+    <link rel="stylesheet" href="../Public/css/myjobpush.css"/>
+    <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+    <!-- 多语言 -->
+    <script>
+        var lang_flag = 1;
+    </script>
+</head>
+<body>
+<div id="app">
+    <div id="topback-header">
+        <div id="header-left">
+            <a href="javascript:history.go(-1);" >
+                <i class="icon iconfont icon-xiangzuo"></i>
+                <span class="title">发布求职</span>
+            </a>
+        </div>
+        <div id="header-right">
+            <a href="addMySupply.html"><span>+</span></a>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div id="job_mainpush">
+            <div class="push_box push_pinfo">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="这里是标题">
+                    </div>
+                </div>
+                <div class="weui-cells weui-cells_form" style="margin-top: 0;">
+                    <div class="weui-cell ">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">手机</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="tel" >
+                        </div>
+                    </div>
+                    <div class="weui-cell ">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">邮箱</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="email" >
+                        </div>
+                    </div>
+                    <div class="weui-cell ">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">工种</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="text"  value="木工">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="push_box push_daiyu">
+                <div class="weui-cell ">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">期望工作地:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" >
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">日薪要求:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="select2">
+                            <option value="1">三个月</option>
+                            <option value="2">四个月</option>
+                            <option value="3">五个月</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="push_checkbox">
+                    <div class="daiyu_checkbox">
+                        <label for="one">包食宿</label>
+                        <input type="checkbox" name="" id="one">
+                    </div>
+                    <div class="daiyu_checkbox">
+                        <label for="two">包食宿</label>
+                        <input type="checkbox" name="" id="two">
+                    </div>
+                    <div class="daiyu_checkbox">
+                        <label for="three">包食宿</label>
+                        <input type="checkbox" name="" id="three">
+                    </div>
+                </div>
+            </div>
+
+            <div class="push_box">
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">有效时间:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="select2">
+                            <option value="1">三个月</option>
+                            <option value="2">四个月</option>
+                            <option value="3">五个月</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="push_box push_beizhu">
+                <div class="weui-cell ">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">备注</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="email" placeholder="可选">
+                    </div>
+                </div>
+            </div>
+            <div class="sure_button">
+                <a href="#" id="btn-custom-theme" class="weui-btn">确定</a>
+            </div>
+
+    </div><!--main-->
+</div><!--app-->
+</body>
+<script src="../Public/js/zepto.js"></script>
+<script src="../Public/js/vue.js"></script>
+<script src="../Public/js/center.js"></script>
+<script src="../Public/js/language.js"></script>
+<script>
+    /* 多语言切换 开始*/
+    document.write(love[lang_flag]);
+    fun();
+    /* 多语言切换 结束*/
+</script>
+</html>

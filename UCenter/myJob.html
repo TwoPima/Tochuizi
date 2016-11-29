@@ -5,9 +5,10 @@
     <title>个人主页-</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../Public/css/weui.css"/>
+    <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/setting.css"/>
-      <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-      <link rel="stylesheet" href="../Public/css/common.css"/>
+    <link rel="stylesheet" href="../Public/css/myjob.css"/>
+      <!--<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">-->
     <!-- 多语言 -->
     <script>
         var lang_flag = 1;
@@ -15,51 +16,45 @@
 </head>
 <body>
 <div id="app">
-    <div id="header">
-        <a href="index.html"><</a>
-        我的积分
+    <div id="topback-header">
+        <div id="header-left">
+            <a href="javascript:history.go(-1);" >
+                <i class="icon iconfont icon-xiangzuo"></i>
+                <span class="title">我的供求</span>
+            </a>
+        </div>
+        <div id="header-right">
+            <a href="addMySupply.html"><span>+</span></a>
+        </div>
     </div>
-    <div id="main">
-        <div class="setting_count">
-            <img src="../Public/img/setting/setting_001.jpg">
-            <span class="setting_count_title">(积分总计)</span>
-            <span class="setting_count_num">250</span>
+    <div style="clear: both"></div>
+    <div id="job_main">
+            <div class="job_top">
+                <img class="job_top_people" src="../Public/img/myjob/people.jpg" alt="">
+                <div class="job_top_info">
+                    <p>成龙 1824514575</p>
+                    <p>技工》木工</p>
+                </div>
+                <img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt="">
+            </div>
+            <div class="box_bg"></div>
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd" style="vertical-align:middle; font-size: 18px;">诚求一个好工作</div>
+                <div class="weui-cell__ft" style="font-size: 0">
+                    <span style="vertical-align:middle; font-size: 14px;">5天以前</span>
+                    <span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
+                </div>
+            </div>
         </div>
-
-        <div class="weui-flex setting_tab">
-            <div class="weui-flex__item action"><div class="placeholder">全部</div></div>
-            <div class="weui-flex__item"><div class="placeholder">收入积分</div></div>
-            <div class="weui-flex__item"><div class="placeholder">支出积分</div></div>
-        </div>
-
-        <div class="setting_list">
-            <ul>
-                <li>
-                    <span class="setting_list_num add">+35</span>
-                    <span class="setting_list_event">阿郎烧烤单人48元</span>
-                    <span class="setting_list_time">2016/10/22</span>
-                </li>
-                <li>
-                    <span class="setting_list_num reduce">-35</span>
-                    <span class="setting_list_event">阿郎烧烤单人48元</span>
-                    <span class="setting_list_time">2016/10/22</span>
-                </li>
-                <li>
-                    <span class="setting_list_num add">+35</span>
-                    <span class="setting_list_event">阿郎烧烤单人48元</span>
-                    <span class="setting_list_time">2016/10/22</span>
-                </li>
-                <li>
-                    <span class="setting_list_num add">+35</span>
-                    <span class="setting_list_event">阿郎烧烤单人48元</span>
-                    <span class="setting_list_time">2016/10/22</span>
-                </li>
-                <li>
-                    <span class="setting_list_num add">+35</span>
-                    <span class="setting_list_event">阿郎烧烤单人48元</span>
-                    <span class="setting_list_time">2016/10/22</span>
-                </li>
-            </ul>
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_access">
+                <div class="weui-cell__bd" style="vertical-align:middle; font-size: 18px;">专业版和普通版区别，专业版收费</div>
+                <div class="weui-cell__ft" style="font-size: 0">
+                    <span style="vertical-align:middle; font-size: 14px;">5天以前</span>
+                    <span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
+                </div>
+            </div>
         </div>
     </div><!--main-->
 </div><!--app-->

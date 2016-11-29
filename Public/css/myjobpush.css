@@ -1,0 +1,37 @@
+body{
+    background: #F1F1F1;
+}
+#job_mainpush .push_box{
+    margin-top:10px;
+    background: #fff;
+}
+#job_mainpush .push_pinfo .weui-label{
+    width:60px;
+}
+#job_mainpush .push_beizhu .weui-label{
+    width:60px;
+}
+#job_mainpush .push_daiyu .push_checkbox{
+    padding:20px 15px;
+}
+
+#job_mainpush .push_checkbox .daiyu_checkbox {
+    display: inline-block;
+    padding:0 10px;
+    font-size: 16px;
+    height:20px;
+    line-height:20px;
+    color: #EF9A38;
+}
+#job_mainpush  .daiyu_checkbox input[type=checkbox] {
+    width:16px;
+    height:16px;
+    background: #ffffff;
+    border:1px solid #EF9A38;
+}
+#job_mainpush .sure_button{
+    padding:15px 0;
+}
+ #job_mainpush .sure_button a{
+     background: #D04C02;
+ }

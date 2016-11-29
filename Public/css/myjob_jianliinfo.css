@@ -1,0 +1,10 @@
+#jianliinfo .info_box{
+    margin-top:10px;
+    background: #fff;
+}
+#jianliinfo .add_button{
+    padding:30px 0;
+}
+#jianliinfo .add_button a{
+    background: #D04C02;
+}
