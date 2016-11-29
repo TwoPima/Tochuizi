@@ -195,20 +195,8 @@ body{
 }
 /* 商铺中心结束*/
 /* 货单管理开始*/
-.order-list .weui_tab_bd_item{
-	background: #ffffff;
+.order-list .weui_tab_bd{
 	margin-top:15px;
-	/*  color: #888;
-	color: #666; */
-}
-.order-list .weui_navbar{
-	background: #ffffff;
-	margin-top:5px;
-	border:0px;
-}
-.order-list .weui_bar_item_on{
-	border-bottom:5px solid #E54E1F;
-	background: #ffffff;
 }
 .order-list .order-time{
 	color:#eb5904;

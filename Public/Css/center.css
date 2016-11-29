@@ -30,9 +30,30 @@ body{
 	padding-left:10px;
 }
 /*tab 选中边框  */
-.weui_bar_item_on{
+.weui_navbar_item.weui_bar_item_on {
+   	  background-color: #ffffff; 
 	border-bottom:5px solid #E54E1F;
-	background: #ffffff;
+}
+.weui_navbar .weui_navbar_item{
+	 background: #ffffff;
+	    position: relative;
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 13px 0;
+    text-align: center;
+    font-size: 15px;
+    -webkit-tap-highlight-color: transparent;
+}
+.weui_navbar_item:active{
+	  background-color: #ffffff; 
+}
+.weui_tab{
+	margin-top:15px;
+}
+.weui_tab_bd{
+	margin-top:15px;
 }
 /* 首页开始 */
 #header{
@@ -197,14 +218,6 @@ body{
 }
 /* 地址管理 结束*/
 /* 我的订单管理 开始*/
-.myOrder .weui-navbar__item{
-	border:0px;
-	background-color: #FFFFFF;
-}
-.myOrder .weui-bar__item_on{
-	border-bottom:5px solid #E54E1F;
-	background-color: #FFFFFF;
-}
 /* 我的订单 结束*/
 /* 基本信息修改*/
 .info-head{
@@ -294,3 +307,55 @@ body{
 	background-color:#FCF7F1;
 }
 /* 关于我们结束*/
+/* 我的供求开始*/
+#main .supply_count{
+    background: #fff;
+    padding:20px;
+    height:50px;
+	color:#eb8f1b;
+}
+#main .supply_count img{
+    width:50px;
+    height:50px;
+    display: inline-block;
+    float: left;
+}
+#main .supply_count .supply-right span{
+	margin-left:5px;
+	margin-right:5px;
+}
+#main .supply_count .supply-right{
+	margin-top:15px;
+	margin-right:20px;
+	font-size:0.8em;
+	
+}
+#main .supply_count .supply_number span{
+	font-size:16px;
+	margin-left:15px;
+}
+#main .supply_count .supply_number{
+	margin-top:5px;
+	margin-left:20px;
+	margin-right:10px;
+}
+.mySupply{
+	margin-top:15px;
+}
+.mySupply .weui_media_box{
+	height:38px;
+}
+.mySupply .weui_media_text .weui_media_desc{
+	color:#666;
+}
+.mySupply .weui_media_info_meta{
+	color:#888;
+}
+.mySupply .weui_tab_bd{
+	margin-top:15px;
+}
+.mySupply .weui_panel_ft{
+	color:#888;
+	font-size:20px;
+}
+/* 我的供求结束*/
