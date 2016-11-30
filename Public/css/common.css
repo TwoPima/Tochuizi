@@ -10,6 +10,7 @@ button {
 }
 *[placeholder]{
 	font-family: "Microsoft YaHei UI";
+	font-size:14px;
 }
 .margin-bottom-10px{
 	margin-bottom:10px;

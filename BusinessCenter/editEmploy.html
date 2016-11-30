@@ -34,13 +34,10 @@
 							</div>
 						</div>
 					 <div class="weui_cell weui_cell_select">
-						 <div class="weui-cell__hd">
-									<label class="weui-label">地址</label>
-							</div>
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="weui_select" name="select1">
-					        <option selected="" value="0">选择</option>
-					        <option value="1">技工</option>
+					        <option selected="" value="0">请选择职位类别</option>
+					        <option  value="1">技工</option>
 					        <option value="2">木工</option>
 					        <option value="3">家装木工</option>
 					      </select>
@@ -87,7 +84,7 @@
 						<div class="weui_cell weui_cell_select">
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="weui_select" name="select1">
-					        <option selected="" value="0">工资待遇</option>
+					        <option selected="" value="0">选择工资待遇</option>
 					        <option value="1">高中</option>
 					        <option value="2">大学本科</option>
 					        <option value="3">本科以上</option>
@@ -95,38 +92,26 @@
 					    </div>
 					  </div>
 					  <div class="weui-cells weui-cells_checkbox">
-					    <label class="weui-cell weui-check__label" for="s11">
-					        <div class="weui-cell__hd">
-					            <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
-					            <i class="weui-icon-checked"></i>
-					        </div>
-					        <div class="weui-cell__bd">
-					            <p>包食宿</p>
-					        </div>
-					    </label>
-					    <label class="weui-cell weui-check__label" for="s12">
-					        <div class="weui-cell__hd">
-					            <input type="checkbox" name="checkbox1" class="weui-check" id="s12">
-					            <i class="weui-icon-checked"></i>
-					        </div>
-					        <div class="weui-cell__bd">
-					            <p>工资月结</p>
-					        </div>
-					    </label>
-					    <label class="weui-cell weui-check__label" for="s13">
-					        <div class="weui-cell__hd">
-					            <input type="checkbox" name="checkbox1" class="weui-check" id="s13">
-					            <i class="weui-icon-checked"></i>
-					        </div>
-					        <div class="weui-cell__bd">
-					            <p>五险一金</p>
-					        </div>
-					    </label>
+					     <div class="push_checkbox">
+					     <div class="weui_cell_hd"><label class="weui_label jobPosition">职位福利</label></div>
+		                    <div class="daiyu_checkbox">
+		                        <label for="one">包食宿</label>
+		                        <input type="checkbox" name="" id="one">
+		                    </div>
+		                    <div class="daiyu_checkbox">
+		                        <label for="two">工资月结</label>
+		                        <input type="checkbox" name="" id="two">
+		                    </div>
+		                    <div class="daiyu_checkbox">
+		                        <label for="three">五险一金</label>
+		                        <input type="checkbox" name="" id="three">
+		                    </div>
+		                </div>
 					</div>
 						<div class="weui_cell weui_cell_select">
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="weui_select" name="select1">
-					        <option selected="" value="0">工作地区</option>
+					        <option selected="" value="0">选择工作地区</option>
 					        <option value="1">高中</option>
 					        <option value="2">大学本科</option>
 					        <option value="3">本科以上</option>
@@ -154,14 +139,12 @@
 						  </div>
 						</div>
 							<p class="box-in"></p>
-						
 					</div>
 				</div>
 			</form>
 			<div class="addbuin_form_button">
 				<a href="addBusinessInfo.html"  id="btn-custom-theme" class="weui-btn weui-btn_warn">发&nbsp;&nbsp;&nbsp;&nbsp;布</a>
 			</div>
-
 		</div>
 	</div>
 </body>
