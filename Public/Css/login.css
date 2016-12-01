@@ -4,11 +4,12 @@
 	background-attachment: fixed;" 
 }
 .login-content{
-	background-color:#FDF8F2;
+	margin:0px auto;
+	postion:absolute;
+	top:20%;
 }
 #login .weui-row{
 	padding-left:10px;
-	background-color:#FDF8F2;
 }
 .logo{
 	clear:both;
@@ -19,13 +20,20 @@
 .logo img{
 	margin:auto;
 	clear:both;
+	width:35%;
+	height:35%;
 }
 .login-form .weui_cell{
-/* 	border-bottom:1px solid #595757; */
+ 	border-bottom:1px solid #595757;
 	margin-bottom:2px;
-	background-color:#FDF8F2;
+	background-color:#FAF5EF;
 }
 .reg-forgetpassword a{
 	color:#595856;
 	margin-left:30%;
+}
+#reg{
+	 background: url(../Img/login/reg-bc.png) no-repeat center;
+	background-size:100% 100%; 
+	background-attachment: fixed;" 
 }

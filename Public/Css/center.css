@@ -160,51 +160,18 @@ body{
 .description span{
 	margin-right:50px;
 }
-/* 固定尾部开始    与张涛做的css代码一致*/
-
-.bottom_menu {
-    height: 50px;
-    padding: 0 10px;
-    position: fixed;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: #fff;
-    border-top: 1px solid #ddd;
-    display: -webkit-box;
-}
-.bottom_menu .home {
-    background:url("../Img/footer/home.png") no-repeat center 8px; 
-   /*  background:url("../Img/footer/index-footer-icon.png") no-repeat;
-	background-position:-80px 10px;   */
-    background-size: 22px 22px; 
-}
-.bottom_menu a {
-    display: block;
-    -webkit-box-flex: 1;
-    padding-top: 30px;
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-}
-.bottom_menu .cart {
-    background: url(../Img/footer/supply.png) no-repeat center 8px;
-    background-size: 22px 22px;
-    position: relative;
-}
-.bottom_menu .center {
-    background: url(../Img/footer/center.png) no-repeat center 8px;
-    background-size: 22px 22px;
-}
 /* 固定尾部 结束*/
 /* 地址管理 开始*/
+.region-right-icon{
+	width:60%;
+}
 .region-main{
 	color:#464646;
-	width:400px;
+	width:60%;
 }
 .region-title{
 	margin-bottom:10px;
-	width:500px;
+	width:100%;;
 }
 .region-title #tel{
 	margin-left:200px;
@@ -220,6 +187,10 @@ body{
 /* 我的订单管理 开始*/
 /* 我的订单 结束*/
 /* 基本信息修改*/
+.myInfo{
+background-color:#ffffff;
+	margin-top:10px;	
+}
 .info-head{
 	height:100px;
 	padding: 0 15px;
@@ -234,6 +205,9 @@ body{
 .info-head .head_img{
 	width:100px;
 	position:absolute;left:35%;
+}
+.myInfo .weui-label,.weui-cell__bd,.weui-select{
+	color:#5C5C5C;
 }
 /* 基本信息 结束*/
 /* 我的订单 开始*/
