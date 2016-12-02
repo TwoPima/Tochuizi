@@ -45,8 +45,8 @@ body{
 
 }
 #addbuin-main .addbuin_title_img img{
-    width: 80px;
-    height:80px;
+    width: 60px;
+    height:60px;
     margin-right: 8px;
 }
 #addbuin-main .addbuin_title_info {
@@ -138,18 +138,19 @@ body{
 	padding-right:5px;
 }
 .big-title{
-	 padding-bottom: 5px;
-	 padding-top: px;
-	height:30px;
+	padding: 10px 10px 30px;/*上 左 下  */
 }
 .big-title img{
 	float:left;
+	/* 
 	top:3px;
-	position:absolute;
+	position:absolute; */
+	width:25px;
+	height:25px;
 }
 .big-title .title{
 	float:left;
-	margin-left:15%;
+	margin-left:5%;
 }
 #wait-fahuo .order-time{
 	color:#eb5904;
@@ -216,6 +217,9 @@ body{
 }
 .employ .weui_cell_ft{
 			font-size:0.8em;
+}
+.addbuin_form  .weui-uploader__input-box_title{
+	font-size:14px;
 }
 .addbuin_form  .push_daiyu .push_checkbox{
     padding:20px 15px;

@@ -7,9 +7,9 @@
          <link rel="stylesheet" type="text/css" href="../Public/css/jquery-weui.min.css">
         <link rel="stylesheet" type="text/css"  href="../Public/css/weui.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
+          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
         <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
-          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
     </head>
     <body id="">
 			<div id="topback-header">
@@ -65,11 +65,13 @@
 			<!--第三部分  -->
 			<section id="wait-fahuo">
 				<div class="weui-panel weui-panel_access">
-				    <div class="weui-panel__hd big-title"><img alt="" src="../Public/img/business/NoFahuo.png"><h3 class="title">待发货</h3></div>
-				    <div class="weui-panel__bd">
+				    <div class="weui-panel__hd big-title">
+				   		 <img alt="" src="../Public/img/business/NoFahuo.png"><h3 class="title">待发货</h3>
+				    </div>
+				    <div class="weui-panel__bd clear">
 				        <div class="weui-media-box weui-media-box_text">
 				          <h5 class="weui-media-box__title">订单号：1232255555</h5>
-				            <p class="weui-media-box__desc">各种网站建设开发及其APP手机应用软件开发 <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
+				            <p class="weui-media-box__desc">各种网站建设开发 <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
 				            <p class="weui-media-box__desc order-time"><span>1</span>小时前下单</p>
 				        </div>
 				    </div>
@@ -87,7 +89,7 @@
 						        		</div>
 						        		<div  class="description">
 							        		<p class="name">亿次元科技</p>
-							            	<p class="wuxing">XXX</p>
+							            	<p id="ratyStar" data-score="4"></p>
 						            	</div>
 						        	</div>
 						        <div class="weui-cell__ft">2016-16-23</div>
@@ -107,4 +109,16 @@
       <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
+  <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
+<script>
+$(function() {
+    $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
+    $('#ratyStar').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+});
+</script>
 </html>

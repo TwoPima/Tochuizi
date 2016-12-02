@@ -12,10 +12,10 @@
   <meta content="jQuery Raty - A Star Rating Plugin" name="description">
   <meta content="jquery,plugin,rating,raty,voto,star,staring,classificacao,classificar,votar,plugin" name="keywords">
 
-  <link type="text/css" rel="stylesheet" href="demo/css/application.css">
-
-  <script type="text/javascript" src="demo/js/jquery.min.js"></script>
-  <script type="text/javascript" src="lib/jquery.raty.min.js"></script>
+	  <link type="text/css" rel="stylesheet" href="demo/css/application.css">	
+		
+	  <script type="text/javascript" src="demo/js/jquery.min.js"></script>	
+	  <script type="text/javascript" src="lib/jquery.raty.min.js"></script>
 
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
@@ -1263,55 +1263,7 @@
   </div>
 
   <script type="text/javascript">
-    $(function() {
-      $.fn.raty.defaults.path = 'lib/img';
-
-      $('#default-demo').raty();
-
-      $('#score-demo').raty({ score: 3 });
-
-      $('#number-demo').raty({ number: 10 });
-
-      $('#numberMax-demo').raty({
-        numberMax: 5,
-        number   : 500
-      });
-
-      $('#number-callback-demo').raty({
-        number: function() {
-          return $(this).attr('data-number');
-        }
-      });
-
-      $('#scoreName-demo').raty({ scoreName: 'entity[score]' });
-
-      $('#readOnly-demo').raty({ readOnly: true, score: 3 });
-
-      $('#readOnly-callback-demo').raty({
-        readOnly: function() {
-          return 'true becomes readOnly' == 'true becomes readOnly';
-        }
-      });
-
-      $('#noRatedMsg-demo').raty({
-        readOnly  : true,
-        noRatedMsg: "I'am readOnly and I haven't rated yet!"
-      });
-
-      $('#score-callback-demo').raty({
-        score: function() {
-          return $(this).attr('data-score');
-        }
-      });
-
-      $('#halfShow-true-demo').raty({ score: 3.26 });
-
-      $('#halfShow-false-demo').raty({
-        halfShow: false,
-        score   : 3.26
-      });
-
-      $('#half-demo').raty({ half: true });
+    $(function() {      $.fn.raty.defaults.path = 'lib/img';      $('#default-demo').raty();      $('#score-demo').raty({ score: 3 });      $('#number-demo').raty({ number: 10 });      $('#numberMax-demo').raty({        numberMax: 5,        number   : 500      });      $('#number-callback-demo').raty({        number: function() {          return $(this).attr('data-number');        }      });      $('#scoreName-demo').raty({ scoreName: 'entity[score]' });      $('#readOnly-demo').raty({ readOnly: true, score: 3 });      $('#readOnly-callback-demo').raty({        readOnly: function() {          return 'true becomes readOnly' == 'true becomes readOnly';        }      });      $('#noRatedMsg-demo').raty({        readOnly  : true,        noRatedMsg: "I'am readOnly and I haven't rated yet!"      });      $('#score-callback-demo').raty({        score: function() {          return $(this).attr('data-score');        }      });      $('#halfShow-true-demo').raty({ score: 3.26 });      $('#halfShow-false-demo').raty({        halfShow: false,        score   : 3.26      });      $('#half-demo').raty({ half: true });
 
       $('#starHalf-demo').raty({
         path    : 'demo/img',

@@ -24,7 +24,7 @@
     <div id="main">
         <div class="evaluate">
             <div class="weui-panel">
-                <a class="weui-cell weui-cell_access" href="mySupply.html">
+                <a class="weui-cell weui-cell_access" href="">
                     <div class="weui-cell__bd">
                         <p>宁夏亿次元科技有限公司网站销售 <span id="price" class="red">44元</span></p>
                     </div>
@@ -33,26 +33,26 @@
                 <article class="weui-article">
                 <section>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat.
+                      新能源“空铁”项目总设计师、中科院院士翟婉明告诉
+澎湃新闻（www.thepaper.cn），此前德国和日本虽
+然已经拥有“空铁”相关技术，但其动力采用高压电网
+，而中国研制的首列新能源“空铁”，创造性地用锂电
+池包代替高压电用于列车的动力，属于世界首创。
                     </p>
                 </section>
                     <section>
-                        <p id="name">物流评级：<span>X</span></p>
-                        <p id="name">物流评级：<span>X</span></p>
-                        <p id="name">物流评级：<span>X</span></p>
-
+                        <p id="description">描述评级：<span id="description-raty" data-score="3"></span></p>
+                        <p id="logistic">物流评级：<span id="logistic-raty"data-score="4" ></span></p>
+                        <p id="server">服务评级：<span id="server-raty" data-score="5"></span></p>
                         </section>
-                    <section>
+                    <section id="content-img" >
                         <p>
-                            <img src="./images/pic_article.png" alt="">
-                            <img src="./images/pic_article.png" alt="">
+                            <img src="../Public/img/test1.png" alt="">
+                            <img src="../Public/img/test1.png" alt="">
                         </p>
                         </section>
                 </article>
-                <p id="article date " class="float-right">
+                <p id="article-date" class="float-right">
                     2016-11-23
                 </p>
             </div>
@@ -63,11 +63,27 @@
 <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/center.js"></script>
-<script src="../Public/js/language.js"></script>
+<script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
+  <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
 <script>
-    /* 多语言切换 开始*/
-    document.write(love[lang_flag]);
-    fun();
-    /* 多语言切换 结束*/
+$(function() {
+    $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
+    $('#description-raty').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+    $('#logistic-raty').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+    $('#server-raty').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+});
+
 </script>
 </html>

@@ -36,8 +36,8 @@ body{
 }
 .weui_navbar .weui_navbar_item{
 	 background: #ffffff;
-	    position: relative;
-    display: block;
+    display: inline;
+	position: static;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
@@ -118,9 +118,9 @@ body{
 }
  #main .menu_4_box .icon_num_float{
 	 border:2px solid #ffffff;
-	 -webkit-border-radius:	11px ;
-	 -moz-border-radius:11px;
-	 border-radius:11px;
+	 -webkit-border-radius:	25px ;
+	 -moz-border-radius:25px;
+	 border-radius:25px;
 	 position: absolute;
 	 top:2%;
 	 right: 18%;
@@ -128,9 +128,9 @@ body{
 
 #main .icon_num{
 	display: block;
-	-webkit-border-radius:10px;
-	-moz-border-radius:10px;
-	border-radius:10px;
+	-webkit-border-radius:25px;
+	-moz-border-radius:25px;
+	border-radius:25px;
 	background: red;
 	color: #ffffff;
 	font-size: 14px;
@@ -166,60 +166,94 @@ body{
 	width:60%;
 }
 .region-main{
-	color:#464646;
-	width:60%;
+	color:#5C5C5C;
+	width:95%;
+	font-size:14px;
 }
 .region-title{
 	margin-bottom:10px;
-	width:100%;;
+	width:100%;
+	white-space:nowrap;
+}
+.region-title #name{
+	float:left;
+		width:30%;
 }
 .region-title #tel{
-	margin-left:200px;
+	float:right;
+	width:50%;
+	position:absolute;
+	right:5%;
+}
+.region-right-icon{
+	width:5%;
+}
+.region-right{
 }
 .region-right img{
 	float:right;
+	width:15%;
+	height:15%;
 }
 .region-form{
-	font-size:12px;
-	color:#464646;
+	color:#5C5C5C;
+}
+.region .weui-cell__bd{
+	margin-bottom:10px;
+}
+.region-content{
+	white-space:nowrap;
+}
+.addRegion .weui-select,.weui-label,.weui-input{
+	font-size:14px;
 }
 /* 地址管理 结束*/
 /* 我的订单管理 开始*/
-/* 我的订单 结束*/
-/* 基本信息修改*/
-.myInfo{
-background-color:#ffffff;
-	margin-top:10px;	
+.myOrder  .weui-cell__bd{
+	line-height:2.6;
 }
-.info-head{
-	height:100px;
-	padding: 0 15px;
-	position: relative;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	align-items: center;
+.myOrder  .weui-media-box__title{
+	 font-size: 15px;
 }
-.info-head .head_img{
-	width:100px;
-	position:absolute;left:35%;
+.myOrder  .weui-media-box__desc{
+	  font-size: 14px;
+	line-height:2;
+	margin:0px;
+	padding:0px;
 }
-.myInfo .weui-label,.weui-cell__bd,.weui-select{
-	color:#5C5C5C;
+.myOrder .order-title {
+	position:relative;
+	top:7%;
+	margin:0px;
+	padding:0px;
+	height:30px;
 }
-/* 基本信息 结束*/
-/* 我的订单 开始*/
+.myOrder .order-title #name{
+	font-weight: 400;
+    font-size: 15px;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: break-word;
+    word-break: break-all;
+	
+}
+.myOrder #singel-number{
+	font-size: 13px;
+	color:#888;
+}
+.myOrder .order-title .jinru i{
+	font-size: 30px;
+	color:#666;
+	padding:0px;
+	margin:0px;
+	font-weight:100;
+	position:absolute;
+	top:-38%;
+	
+}
 .order-foot{
-	border-top: 1px solid #CCCCCC ;
-	border-bottom: 1px solid #CCCCCC ;
-	height:60px;
-	padding-top:15px;
-}
-.order-title{
-	height:60px;
-	padding-top:15px;
 }
 .order-del{
 	height:60px;
@@ -238,38 +272,141 @@ background-color:#ffffff;
 	border-radius: 14px;
 	position: relative;
 	margin-right:8px;
+	margin-top:3px;
+	margin-left:13px;
 }
 .button-pay{
 	border:1px solid red;
 	color:red;
+	 border-radius: 5px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    overflow: hidden;
+	background-color:#ffffff;
+}
+#submitOrder .order-content .weui_cell_bd{
+	color:#555;
+}
+#submitOrder .order-content .weui_cell_ft span{
+	color:#555;
+	font-style: normal;  
+}
+#submitOrder .order-content .freight{
+	display:block;
+
+}
+#submitOrder .order-content .weui_cell_ft  #key{
+	font-family: "Microsoft YaHei UI";
+}
+#submitOrder .order-content .weui_cell_ft  #val{
+	margin-left:5px;
+}
+#submitOrder .order-content .weui_cell_ft .price #val{
+	font-size:10px;
+}
+.pay-method{
+	margin-top:10px;
+}
+.pay-method .weui_media_box{
+	margin:0 auto;
+}
+.pay-method .method{
+	display:inline;
+	width:48%;
+}
+.pay-method .method img{
+	width:40%;
+	height:40%;
+}
+.order-content .count{
+	margin-bottom:20px;
+}
+.order-content .count span{
+	color:#000000;
+}
+.order-content .count .val{
+	color:#DA3716;
+}
+.pay-method i{
+	color:#ECA902;
+	margin-right:10px;
+}
+.pay-method span{
+	color:#000000;
+}
+.logistics .goal{
+	color:#E44E20;
 }
 /* 我的订单 结束*/
-/* 我的收藏*/
-#main .collect_count{
-    background: #fff;
-    padding:20px;
-    height:50px;
+/* 基本信息修改*/
+#myInfo{
+background-color:#ffffff;
+	margin-top:10px;	
+	padding-top:10px;	
 }
-#main .collect_count img{
+.info-head{
+	height:100px;
+	padding: 0 15px;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+.info-head .head_img{
+	width:100px;
+	position:absolute;left:35%;
+}
+#myInfo .weui-label{
+		color:#5C5C5C;
+}
+#myInfo .weui-cell__bd{
+		color:#5C5C5C;
+}
+
+#myInfo .weui-select{
+	color:#5C5C5C;
+}
+/* 基本信息 结束*/
+/* 我的收藏*/
+.collect{
+}
+ .collect .collect_count img{
     width:50px;
     height:50px;
     display: inline-block;
     float: left;
 }
-#main .collect_count{
+ .collect .collect_count{
 	color:#eb8f1b;
+	background: #fff;
+    padding:20px;
+    height:50px;
+	margin-top:0px;
 }
-#main .collect_count .count-left{
+ .collect_count .count-left{
 	margin-top:15px;
 	margin-left:20px;
 	font-size:0.8em;
 }
-#main .collect_count .count_number{
+ .collect .collect_count .count_number{
 	margin-top:5px;
 	margin-left:20px;
 	margin-right:10px;
 }
-
+ .collect .fujin{
+	margin-top:5px;
+}
+ .collect .fujin span{
+	margin-right:10px;
+	color:#666;
+	
+}
+ .collect .fujin span i{
+	color:#76D3C0;
+	font-size:18px;
+}
 /* 我的收藏结束*/
 /*设置开始*/
 .setting a{
@@ -333,3 +470,18 @@ background-color:#ffffff;
 	font-size:20px;
 }
 /* 我的供求结束*/
+/* 我的评价开始*/
+.evaluate #content-img img{
+	width:20%;
+	height:20%;
+}
+.evaluate #article-date{
+	margin-bottom:10px;
+	margin-right:10px;
+}
+.addEvaluate .weui-uploader{
+	padding-left:10px;
+	padding-bottom:10px;
+	background-color:#ffffff;
+}
+/* 我的评价结束*/

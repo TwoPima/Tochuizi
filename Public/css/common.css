@@ -77,9 +77,9 @@ body{
 	height:100%;
 }
 #topback-header  #header-right img{
-	 width:50%;
-	 height:50%;
-	margin-top:30%;
+	 width:40%;
+	 height:40%;
+	margin-top:15%;
 	float:right;
 }
 #topback-header  #header-right a{
@@ -98,7 +98,6 @@ body{
 	border:0px;
 }
 /* 固定尾部开始    与张涛做的css代码一致*/
-
 .bottom_menu {
 	height: 50px;
 	padding: 0 10px;
@@ -109,6 +108,9 @@ body{
 	background: #fff;
 	border-top: 1px solid #ddd;
 	display: -webkit-box;
+}
+.bottom_menu i {
+	font-size: 16px;
 }
 .bottom_menu a {
 	display: block;
