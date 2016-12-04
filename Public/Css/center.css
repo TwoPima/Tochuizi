@@ -55,6 +55,9 @@ body{
 .weui_tab_bd{
 	margin-top:15px;
 }
+.weui-select option{
+	font-size:14px;
+}
 /* 首页开始 */
 #header{
 	height:150px;
@@ -138,6 +141,12 @@ body{
 	height: 20px;
 	width:20px;
 	text-align: center;
+}
+.menu_4 a {
+    color: #555;
+}
+.menu_4 a:-webkit-any-link {
+	 color: #555;
 }
 .menu_order{
 	border-top:1px solid #D7D4D4;
@@ -415,7 +424,6 @@ background-color:#ffffff;
 /* 设置结束*/
 /* 关于我们开始*/
 .about-content{
-	background-color:#FCF7F1;
 }
 /* 关于我们结束*/
 /* 我的供求开始*/

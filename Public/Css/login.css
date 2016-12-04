@@ -1,5 +1,5 @@
 #login{
-	 background: url(../Img/login/login-bc.png) no-repeat center;
+	 background: url(../img/login/login-bc.png) no-repeat center;
 	background-size:100% 100%; 
 	background-attachment: fixed;" 
 }
@@ -33,7 +33,7 @@
 	margin-left:30%;
 }
 #reg{
-	 background: url(../Img/login/reg-bc.png) no-repeat center;
+	 background: url(../img/login/reg-bc.png) no-repeat center;
 	background-size:100% 100%; 
 	background-attachment: fixed;" 
 }
