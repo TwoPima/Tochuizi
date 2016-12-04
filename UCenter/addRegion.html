@@ -4,11 +4,13 @@
 	<meta charset="UTF-8">
 	<title>个人主页-地址管理</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="../Public/css/weui.min.css"/>
-        <link rel="stylesheet" href="../Public/css/weui.css"/>
-        <link rel="stylesheet" href="../Public/css/center.css"/>
-          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-          <link rel="stylesheet" href="../Public/css/common.css"/>
+     <!--jquery WEUI  -->
+        <link rel="stylesheet" href="../Public/css/weui.css">
+    <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
+   <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
+   <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+   <link rel="stylesheet" href="../Public/css/center.css"/>
+     <link rel="stylesheet" href="../Public/css/common.css"/>
 </head>
 <body>
 <div id="app">
@@ -31,6 +33,9 @@
 			        <div class="weui-cell__bd">
 			            <input class="weui-input" type="text" pattern="" placeholder=""/>
 			        </div>
+			        <div class="weui_cell weui_cell_warn">
+						  .12312...
+						</div>
 			    </div>
 			    <div class="weui-cell">
 			        <div class="weui-cell__hd">
@@ -48,18 +53,14 @@
 			            <input class="weui-input" type="tel" pattern="[0-6]*"  placeholder="请输入邮政编码">
 			        </div>
 			    </div>
-				  <div class="weui-cell weui-cell_select weui-cell_select-after">
-				        <div class="weui-cell__hd">
-				            <label for="" class="weui-label">所在地区：</label>
-				        </div>
-				        <div class="weui-cell__bd">
-				            <select class="weui-select" name="select2">
-				                <option value="1">中国</option>
-				                <option value="2">美国</option>
-				                <option value="3">英国</option>
-				            </select>
-				        </div>
-				    </div>
+			    <div class="weui-cell">
+			        <div class="weui-cell__hd">
+			            <label class="weui-label">所在地区：</label>
+			        </div>
+			        <div class="weui-cell__bd">
+			          <input class="weui-input" type="text" id='city-picker' value="宁夏回族自治区 银川市 金凤区" >
+			        </div>
+			    </div>
 				     <div class="weui-cell">
 			        <div class="weui-cell__hd"><label class="weui-label">详细地址：</label></div>
 			        <div class="weui-cell__bd">
@@ -74,11 +75,11 @@
 <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/center.js"></script>
-<script src="../Public/js/language.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../Public/js/city-picker.js" charset="utf-8"></script>
 <script>
- 	/* 多语言切换 开始*/
-	document.write(love[lang_flag]);  
-	fun();  
-	/* 多语言切换 结束*/
+	$("#city-picker").cityPicker({
+	  title: "请选择收货地址"
+	});
 </script>
 </html>
