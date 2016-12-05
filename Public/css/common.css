@@ -126,4 +126,6 @@ body{
 .bottom_menu a span{
 	display: block;
 }
-
+.bottom_menu  .current{
+ 	color: #BF6E09;
+}

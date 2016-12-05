@@ -26,6 +26,7 @@
 		</div>
     
 		<div id="myInfo">
+		<form id="myInfoForm" action="" method="post">
             <div class="info-head">
                     <div class="head_img ">
                         <a><img src="../Public/img/index/index_headimg2.jpg" alt="">  <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""></a>
@@ -34,13 +35,13 @@
                     <div class="weui-cell">
                         <div class="weui-cell__hd"><label class="weui-label">称呼</label></div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="text" pattern="" placeholder="请输入称呼"/>
+                            <input class="weui-input" type="text" placeholder="请输入称呼" required />
                         </div>
                     </div>
                      <div class="weui_cell">
 				    <div class="weui_cell_hd"><label class="weui-label">手机号</label></div>
 				    <div class="weui_cell_bd">
-				      <input class="weui_input" type="tel" placeholder="请输入手机号">
+				      <input class="weui_input" type="tel" placeholder="请输入手机号" required >
 				    </div>
 				  </div>
                    <div class="weui-cell weui-cells_radio">
@@ -66,22 +67,38 @@
                            </div>
                              <a href="region.html">
                            <div class="weui-cell__bd">
-                               <select class="weui-select" name="select2">
+                               <select class="weui-select" required name="select2">
                                    <option value="1">宁夏银川市金凤区</option>
                                </select>
                            </div>
                            </a>
                        </div>
+                      </form>
 		</div>
 		<div class="height20px" ></div>
                     <div class="height20px" ></div>
-             <a href="" id="btn-custom-theme" class="weui-btn weui-btn_primary">保&nbsp;&nbsp;&nbsp;&nbsp;存</a>
+          	   <a href="" id="btn-custom-theme" class="weui-btn weui-btn_default" >保&nbsp;&nbsp;&nbsp;存</a>
 </div><!--app-->
 </body>
 <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/center.js"></script>
-<script src="../Public/js/language.js"></script>
+<!-- 表单验证 -->
+<!-- <script src="../Public/js/jquery-2.1.4.js"></script> -->
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="../Public/plugins/jquery-html5Validate/jquery-html5Validate-min.js"></script>
 <script>
+$("#myInfoForm").html5Validate(function(){
+	alert('asd');
+	
+});
+/* 表单验证 */
+/*  $(".button").bind("click", function() {
+    var email = $(".email");
+    if ($.html5Validate.isAllpass(email)) {
+        alert("订阅成功！");    
+        email.val("");
+    }
+}); */
 </script>
 </html>
