@@ -21,28 +21,30 @@
 		  	<a href="login.html"><img alt="" src="../Public/img/login/logo.png" height="" width=""></a>
 		  </div>
 		</div>		
+		<form>
 		<div class="weui-row ">
 		  <div class="weui-col-95">  
 				<div class="weui_cells weui_cells_form login-form">
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/mobile.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
-				      <input class="weui_input" type="tel" placeholder="请输入手机号">
+				      <input class="weui_input" type="tel" id="mobile" name="mobile" placeholder="请输入手机号">
 				    </div>
 				  </div>
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/password.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
-				      <input class="weui_input" type="password" placeholder="请输入密码">
+				      <input class="weui_input" type="password" name="password" id="password" placeholder="请输入密码">
 				    </div>
 				  </div>
 				</div>
 				</div>
 				</div>
+				</form>
 	<div class="height20px"></div> 
 		<div class="weui-row ">
 		  <div class="weui-col-95">  
-		  <a href=""id="btn-custom-theme" class="weui-btn weui_btn_primary ">登&nbsp;&nbsp;&nbsp;陆</a> 
+		  <a href="" id="btn-custom-theme" class="weui-btn weui_btn_primary ">登&nbsp;&nbsp;&nbsp;陆</a> 
 		  </div>
 		  </div>
 		  	<div class="height20px"></div>
@@ -53,6 +55,7 @@
 		  <div class="weui-col-50">  
 		    <a href="forgetPassword.html" class="">忘记密码</a> 
 		  </div>
+		  
 		  </div>
 		  </div>
 		  </div>
@@ -61,10 +64,71 @@
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script >
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
+<script>  
+$("#btn-custom-theme").click(function(){
+	var userIp=returnCitySN["cip"];
+	var mobile=$("#mobile").val();
+	var password=$("#password").val();
+	alert(userIp);
+		$.ajax({
+		  type: 'POST',
+		  url: 'http://tcw.huikenet.com/mobile.php?c=index&a=login',
+		  // data to be added to query string:
+		  data: { mobile: mobile,password:password,ip:userIp},
+		  
+		  // type of data we are expecting in return:
+		  dataType: 'json',
+		  timeout: 300,
+		 context: $('body'),
+		  success: function(data){
+		    // Supposing this JSON payload was received:
+		    //   {"project": {"id": 42, "html": "<div>..." }}
+		    // append the HTML to context object.
+		    alert(data);
+		   // this.append(data.project.html)
+		  },
+		  error: function(xhr, type){
+		    alert('Ajax error!')
+		  }
+		})
+	
+});
+
+	// post a JSON payload:
+	/* $.ajax({
+	  type: 'POST',
+	  url: 'http://tcw.huikenet.com/mobile.php?c=index&a=login',
+	  // post payload:
+	  data: JSON.stringify({ name: 'Zepto.js' }),
+	  contentType: 'application/json'
+	}) */
 /* 使用session存储，确定用户是否登录，从而确定页面跳转至哪个页面。
 html中，相应的a标签中，写onclick="infoJumpTo"等就可以了。
 判断本地有无customerID */
+/* var word=1;
+
+$.ajax({
+    async:false,
+    url:"myJSON.json",
+    type:"get",
+    dataType:"json",
+    success:function(data){
+        word=2;
+    }
+});
+
+alert(word);
+$(".groupselect").on("change",function(){
+	var ob = $(this);
+	var gid=ob.val();
+	var mosque_id = ob.parent().find('.group').attr('val');
+	$.get("{:U('update')}?ajax=yes&id="+id+"&gid="+gid,function(data){
+		var text = ob.find("option:selected").text();
+		ob.parent().find(".group").removeClass('hide').html(text);
+		ob.addClass('hide');
+	 });
+})
 function jumpTo(p, url) { 
 	   var customerId=sessionStorage.customerId; 
 	   if (customerId == undefined) { 
@@ -87,7 +151,8 @@ function jumpTo(p, url) {
 		  if(tel==""|| pwd==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
 		    alert("手机号密码均不能为空！") 
 		    return false; 
-		  }else{//以上均符合要求，则调用登录esb接口 
+		  }else{
+			  //以上均符合要求，则调用登录esb接口 
 		     $.ajax({ 
 		       url:config.baseServerUrl + '/account/login',//相对应的esb接口地址
 		       type:'post',  
@@ -114,13 +179,13 @@ function jumpTo(p, url) {
 		       } 
 		    }) 
 		  } 
-		}
+		} */
 	 /* enter 登陆 */
 	 //判断是否敲击了Enter键 
-$(document).keyup(function(event){ 
+/* $(document).keyup(function(event){ 
     if(event.keyCode ==13){ 
       $("#login").trigger("click"); 
     } 
-});
+}); */
 </script>
 </html>

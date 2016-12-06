@@ -29,6 +29,23 @@ body{
 .padding-left-10px{
 	padding-left:10px;
 }
+/* 滑动删除 */
+.del-btn{
+	 position: absolute; top: 0; 
+	 right: -80px; 
+	 text-align: center;
+	 background:#E54E1F; 
+	 width: 80px;
+	line-height:90px;
+	color:#ffffff;
+	font-size:15px;
+}
+ #all .weui_panel{ overflow: hidden}
+ .list-data{
+	position:relative;
+    -webkit-transform: translateX(0px);
+ 	 background: #ffffff;
+ }
 /*tab 选中边框  */
 .weui_navbar_item.weui_bar_item_on {
    	  background-color: #ffffff; 
@@ -444,19 +461,17 @@ background-color:#ffffff;
 	margin-right:5px;
 }
 #main .supply_count .supply-right{
-	margin-top:15px;
-	margin-right:20px;
-	font-size:0.8em;
+	margin-top:18px;
+	font-size:0.3em;
 	
 }
 #main .supply_count .supply_number span{
-	font-size:16px;
-	margin-left:15px;
+	font-size:14px;
+	margin-left:5px;
 }
 #main .supply_count .supply_number{
 	margin-top:5px;
 	margin-left:20px;
-	margin-right:10px;
 }
 .mySupply{
 	margin-top:15px;

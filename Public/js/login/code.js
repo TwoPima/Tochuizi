@@ -1,3 +1,4 @@
+//手机验证码
 var iTime = 59;
 function get_mobile_code()
 {

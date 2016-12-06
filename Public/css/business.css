@@ -95,7 +95,7 @@ body{
 #shopIndex{
 	padding-left:5px;
 	padding-right:5px;
-	padding-top:5px;
+	padding-top:10px;
 }
 .navSecond .weui-tab{
 	padding:10px 5px  10px 5px;
@@ -103,19 +103,21 @@ body{
 .navSecond .weui-tabbar{
 	position: relative;
 	background: #ffffff;
+	padding-top:15px;
 }
 .navSecond .weui-tabbar__icon{
 }
 .navSecond .weui-tabbar__label{
 	color:#5e5d5d;
+	margin-top:10px;
 }
 .navSecond{
 	display:inline;
 }
 .navSecond .weui-tabbar__item img{
 	display: block;
-	width:50%;
-	height:50%;
+	width:38%;
+	height:38%;
 	margin:0 auto;
 }
 #job div{
@@ -136,21 +138,23 @@ body{
 #wait-fahuo{
 	padding-left:5px;
 	padding-right:5px;
+	margin-bottom:10px;
 }
 .big-title{
 	padding: 10px 10px 30px;/*上 左 下  */
+	padding-left:20px;
 }
 .big-title img{
 	float:left;
-	/* 
-	top:3px;
-	position:absolute; */
-	width:25px;
-	height:25px;
+	
+	top:14px;
+	position:absolute; 
+	width:15px;
+	height:15px;
 }
 .big-title .title{
 	float:left;
-	margin-left:5%;
+	margin-left:10%;
 }
 #wait-fahuo .order-time{
 	color:#eb5904;
@@ -170,6 +174,11 @@ body{
 }
 #waitJudge .weui-cell .weui-cell__hd{
 	width:70%;
+}
+#waitJudge .time{
+	font-size:13px;
+	top:8px;
+	position:absolute;
 }
 #waitJudge .weui-cell{
 	clear:both;

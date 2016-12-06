@@ -99,8 +99,7 @@ body{
 }
 /* 固定尾部开始    与张涛做的css代码一致*/
 .bottom_menu {
-	height: 50px;
-	padding: 0 10px;
+	height: 55px;
 	position: fixed;
 	right: 0;
 	left: 0;
@@ -108,9 +107,11 @@ body{
 	background: #fff;
 	border-top: 1px solid #ddd;
 	display: -webkit-box;
+	margin:0 auto;
+	padding-top:8px;
 }
 .bottom_menu i {
-	font-size: 16px;
+	font-size: 18px;
 }
 .bottom_menu a {
 	display: block;
@@ -118,14 +119,12 @@ body{
 	text-align: center;
 	color: #888;
 	font-size: 14px;
-	padding-top: 6px;
 }
 .bottom_menu a:active{
 	color: #BF6E09;
 }
 .bottom_menu a span{
 	display: block;
+	font-size:16px;
 }
-.bottom_menu  .current{
- 	color: #BF6E09;
 }

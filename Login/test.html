@@ -1,0 +1,31 @@
+<style>
+input[type=radio]{
+    width: .975rem;
+    visibility: hidden;
+    vertical-align: middle;
+  }
+  .r-label{
+        display: inline-block;
+        height: 1.55rem;
+        background: url("../img/radio.png") left center no-repeat;
+        background-size: 0.975rem 0.975rem;
+        padding-left: 0.45rem;
+  }
+  .r-label.checked{
+    background: url("../img/radio-checked.png") left center no-repeat;
+    background-size: 0.975rem 0.975rem;
+  }
+</style>
+<label for="bill_y" class="r-label checked"><label for="bill_n" class="r-label"><input type="radio" name="bill" id="bill_n"/>否</label>
+<script>
+//处理单选框选中
+$(".r-label").on("tap",function(){
+    var $this = $(this);
+    var $radio = $(this).find("input[type=radio]");
+    var checked = $radio.prop("checked");
+    if(!checked && !$this.hasClass("checked")){
+        $(".r-label").removeClass("checked");
+        $this.addClass("checked");
+    }
+});
+</script>
