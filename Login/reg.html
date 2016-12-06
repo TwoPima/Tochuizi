@@ -43,7 +43,7 @@ var LANG = new Array();
                 <div id="header-right">
                 </div>
 		</div>
-    
+    	<form>
 			<div class="weui_cells weui_cells_form login-form clear">
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/mobile.png"></div>
@@ -73,6 +73,7 @@ var LANG = new Array();
 				    </div>
 				  </div>
 				</div>
+				</form>
 					<div class="height20px"></div> 
 			  <a href="" id="btn-custom-theme" class="weui-btn weui_btn_primary ">注&nbsp;&nbsp;&nbsp;册</a> 
 	 			<div for="weuiAgree" class="weui-agree">
@@ -87,8 +88,12 @@ var LANG = new Array();
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-	<script type="text/javascript" src="../Public/js/login/code.js"></script>
+<script type="text/javascript" src="../Public/js/login/code.js"></script>
+<script type="text/javascript" src="../Public/js/login/login.js"></script>
 <script type="text/javascript">
+$("#btn-custom-theme").click(function(){
+	
+});
 		$(function(){
 			$("#getCodeBtn").click(function(){
 				get_mobile_code();
