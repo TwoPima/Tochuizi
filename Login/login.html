@@ -13,7 +13,8 @@
 	   <link rel="stylesheet" href="../Public/css/center.css"/>
 	   <link rel="stylesheet" href="../Public/css/login.css"/>
     </head>
-    <body id="login">
+    <body >
+	<div id="login">
    <div class="body-back"><img class="back-img" alt="" src="../Public/img/login/login-bc.png">
     <div class="login-content">
 		<div class="weui-row ">
@@ -28,13 +29,13 @@
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/mobile.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
-				      <input class="weui_input" type="tel" id="mobile" name="mobile" placeholder="请输入手机号">
+				      <input class="weui_input" type="tel" id="mobile" v-model="mobile" name="mobile" placeholder="请输入手机号">
 				    </div>
 				  </div>
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/password.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
-				      <input class="weui_input" type="password" name="password" id="password" placeholder="请输入密码">
+				      <input class="weui_input" type="password" name="password" v-model="password" id="password" placeholder="请输入密码">
 				    </div>
 				  </div>
 				</div>
@@ -44,7 +45,7 @@
 	<div class="height20px"></div> 
 		<div class="weui-row ">
 		  <div class="weui-col-95">  
-		  <a href="" id="btn-custom-theme" class="weui-btn weui_btn_primary ">登&nbsp;&nbsp;&nbsp;陆</a> 
+		  <a id="btn-custom-theme" class="weui-btn weui_btn_primary ">登&nbsp;&nbsp;&nbsp;陆</a>
 		  </div>
 		  </div>
 		  	<div class="height20px"></div>
@@ -59,18 +60,53 @@
 		  </div>
 		  </div>
 		  </div>
-    </body>
-    <script src="../Public/js/zepto.js"></script>
+	</div>
+</body>
+
+<script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
+<!--<script src="../Public/js/jquery-2.1.4.js"></script>-->
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
-<script>  
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script>
+	$("#btn-custom-theme").click(function() {
+		var userIp = returnCitySN["cip"];
+		var mobile = $("#mobile").val();
+		var password = $("#password").val();
+		console.log(userIp);
+		console.log(mobile);
+		console.log(password);
+		var url ='http://tcw.huikenet.com/mobile.php?c=index&a=login';
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: {mobile:mobile,password:password,ip:userIp},
+			dataType: 'jsonp',
+			jsonp:"callback",
+			success: function (result) {
+				var dataObj=eval("("+result+")");
+				if (dataObj.status==='fail'){
+					alert('shibai');
+				}else{
+					window.location.href='http://www.baidu.com';
+				}
+			},
+			error:function(){
+				alert('shibai');
+			}
+		});
+	});
+</script>
+<!--
+<script>
 $("#btn-custom-theme").click(function(){
 	var userIp=returnCitySN["cip"];
 	var mobile=$("#mobile").val();
 	var password=$("#password").val();
-	alert(userIp);
+	console.log(userIp);
+	console.log(mobile);
+	console.log(password);
 		$.ajax({
 		  type: 'POST',
 		  url: 'http://tcw.huikenet.com/mobile.php?c=index&a=login',
@@ -187,5 +223,5 @@ function jumpTo(p, url) {
       $("#login").trigger("click"); 
     } 
 }); */
-</script>
+</script>-->
 </html>
