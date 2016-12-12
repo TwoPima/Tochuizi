@@ -22,7 +22,7 @@
 		  	<a href="login.html"><img alt="" src="../Public/img/login/logo.png" height="" width=""></a>
 		  </div>
 		</div>		
-		<form>
+		<form action="http://tcw.huikenet.com/mobile.php?c=index&a=login" >
 		<div class="weui-row ">
 		  <div class="weui-col-95">  
 				<div class="weui_cells weui_cells_form login-form">
@@ -56,13 +56,12 @@
 		  <div class="weui-col-50">  
 		    <a href="forgetPassword.html" class="">忘记密码</a> 
 		  </div>
-		  
 		  </div>
 		  </div>
 		  </div>
 	</div>
 </body>
-
+	 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
  <script src="../Public/js/zepto.js"></script>
 <!-- <script src="../Public/js/vue.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script> -->
@@ -74,20 +73,22 @@
 		var userIp = returnCitySN["cip"];
 		var mobile = $("#mobile").val();
 		var password = $("#password").val();
-		//console.log(userIp);
-		var url ='http://tcw.huikenet.com/mobile.php?c=index&a=login';
+		var checkInfo=$("#checkInfo").val();
+		//console.log(checkInfo);
+		var url ='test.php';
 		  if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
 				$.toptip('手机号密码均不能为空！', 200, 'warning');
 			    return false; 
 			  }else{
 					$.ajax({
 						type: 'post',
-						url: url,
-						data: {mobile:mobile,password:password,ip:userIp},
-						dataType: 'jsonp',
-						jsonp:"callback",
-						success: function (result) {
-							var dataObj=eval("("+result+")");
+						url: 'test.php',
+						data: {mobile:mobile,password:password,ip:userIp,checkInfo:checkInfo},
+						dataType: 'json',
+						//jsonp:"callback",
+						  //jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+						success: function (data) {
+							var dataObj=eval("("+data+")");
 							if (dataObj.status==='fail'){
 								$.toptip('登陆失败',200, 'error');
 							}else{
