@@ -9,7 +9,7 @@
    /*  $(function() {
         $('#submit').click(function() {
             $.ajax({
-               //url: 'http://tcw.huikenet.com/mobile.php?c=index&a=login',
+               //url: HOST+'mobile.php?c=index&a=login',
                 url: 'test.php',
                 type: 'post',
                 dataType:'json',

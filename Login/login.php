@@ -62,6 +62,7 @@
 	</div>
 </body>
 	 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+ <script src="../Public/js/require.config.js"></script>
  <script src="../Public/js/zepto.js"></script>
 <!-- <script src="../Public/js/vue.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script> -->
@@ -75,14 +76,15 @@
 		var password = $("#password").val();
 		var checkInfo=$("#checkInfo").val();
 		//console.log(checkInfo);
-		var url ='test.php';
+		var url =HOST+'mobile.php?c=index&a=login';
 		  if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
 				$.toptip('手机号密码均不能为空！', 200, 'warning');
 			    return false; 
 			  }else{
+				  
 					$.ajax({
 						type: 'post',
-						url: 'test.php',
+						url: url,
 						data: {mobile:mobile,password:password,ip:userIp,checkInfo:checkInfo},
 						dataType: 'json',
 						//jsonp:"callback",
