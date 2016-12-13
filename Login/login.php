@@ -63,10 +63,10 @@
 </body>
 	 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
  <script src="../Public/js/require.config.js"></script>
- <script src="../Public/js/zepto.js"></script>
+<!--  <script src="../Public/js/zepto.js"></script> -->
 <!-- <script src="../Public/js/vue.js"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script> -->
-<!-- <script src="../Public/js/jquery-2.1.4.js"></script> -->
+ <script src="../Public/js/jquery-2.1.4.js"></script> 
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script>
@@ -77,6 +77,7 @@
 		var checkInfo=$("#checkInfo").val();
 		//console.log(checkInfo);
 		var url =HOST+'mobile.php?c=index&a=login';
+		//var url ='test.php';
 		  if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
 				$.toptip('手机号密码均不能为空！', 200, 'warning');
 			    return false; 
@@ -90,17 +91,24 @@
 						//jsonp:"callback",
 						  //jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
 						success: function (data) {
-							var dataObj=eval("("+data+")");
+							alert(data);
+							//var member = eval('(' + data + ')');
+							/* var dataObj=eval("("+data+")");
 							if (dataObj.status==='fail'){
 								$.toptip('登陆失败',200, 'error');
 							}else{
 								$.toptip('成功登陆',200, 'success');
 								window.location.href='http://www.baidu.com';
-							}
+							} */
 						},
-						error:function(){
-							alert('shibai');
-						}
+						 error: function(XMLHttpRequest,textStatus,errorThrown) {
+							 alert(XMLHttpRequest.status);
+							 alert(XMLHttpRequest.readyState);
+							 alert(textStatus);
+							   },
+						 complete: function(XMLHttpRequest,textStatus) {
+							 this; // 调用本次AJAX请求时传递的options参数
+							   } 
 					});
 		  	}
 	});
