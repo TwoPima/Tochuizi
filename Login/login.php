@@ -63,7 +63,7 @@
 </body>
 	 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
  <script src="../Public/js/require.config.js"></script>
- <script src="../Public/js/zepto.js"></script> 
+<script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script>

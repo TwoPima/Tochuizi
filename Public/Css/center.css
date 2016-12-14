@@ -29,6 +29,16 @@ body{
 .padding-left-10px{
 	padding-left:10px;
 }
+.14pxfont{
+	font-size:14px;
+}
+/* 右指示箭头 */
+.weui-cell_access .weui-cell__ft:after{
+	 height: 11px;
+    width: 11px;
+	border-color: #686868;
+	top: 35%;
+}
 /* 滑动删除 */
 .del-btn{
 	 position: absolute; top: 0; 
@@ -71,6 +81,9 @@ body{
 }
 .weui_tab_bd{
 	margin-top:15px;
+}
+.weui-select {
+	font-size:14px;
 }
 .weui-select option{
 	font-size:14px;
@@ -159,6 +172,9 @@ body{
 	width:20px;
 	text-align: center;
 }
+#main .weui-cell__ft .icon_num{
+	margin-right:6px;
+}
 .menu_4 a {
     color: #555;
 }
@@ -231,6 +247,9 @@ body{
 	white-space:nowrap;
 }
 .addRegion .weui-select,.weui-label,.weui-input{
+	font-size:14px;
+}
+.weui-picker-modal .picker-item.picker-selected,.weui-picker-modal .picker-item {
 	font-size:14px;
 }
 /* 地址管理 结束*/
@@ -364,6 +383,13 @@ body{
 }
 /* 我的订单 结束*/
 /* 基本信息修改*/
+#myInfo .sex p{
+	margin-right:20px;
+}
+#myInfo .sex p span{
+	margin-right:10px;
+	font-size:14px;
+}
 #myInfo{
 background-color:#ffffff;
 	margin-top:10px;	

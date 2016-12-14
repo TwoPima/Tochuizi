@@ -14,13 +14,13 @@
 <body >
 		<div id="topback-header">
  				<div id="header-left">
-	 				 <a href="index.html">
+	 				 <a href="index.php">
 	                      <i class="icon iconfont icon-xiangzuo"></i>
 	                  	    <span class="title">我的供求</span>
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addMySupply.html"><span>发布供求</span></a>
+                	<a href="addMySupply.php"><span>发布供求</span></a>
                 </div>
 		</div>
 		<!--内容页面  -->
@@ -130,7 +130,6 @@
 				</div>
 			</div>
 </body>
-<script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>

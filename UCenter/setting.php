@@ -29,21 +29,21 @@
 	<div id="main" class="setting">
 		<div class="weui-cells">
 		    <div class="weui-cell">
-		         <a href="password.html" >
+		         <a href="password.php" >
 		         <div class="weui-cell__bd">
 		           <p>更改密码</p>
 		        </div>
 		        </a>
 		    </div>
 		    <div class="weui-cell">
-		     <a href="about.html">
+		     <a href="abo.phpml">
 		        <div class="weui-cell__bd">
 		            <p>关于土锤</p>
 		        </div>
 		        </a>
 		    </div>
 		    <div class="weui-cell">
-		     <a href="feedback.html">
+		     <a href="feedback.php">
 		        <div class="weui-cell__bd">
 		            <p>意见反馈</p>
 		        </div>
@@ -56,7 +56,7 @@
 		<div class="height20px"></div>
 		<div class="height20px"></div>
 		<div class="button-sp-area">
-		    <a href="../Login/login.html" class="weui-btn weui-btn_plain-primary" id="btn-custom-theme">退出登录</a>
+		    <a href="../Login/login.php" class="weui-btn weui-btn_plain-primary" id="btn-custom-theme">退出登录</a>
 		</div>
 		<div class="height20px"></div>
 	</div><!--main-->

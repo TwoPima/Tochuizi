@@ -63,7 +63,7 @@
 				     <div class="weui-cell">
 			        <div class="weui-cell__hd"><label class="weui-label">详细地址：</label></div>
 			        <div class="weui-cell__bd">
-			            <input class="weui-input" type="text" pattern="" placeholder=""/>
+			            <input class="weui-input" type="text" pattern="" placeholder="输入详细地址"/>
 			        </div>
 			    </div>
 			</div>

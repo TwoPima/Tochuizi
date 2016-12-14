@@ -77,8 +77,6 @@ var LANG = new Array();
 			  <a href="" id="btn-custom-theme" class="weui-btn weui_btn_primary ">找回密码</a> 
 			  </div>
     </body>
-      <script src="../Public/js/zepto.js"></script>
 <script src="../Public/js/vue.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 </html>

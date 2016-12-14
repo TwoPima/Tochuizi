@@ -17,7 +17,7 @@
 <body>
 <div id="app">
 	<div id="header">
-		<a href="myInfo.html" class="header-a-1">
+		<a href="myInfo.php" class="header-a-1">
 		<div class="head_img float-left">
 			<img src="../Public/img/index/index_headimg2.jpg" alt="">
 		</div>
@@ -27,7 +27,7 @@
 			<p><span>个人(普通)</span> </p>
 		</div>
 		</a>
-		<a href="memberType.html"class="header-a-2">
+		<a href="memberType.php"class="header-a-2">
 		<div class="head_job">
 			<img src="../Public/img/index/headright.png" alt="">
 			<p>设计师</p>
@@ -37,7 +37,7 @@
 	<div id="main">
 		<div class="page">
 			<div class="weui-panel menu_order">
-				<a class="weui-cell weui-cell_access" href="myOrder.html">
+				<a class="weui-cell weui-cell_access" href="myOrder.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_001.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>我的订单</p>
@@ -46,28 +46,28 @@
 				</a>
 			</div>
 			<div  class="weui-flex menu_4">
-				<a href="myOrder.html">
+				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/nopay.png" >
 					<p>待付款</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 				</a>
-				<a href="myOrder.html">
+				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/noget.png" >
 					<p>待收货</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 				</a>
-				<a href="myOrder.html">
+				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/pingjia.png" >
 					<p>待评价</p>
 					<span class="icon_num  icon_num_float">3</span>
 				</div>
 				</a>
-				<a href="myOrder.html">
+				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/tuihuo.png" >
 					<p>退货</p>
@@ -76,7 +76,7 @@
 				</a>
 			</div>
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="mySupply.html">
+					<a class="weui-cell weui-cell_access" href="mySupply.php">
 						<div class="weui-cell__hd"><img src="../Public/img/index/index_002.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的供求</p>
@@ -85,7 +85,7 @@
 					</a>
 			</div>
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="myJob.html">
+					<a class="weui-cell weui-cell_access" href="myJob.php">
 						<div class="weui-cell__hd"><img src="../Public/img/index/job-icon.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的求职</p>
@@ -94,7 +94,7 @@
 					</a>
 			</div>
 		<!-- 	<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="region.html">
+					<a class="weui-cell weui-cell_access" href="region.php">
 						<div class="weui-cell__hd"><img src="../Public/img/index/location.png" alt="" style="width:15px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>地址管理</p>
@@ -103,7 +103,7 @@
 					</a>
 			</div> -->
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="myCollect.html">
+					<a class="weui-cell weui-cell_access" href="myCollect.php">
 						<div class="weui-cell__hd"><img src="../Public/img/index/index_003.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的收藏</p>
@@ -113,7 +113,7 @@
 			</div>
 
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="evaluate.html">
+					<a class="weui-cell weui-cell_access" href="evaluate.php">
 						<div class="weui-cell__hd"><img src="../Public/img/index/index_004.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的评价</p>
@@ -123,7 +123,7 @@
 			</div>
 
 			<!-- <div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="notice.html">
+				<a class="weui-cell weui-cell_access" href="notice.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_005.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>消息通知</p>
@@ -133,7 +133,7 @@
 			</div> -->
 
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="../BusinessCenter/addBusiness.html">
+				<a class="weui-cell weui-cell_access" href="../BusinessCenter/addBusiness.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_006.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>加盟商入驻申请</p>
@@ -142,7 +142,7 @@
 				</a>
 			</div>
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="../BusinessCenter/index.html">
+				<a class="weui-cell weui-cell_access" href="../BusinessCenter/index.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_006.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>卖家中心</p>
@@ -152,7 +152,7 @@
 			</div>
 
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="addVip.html">
+				<a class="weui-cell weui-cell_access" href="addVip.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_007.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>成为VIP</p>
@@ -161,7 +161,7 @@
 				</a>
 			</div>
 			<div class="weui-panel">
-				<a class="weui-cell weui-cell_access" href="setting.html">
+				<a class="weui-cell weui-cell_access" href="setting.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/setting-icon.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>设置</p>
@@ -175,13 +175,13 @@
 	<div class="height20px"></div>
 	<div class="height20px"></div>
 	<div class="bottom_menu">
-		<a class="home" id="home" href="../index.html">
+		<a class="home" id="home" href="../index.php">
 			  <i class="fa fa-home" aria-hidden="true"></i><span>首页</span>
 		</a>
-		<a class="cart" id="cart" href="../supply-demand.html">
+		<a class="cart" id="cart" href="../supply-demand.php">
 			<i class="fa fa-shopping-cart" aria-hidden="true"></i><span>供求</span>
 		</a>
-		<a class="center" id="center" style="color: #BF6E09" href="index.html">
+		<a class="center" id="center" style="color: #BF6E09" href="index.php">
 			<i class="fa fa-user" aria-hidden="true"></i><span>我</span>
 			</a>
 	</div><!--bottom_menu  -->

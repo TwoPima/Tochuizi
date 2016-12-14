@@ -20,7 +20,7 @@
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addRegion.html"><span>新增</span></a>
+                	<a href="addRegion.php"><span>新增</span></a>
                 </div>
 		</div>
 		<div class="region">
@@ -31,7 +31,7 @@
 			            <p class="region-content clear">宁夏银川市文昌北街明实楼A617</p>
 			        </div>
 			         <div class="weui-cell__bd region-right-icon">
-			           <a href="addRegion.html?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
+			           <a href="addRegion.php?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
 			        </div>
 			    </div>
 			    <div class="weui-cell">
@@ -40,7 +40,7 @@
 			            <p class="region-content clear">宁夏银川市文昌北街明实楼A617</p>
 			        </div>
 			         <div class="weui-cell__bd region-right-icon">
-			           <a href="addRegion.html?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
+			           <a href="addRegion.php?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
 			        </div>
 			    </div>
 			    <div class="weui-cell">
@@ -49,7 +49,7 @@
 			            <p class="region-content clear">宁夏银川市文昌北街明实楼A617</p>
 			        </div>
 			         <div class="weui-cell__bd region-right-icon">
-			           <a href="addRegion.html?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
+			           <a href="addRegion.php?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
 			        </div>
 			    </div>
 			</div>
