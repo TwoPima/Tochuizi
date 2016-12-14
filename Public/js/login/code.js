@@ -2,7 +2,7 @@
 var iTime = 59;
 function get_mobile_code()
 {
-	$.post("https://sms.yunpian.com/v2/sms/single_send.json", {mobile:jQuery.trim($('#mobile').val())}, function(msg) {
+	$.post(Host+"https://sms.yunpian.com/v2/sms/single_send.json", {mobile:jQuery.trim($('#mobile').val())}, function(msg) {
 		if(msg == 'success')
 		{
 			RemainTime();

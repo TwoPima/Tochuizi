@@ -19,7 +19,7 @@
     <div class="login-content">
 		<div class="weui-row ">
 		  <div class="weui-col-95 logo">
-		  	<a href="login.html"><img alt="" src="../Public/img/login/logo.png" height="" width=""></a>
+		  	<a href="login.php"><img alt="" src="../Public/img/login/logo.png" height="" width=""></a>
 		  </div>
 		</div>		
 		<form action="http://tcw.huikenet.com/mobile.php?c=index&a=login" >
@@ -51,10 +51,10 @@
 		  	<div class="height20px"></div>
 		<div class="weui-row reg-forgetpassword">
 		  <div class="weui-col-50">  
-		     <a href="reg.html" class="">注册</a>
+		     <a href="reg.php" class="">注册</a>
 		  </div>
 		  <div class="weui-col-50">  
-		    <a href="forgetPassword.html" class="">忘记密码</a> 
+		    <a href="forgetPassword.php" class="">忘记密码</a> 
 		  </div>
 		  </div>
 		  </div>
@@ -63,70 +63,61 @@
 </body>
 	 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
  <script src="../Public/js/require.config.js"></script>
-<!--  <script src="../Public/js/zepto.js"></script> -->
-<!-- <script src="../Public/js/vue.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script> -->
- <script src="../Public/js/jquery-2.1.4.js"></script> 
+ <script src="../Public/js/zepto.js"></script> 
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script>
+    $("#mobile").blur(function(){
+    	var mobile = $("#mobile").val();
+    	if(mobile==""|| password==""){
+        	//判断两个均不为空（其他判断规则在其输入时已经判断） 
+			$.toptip('手机号密码均不能为空！', 2000, 'warning');
+		    return false; 
+		  }
+    	checkPhone(mobile);
+    });
 	$("#btn-custom-theme").click(function() {
 		var userIp = returnCitySN["cip"];
 		var mobile = $("#mobile").val();
 		var password = $("#password").val();
 		var checkInfo=$("#checkInfo").val();
-		//console.log(checkInfo);
 		var url =HOST+'mobile.php?c=index&a=login';
-		//var url ='test.php';
 		  if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
-				$.toptip('手机号密码均不能为空！', 200, 'warning');
+				$.toptip('手机号密码均不能为空！', 2000, 'warning');
 			    return false; 
 			  }else{
-				  
-					$.ajax({
-						type: 'post',
-						url: url,
-						data: {mobile:mobile,password:password,ip:userIp,checkInfo:checkInfo},
-						dataType: 'json',
-						//jsonp:"callback",
-						  //jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
-						success: function (data) {
-							alert(data);
-							//var member = eval('(' + data + ')');
-							/* var dataObj=eval("("+data+")");
-							if (dataObj.status==='fail'){
-								$.toptip('登陆失败',200, 'error');
-							}else{
-								$.toptip('成功登陆',200, 'success');
-								window.location.href='http://www.baidu.com';
-							} */
-						},
-						 error: function(XMLHttpRequest,textStatus,errorThrown) {
-							 alert(XMLHttpRequest.status);
-							 alert(XMLHttpRequest.readyState);
-							 alert(textStatus);
-							   },
-						 complete: function(XMLHttpRequest,textStatus) {
-							 this; // 调用本次AJAX请求时传递的options参数
-							   } 
-					});
-		  	}
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: {mobile:mobile,password:password,ip:userIp,checkInfo:checkInfo},
+				dataType: 'json',
+				success: function (data) {
+					//var member = eval('(' + data + ')');
+					var tips=data.message;
+					if (data.statusCode=='0'){
+						$.toptip(tips,2000, 'error');
+					}else{
+						$.toptip(tips,2000, 'success');
+						window.location.href='./UCenter/index.php';
+					} 
+				}
+				/*  error: function(XMLHttpRequest,textStatus,errorThrown) {
+					 alert(XMLHttpRequest.status);
+					 alert(XMLHttpRequest.readyState);
+					 alert(textStatus);
+					   },
+				 complete: function(XMLHttpRequest,textStatus) {
+					 this; // 调用本次AJAX请求时传递的options参数
+					   }  */
+			});
+		}
 	});
 	function checkPhone(){ 
 	    var mobile = document.getElementById('mobile').value;
 	    if(!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))){ 
-	        $.toptip('手机号码有误，请重填！', 200, 'warning');
+	        $.toptip('手机号码有误，请重填！', 2000, 'warning');
 	        return false; 
 	    } 
-	}
-	function checkPassword(){ 
-		var pwd = document.getElementById('password').value;
-		  if (pwd.length > 16 || pwd.length < 6)
-		  {
-		    $.toptip('密码长度应该在 6-16 位', 200, 'warning');
-		    return false;
-		  }
-		  return true;
 	}
 </script>
 <!-- 
@@ -141,25 +132,25 @@ $(".groupselect").on("change",function(){
 	var mosque_id = ob.parent().find('.group').attr('val');
 	$.get("{:U('update')}?ajax=yes&id="+id+"&gid="+gid,function(data){
 		var text = ob.find("option:selected").text();
-		ob.parent().find(".group").removeClass('hide').html(text);
+		ob.parent().find(".group").removeClass('hide').php(text);
 		ob.addClass('hide');
 	 });
 })
 function jumpTo(p, url) { 
 	   var customerId=sessionStorage.customerId; 
 	   if (customerId == undefined) { 
-	     p.attr("href", "page/Login/login.html"); 
+	     p.attr("href", "page/Login/login.php"); 
 	<span style="white-space:pre">  </span>} else { 
 	      p.attr("href", url); 
 	    } 
 	} 
 	 function infoJumpTo() { 
 	   var $info = $("#info"); 
-	   jumpTo($info, "http://localhost/page/AmountAscension/amountAscension.html"); 
+	   jumpTo($info, "http://localhost/page/AmountAscension/amountAscension.php"); 
 	} 
 	 function starJumpTo() { 
 	   var $star = $("#star"); 
-	   jumpTo($star, "http://localhost/page/MyAccount/myAccount.html"); 
+	   jumpTo($star, "http://localhost/page/MyAccount/myAccount.php"); 
 	 }
 	 function confirm(){ 
 		  var tel=$tel.val();//获取页面中登录名和密码 
@@ -177,7 +168,7 @@ function jumpTo(p, url) {
 		         if(data.success){//如果返回来的信息说明提交的信息为正确的 
 		           var customerId = data.attr.customerInfo.id;//将数据中用户信息的ID赋值给变量 
 		           sessionStorage.customerId = customerId;//将变量存储到本地sessionStorage中，并且value为customerID 
-		           window.location.href='http://localhost/index.html';//正确登录后页面跳转至 
+		           window.location.href='http://localhost/index.php';//正确登录后页面跳转至 
 		         }else{//如果返回来的信息说明提供的信息为错误的 
 		           if(tel != data.tel){//判断是用户名还是密码错误，提示相应信息 
 		             alert(data.message); 
