@@ -37,7 +37,7 @@
 		            <p class="clear">待提现</p>
 		          </div>
 		          <span class="float-right">
-			          	<a class="weui_btn weui_btn_mini weui_btn_default" href="cashSubmit.html"> 
+			          	<a class="weui_btn weui_btn_mini weui_btn_default" href="cashSubmit.php"> 
 			          		提&nbsp;&nbsp;现
 			          	</a>
 		          </span>

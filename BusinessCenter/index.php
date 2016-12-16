@@ -20,7 +20,7 @@
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addBusinessInfo.html"><i class="icon iconfont icon-shezhi"></i></a>
+                	<a href="addBusinessInfo.php"><i class="icon iconfont icon-shezhi"></i></a>
                 </div>
 		</div>
 			<section id="shopIndex">
@@ -47,15 +47,15 @@
 			             <div><img src="../Public/img/business/index.png" alt="" class="weui-tabbar__icon"></div>
 			           	 <p class="weui-tabbar__label">店铺首页</p>
 			        </a>
-			        <a href="orderList.html" class="weui-tabbar__item" id="order">
+			        <a href="orderList.php" class="weui-tabbar__item" id="order">
   <div><img src="../Public/img/business/order.png" alt="" class="weui-tabbar__icon"></div>
 			            <p class="weui-tabbar__label">货单管理</p>
 			        </a>
-			        <a href="employ.html" class="weui-tabbar__item" id="job">
+			        <a href="employ.php" class="weui-tabbar__item" id="job">
 			           <div><img src="../Public/img/business/job.png" alt="" class="weui-tabbar__icon"></div>
 			            <p class="weui-tabbar__label">招聘管理</p>
 			        </a>
-			        <a href="cash.html" class="weui-tabbar__item margin-bottom-10px" id="cash">
+			        <a href="cash.php" class="weui-tabbar__item margin-bottom-10px" id="cash">
   					<div class=""><img src="../Public/img/business/cash.png" alt="" class="weui-tabbar__icon"></div>
 			            <p class="weui-tabbar__label">提现管理</p>
 			        </a>

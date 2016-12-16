@@ -143,7 +143,7 @@
 				</div>
 			</form>
 			<div class="addbuin_form_button">
-				<a href="addBusinessInfo.html"  id="btn-custom-theme" class="weui-btn weui-btn_warn">发&nbsp;&nbsp;&nbsp;&nbsp;布</a>
+				<a href="addBusinessInfo.php"  id="btn-custom-theme" class="weui-btn weui-btn_warn">发&nbsp;&nbsp;&nbsp;&nbsp;布</a>
 			</div>
 		</div>
 	</div>
