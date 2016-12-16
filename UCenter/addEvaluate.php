@@ -99,30 +99,109 @@
     </div><!--main-->
 </div><!--app-->
 </body>
-<script src="../Public/js/zepto.js"></script>
+<input value="<?php echo md5(date('Ymd')."edit_self"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+ <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/vue.js"></script>
 <script src="../Public/js/center.js"></script>
 <script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
   <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
 <script>
-$(function() {
-    $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-    $('#description-raty').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
-    $('#logistic-raty').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
-    $('#server-raty').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
+$(function(){
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId=='undefined'){
+		//没有登陆
+		$.toptip('您还没有登陆！',2000, 'error');
+		window.location.href='../Login/login.php';
+	}else{
+		//已经登陆
+		//收藏启动
+		 $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
+		    $('#description-raty').raty({ 
+		    	  score: function() { 
+		    	    return $(this).attr('data-score'); 
+		    	  } 
+		    	}); 
+		    $('#logistic-raty').raty({ 
+		    	  score: function() { 
+		    	    return $(this).attr('data-score'); 
+		    	  } 
+		    	}); 
+		    $('#server-raty').raty({ 
+		    	  score: function() { 
+		    	    return $(this).attr('data-score'); 
+		    	  } 
+		    	}); 
+	    	
+  	var checkInfo = $("#checkInfo").val();
+  	var url =HOST+'mobile.php?c=index&a=edit_self';
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo,id:sessionUserId},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					//数据取回成功
+					var mobile=$.session.get('mobileSession');
+					new Vue({
+						  el: '#mobile',
+						  data: {
+						   mobile: mobile
+						  }
+						/*   el: '#nickname',
+						  data: {
+							  nickname: nickname
+						  }
+						  el: '#typeMember',
+						  data: {
+							  typeMember: typeMember
+						  } */
+						})
+				}
+			},
+		});
+	  //文本框失去焦点后
+	   $('form :input').blur(function(){
+	        //验证手机
+	        if( $(this).is('#mobile') ){
+	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
+	                return false; 
+	            } 
+	      }
+	}
 });
-
+ //提交，最终验证。
+ $("#btn-custom-theme").click(function() {
+		var sex = $("#sex").val();
+		var nickname = $("#nickname").val();
+		var sex=$("input[name='sex':checked").val();
+       	var url =HOST+'mobile.php?c=index&a=edit_self';
+        if(mobile==""|| nickname==""){
+       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
+       	    return false; 
+       	 }
+		 $.ajax({
+			type: 'post',
+			url: url,
+			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					$.toptip(message,2000, 'success');
+					window.location.href='./UCenter/index.php';
+				}
+			},
+		});
+  });
+});
 </script>
 </html>

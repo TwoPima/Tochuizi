@@ -22,7 +22,7 @@
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addJob.html"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<a href="addJob.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
                 </div>
 		</div>
 	<div class="clear"></div>
@@ -33,11 +33,11 @@
                     <p>成龙 1824514575</p>
                     <p>技工》木工</p>
                 </div>
-               <a href="addJobResume.html"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
+               <a href="addJobResume.php"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
             </div>
             <div class="box_bg"></div>
         <div class="weui-cells">
-	             <a class="weui-cell weui-cell_access" href="addJobResume.html">
+	             <a class="weui-cell weui-cell_access" href="addJobResume.php">
 	                <div class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">诚求一个好工作</div>
 	                <div class="weui-cell__ft" style="font-size: 0">
 	                    <span style="vertical-align:middle; font-size: 14px;">5天以前</span>
@@ -46,7 +46,7 @@
                 </a>
         </div>
         <div class="weui-cells">
-           <a class="weui-cell weui-cell_access" href="addJobResume.html">
+           <a class="weui-cell weui-cell_access" href="addJobResume.php">
                 <div class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">专业版和普通版区别，专业版收费</div>
                 <div class="weui-cell__ft" style="font-size: 0">
                     <span style="vertical-align:middle; font-size: 14px;">5天以前</span>

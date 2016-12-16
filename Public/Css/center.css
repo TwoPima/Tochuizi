@@ -129,6 +129,17 @@ body{
 	position: relative;
 	text-align: center;
 	color: #ffffff;
+	width: 120%;
+}
+.nologin .head_title {
+    width: 50%;
+    margin: auto;
+    margin-top: 10%;
+    padding: 10px;
+}
+.nologin .head_title p {
+    margin: auto 0;
+    text-align: center;
 }
 /*首页头部结束  */
 #main{

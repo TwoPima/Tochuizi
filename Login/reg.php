@@ -68,13 +68,12 @@
     </body>
 <input value="<?php echo md5(date('Ymd')."register"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <script src="../Public/js/require.config.js"></script>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
+<!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script type="text/javascript" src="../Public/js/login/code.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
-
+<script type="text/javascript" src="../Public/js/login/code.js"></script>
 <script type="text/javascript">
 $(function(){
      //文本框失去焦点后
@@ -88,7 +87,7 @@ $(function(){
          }
          //验证密码
          if( $(this).is('#password') ){
-        	 if (this.length > 16 || this.length < 6)
+        	 if (this.value.length > 16 || this.value.length < 6)
           	  {
           	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
           	    return false;
@@ -96,7 +95,7 @@ $(function(){
          }
          //验证重复密码
          if( $(this).is('#repassword') ){
-          	  if (this.length == $("#password").length)
+          	  if (this.value!== $("#password").val())
           	  {
           	    $.toptip('前后密码不一致！', 2000, 'warning');
           	    return false;
@@ -112,44 +111,46 @@ $(function(){
                   $parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
             }
          } */
-    }).keyup(function(){
+    });/* .keyup(function(){
        $(this).triggerHandler("blur");
     }).focus(function(){
-       $(this).triggerHandler("blur");
- });//end blur
+       $(this).triggerHandler("blur"); 
+ });//end blur*/
   //提交，最终验证。
   $("#btn-custom-theme").click(function() {
-            var userIp = returnCitySN["cip"];
         	var mobile = $("#mobile").val();
         	var password = $("#password").val();
-        	var repassword = $("#repassword").val();
-        	var weuiAgree = $("#weuiAgree").val();
+        	var code = $("#code").val();
         	var checkInfo = $("#checkInfo").val();
         	var url =HOST+'mobile.php?c=index&a=register';
-            if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
-        		$.toptip('手机号密码均不能为空！', 200, 'warning');
+           if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
+        		$.toptip('手机号密码均不能为空！', 2000, 'warning');
         	    return false; 
-        	 }
-        	  if(weuiAgree==''){
-        		  $.toptip('必须同意本网站的注册协议！', 200, 'warning');
-        		   return false;  
-        	  }
+        	 } 
+            var hasChk = $('#weuiAgree').is(':checked');
+            if(!hasChk){
+          	  $.toptip('必须同意本网站的注册协议！', 2000, 'warning');
+      		   return false;  
+            } 
 			 $.ajax({
 				type: 'post',
 				url: url,
-				data: {mobile:mobile,password:password,ip:userIp,code:code,checkInfo:checkInfo},
+				data: {mobile:mobile,password:password,code:code,checkInfo:checkInfo},
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
+					var tips=result.message;
+					if (result.statusCode=='0'){
+						$.toptip(tips,2000, 'error');
 					}else{
-						$.toptip(message,2000, 'success');
-						window.location.href='./UCenter/index.php';
-					}
-				},
+						var userId = result.id;//将数据中用户信息的ID赋值给变量 
+						$.session.set('userId', userId); 
+						$.toptip(tips,2000, 'success');
+						window.location.href='../UCenter/index.php';
+					} 
+				}
 			});
    });
-})
+});
 </script>
 </html>

@@ -30,7 +30,8 @@
             <div class="info-head">
                     <div class="head_img ">
                         <a><img src="../Public/img/index/index_headimg2.jpg" alt="">
-                        <input class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=""></a>
+                        <input class="weui_uploader_input" id="uploadphoto" type="file" onchange="" style="display:none" name="avatar"accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                        </a>
                     </div>
             </div>
                     <div class="weui-cell">
@@ -72,84 +73,122 @@
 </div><!--app-->
 </body>
 <input value="<?php echo md5(date('Ymd')."edit_self"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."headpic"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
+ <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/vue.js"></script>
+<script type='text/javascript' src='../Public/plugins/uploadImg/LocalResizeIMG.js'></script>
+<script type='text/javascript' src='../Public/plugins/uploadImg/mobileBUGFix.mini.js'></script>
 <script src="../Public/js/center.js"></script>
 <script>
+$(document).ready(function(e) {
+	 var urlHeadImg= HOST+'mobile.php?c=index&a=headpic';
+	 //avatar=$("avatar").src();
+	 checkInfoHeadImg=$("checkInfoHeadImg").val();
+   $('#uploadphoto').localResizeIMG({
+      width: 400,
+      quality: 1,
+      success: function (result) {  
+		  var submitData={
+				base64_string:result.clearBase64, 
+			}; 
+		$.ajax({
+		   type: "POST",
+		   url: "upload.php",
+		   data: submitData,
+		   dataType:"json",
+		   success: function(data){
+			 if (0 == data.status) {
+				alert(data.content);
+				return false;
+			 }else{
+				alert(data.content);
+				var attstr= '<img src="'+data.url+'">'; 
+				$(".imglist").append(attstr);
+				return false;
+			 }
+		   }, 
+			complete :function(XMLHttpRequest, textStatus){
+			},
+			error:function(XMLHttpRequest, textStatus, errorThrown){ //上传失败 
+			   alert(XMLHttpRequest.status);
+			   alert(XMLHttpRequest.readyState);
+			   alert(textStatus);
+			}
+		}); 
+      }
+  });
+
+}); 
 $(function(){
-    //文本框失去焦点后
-   $('form :input').blur(function(){
-        //验证手机
-        if( $(this).is('#mobile') ){
-       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-                return false; 
-            } 
-        }
-        //验证密码
-        if( $(this).is('#password') ){
-       	 if (this.length > 16 || this.length < 6)
-         	  {
-         	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
-         	    return false;
-         	  }
-        }
-        //验证重复密码
-        if( $(this).is('#repassword') ){
-         	  if (this.length == $("#password").length)
-         	  {
-         	    $.toptip('前后密码不一致！', 2000, 'warning');
-         	    return false;
-         	  }
-        }
-      /*   //验证邮件
-        if( $(this).is('#email') ){
-           if( this.value=="" || ( this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value) ) ){
-                 var errorMsg = '请输入正确的E-Mail地址.';
-                 $parent.append('<span class="formtips onError">'+errorMsg+'</span>');
-           }else{
-                 var okMsg = '输入正确.';
-                 $parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
-           }
-        } */
-   }).keyup(function(){
-      $(this).triggerHandler("blur");
-   }).focus(function(){
-      $(this).triggerHandler("blur");
-});//end blur
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId=='undefined'){
+		//没有登陆
+		$.toptip('您还没有登陆！',2000, 'error');
+		window.location.href='../Login/login.php';
+	}else{
+		//已经登陆
+  	var checkInfo = $("#checkInfo").val();
+  	var url =HOST+'mobile.php?c=index&a=edit_self';
+	/*  $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo,id:sessionUserId},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					//数据取回成功
+					var mobile=$.session.get('mobileSession');
+					new Vue({
+						  el: '#mobile',
+						  data: {
+						   mobile: mobile
+						  }
+						})
+				}
+			}
+		}); */
+	  //文本框失去焦点后
+	   $('form :input').blur(function(){
+	        //验证手机
+	        if( $(this).is('#mobile') ){
+	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
+	                return false; 
+	            } 
+	      }
+		});
+}
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {
-           var userIp = returnCitySN["cip"];
-       	var mobile = $("#mobile").val();
-       	var password = $("#password").val();
-       	var repassword = $("#repassword").val();
-       	var weuiAgree = $("#weuiAgree").val();
-       	var checkInfo = $("#checkInfo").val();
+		var sex = $("#sex").val();
+		var nickname = $("#nickname").val();
+		var sex=$("input[name='sex':checked").val();
        	var url =HOST+'mobile.php?c=index&a=edit_self';
-           if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
-       		$.toptip('手机号密码均不能为空！', 200, 'warning');
+        if(mobile==""|| nickname==""){
+       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
        	    return false; 
        	 }
-       	  if(weuiAgree==''){
-       		  $.toptip('必须同意本网站的注册协议！', 200, 'warning');
-       		   return false;  
-       	  }
-			 $.ajax({
-				type: 'post',
-				url: url,
-				data: {mobile:mobile,password:password,ip:userIp,code:code,checkInfo:checkInfo},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
-					}else{
-						$.toptip(message,2000, 'success');
-						window.location.href='./UCenter/index.php';
-					}
-				},
-			});
+		 $.ajax({
+			type: 'post',
+			url: url,
+			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					$.toptip(message,2000, 'success');
+					window.location.href='./UCenter/index.php';
+				}
+			},
+		});
   });
-})
+});
 </script>
 </html>

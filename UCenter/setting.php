@@ -9,10 +9,6 @@
         <link rel="stylesheet" href="../Public/css/center.css"/>
         <link rel="stylesheet" href="../Public/css/common.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-	<!-- 多语言 -->
-	<script>
-		var lang_flag = 1;
-	</script>
 </head>
 <body>
 <div id="app">

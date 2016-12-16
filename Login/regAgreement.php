@@ -53,10 +53,28 @@
 		</div>
 	</div>
 </body>
-  <script src="../Public/js/zepto.js"></script>
-<script src="../Public/js/vue.js"></script>
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/vue.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script>
+$(function(){
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				var tips=result.message;
+				if (result.statusCode=='0'){
+					$.toptip(tips,2000, 'error');
+				}else{
+					$.toptip(tips,2000, 'success');
+					window.location.href='login.php';
+				} 
+			}
+		});
+});
 </script>
 </html>

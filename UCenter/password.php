@@ -11,24 +11,6 @@
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
-        <script>
-/**
- * 全局变量
- */
-var SITE_URL  = '<php> echo SITE_URL;</php>';
-var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
-var THEME_URL = '__THEME__';
-var APPNAME   = '<php> echo APP_NAME;</php>';
-var MID       = '<php> echo $mid;</php>';
-var UID       = '<php> echo $uid;</php>';
-var initNums  =  '<php> echo $initNums;</php>';
-var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
-var _CITY = '{:session("init_city")}';
-var ISWAP = 1;
-var USER_UN_SETTING = '{$unsetting}';
-// js语言变量
-var LANG = new Array();
-</script>
     </head>
     <body id="login">
     <div id="topback-header">
@@ -41,17 +23,23 @@ var LANG = new Array();
                 <div id="header-right">
                 </div>
 		</div>
-			<div class="weui_cells weui_cells_form login-form clear">
+				<div class="weui_cells weui_cells_form login-form clear">
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/password.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
-				      <input class="weui_input" type="password" placeholder="设置密码">
+				      <input class="weui_input" type="password" name="old_password" id="old_password"placeholder="原来密码">
 				    </div>
 				  </div>
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/password.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
-				      <input class="weui_input" type="password" placeholder="重复密码">
+				      <input class="weui_input" type="password" name="new_password" id="new_password"placeholder="设置新密码">
+				    </div>
+				  </div>
+				  <div class="weui_cell">
+				    <div class="weui_cell_hd"><img src="../Public/img/login/password.png"></div>
+				    <div class="weui_cell_bd weui_cell_primary">
+				      <input class="weui_input" type="password" name="repassword" id="repassword" placeholder="重复密码">
 				    </div>
 				  </div>
 				</div>
@@ -60,8 +48,65 @@ var LANG = new Array();
                 <a href="javascript:;" class="weui-btn weui-btn_plain-default "id="btn-custom-theme">提&nbsp;&nbsp;&nbsp;&nbsp;交</a>
             </div>
     </body>
-      <script src="../Public/js/zepto.js"></script>
-<script src="../Public/js/vue.js"></script>
+    <input value="<?php echo md5(date('Ymd')."password"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+ <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/vue.js"></script>
+<script src="../Public/js/center.js"></script>
+<script type="text/javascript">
+$(function(){
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId=='undefined'){
+		//没有登陆
+		$.toptip('您还没有登陆！',2000, 'error');
+		window.location.href='../Login/login.php';
+	}
+	  //文本框失去焦点后
+	   $('form :input').blur(function(){
+			 //验证密码
+	         if( $(this).is('#new_password') ){
+	        	 if (this.value.length > 16 || this.value.length < 6)
+	          	  {
+	          	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
+	          	    return false;
+	          	  }
+	         }
+	         //验证重复密码
+	         if( $(this).is('#old_password') ){
+	          	  if (this.value!== $("#new_password").val())
+	          	  {
+	          	    $.toptip('前后密码不一致！', 2000, 'warning');
+	          	    return false;
+	          	  }
+	         }
+		}
+});
+ //提交，最终验证。
+ $("#btn-custom-theme").click(function() {
+		var new_password = $("#new_password").val();
+		var old_password = $("#old_password").val();
+       	var url =HOST+'mobile.php?c=index&a=password';
+        if(password==""{
+       		$.toptip('密码不能为空！', 200, 'warning');
+       	    return false; 
+       	 }
+		 $.ajax({
+			type: 'post',
+			url: url,
+			data: {id:sessionUserId,new_password:new_password,old_password:old_password,checkInfo:checkInfo},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					$.toptip(message,2000, 'success');
+					window.location.href='./UCenter/index.php';
+				}
+			},
+		});
+  });
+});
+</script>
 </html>
