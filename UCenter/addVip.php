@@ -59,8 +59,8 @@
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
 					<div class="vip_money">
-						<p class="vip_money_line1">100元</p>
-						<p class="vip_money_line2">120次查询</p>
+						<p class="vip_money_line1"><span id="price">100</span>元</p>
+						<p class="vip_money_line2"><span id="count">120</span>次查询</p>
 					</div>
 				</div>
 				<div class="vip_action">
@@ -137,53 +137,24 @@
 	</div>
 </div>
 </body>
-<input value="<?php echo md5(date('Ymd')."vip_recharge"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>  
-<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/>  
+<input value="<?php echo md5(date('Ymd')."vip_category"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."vip_recharge"."tuchuinet");?>"	type="hidden" id="checkInfoRecharge"/>  
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
+	if(sessionUserId==null){
 		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
-	}else{
+	}
 		//已经登陆
-  	var checkInfo = $("#checkInfo").val();
-  	var url =HOST+'mobile.php?c=index&a=my_resume';
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						/*   el: '#nickname',
-						  data: {
-							  nickname: nickname
-						  }
-						  el: '#typeMember',
-						  data: {
-							  typeMember: typeMember
-						  } */
-						})
-				}
-			},
-		});
+  	var vipType=getVipList($("#checkInfo").val());//提取vip分类
+  	
 	  //文本框失去焦点后
 	   $('form :input').blur(function(){
 	        //验证手机
@@ -193,33 +164,30 @@ $(function(){
 	                return false; 
 	            } 
 	      }
-	}
+	});
 });
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
-		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
-       	var url =HOST+'mobile.php?c=index&a=my_resume';
-        if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
-		 $.ajax({
+//提交，最终验证。
+$("#btn-custom-theme").click(function() {
+		var method = $("#method").val();
+		var checkInfoRecharge = $("#checkInfoRecharge").val();
+		var vip_count = $("#vip_count").val();
+		var class_id = $("#class_id").val();
+		var vip_count = $("#vip_count").val();
+		var url =HOST+'mobile.php?c=index&a=vip_recharge';
+       if(mobile==""|| nickname==""){
+      		$.toptip('手机号昵称均不能为空！', 200, 'warning');
+      	    return false; 
+      	 }
+       $.ajax({
 			type: 'post',
 			url: url,
-			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
+			data: {checkInfo:checkInfoRecharge,vip_count:vip_count,user_id:sessionUserId,method:method,class_id:class_id},
 			dataType: 'json',
 			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
-				}
-			},
-		});
+				var id=result.data.id;
+				var name=result.data.name;
+			}
+	  }); 
 });
 </script>
 </html>

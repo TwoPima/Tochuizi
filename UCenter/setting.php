@@ -36,7 +36,7 @@
 		        </a>
 		    </div>
 		    <div class="weui-cell">
-		     <a href="abo.phpml">
+		     <a href="about.html">
 		        <div class="weui-cell__bd">
 		            <p>关于土锤</p>
 		        </div>

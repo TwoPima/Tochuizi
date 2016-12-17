@@ -37,10 +37,10 @@ function getAreaList(checkInfo){
 }
 //vip分类获取接口
 function getVipList(checkInfo){
-	 var urlHeadImg= HOST+'mobile.php?c=index&a=vip_category';
+	 var urlVip= HOST+'mobile.php?c=index&a=vip_category';
 	 $.ajax({
 		   type: "POST",
-		   url: "upload.php",
+		   url: urlVip,
 		   data: {checkInfo:checkInfo},
 		   dataType:"json",
 		   success: function(data){
@@ -51,7 +51,10 @@ function getVipList(checkInfo){
 				alert(data.price);
 				return false;
 			 }else{
-				alert(data.content);
+				 alert(data.id);
+					alert(data.name);
+					alert(data.count);
+					alert(data.price);
 				var attstr= '<img src="'+data.url+'">'; 
 				$(".imglist").append(attstr);
 				return false;
@@ -110,5 +113,4 @@ function uploadMultImg(add_picture,id){
 				var name=result.data.name;
 			}
 	  }); 
-	  return name
 }
