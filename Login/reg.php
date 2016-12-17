@@ -39,7 +39,7 @@
 				      <input class="weui_input" type="text" name="code" id="code"  placeholder="请输入验证码">
 				    </div>
 				    <div class="weui-cell__ft">
-			            <a href="javascript:;" id="getCodeBtn" name="getCodeBtn" class="weui-vcode-btn">获取验证码</a>
+			            <a  id="getCodeBtn" name="getCodeBtn" class="weui-vcode-btn">获取验证码</a>
 			        </div>
 				  </div>
 				  <div class="weui_cell">
@@ -69,7 +69,7 @@
 <input value="<?php echo md5(date('Ymd')."register"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
-<!-- <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> -->
+<script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
@@ -77,7 +77,7 @@
 <script type="text/javascript">
 $(function(){
      //文本框失去焦点后
-    $('form :input').blur(function(){
+    $('form:input').blur(function(){
          //验证手机
          if( $(this).is('#mobile') ){
         	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
@@ -142,11 +142,13 @@ $(function(){
 					var tips=result.message;
 					if (result.statusCode=='0'){
 						$.toptip(tips,2000, 'error');
+						return false;
 					}else{
-						var userId = result.id;//将数据中用户信息的ID赋值给变量 
+						var userId = result.data.id;//将数据中用户信息的ID赋值给变量 
+						var mobileSession = result.data.mobile;//将数据中用户信息的ID赋值给变量 
 						$.session.set('userId', userId); 
+						$.session.set('mobileSession', mobileSession); 
 						$.toptip(tips,2000, 'success');
-						window.location.href='../UCenter/index.php';
 					} 
 				}
 			});

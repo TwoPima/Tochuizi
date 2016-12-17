@@ -96,6 +96,7 @@
 					var tips=data.message;
 					if (data.statusCode=='0'){
 						$.toptip(tips,2000, 'error');
+						return false;
 					}else{
 						var userId = data.data.id;//将数据中用户信息的ID赋值给变量 
 						var mobileSession = data.data.mobile;//将数据中用户信息的ID赋值给变量 
