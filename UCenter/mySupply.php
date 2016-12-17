@@ -11,6 +11,17 @@
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/common.css"/>
 	<script src="../Public/js/jquery-2.1.4.js"></script>
+<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
+<input value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
+<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/>
+<input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_all"/>
+<input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
+<!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
+<script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
+<script src="../Public/plugins/touchWipe/touchWipe.js"></script>
 	<script src="../Public/js/iscroll.js"></script>
 	<script type="text/javascript">
 		var myScroll;
@@ -191,21 +202,6 @@
 </div>
 </div>
 </body>
-<!--<input value="<?php /*echo md5(date('Ymd')."my_resume"."tuchuinet");*/?>"	type="hidden" id="checkInfo"/>
-<input value="<?php /*echo md5(date('Ymd')."add_picture"."tuchuinet");*/?>"	type="hidden" id="checkInfoAddImg"/>
-<input value="<?php /*echo md5(date('Ymd')."del_picture"."tuchuinet");*/?>"	type="hidden" id="checkInfoDelImg"/> -->
-<input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_all"/>
-<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
-<!--<input value="--><?php //echo md5(date('Ymd')."zidian"."tuchuinet");?><!--"	type="hidden" id="checkInfoZidian"/>  -->
-<!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
-<script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<!--<script src="../Public/js/vue.js"></script>-->
-<script src="../Public/js/fastclick.js"></script>
-<script src="../Public/js/common.js"></script>
-<script src="../Public/plugins/touchWipe/touchWipe.js"></script>
-<script src="../Public/js/center.js"></script>
-
 <script>
 $(function(){
 	var sessionUserId=$.session.get('userId');

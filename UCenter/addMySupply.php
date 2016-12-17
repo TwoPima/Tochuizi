@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>个人主页-我的供求</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.min.css"/>
+   <link rel="stylesheet" href="../Public/css/weui.css"/>
+	    <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
+   <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
@@ -83,7 +85,6 @@
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/center.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
