@@ -10,6 +10,42 @@
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
         <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
+         <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
+<input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
+<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
+<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/> <!-- 删除公司照片 --> 
+ <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
+<script>
+sessionUserId=$.session.get('userId');
+if(sessionUserId==null){
+	//没有登陆
+	$.toptip('您还没有登陆！',2000, 'error');
+	window.location.href='../Login/login.php';
+}else{
+	//已经登陆
+var checkInfoLogin = $("#checkInfoLogin").val();
+var url =HOST+'mobile.php?c=index&a=login';
+  $.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoLogin,id:sessionUserId},
+		dataType: 'json',
+		success: function (result) {
+			var message=result.message;
+			if (result.statusCode==='0'){
+				$.toptip('登陆超时请重新登陆！',2000, 'warning');
+				window.location.href='../Login/login.php';
+			}
+		}
+	}); 
+}
+</script>
     </head>
     <body id="">
 			<div id="topback-header">
@@ -106,11 +142,8 @@
 			</section>
 			
     </body>
-      <script src="../Public/js/zepto.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
-  <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
+ <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
 <script>
 $(function() {
     $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';

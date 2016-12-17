@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>个人主页-求职简历</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.css"/>
-    <link rel="stylesheet" href="../Public/css/common.css"/>
-    <link rel="stylesheet" href="../Public/css/setting.css"/>
-    <link rel="stylesheet" href="../Public/css/myjob_jianliinfo.css"/>
+    	<link rel="stylesheet" href="../Public/css/weui.css"/>
+	    <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
+   <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
       <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+    <link rel="stylesheet" href="../Public/css/common.css"/>
+    <link rel="stylesheet" href="../Public/css/center.css"/>
+    <link rel="stylesheet" href="../Public/css/myjob_jianliinfo.css"/>
 </head>
 <body>
 <div id="app">
@@ -23,8 +25,7 @@
             <a href="addMySupply.php"><span></span></a>
         </div>
     </div>
-    <div style="clear: both"></div>
-    <div id="jianliinfo">
+    <div id="jianliinfo" class="clear">
         <div class="info_box">
             <div class="weui-cells weui-cells_form" style="margin-top: 10px;">
                 <div class="weui-cell ">
@@ -40,7 +41,7 @@
                         <label class="weui-label">性别:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="" id="" >
+                        <input class="weui-input" type="text" name="sex" id="sex" >
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -48,7 +49,7 @@
                         <label class="weui-label">出生年份:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" name="birthday"  data-toggle='date' id="birthday" type="text" >
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -56,7 +57,7 @@
                         <label class="weui-label">最高学历:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" name="education" id="education" type="text" >
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -124,7 +125,7 @@
                         </div>
                         <div class="weui-uploader__bd">
                             <div class="weui-uploader__input-box">
-                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                                <input id="uploaderInput" class="weui-uploader__input" name="image_url" type="file" accept="image/*" multiple="">
                             </div>
                         </div>
                     </div>
@@ -132,7 +133,7 @@
             </div>
         </div>
         <div class="add_button">
-            <a href="#" id="btn-custom-theme" class="weui-btn weui-btn_default">保存</a>
+            <a  class="weui-btn weui-btn_default" id="btn-custom-theme">保存</a>
         </div>
     </div><!--main-->
 </div><!--app-->
@@ -149,14 +150,14 @@
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
+ <script src="../Public/js/jquery-weui.min.js"></script>
+ <script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
+	if(sessionUserId==null){
 		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
 	}else{
 		//已经登陆
@@ -171,15 +172,10 @@ $(function(){
 				var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
+					window.location.href='../Login/login.php';
 				}else{
 					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						})
+					
 				}
 			}
 		});
@@ -194,6 +190,7 @@ $(function(){
 	      }
 	});
 	}
+	$("#birthday").calendar();//日历
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {

@@ -7,10 +7,70 @@
 	<link rel="stylesheet" href="../Public/css/weui.css"/>
 	    <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
    <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
-	<link rel="stylesheet" href="../Public/css/center.css"/>
 	  <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	  <link rel="stylesheet" href="../Public/css/common.css"/>
+	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/dianliang.css"/>
+	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
+<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
+ <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script>
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId=='undefined'){
+		//没有登陆
+		$.toptip('您还没有登陆！',2000, 'error');
+		window.location.href='../Login/login.php';
+	}else{
+		//已经登陆  取会员类别
+  	var url =HOST+'mobile.php?c=index&a=my_resume';
+  	var checkInfo = $("#checkInfo").val();
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo,member_id:sessionUserId},
+			dataType: 'json',
+			success: function (result) {
+				//查询当前会员类型  没有默认第一个  有直接跳转到  
+				var message=result.message;
+				if (result.statusCode==='0'){
+					//不存在简历  创建简历
+					var memberType=result.data.cate_id;
+					var cate_id=$("input[name='typeMember':checked").val();
+					$("#rdo1").attr("checked","checked");
+					$("#rdo1").removeAttr("checked");
+				}else{
+					//跳转到简历
+					window.location.href='addJobResume.php';
+				}
+			}
+		});
+}
+ //提交，最终验证。
+ $("#btn-custom-theme").click(function() {
+		var cate_id=$("input[name='typeMember':checked").val();
+		var  checkInfoResume = $("#checkInfoResume").val();
+       	var url =HOST+'mobile.php?c=index&a=my_resume';
+		 $.ajax({
+			type: 'post',
+			url: url,
+			data: {member_id:sessionUserId,cate_id:cate_id,checkInfo:checkInfoResume,do:add},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					$.toptip(message,2000, 'success');
+					window.location.href='./UCenter/index.php';
+				}
+			},
+		});
+});
+</script>
 </head>
 <body>
 <div id="app">
@@ -76,68 +136,4 @@
 	</div><!--main-->
 </div><!--app-->
 </body>
-<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
-<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
- <script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
-<script>
-$(function(){
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
-		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
-		window.location.href='../Login/login.php';
-	}else{
-		//已经登陆  取会员类别
-  	var url =HOST+'mobile.php?c=index&a=my_resume';
-  	var checkInfo = $("#checkInfo").val();
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,member_id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				//查询当前会员类型  没有默认第一个  有直接跳转到  
-				var message=result.message;
-				if (result.statusCode==='0'){
-					//不存在简历  创建简历
-					var memberType=result.data.cate_id;
-					var cate_id=$("input[name='typeMember':checked").val();
-					$("#rdo1").attr("checked","checked");
-					$("#rdo1").removeAttr("checked");
-				}else{
-					//跳转到简历
-					window.location.href='addJobResume.php';
-				}
-			}
-		});
-		}
-	});
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var cate_id=$("input[name='typeMember':checked").val();
-		var  checkInfoResume = $("#checkInfoResume").val();
-       	var url =HOST+'mobile.php?c=index&a=my_resume';
-		 $.ajax({
-			type: 'post',
-			url: url,
-			data: {member_id:sessionUserId,cate_id:cate_id,checkInfo:checkInfoResume,do:add},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
-				}
-			},
-		});
-});
-</script>
 </html>

@@ -8,7 +8,11 @@
         <link rel="stylesheet" href="../Public/css/weui.css"/>
         <link rel="stylesheet" href="../Public/css/center.css"/>
         <link rel="stylesheet" href="../Public/css/common.css"/>
-          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+        <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+        <script src="../Public/js/require.config.js"></script>
+        <script src="../Public/js/jquery-2.1.4.js"></script>
+        <script src="../Public/js/jquery-weui.min.js"></script>
+        <script src="../Public/js/jquery-session.js"></script>
 </head>
 <body>
 <div id="app">
@@ -58,7 +62,4 @@
 	</div><!--main-->
 </div><!--app-->
 </body>
-<script src="../Public/js/zepto.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
 </html>

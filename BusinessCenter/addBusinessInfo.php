@@ -1,16 +1,52 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>个人主页-加盟商入驻</title>
-	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	   <link rel="stylesheet" type="text/css" href="../Public/css/jquery-weui.min.css">
-        <link rel="stylesheet" type="text/css"  href="../Public/css/weui.css"/>
-        <link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
-        <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
-         <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
+    <meta charset="UTF-8">
+    <title>个人主页-加盟商入驻</title>
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="../Public/css/weui.css">
+    <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
+   <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-
+        <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
+        <link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
+         <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
+<input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
+<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
+<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/> <!-- 删除公司照片 --> 
+ <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
+<script>
+sessionUserId=$.session.get('userId');
+if(sessionUserId==null){
+	//没有登陆
+	$.toptip('您还没有登陆！',2000, 'error');
+	window.location.href='../Login/login.php';
+}else{
+	//已经登陆
+var checkInfoLogin = $("#checkInfoLogin").val();
+var url =HOST+'mobile.php?c=index&a=login';
+  $.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoLogin,id:sessionUserId},
+		dataType: 'json',
+		success: function (result) {
+			var message=result.message;
+			if (result.statusCode==='0'){
+				$.toptip('登陆超时请重新登陆！',2000, 'warning');
+				window.location.href='../Login/login.php';
+			}
+		}
+	}); 
+}
+</script>
 </head>
 <body>
 		<div id="topback-header">
@@ -25,15 +61,14 @@
 		</div>
 	<!--内容页面  -->
 	<div id="addbuin-main" class="clear">
-		<div class="addbuin_title">
-			<div class="addbuin_title_img ">
-				<img src="../Public/img/warnning.png" class="" alt="">
-			</div>
-			<div class="addbuin_title_info">
-				公司名称是必须要填写的
-			</div>
-		</div>
-
+    		<div class="addbuin_title" id="topTips">
+    			<div class="addbuin_title_img ">
+    				<img src="../Public/img/warnning.png" class="" alt="">
+    			</div>
+    			<div class="addbuin_title_info">
+    				公司名称是必须要填写的
+    			</div>
+    		</div>		
 		<div class="addbuin_form" >
 			<form action="">
 				<div class="addbuin_form_jichu">
@@ -97,7 +132,7 @@
 												</li>-->
 											</ul>
 											<div class="weui-uploader__input-box">
-												<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+												<input id="uploaderInput" class="weui-uploader__input" name="licence_thumb" id="licence_thumb" type="file" accept="image/*" multiple />
 											</div>
 											<div class="weui-uploader__input-box_title">
 												点击查看营业执照图片 <br>
@@ -147,131 +182,98 @@
 				</div>
 			</form>
 			<div class="addbuin_form_button">
-				<a href="addBusinessInfo.php"id="btn-custom-theme" class="weui-btn">申请加盟</a>
+				<a id="btn-custom-theme" class="weui-btn">申请加盟</a>
 			</div>
 
 		</div>
 	</div>
 </body>
-
-<input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
-<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/> <!-- 删除公司照片 --> 
- <script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script type='text/javascript' src='../Public/plugins/uploadImg/LocalResizeIMG.js'></script>
-<script type='text/javascript' src='../Public/plugins/uploadImg/mobileBUGFix.mini.js'></script>
-<script src="../Public/js/center.js"></script>
-<script>
-$(document).ready(function(e) {
-	 var urlHeadImg= HOST+'mobile.php?c=index&a=my_partner';
-	 //avatar=$("avatar").src();
-	 checkInfoHeadImg=$("checkInfoHeadImg").val();
-   $('#uploadphoto').localResizeIMG({
-      width: 400,
-      quality: 1,
-      success: function (result) {  
-		  var submitData={
-				base64_string:result.clearBase64, 
-			}; 
-		$.ajax({
-		   type: "POST",
-		   url: "upload.php",
-		   data: submitData,
-		   dataType:"json",
-		   success: function(data){
-			 if (0 == data.status) {
-				alert(data.content);
-				return false;
-			 }else{
-				alert(data.content);
-				var attstr= '<img src="'+data.url+'">'; 
-				$(".imglist").append(attstr);
-				return false;
-			 }
-		   }, 
-			complete :function(XMLHttpRequest, textStatus){
-			},
-			error:function(XMLHttpRequest, textStatus, errorThrown){ //上传失败 
-			   alert(XMLHttpRequest.status);
-			   alert(XMLHttpRequest.readyState);
-			   alert(textStatus);
-			}
-		}); 
-      }
-  });
-
-}); 
+<script type="text/javascript">
 $(function(){
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
-		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
-		window.location.href='../Login/login.php';
-	}else{
-		//已经登陆
-  	var checkInfo = $("#checkInfo").val();
-  	var url =HOST+'mobile.php?c=index&a=edit_self';
-	/*  $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						})
-				}
-			}
-		}); */
-	  //文本框失去焦点后
+	 //文本框失去焦点后
 	   $('form :input').blur(function(){
 	        //验证手机
 	        if( $(this).is('#mobile') ){
 	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+		       		$.notification({
+			       		  title: "",
+			       		  text: "I miss you",
+			       		  media: "<img src='../Public/img/warnning.png'>",
+			       		  data: "123",
+			       		  onClick: function(data) {
+			       		   // $.alert("Click" + data);
+			       		  },
+			       		  onClose: function(data) {
+			       		    $.alert("Close "+data);
+			       		  }
+			       		});
+
+			       		//close notification
+
+			       		$.closeNotification();
 	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
 	                return false; 
 	            } 
 	      	}
+	        //验证名称
+	        if( $(this).is('#name') ){
+	       	 if(this==""||this.length<6){ 
+	                $.toptip('名称非法', 2000, 'warning');
+	                return false; 
+	            } 
+	      	}
+	        //验证营业执照编号
+	        if( $(this).is('#licence') ){
+	       	 if(this==""){ 
+	                //$.toptip('手机号码有误，请重填！', 2000, 'warning');
+	       		 $.toptip('执照编号非法', 2000, 'warning');
+	                return false; 
+	            } 
+	      	}
+	        //验证address
+	        if( $(this).is('#address') ){
+	       	 if(this==""){ 
+	                //$.toptip('手机号码有误，请重填！', 2000, 'warning');
+	       		 $.toptip('地址非法', 2000, 'warning');
+	                return false; 
+	            } 
+	      	}
 		});
-	}
+		//提取经营类别
+	   var checkInfoPartnerType = $("#checkInfoPartnerType").val();
+		getPartnerType(checkInfoPartnerType);
 });
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
+//提交，最终验证。
+$("#btn-custom-theme").click(function() {
+		var area = $("#area").val();
+		var mobile = $("#mobile").val();
+		var name = $("#name").val();
 		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
-       	var url =HOST+'mobile.php?c=index&a=edit_self';
-        if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
+		var desc = $("#desc").val();
+		var licence = $("#licence").val();
+		var licence_thumb = $("#licence_thumb").val();
+		var cate_id = $("#cate_id").val();//经营类别
+		//var sex=$("input[name='sex':checked").val();
+      	var url =HOST+'mobile.php?c=index&a=my_partner';
+      	var checkInfo = $("#checkInfo").val();
+       if(mobile==""|| name==""){
+    	   $.toptip('手机号码或者昵称不能为空！', 2000, 'warning');
+      	    return false; 
+      	 }
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {dotype:add,name:name,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
+			data: {dotype:'add',name:name,cate_id:cate_id,mobile:mobile,desc:desc,licence_thumb:licence_thumb,user_id:sessionUserId,licence:licence,checkInfo:checkInfo,area:area},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
 				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
+					//window.location.href='./tips.php';
 				}
 			},
 		});
-  });
+});
 </script>
 </html>

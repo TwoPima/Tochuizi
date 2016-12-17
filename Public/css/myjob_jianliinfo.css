@@ -1,6 +1,10 @@
+#jianliinfo{
+}
 #jianliinfo .info_box{
     margin-top:10px;
     background: #fff;
+	padding-right:10px;
+	
 }
 #jianliinfo .add_button{
     padding:30px 0;

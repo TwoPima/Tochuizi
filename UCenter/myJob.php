@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/myjob.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+    <script src="../Public/js/require.config.js"></script>
+    <script src="../Public/js/jquery-2.1.4.js"></script>
+    <script src="../Public/js/jquery-session.js"></script>
+    <script src="../Public/js/fastclick.js"></script>
+    <script src="../Public/js/common.js"></script>
+    <script src="../Public/js/jquery-weui.min.js"></script>
     <script>
     </script>
 </head>
@@ -57,9 +63,6 @@
     </div><!--main-->
 </div><!--app-->
 </body>
-<script src="../Public/js/zepto.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
 <script>
 </script>
 </html>

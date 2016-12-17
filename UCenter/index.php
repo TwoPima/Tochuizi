@@ -12,7 +12,8 @@
 	<script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/center.js"></script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <script>
@@ -38,11 +39,31 @@
 					}else{
 						//数据取回成功
     					var mobile=$.session.get('mobileSession');
-    					var mobile=$.session.get('mobileSession');
+    					var typeMember=getMemberType(result.data.idtype);
+    					var nickname=result.data.nickname;
     					$("#mobile").html(mobile);
+    					$("#nickname").html(nickname);
+    					$("#typeMember").html(typeMember);
 					} 
 				}
 			});
+	}
+	/* 会员类别 */
+	function getMemberType(idtype){
+		switch (idtype) {
+        case ("2"):
+            var typeMember='设计师';
+            break;
+        case ("3"):
+       	 var typeMember='组长';
+            break;
+        case ("4"):
+       	 var typeMember='管理人';
+            break;
+        default:
+       	 var typeMember='技工';
+    	}
+	    return  typeMember;
 	}
 </script>
 </head>
@@ -239,4 +260,55 @@
 	</div><!--bottom_menu  -->
 </div><!--app-->
 </body>
+<script type="text/javascript">
+$(function(){
+//多少个订单
+	var url =HOST+'mobile.php?c=index&a=login';
+	var checkInfo=$("#checkInfo").val();
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo,id:sessionUserId},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				var tips=result.message;
+				if (result.statusCode=='0'){
+					$.toptip(tips,2000, 'error');
+				}else{
+					//数据取回成功
+					var mobile=$.session.get('mobileSession');
+					var typeMember=getMemberType(result.data.idtype);
+					var nickname=result.data.nickname;
+					$("#mobile").html(mobile);
+					$("#nickname").html(nickname);
+					$("#typeMember").html(typeMember);
+				} 
+			}
+		});
+//多少个供求
+	 var url =HOST+'mobile.php?c=index&a=login';
+		var checkInfo=$("#checkInfo").val();
+		 $.ajax({
+				type: 'post',
+				url: url,
+				data: {checkInfo:checkInfo,id:sessionUserId},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					var tips=result.message;
+					if (result.statusCode=='0'){
+						$.toptip(tips,2000, 'error');
+					}else{
+						//数据取回成功
+					var typeMember=getMemberType(result.data.idtype);
+					$("#typeMember").html(typeMember);
+					} 
+				}
+			});
+
+	
+});
+
+</script>
 </html>

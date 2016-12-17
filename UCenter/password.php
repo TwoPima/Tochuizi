@@ -51,19 +51,18 @@
 <input value="<?php echo md5(date('Ymd')."password"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
 <script type="text/javascript">
 $(function(){
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
-		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
-		window.location.href='../Login/login.php';
-	}
+		sessionUserId=$.session.get('userId');
+    	if(sessionUserId==null){
+    		//没有登陆
+    		$.toptip('您还没有登陆！',2000, 'error');
+    		window.location.href='../Login/login.php';
+    	}
 	  //文本框失去焦点后
-	   $('form :input').blur(function(){
+	   $('input').blur(function(){
 			 //验证密码
 	         if( $(this).is('#new_password') ){
 	        	 if (this.value.length > 16 || this.value.length < 6)
@@ -73,22 +72,23 @@ $(function(){
 	          	  }
 	         }
 	         //验证重复密码
-	         if( $(this).is('#old_password') ){
-	          	  if (this.value!== $("#new_password").val())
+	         if( $(this).is('#new_password') ){
+	          	  if (this.value!== $("#repassword").val())
 	          	  {
 	          	    $.toptip('前后密码不一致！', 2000, 'warning');
 	          	    return false;
 	          	  }
 	         }
-		}
+	});
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {
 		var new_password = $("#new_password").val();
 		var old_password = $("#old_password").val();
+		var checkInfo = $("#checkInfo").val();
        	var url =HOST+'mobile.php?c=index&a=password';
-        if(password==""{
-       		$.toptip('密码不能为空！', 200, 'warning');
+        if(new_password==""||old_password==""){
+       		$.toptip('新旧密码不能为空！', 2000, 'warning');
        	    return false; 
        	 }
 		 $.ajax({
@@ -100,13 +100,13 @@ $(function(){
 				var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
+					 return false; 
 				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
+					$.toptip('修改成功，请用新密码重新登陆！',2000, 'success');
+					window.location.href='../Login/login.php';
 				}
 			},
 		});
   });
-});
 </script>
 </html>
