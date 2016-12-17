@@ -9,6 +9,42 @@
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	<link rel="stylesheet" type="text/css" href="../Public/font/Font-Awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../Public/css/center.css"/>
+	<script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/center.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<script>
+	sessionUserId=$.session.get('userId');
+	mobile=$.session.get('mobileSession');
+	if(sessionUserId==null){
+		//没有登陆  
+		window.location.href='../Login/login.php';
+	}else{
+		//已经登陆 去服务器比对sessionid
+		var url =HOST+'mobile.php?c=index&a=login';
+		var checkInfo=$("#checkInfo").val();
+		 $.ajax({
+				type: 'post',
+				url: url,
+				data: {checkInfo:checkInfo,id:sessionUserId},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					var tips=result.message;
+					if (result.statusCode=='0'){
+						$.toptip(tips,2000, 'error');
+					}else{
+						//数据取回成功
+    					var mobile=$.session.get('mobileSession');
+    					var mobile=$.session.get('mobileSession');
+    					$("#mobile").html(mobile);
+					} 
+				}
+			});
+	}
+</script>
 </head>
 <body>
 <div id="app">
@@ -18,9 +54,9 @@
 			<img src="../Public/img/index/index_headimg2.jpg" alt="">
 		</div>
 		<div class="head_title" id="">
-			<p><span id="nickname">{{nickname}}</span></p>
-			<p><span id="mobile">{{mobile}}</span> </p>
-			<p><span id="typeMember">{{typeMember}}</span> </p>
+			<p><span id="nickname"></span></p>
+			<p><span id="mobile"></span> </p>
+			<p><span id="typeMember"></span> </p>
 		</div>
 		<!-- <div class="head_title" id="noLogin">
 			<p>请登录 </p>
@@ -34,7 +70,7 @@
 		</a>
 	</div>
 	<!-- 未登录状态 -->
-	<div id="header" class="nologin">
+	<!--  <div id="header" class="nologin">
 		<a href="../login.php" class="header-a-1">
 		<div class="head_img float-left">
 			<img src="../Public/img/index/index_headimg2.jpg" alt="">
@@ -42,9 +78,6 @@
 		<div class="head_title" id="">
 			<p>请登录</p>
 		</div>
-		<!-- <div class="head_title" id="noLogin">
-			<p>请登录 </p>
-		</div> -->
 		</a>
 		<a href="memberType.php"class="header-a-2">
 		<div class="head_job">
@@ -52,7 +85,7 @@
 			<p>点亮身份</p>
 		</div>
 		</a>
-	</div>
+	</div>-->
 	<div id="main">
 		<div class="page">
 			<div class="weui-panel menu_order">
@@ -206,59 +239,4 @@
 	</div><!--bottom_menu  -->
 </div><!--app-->
 </body>
-<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
-<script>
-$(function(){
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
-		//没有登陆
-		$(".nologin").show(); 
-		$(".loginStatus").hide(); 
-	}else{
-		//已经登陆
-		$(".nologin").hide(); 
-		$(".loginStatus").show(); 
-		
-		var url =HOST+'mobile.php?c=index&a=login';
-		var checkInfo=$("checkInfo").val();
-		 $.ajax({
-				type: 'post',
-				url: url,
-				data: {checkInfo:checkInfo,id:sessionUserId},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					var tips=result.message;
-					if (result.statusCode=='0'){
-						$.toptip(tips,2000, 'error');
-					}else{
-						//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						/*   el: '#nickname',
-						  data: {
-							  nickname: nickname
-						  }
-						  el: '#typeMember',
-						  data: {
-							  typeMember: typeMember
-						  } */
-						})
-					} 
-				}
-			});
-	}
-	
-});
-</script>
 </html>

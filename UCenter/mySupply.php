@@ -183,17 +183,8 @@ $(function(){
 						  } */
 						})
 				}
-			},
+			}
 		});
-	  //文本框失去焦点后
-	   $('form :input').blur(function(){
-	        //验证手机
-	        if( $(this).is('#mobile') ){
-	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-	                return false; 
-	            } 
-	      }
 	}
 });
  //提交，最终验证。
@@ -219,7 +210,7 @@ $(function(){
 					$.toptip(message,2000, 'success');
 					window.location.href='./UCenter/index.php';
 				}
-			},
+			}
 		});
 });
 </script>

@@ -48,7 +48,7 @@
                 <a href="javascript:;" class="weui-btn weui-btn_plain-default "id="btn-custom-theme">提&nbsp;&nbsp;&nbsp;&nbsp;交</a>
             </div>
     </body>
-    <input value="<?php echo md5(date('Ymd')."password"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."password"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
