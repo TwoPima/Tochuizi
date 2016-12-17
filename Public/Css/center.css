@@ -29,9 +29,10 @@ body{
 .padding-left-10px{
 	padding-left:10px;
 }
-.14pxfont{
-	font-size:14px;
-}
+.font14px{
+	   font-size:14px;
+   }
+
 /* 右指示箭头 */
 .weui-cell_access .weui-cell__ft:after{
 	 height: 11px;
