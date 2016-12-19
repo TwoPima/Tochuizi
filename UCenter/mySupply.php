@@ -26,7 +26,15 @@
 	<script type="text/javascript">
 		var myScroll;
 		function loaded () {
-			myScroll = new IScroll('#wrapper');
+			myScroll = new IScroll('#wrapper',{
+				preventDefault:false,
+				scrollX: true,
+				scrollY: false,
+				momentum: false,
+				snap: true,
+				snapSpeed: 400,
+				keyBindings: true,
+			});
 		}
 	</script>
 	<style>
