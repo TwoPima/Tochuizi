@@ -9,6 +9,35 @@
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
 	<link rel="stylesheet" href="../Public/css/addvip.css"/>
+	<input value="<?php echo md5(date('Ymd')."vip_category"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."vip_recharge"."tuchuinet");?>"	type="hidden" id="checkInfoRecharge"/>  
+ <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
+	<script type="text/javascript">
+		sessionUserId=$.session.get('userId');
+			if(sessionUserId==null){
+				//没有登陆
+				$.toptip('您还没有登陆！',2000, 'error');
+				window.location.href='../Login/login.php';
+			}
+			//已经登陆
+			  //文本框失去焦点后
+			   $('form :input').blur(function(){
+			        //验证手机
+			        if( $(this).is('#mobile') ){
+			       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+			                $.toptip('手机号码有误，请重填！', 2000, 'warning');
+			                return false; 
+			            } 
+			      }
+			});
+				//提取分类列表
+				getVipList($("#checkInfo").val());
+	</script>
 </head>
 <body >
 <div id="vip-app">
@@ -58,38 +87,23 @@
 			<div class="weui-flex__item">
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money">
-						<p class="vip_money_line1"><span id="price">100</span>元</p>
-						<p class="vip_money_line2"><span id="count">120</span>次查询</p>
+					<div class="vip_money" id="vip_category">
 					</div>
-				</div>
-				<div class="vip_action">
-					<img class="vip_action_img" src="../Public/img/vip/select.png" >
 				</div>
 			</div>
 
 			<div class="weui-flex__item  ">
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money">
-						<p class="vip_money_line1">300元</p>
-						<p class="vip_money_line2">120次查询</p>
+					<div class="vip_money" id="vip_category">
 					</div>
-				</div>
-				<div class="vip_action">
-					<img class="vip_action_img" src="../Public/img/vip/select.png" >
 				</div>
 			</div>
 			<div class="weui-flex__item ">
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money">
-						<p class="vip_money_line1">500元</p>
-						<p class="vip_money_line2">120次查询</p>
+					<div class="vip_money" id="vip_category">
 					</div>
-				</div>
-				<div class="vip_action">
-					<img class="vip_action_img" src="../Public/img/vip/select.png" >
 				</div>
 			</div>
 		</div>
@@ -137,35 +151,7 @@
 	</div>
 </div>
 </body>
-<input value="<?php echo md5(date('Ymd')."vip_category"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."vip_recharge"."tuchuinet");?>"	type="hidden" id="checkInfoRecharge"/>  
- <script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/fastclick.js"></script>
-<script src="../Public/js/common.js"></script>
 <script>
-$(function(){
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId==null){
-		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
-		window.location.href='../Login/login.php';
-	}
-		//已经登陆
-  	var vipType=getVipList($("#checkInfo").val());//提取vip分类
-  	
-	  //文本框失去焦点后
-	   $('form :input').blur(function(){
-	        //验证手机
-	        if( $(this).is('#mobile') ){
-	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-	                return false; 
-	            } 
-	      }
-	});
-});
 //提交，最终验证。
 $("#btn-custom-theme").click(function() {
 		var method = $("#method").val();
@@ -189,5 +175,9 @@ $("#btn-custom-theme").click(function() {
 			}
 	  }); 
 });
+	$('.menu_3_box').click(function(){
+		selectHtml='<div class="vip_action"><img class="vip_action_img" src="../Public/img/vip/select.png" ></div>';
+		$(this).next().append(selectHtml);
+	});
 </script>
 </html>

@@ -143,13 +143,15 @@ var url =HOST+'mobile.php?c=index&a=login';
 								</div>
 							</div><!--upload end-->
 							<p class="box-in"></p>
-							<div class="weui-cell weui-cell_access">
-								<div class="weui-cell__bd">
-									<span style="vertical-align: middle">经营类别:</span>
-								</div>
-								<div class="weui-cell__ft"></div>
-							</div>
-							<div class="weui-cell-box">
+							<div class="weui_cell weui_cell_select">
+                                <div class="weui_cell_bd weui_cell_primary">
+                                  <select class="weui_select" name="partner_cate" id="partner_cate">
+                                    <option class="partner_cate_option" id="" selected="" value="0">经营类别:</option>
+                                  </select>
+                                </div>
+                              </div>
+                            
+							<div class=" weui-cell-box">
 								<textarea class="weui-cell-textarea" name="desc" id="desc"placeholder="备注..."></textarea>
 							</div>
 							<p class="box-in"></p>
@@ -190,27 +192,12 @@ var url =HOST+'mobile.php?c=index&a=login';
 </body>
 <script type="text/javascript">
 $(function(){
+	getPartnerType($("#checkInfoPartnerType").val());
 	 //文本框失去焦点后
 	   $('form :input').blur(function(){
 	        //验证手机
 	        if( $(this).is('#mobile') ){
 	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-		       		$.notification({
-			       		  title: "",
-			       		  text: "I miss you",
-			       		  media: "<img src='../Public/img/warnning.png'>",
-			       		  data: "123",
-			       		  onClick: function(data) {
-			       		   // $.alert("Click" + data);
-			       		  },
-			       		  onClose: function(data) {
-			       		    $.alert("Close "+data);
-			       		  }
-			       		});
-
-			       		//close notification
-
-			       		$.closeNotification();
 	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
 	                return false; 
 	            } 
@@ -239,9 +226,6 @@ $(function(){
 	            } 
 	      	}
 		});
-		//提取经营类别
-	   var checkInfoPartnerType = $("#checkInfoPartnerType").val();
-		getPartnerType(checkInfoPartnerType);
 });
 //提交，最终验证。
 $("#btn-custom-theme").click(function() {
@@ -251,9 +235,9 @@ $("#btn-custom-theme").click(function() {
 		var nickname = $("#nickname").val();
 		var desc = $("#desc").val();
 		var licence = $("#licence").val();
-		var licence_thumb = $("#licence_thumb").val();
-		var cate_id = $("#cate_id").val();//经营类别
-		//var sex=$("input[name='sex':checked").val();
+		//var licence_thumb = $("#licence_thumb").val();
+		var licence_thumb = '23423432.jpg';
+		var cate_id = $("#partner_cate").val();//经营类别
       	var url =HOST+'mobile.php?c=index&a=my_partner';
       	var checkInfo = $("#checkInfo").val();
        if(mobile==""|| name==""){
@@ -263,14 +247,14 @@ $("#btn-custom-theme").click(function() {
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {dotype:'add',name:name,cate_id:cate_id,mobile:mobile,desc:desc,licence_thumb:licence_thumb,user_id:sessionUserId,licence:licence,checkInfo:checkInfo,area:area},
+			data: {dotype:'add',name:name,cate_id:cate_id,mobile:mobile,desc:desc,licence_thumb:licence_thumb,id:sessionUserId,licence:licence,checkInfo:checkInfo,area:area},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
 				}else{
-					//window.location.href='./tips.php';
+					window.location.href='./tips.php';
 				}
 			},
 		});

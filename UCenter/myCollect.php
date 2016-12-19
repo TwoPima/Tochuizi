@@ -124,13 +124,5 @@ $(function() {
     	  } 
     	}); 
 });
-
- 	var datademo={
- 		name:'mps',
- 	} 
-	var vue = new Vue({
-			el:'#app',
-			data:datademo,
-	})
 </script>
 </html>

@@ -74,14 +74,15 @@
 </body>
 <input value="<?php echo md5(date('Ymd')."edit_self"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."headpic"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
 <script type='text/javascript' src='../Public/plugins/uploadImg/LocalResizeIMG.js'></script>
 <script type='text/javascript' src='../Public/plugins/uploadImg/mobileBUGFix.mini.js'></script>
-<script src="../Public/js/center.js"></script>
 <script>
-$(document).ready(function(e) {
+/* $(document).ready(function(e) {
 	 var urlHeadImg= HOST+'mobile.php?c=index&a=headpic';
 	 //avatar=$("avatar").src();
 	 checkInfoHeadImg=$("checkInfoHeadImg").val();
@@ -119,75 +120,79 @@ $(document).ready(function(e) {
       }
   });
 
-}); 
+});  */
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId=='undefined'){
 		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
-	}else{
-		//已经登陆
-  	var checkInfo = $("#checkInfo").val();
-  	var url =HOST+'mobile.php?c=index&a=edit_self';
-	/*  $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						})
-				}
-			}
-		}); */
-	  //文本框失去焦点后
-	   $('form :input').blur(function(){
-	        //验证手机
-	        if( $(this).is('#mobile') ){
-	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-	                return false; 
-	            } 
-	      }
-		});
-}
- //提交，最终验证。
+	}
+	//已经登陆
+  	selectMyInfo(sessionUserId,$("#checkInfoLogin").val());//查询信息
+  	
+});
+//文本框失去焦点后
+$('form :input').blur(function(){
+     //验证手机
+     if( $(this).is('#mobile') ){
+    	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+             $.toptip('手机号码有误，请重填！', 2000, 'warning');
+             return false; 
+         } 
+   }
+});
+ function selectMyInfo(id,checkInfo){
+		 //查询
+		var url =HOST+'mobile.php?c=index&a=login';
+		 $.ajax({
+				type: 'post',
+				url: url,
+				data: {id:sessionUserId,checkInfo:checkInfo},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+						window.location.href='./Login/login.php';
+					}else{
+						var sex=result.data.sex;
+						if($("input[name='sex'").val()==sex){
+							$(this).attr("checked",true);
+						}
+						$('#nickname').attr("value",result.data.nickname);
+						$("#mobile").attr("value",result.data.mobile);
+					}
+				},
+			});
+	 
+ }
+//提交，最终验证。
  $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
 		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
+		var mobile = $("#mobile").val();
+		var checkInfo = $("#checkInfo").val();
+		var sex=$("input[name='sex']:checked").val();
        	var url =HOST+'mobile.php?c=index&a=edit_self';
         if(mobile==""|| nickname==""){
        		$.toptip('手机号昵称均不能为空！', 200, 'warning');
        	    return false; 
        	 }
-		 $.ajax({
+        $.ajax({
 			type: 'post',
 			url: url,
 			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
-				if (result.statusCode==='0'){
+				alert(message);
+				 if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
 				}else{
 					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
-				}
-			},
+				} 
+			}
 		});
   });
-});
 </script>
 </html>

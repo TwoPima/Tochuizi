@@ -131,8 +131,6 @@
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');

@@ -15,10 +15,10 @@ $(function() {
 });
 //获取地址api
 function getAreaList(checkInfo){
-	 var urlHeadImg= HOST+'mobile.php?c=index&a=get_area';
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
 	 $.ajax({
 		   type: "POST",
-		   url: "upload.php",
+		   url: urlArea,
 		   data: {checkInfo:checkInfo},
 		   dataType:"json",
 		   success: function(data){
@@ -43,20 +43,14 @@ function getVipList(checkInfo){
 		   url: urlVip,
 		   data: {checkInfo:checkInfo},
 		   dataType:"json",
-		   success: function(data){
-			 if (0 == data.status) {
-				alert(data.id);
-				alert(data.name);
-				alert(data.count);
-				alert(data.price);
+		   success: function(result){
+			 if (0 == result.status) {
 				return false;
 			 }else{
-				 alert(data.id);
-					alert(data.name);
-					alert(data.count);
-					alert(data.price);
-				var attstr= '<img src="'+data.url+'">'; 
-				$(".imglist").append(attstr);
+				 $.each(result.data, function (index, obj) {
+					 var one='<p class_id="'+obj.id+'" name="'+obj.name+'" count="'+obj.count+'" price="'+obj.price+'" class="vip_money_line1">'+obj.name+'<p><p class="vip_money_line2">'+obj.count+'次查询</p>';
+						$('#vip_category').append(one);
+		            });
 				return false;
 			 }
 		   }
@@ -71,10 +65,11 @@ function getPartnerType(checkInfoPartnerType){
 			data: {checkInfo:checkInfoPartnerType},
 			dataType: 'json',
 			success: function (result) {
-				var cate_id=result.data.cate_id;
-				var cate_name=result.data.cate_name;
-				var parent_id=result.data.parent_id;
-				return cate_name;
+				 $.each(result.data, function (index, obj) {
+					 var partnerCateHtml=' <option class="partner_cate_option" value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+					$('#partner_cate').append(partnerCateHtml);
+		            });
+				return false;
 			}
 	  }); 
 }

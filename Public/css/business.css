@@ -28,7 +28,9 @@ body{
     padding:15px 15px;
     font-size: 18px;
 }
-
+.addbuin_form_jichu .weui-cell{
+	margin-right:10px;
+}
 #addbuin-main .addbuin_form form{
     padding-bottom:50px;
 }
@@ -89,6 +91,9 @@ body{
 .line{
     border-top:1px solid #E6E6E6;
     padding:10px 0;
+}
+.partner_cate_option{
+	
 }
 /* 申请加盟商结束*/
 /* 商铺中心开始*/
