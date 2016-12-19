@@ -11,6 +11,40 @@
    <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
    <link rel="stylesheet" href="../Public/css/center.css"/>
      <link rel="stylesheet" href="../Public/css/common.css"/>
+     <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<script>
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId==null){
+		//没有登陆  
+		window.location.href='../Login/login.php';
+	}
+		//已经登陆 去服务器比对sessionid
+		var url =HOST+'mobile.php?c=index&a=login';
+		var checkInfoArea=$("#checkInfoArea").val();
+		getAreaList(checkInfoArea,'0');
+		/*  $.ajax({
+				type: 'post',
+				url: url,
+				data: {checkInfo:checkInfo,id:sessionUserId},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					var tips=result.message;
+					if (result.statusCode=='0'){
+						$.toptip(tips,2000, 'error');
+					}else{
+						//数据取回成功
+					} 
+				}
+			}); */
+</script>
 </head>
 <body>
 <div id="app">
@@ -71,10 +105,6 @@
 	</div><!--main-->
 </div><!--app-->
 </body>
-<script src="../Public/js/zepto.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript" src="../Public/js/city-picker.js" charset="utf-8"></script>
 <script>
 	$("#city-picker").cityPicker({

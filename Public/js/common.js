@@ -2,24 +2,13 @@
  * 公共js
  * author:马晓成
  * ******/
-/*******手机端a链接点击无反应问题解决-fastclick.js******/
-//如果你使用原生js开发则进行如下声明即可。
-if ('addEventListener' in document) {      
-    document.addEventListener('DOMContentLoaded', function() {  
-    FastClick.attach(document.body);  
-}, false);  
-}
-//如果你想使用jquery
-$(function() {  
-    FastClick.attach(document.body);  
-});
 //获取地址api
-function getAreaList(checkInfo){
+function getAreaList(checkInfo,pid){
 	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
 	 $.ajax({
 		   type: "POST",
 		   url: urlArea,
-		   data: {checkInfo:checkInfo},
+		   data: {checkInfo:checkInfo,pid:pid},
 		   dataType:"json",
 		   success: function(data){
 			 if (0 == data.status) {

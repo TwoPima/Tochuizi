@@ -26,7 +26,7 @@
             <div class="push_box push_pinfo">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" placeholder="输入标题">
+                        <input class="weui-input" type="text" name="title"  id="title" placeholder="输入标题">
                     </div>
                 </div>
                 <div class="weui-cells weui-cells_form" style="margin-top: 0;">
@@ -35,7 +35,7 @@
                             <label class="weui-label">手机</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="tel" >
+                            <input class="weui-input" name="mobile"  id="mobile" type="tel" >
                         </div>
                     </div>
                     <div class="weui-cell ">
@@ -43,7 +43,7 @@
                             <label class="weui-label">邮箱</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="email" >
+                            <input class="weui-input"  name="email"  id="email" type="email" >
                         </div>
                     </div>
                     <div class="weui-cell ">
@@ -51,7 +51,7 @@
                             <label class="weui-label">工种</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" type="text"  value="木工">
+                            <input class="weui-input" name="job_type"  id="job_type"  type="text"  value="木工">
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <label class="weui-label">期望工作地:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" name="area"  id="area"  type="text" >
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -71,7 +71,7 @@
                         <label for="" class="weui-label">日薪要求:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="select2">
+                        <select class="weui-select" name="wages"  id="wages" >
                             <option value="1">180元/天</option>
                             <option value="2">180元/天</option>
                             <option value="3">180元/天</option>
@@ -138,7 +138,7 @@ $(function(){
 		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
-	}else{
+	}
 		//已经登陆
   	var checkInfo = $("#checkInfo").val();
   	var url =HOST+'mobile.php?c=index&a=my_resume';
@@ -154,33 +154,19 @@ $(function(){
 				}else{
 					//数据取回成功
 					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						/*   el: '#nickname',
-						  data: {
-							  nickname: nickname
-						  }
-						  el: '#typeMember',
-						  data: {
-							  typeMember: typeMember
-						  } */
-						})
 				}
 			},
 		});
-	  //文本框失去焦点后
-	   $('form :input').blur(function(){
-	        //验证手机
-	        if( $(this).is('#mobile') ){
-	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-	                return false; 
-	            } 
-	      }
-	}
+});
+//文本框失去焦点后
+$('form :input').blur(function(){
+    //验证手机
+    if( $(this).is('#mobile') ){
+   	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+            $.toptip('手机号码有误，请重填！', 2000, 'warning');
+            return false; 
+        } 
+  }
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {

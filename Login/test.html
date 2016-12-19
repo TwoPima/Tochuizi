@@ -17,6 +17,7 @@ input[type=radio]{
   }
 </style>
 <label for="bill_y" class="r-label checked"><label for="bill_n" class="r-label"><input type="radio" name="bill" id="bill_n"/>否</label>
+<script src="../Public/js/jquery-2.1.4.js"></script>
 <script>
 //处理单选框选中
 $(".r-label").on("tap",function(){
@@ -28,4 +29,71 @@ $(".r-label").on("tap",function(){
         $this.addClass("checked");
     }
 });
+/*******手机端a链接点击无反应问题解决-fastclick.js******/
+//如果你使用原生js开发则进行如下声明即可。
+if ('addEventListener' in document) {      
+document.addEventListener('DOMContentLoaded', function() {  
+FastClick.attach(document.body);  
+}, false);  
+}
+//如果你想使用jquery
+$(function() {  
+FastClick.attach(document.body);  
+});
 </script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+label{
+height:40px;
+width:100px;
+border:1px solid #666;
+display:block;
+text-align:center;
+line-height:40px;
+border-radius:10px;
+background:lightgreen;
+opacity: 1;
+}
+input{
+display:none;
+}
+span{
+display:block;
+height:100%;
+width:100%;
+}
+#canvas {
+border:1px solid #666;
+}
+</style>
+</head>
+<body>
+<label>
+<input type="file" id="file" />
+<span>上传文件</span>
+</label>
+<canvas width="300" height="300" id="canvas"></canvas>
+</body>
+<script>
+$("#file").change(function (){
+var file = new FileReader();//读取文件2进制
+file.onload = function(e){
+var base64 = e.target.result;
+var img = new Image();//创建一个图片对象
+img.onload = function (){
+var canvas = $("#canvas").get(0);
+var ctx = canvas.getContext("2d");
+//使用drawImage显示图片
+ctx.drawImage(img,0,0,canvas.width,canvas.height);
+}
+//把base64添加到图片上
+img.src = base64;
+};
+file.readAsDataURL(this.files[0]);
+});
+</script>
+</html>
