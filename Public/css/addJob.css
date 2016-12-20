@@ -1,6 +1,9 @@
 body{
     background: #F1F1F1;
 }
+#job_mainpush .weui-label,#job_mainpush input,#job_mainpush select{
+	color: #666;
+}
 #job_mainpush .push_box{
     margin-top:10px;
     background: #fff;
@@ -17,21 +20,27 @@ body{
 
 #job_mainpush .push_checkbox .daiyu_checkbox {
     display: inline-block;
-    padding:0 10px;
-    font-size: 16px;
+    font-size: 14px;
     height:20px;
     line-height:20px;
-    color: #EF9A38;
+    color: #EF9A38;margin-right:5px;
 }
 #job_mainpush  .daiyu_checkbox input[type=checkbox] {
-    width:16px;
-    height:16px;
+    width:14px;
+    height:14px;
     background: #ffffff;
     border:1px solid #EF9A38;
+	position:relative;
+	border-radus:5px;
 }
+
 #job_mainpush .sure_button{
     padding:15px 0;
 }
  #job_mainpush .sure_button a{
      background: #D04C02;
+ }
+ .height1px{
+	height:1px;
+ 	 background: #F1F1F1;
  }

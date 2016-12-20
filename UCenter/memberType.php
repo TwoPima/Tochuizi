@@ -11,7 +11,6 @@
 	  <link rel="stylesheet" href="../Public/css/common.css"/>
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/dianliang.css"/>
-	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
  <script src="../Public/js/require.config.js"></script>

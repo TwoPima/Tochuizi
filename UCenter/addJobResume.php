@@ -52,12 +52,13 @@
                         <input class="weui-input" name="birthday"  data-toggle='date' id="birthday" type="text" >
                     </div>
                 </div>
-                <div class="weui-cell ">
+                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">最高学历:</label>
+                        <label for="" class="weui-label">最高学历</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="education" id="education" type="text" >
+                        <select class="weui-select" name="education"  id="education" >
+                        </select>
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -65,7 +66,7 @@
                         <label class="weui-label">工作年限:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" type="text" name="home" id="home">
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -73,7 +74,7 @@
                         <label class="weui-label">籍贯:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" type="text" name="home" id="home" >
                     </div>
                 </div>
             </div>
@@ -85,7 +86,7 @@
                         <label class="weui-label">手机:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" type="text" name="mobile" id="mobile">
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -93,7 +94,7 @@
                         <label class="weui-label">邮箱:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" >
+                        <input class="weui-input" type="text" id="email" name="email">
                     </div>
                 </div>
             </div>
@@ -101,17 +102,15 @@
         <div class="info_box">
             <div class="weui-cell weui-cell_select">
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select1">
+                    <select class="weui-select" name="cate_id" id="cate_id">
                         <option selected="" value="1">工种类别</option>
-                        <option value="2">QQ号</option>
-                        <option value="3">Email</option>
                     </select>
                 </div>
             </div>
             <div class="weui-cells weui-cells_form" style="margin-top:0px;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea class="weui-textarea" placeholder="求职宣言..." rows="5"></textarea>
+                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="5"></textarea>
                     </div>
                 </div>
             </div>
@@ -191,6 +190,8 @@ $(function(){
 	});
 	}
 	$("#birthday").calendar();//日历
+	//JobType($("#checkInfoJobType").val(),memberTypeCateId);//工种类别
+	getEduction($("#checkInfoZidian").val());//学历
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {

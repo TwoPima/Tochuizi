@@ -50,7 +50,7 @@
                        <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
                            <div class="weui-cell__bd sex">
                                	<p class="float-left"><span>男</span><input type="radio"  value="0" name="sex" id="sexMan"></p>
-                               	<p class=""><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked="checked"></p>
+                               	<p class=""><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
                            </div>
                    </div>
                        <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -69,61 +69,25 @@
 		</div>
 		<div class="height20px" ></div>
                     <div class="height20px" ></div>
-          	   <a href="" id="btn-custom-theme" class="weui-btn weui-btn_default" >保&nbsp;&nbsp;&nbsp;存</a>
+          	   <a  id="btn-custom-theme" class="weui-btn weui-btn_default" >保&nbsp;&nbsp;&nbsp;存</a>
 </div><!--app-->
 </body>
 <input value="<?php echo md5(date('Ymd')."edit_self"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."headpic"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
+<input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfoMyAddress"/>  
+<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoGetAddress"/>  
  <script src="../Public/js/require.config.js"></script>
+ <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type='text/javascript' src='../Public/plugins/uploadImg/LocalResizeIMG.js'></script>
 <script type='text/javascript' src='../Public/plugins/uploadImg/mobileBUGFix.mini.js'></script>
 <script>
-/* $(document).ready(function(e) {
-	 var urlHeadImg= HOST+'mobile.php?c=index&a=headpic';
-	 //avatar=$("avatar").src();
-	 checkInfoHeadImg=$("checkInfoHeadImg").val();
-   $('#uploadphoto').localResizeIMG({
-      width: 400,
-      quality: 1,
-      success: function (result) {  
-		  var submitData={
-				base64_string:result.clearBase64, 
-			}; 
-		$.ajax({
-		   type: "POST",
-		   url: "upload.php",
-		   data: submitData,
-		   dataType:"json",
-		   success: function(data){
-			 if (0 == data.status) {
-				alert(data.content);
-				return false;
-			 }else{
-				alert(data.content);
-				var attstr= '<img src="'+data.url+'">'; 
-				$(".imglist").append(attstr);
-				return false;
-			 }
-		   }, 
-			complete :function(XMLHttpRequest, textStatus){
-			},
-			error:function(XMLHttpRequest, textStatus, errorThrown){ //上传失败 
-			   alert(XMLHttpRequest.status);
-			   alert(XMLHttpRequest.readyState);
-			   alert(textStatus);
-			}
-		}); 
-      }
-  });
-
-});  */
 $(function(){
 	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
+	if(sessionUserId==null){
 		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
@@ -157,11 +121,18 @@ $('form :input').blur(function(){
 						window.location.href='./Login/login.php';
 					}else{
 						var sex=result.data.sex;
-						if($("input[name='sex'").val()==sex){
-							$(this).attr("checked",true);
+						//var localSex=$("input[name='sex'][checked]").val();
+						if(sex=='1'){
+							$(":radio[name=sex][value=1]").attr("checked","true");//指定value的选项为选中项
+						}
+						if(sex=='0'){
+							$(":radio[name=sex][value=0]").attr("checked","true");//指定value的选项为选中项
 						}
 						$('#nickname').attr("value",result.data.nickname);
 						$("#mobile").attr("value",result.data.mobile);
+						$("#avatar").attr("src",result.data.avatar);//头像
+						getMyAddress(sessionUserId);
+						
 					}
 				},
 			});
@@ -173,7 +144,7 @@ $('form :input').blur(function(){
 		var mobile = $("#mobile").val();
 		var checkInfo = $("#checkInfo").val();
 		var sex=$("input[name='sex']:checked").val();
-       	var url =HOST+'mobile.php?c=index&a=edit_self';
+      	var url =HOST+'mobile.php?c=index&a=edit_self';
         if(mobile==""|| nickname==""){
        		$.toptip('手机号昵称均不能为空！', 200, 'warning');
        	    return false; 
@@ -185,14 +156,29 @@ $('form :input').blur(function(){
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
-				alert(message);
-				 if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
+				if (result.statusCode==='0'){
+					$.toast(message);
 				}else{
-					$.toptip(message,2000, 'success');
-				} 
+					$.toast(message);
+				}
+				window.location.reload();//刷新当前页面
 			}
 		});
   });
+  //获得收获地址
+function getMyAddress(sessionUserId){
+	var url =HOST+'mobile.php?c=index&a=my_address';
+	checkInfoMyAdress=$("#checkInfoMyAddress").val();
+    $.ajax({
+		type: 'post',
+		url: url,
+		data: {id:sessionUserId,dotype:'',checkInfo:checkInfoMyAdress},
+		//data: {adr_id:adr_id,id:sessionUserId,dotype:'',checkInfo:checkInfoMyAdress,address:address},
+		dataType: 'json',
+		success: function (result) {
+			adr_id=getAreaList($("#checkInfoGetAddress").val(),result.data.adr_id);//获得具体城市
+		}
+	});
+}
 </script>
 </html>

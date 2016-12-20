@@ -70,7 +70,8 @@ function getPartnerType(checkInfoPartnerType){
 有效期：21
 福利要求:20
  */
-function manyZidianType(checkInfoZidian,id){
+function getEduction(checkInfoZidian){
+	id='18';
 	var url =HOST+'mobile.php?c=index&a=zidian';
 	  $.ajax({
 			type: 'post',
@@ -78,11 +79,105 @@ function manyZidianType(checkInfoZidian,id){
 			data: {checkInfo:checkInfoZidian,zidian_id:id},
 			dataType: 'json',
 			success: function (result) {
-				var id=result.data.id;
-				var name=result.data.name;
+				 $.each(result.data, function (index, obj) {
+					 var partnerCateHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+					$('#education').append(partnerCateHtml);
+		            });
+				return false;
 			}
 	  }); 
-	  return name
+}
+//福利要求
+function getBenefit(checkInfoZidian){
+	id='20';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index,obj) {
+				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="banefit" id="'+obj.id+'" value="'+obj.name+'"></div>';
+				$('#benefit').append(getBenefitHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//有效工作时间
+function jobValueTime(checkInfoZidian){
+	id='21';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#valuetime').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//日薪要求
+function jobDayWages(checkInfoZidian){
+	id='19';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#wages').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//身份角色
+function memberType(checkInfo,sessionUserId){
+  	var url =HOST+'mobile.php?c=index&a=my_resume';
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo,id:sessionUserId},
+			dataType: 'json',
+			success: function (result) {
+				//查询当前会员类型  没有默认第一个  有直接跳转到  
+				var message=result.message;
+				if (result.statusCode==='0'){
+					//不存在简历  创建简历
+					window.location.href='addJobResume.php';
+				}else{
+					var memberType=result.data.cate_id;
+					return memberType;
+				}
+			}
+		});
+}
+//工种类别
+function JobType(checkInfo,cate_id){
+	var url =HOST+'mobile.php?c=index&a=job_type';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfo,cate_id:cate_id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#job_type').append(jobTimeHtml);
+			});
+			return false;
+		}
+	});
 }
 //上传多张图片
 function uploadMultImg(add_picture,id){

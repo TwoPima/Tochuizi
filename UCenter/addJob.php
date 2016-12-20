@@ -8,129 +8,16 @@
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/addJob.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-</head>
-<body>
-<div id="app">
-    <div id="topback-header">
-        <div id="header-left">
-            <a href="javascript:history.go(-1);" >
-                <i class="icon iconfont icon-xiangzuo"></i>
-                <span class="title">发布职位</span>
-            </a>
-        </div>
-        <div id="header-right">
-        </div>
-    </div>
-    <div style="clear: both"></div>
-    <div id="job_mainpush">
-            <div class="push_box push_pinfo">
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="title"  id="title" placeholder="输入标题">
-                    </div>
-                </div>
-                <div class="weui-cells weui-cells_form" style="margin-top: 0;">
-                    <div class="weui-cell ">
-                        <div class="weui-cell__hd">
-                            <label class="weui-label">手机</label>
-                        </div>
-                        <div class="weui-cell__bd">
-                            <input class="weui-input" name="mobile"  id="mobile" type="tel" >
-                        </div>
-                    </div>
-                    <div class="weui-cell ">
-                        <div class="weui-cell__hd">
-                            <label class="weui-label">邮箱</label>
-                        </div>
-                        <div class="weui-cell__bd">
-                            <input class="weui-input"  name="email"  id="email" type="email" >
-                        </div>
-                    </div>
-                    <div class="weui-cell ">
-                        <div class="weui-cell__hd">
-                            <label class="weui-label">工种</label>
-                        </div>
-                        <div class="weui-cell__bd">
-                            <input class="weui-input" name="job_type"  id="job_type"  type="text"  value="木工">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="push_box push_daiyu">
-                <div class="weui-cell ">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">期望工作地:</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="area"  id="area"  type="text" >
-                    </div>
-                </div>
-                <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__hd">
-                        <label for="" class="weui-label">日薪要求:</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="wages"  id="wages" >
-                            <option value="1">180元/天</option>
-                            <option value="2">180元/天</option>
-                            <option value="3">180元/天</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="push_checkbox">
-                    <div class="daiyu_checkbox">
-                        <label for="one">包食宿</label>
-                        <input type="checkbox" name="" id="one">
-                    </div>
-                    <div class="daiyu_checkbox">
-                        <label for="two">工资月结</label>
-                        <input type="checkbox" name="" id="two">
-                    </div>
-                    <div class="daiyu_checkbox">
-                        <label for="three">五险一金</label>
-                        <input type="checkbox" name="" id="three">
-                    </div>
-                </div>
-            </div>
-
-            <div class="push_box">
-                <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__hd">
-                        <label for="" class="weui-label">有效时间:</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="select2">
-                            <option value="1">三个月</option>
-                            <option value="2">四个月</option>
-                            <option value="3">五个月</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="push_box push_beizhu">
-                <div class="weui-cell ">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">备注</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" type="email" placeholder="可选">
-                    </div>
-                </div>
-            </div>
-            <div class="sure_button">
-                <a href="#" id="btn-custom-theme" class="weui-btn">确定</a>
-            </div>
-
-    </div><!--main-->
-</div><!--app-->
-</body>
-<input value="<?php echo md5(date('Ymd')."my_recruit"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+    <input value="<?php echo md5(date('Ymd')."my_recruit"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+    <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <!--do 添加：add，修改：edit，获取：gain -->
+	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
+	<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
+	<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/common.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -153,10 +40,18 @@ $(function(){
 					$.toptip(message,2000, 'error');
 				}else{
 					//数据取回成功
-					var mobile=$.session.get('mobileSession');
+					memberTypeCateId=result.data.cate_id;
+					alert(memberTypeCateId);
 				}
 			},
 		});
+		jobValueTime($("#checkInfoZidian").val());//有效期
+		jobDayWages($("#checkInfoZidian").val());//薪资要求
+		getBenefit($("#checkInfoZidian").val());//薪资要求
+		//memberType($("#checkInfoResume").val(),sessionUserId);//身份角色
+		//var memberTypeCateId=memberType($("#checkInfoJobType").val(),sessionUserId);//工种类别
+		JobType($("#checkInfoJobType").val(),memberTypeCateId);//身份角色
+		
 });
 //文本框失去焦点后
 $('form :input').blur(function(){
@@ -195,4 +90,108 @@ $('form :input').blur(function(){
 		});
 });
 </script>
+</head>
+<body>
+<div id="app">
+    <div id="topback-header">
+        <div id="header-left">
+            <a href="javascript:history.go(-1);" >
+                <i class="icon iconfont icon-xiangzuo"></i>
+                <span class="title">发布职位</span>
+            </a>
+        </div>
+        <div id="header-right">
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div id="job_mainpush">
+            <div class="push_box push_pinfo">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="title"  id="title" placeholder="输入标题">
+                    </div>
+                     <div class="height1px"></div>
+                </div>
+               
+                <div class="weui-cells weui-cells_form" style="margin-top: 0;">
+                    <div class="weui-cell ">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">手机</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" name="mobile"  id="mobile" type="tel" >
+                        </div>
+                    </div>
+                    <div class="weui-cell ">
+                        <div class="weui-cell__hd">
+                            <label class="weui-label">邮箱</label>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input"  name="email"  id="email" type="email" >
+                        </div>
+                    </div>
+                      <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">工种</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="job_type"  id="job_type" >
+                        </select>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="push_box push_daiyu">
+                <div class="weui-cell ">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">期望工作地:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="area"  id="area"  type="text" >
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">日薪要求:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="wages"  id="wages" >
+                        </select>
+                    </div>
+                </div>
+                <div class="height1px"></div>
+                <div class="push_checkbox" id="benefit">
+                </div>
+            </div>
+
+            <div class="push_box">
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">有效时间:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="valuetime" id="valuetime">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="push_box push_beizhu">
+                <div class="weui-cell ">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">备注</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" placeholder="可选">
+                    </div>
+                </div>
+            </div>
+            <div class="sure_button">
+                <a href="#" id="btn-custom-theme" class="weui-btn">确定</a>
+            </div>
+
+    </div><!--main-->
+</div><!--app-->
+</body>
 </html>
