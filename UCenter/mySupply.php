@@ -24,6 +24,18 @@
 <script src="../Public/plugins/touchWipe/touchWipe.js"></script>
 	<script src="../Public/js/iscroll.js"></script>
 	<script type="text/javascript">
+	/*******手机端a链接点击无反应问题解决-fastclick.js******/
+	//如果你使用原生js开发则进行如下声明即可。
+	if ('addEventListener' in document) {      
+	document.addEventListener('DOMContentLoaded', function() {  
+	FastClick.attach(document.body);  
+	}, false);  
+	}
+	//如果你想使用jquery
+	$(function() {  
+		FastClick.attach(document.body);  
+	});
+	
 		var myScroll;
 		function loaded () {
 			myScroll = new IScroll('#wrapper',{
@@ -271,5 +283,6 @@ $(function(){
 			}
 		});
 });
+</script>
 </script>
 </html>
