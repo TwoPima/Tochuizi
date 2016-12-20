@@ -37,13 +37,24 @@
     </div>
     <div id="main">
 
-       选择文件<input type="file" class="file" id="file" multiple size="80"/>
-        <ul id="imging">
 
-        </ul>
 
         <div class="addEvaluate">
             <form action="" id="addmysupply_form">
+                <input type="text" name="title" placeholder="这里是标题"><br>
+
+                <ul id="imging">
+
+                </ul><br>
+                <div id="cate"></div><br>
+
+                <textarea name="desc" id="" cols="30" rows="10"></textarea><br>
+                <input type="radio"  name="is_true" checked value="1">供应
+                <input type="radio" name="is_true" value="1">求购<br>
+                价格<input type="text" name="price"><br>
+                联系电话：<input type="text" name="mobile"><br>
+                选择文件<input type="file" class="file" name="image_url" id="file" multiple size="80"/>
+
                <!-- <input type="button" value="上传图片" onclick="imgSave()"/><br/>
                 <canvas id="canvas" width="400" height="300"></canvas>-->
                 <!--
@@ -91,10 +102,12 @@
 </body>
 
 <input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
+<input value="<?php echo md5(date('Ymd')."supply_cat"."tuchuinet");?>"	type="hidden" id="supply_cat"/>
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script>
+    var open=0;
     /*图片上传无刷新预览*/
     window.onload = function(){
         var i = 1;
@@ -184,21 +197,32 @@ $(function(){
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
 	}else {
-        var checkInfo = $("#checkInfo").val();
+        var supply_cat = $("#supply_cat").val();
         var id=sessionUserId;
-        var dotype='add';
-        var url = HOST + 'mobile.php?c=index&a=my_resume';
+
+        var url = HOST + 'mobile.php?c=index&a=supply_cat';
         $.ajax({
             type: 'post',
             url: url,
-            data: {checkInfo: checkInfo, id: sessionUserId},
+            data: {checkInfo:supply_cat},
             dataType: 'json',
             success: function (result) {
-                var message = result.message;
                 if (result.statusCode === '0') {
                     $.toptip(message, 2000, 'error');
                 } else {
+                    console.log(result);
+                    console.log(result.data);
+                    var cate_num = result.data.length;
+                    var cate = result.data;
+                    var html='';
+                    for(var i=0;i<cate_num;i++){
+                        html+='<input type="radio" name="cate_id" value="'+cate[i]['cate_id']+'">'+cate[i]['cate_name'];
+                    }
+                    $('#cate').html(html);
+                    open=1;
+                    var message = result.message;
                     //数据取回成功
+                    console.log(message);
                     var mobile = $.session.get('mobileSession');
 
                 }
@@ -206,29 +230,50 @@ $(function(){
         });
     }
 });
- //提交，最终验证。
+ //提交，最终验证。btn-custom-theme
  $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
-		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
-       	var url =HOST+'mobile.php?c=index&a=my_resume';
-        if(mobile==""|| nickname==""){
+        sessionUserId=$.session.get('userId');
+        var id_session=sessionUserId;
+        var url =HOST+'mobile.php?c=index&a=my_supply';
+        var checkInfo = $("#checkInfo").val();
+        var title = $("input[name=title]").val();
+        var cate_id = $("input[name=cate_id]").val();
+        var is_true = $("input[name=is_true]").val();
+        var price = $("input[name=price]").val();
+        var mobile = $("input[name=mobile]").val();
+        var desc = $("textarea[name=desc]").val();
+        var image_url = $("input[name=image_url]").val();
+   /*     if(mobile==""|| nickname==""){
        		$.toptip('手机号昵称均不能为空！', 200, 'warning');
        	    return false; 
-       	 }
+       	 }*/
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
+			data: {
+                id_ad:id_session,
+                checkInfo:checkInfo,
+                supply_id:'',
+                dotype:'add',
+                title:title,
+                cate_id:cate_id,
+                is_true:is_true,
+                price:price,
+                mobile:mobile,
+                desc:desc,
+                image_url:image_url
+            },
 			dataType: 'json',
 			success: function (result) {
-				var message=result.message;
+                alert('123');
+                console.log(result);
+				/*var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
 				}else{
 					$.toptip(message,2000, 'success');
 					window.location.href='./UCenter/index.php';
-				}
+				}*/
 			},
 		});
 });
