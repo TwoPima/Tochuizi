@@ -10,17 +10,6 @@
         <link rel="stylesheet" type="text/css" href="../Public/css/weui.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/login.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-                 <style>
-.zck p{
-	text-indent:2em;
-}
-.zck{
-        position: fixed;
-	     width:100%;
-	padding-bottom:20px;
-	min-height:550px;overflow-y:auto;
-    }
-</style>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">

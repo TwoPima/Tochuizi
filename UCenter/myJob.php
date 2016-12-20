@@ -15,8 +15,43 @@
     <script src="../Public/js/fastclick.js"></script>
     <script src="../Public/js/common.js"></script>
     <script src="../Public/js/jquery-weui.min.js"></script>
-    <script>
-    </script>
+<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
+<script>
+$(function(){
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId==null){
+		//没有登陆
+		$.toptip('您还没有登陆！',2000, 'error');
+		window.location.href='../Login/login.php';
+	}
+	//已经登陆
+  	selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
+  	
+});
+ function selectMyResumeInfo(id,checkInfo){
+		 //查询
+		var url =HOST+'mobile.php?c=index&a=my_resume';
+		 $.ajax({
+				type: 'post',
+				url: url,
+				data: {id:sessionUserId,checkInfo:checkInfo},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+						window.location.href='./Login/login.php';
+					}else{
+/* 						<p>成龙 1824514575</p>
+	                    <p>技工》木工</p> */
+						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+result.data.memberType+'>'+result.data.cate_id+'</p>';
+							$('.job_top_info').append(jobDetailHtml);
+					}
+				},
+			});
+	 
+ }
+</script>
 </head>
 <body>
 <div id="app">
@@ -36,10 +71,8 @@
             <div class="job_top">
                 <img class="job_top_people" src="../Public/img/myjob/people.jpg" alt="">
                 <div class="job_top_info">
-                    <p>成龙 1824514575</p>
-                    <p>技工》木工</p>
                 </div>
-               <a href="addJobResume.php"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
+               <a href="editJobResume.php"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
             </div>
             <div class="box_bg"></div>
         <div class="weui-cells">
@@ -63,6 +96,4 @@
     </div><!--main-->
 </div><!--app-->
 </body>
-<script>
-</script>
 </html>

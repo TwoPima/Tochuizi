@@ -173,17 +173,12 @@
 <script src="../Public/js/center.js"></script>
 <script>
 $(function(){
-	$(document.body).on("pull-to-refresh", function() {
-		  //do something
-		});
-	$(document.body).pullToRefreshDone();
-	
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId=='undefined'){
 		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
-	}else{
+	}
 		//已经登陆
   	var checkInfo = $("#checkInfo").val();
   	var url =HOST+'mobile.php?c=index&a=my_resume';
@@ -198,23 +193,9 @@ $(function(){
 					$.toptip(message,2000, 'error');
 				}else{
 					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						/*   el: '#nickname',
-						  data: {
-							  nickname: nickname
-						  }
-						  el: '#typeMember',
-						  data: {
-							  typeMember: typeMember
-						  } */
-						})
+					
 				}
-			},
+			}
 		});
 	  //文本框失去焦点后
 	   $('form :input').blur(function(){
@@ -225,8 +206,7 @@ $(function(){
 	                return false; 
 	            } 
 	      }
-	}
-});
+		});
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {
 		var sex = $("#sex").val();
@@ -252,6 +232,7 @@ $(function(){
 				}
 			},
 		});
+	});
 });
 </script>
 </html>

@@ -4,12 +4,41 @@
     <meta charset="UTF-8">
     <title>个人主页-发布评价</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.min.css"/>
     <link rel="stylesheet" href="../Public/css/weui.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
       <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
       <link rel="stylesheet" href="../Public/css/common.css"/>
-
+<input value="<?php echo md5(date('Ymd')."add_comment"."tuchuinet");?>"	type="hidden" id="checkInfoAddComment"/>  
+ <script src="../Public/js/require.config.js"></script>
+<script src="../Public/js/jquery-2.1.4.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/jquery-session.js"></script>
+<script>
+	sessionUserId=$.session.get('userId');
+	if(sessionUserId==null){
+		//没有登陆
+		$.toptip('您还没有登陆！',2000, 'error');
+		window.location.href='../Login/login.php';
+	}
+	//已经登陆  取会员类别
+  	var url =HOST+'mobile.php?c=index&a=comment_list';
+   var checkInfoAddComment = $("#checkInfoAddComment").val();
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfoAddComment,goods_id:goods_id,id:sessionUserId,desc:desc,miao_star:miao_star,liu_star:liu_star,fuwu_star:fuwu_star,image_url:image_url},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					
+				}else{
+					//返回成功信息
+					$.toast(message);
+				}
+			}
+		});
+</script>
 </head>
 <body>
 <div id="app">
@@ -28,14 +57,14 @@
 	            <div class="weui-cells">
 	                <a class="weui-cell weui-cell_access" href="javascript:;">
 	                    <div class="weui-cell__bd">
-	                        <p id="name">宁夏亿次元科技有限公司</p>
+	                        <p id="good_name">宁夏亿次元科技有限公司</p>
 	                    </div>
 	                    <div class="weui-cell__ft"></div>
 	                </a>
 	                <div class="weui-cells weui-cells_form">
 	                    <div class="weui-cell">
 	                        <div class="weui-cell__bd">
-	                            <textarea class="weui-textarea" placeholder="评论描述" rows="3"></textarea>
+	                            <textarea class="weui-textarea" name="desc" placeholder="评论描述" rows="3"></textarea>
 	                           <!-- <div class="weui-textarea-counter"><span>0</span>/200</div>-->
 	                        </div>
 	                    </div>

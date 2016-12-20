@@ -89,6 +89,7 @@ body{
 .weui-select option{
 	font-size:14px;
 }
+/* 单选对号 */
 /* 首页开始 */
 #header{
 	height:150px;
@@ -537,12 +538,21 @@ background-color:#ffffff;
 	height:20%;
 }
 .evaluate #article-date{
-	margin-bottom:10px;
 	margin-right:10px;
+	font-size:14px;
 }
 .addEvaluate .weui-uploader{
 	padding-left:10px;
 	padding-bottom:10px;
 	background-color:#ffffff;
+}
+.evaluate .height1px{
+	background: #F1F1F1;
+	height:1px;
+	border:1px solid #F1F1F1;
+}
+#evaluate-content{
+	font-size:14px;
+	text-indent:2em;
 }
 /* 我的评价结束*/
