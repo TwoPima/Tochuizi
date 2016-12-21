@@ -11,21 +11,51 @@
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
     <style>
-        #imging{
-            height:100%;
+        body{
+            background: #F1F1F1;
         }
-        #imging li{
-            width:50px;
-            height:50px;
+        .main_box{
+            background: #fff;
+            margin:10px 0;
         }
-        #imging li img{
-            width:50px;
-            height:50px;
+        .weui-cells{
+            margin-top:0px;
+            width:100%;
+        }
+        .margin_fix{
+            margin:10px 10px;
+        }
+        .fenlei:after{
+            border-bottom:none;
+        }
+        .jiage{
+            background: #f1f1f1;
+            font-family: "Microsoft YaHei UI";
+        }
+        .jiage input{
+            font-size: 16px;
+        }
+        .jiage input[type=radio]{
+            font-size: 16px;
+        }
+        .jiage #gongying,
+        .jiage #qiugou{
+            margin: 0 10px;
+        }
+        .jiage .weui-cells{
+            margin:10px 0;
+        }
+        .weui-label {
+            width: 85px;
+        }
+
+        #btn-custom-theme{
+            background: #EC8711;
         }
     </style>
 </head>
 <body>
-<div id="app">
+<div id="">
     <div id="topback-header">
         <div id="header-left">
              <a href="javascript:history.go(-1);" >
@@ -36,69 +66,78 @@
         <div id="header-right"></div>
     </div>
     <div id="main">
-
-
-
-        <div class="addEvaluate">
-            <form action="" id="addmysupply_form">
-                <input type="text" name="title" placeholder="这里是标题"><br>
-
-                <ul id="imging">
-
-                </ul><br>
-                <div id="cate"></div><br>
-
-                <textarea name="desc" id="" cols="30" rows="10"></textarea><br>
-                <input type="radio"  name="is_true" checked value="1">供应
-                <input type="radio" name="is_true" value="1">求购<br>
-                价格<input type="text" name="price"><br>
-                联系电话：<input type="text" name="mobile"><br>
-                选择文件<input type="file" class="file" name="image_url" id="file" multiple size="80"/>
-
-               <!-- <input type="button" value="上传图片" onclick="imgSave()"/><br/>
-                <canvas id="canvas" width="400" height="300"></canvas>-->
-                <!--
-                <p>
-                    <label>请选择一个文件：</label>
-                    <input type="file" id="file"/>
-                    <input type="button" value="读取图像" onclick = "readPicture()" id="btnReadPicture"/>
-                </p>
-                <div id="result"></div>-->
-             <!--   <p>
-                    <label>请选择一个文件：</label>
-                    <input type="file" id="file" />
-                    <input type="button" value="读取图像" onclick = "readAsDataURL()"/>
-                    <input type="button" value="读取二进制数据" onclick = "readAsBinaryString()"/>
-                    <input type="button" value="读取文本文件" onclick = "readAsText()"/>
-                </p>
-                <div id="result"></div>
-
-
-                选择文件<input type="file" id="file" multiple size="80"/>
-                <input type="button" onclick="ShowFileName();" value="文件上传"/>
-                文件字节长度:<span id="size"></span><br/>
-                文件类型:<span id="type"></span>-->
-
-              <!--  <div class="weui-cells">
-                    <div class="weui-uploader">
-                        <div class="weui-uploader__bd">
-                            <div class="weui-uploader__input-box">
-                                <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
-                            </div>
-                        </div>
+        <div class="main_box">
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" name='title' placeholder="这里是标题...">
                     </div>
-                </div>-->
-            </form>
-
-
-
-            <div class="height20px"></div>
-            <div class="button-sp-area">
-                <a href="javascript:;" class="weui-btn weui-btn_plain-default " id="btn-custom-theme">按钮</a>
+                </div>
             </div>
+
+            <div class="weui-uploader__bd margin_fix">
+                <ul class="weui-uploader__files" id="uploaderFiles">
+<!--                    <li class="weui-uploader__file" style="background-image:url()"></li>-->
+                </ul>
+                <div class="weui-uploader__input-box">
+                    <input id="uploaderInput" class="weui-uploader__input file" name="image_url" type="file" accept="image/*" multiple="">
+                </div>
             </div>
-        </div><!--main-->
-    </div><!--app-->
+        </div>
+        <div class="main_box">
+            <div class="weui-cells fenlei">
+                <div class="weui-cell weui-cell_select">
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="cate_id">
+                            <option selected="" value="">选择分类</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <textarea name="desc" class="weui-textarea" placeholder="描述备注" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main_box jiage">
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">供应类型:</label></div>
+                    <div class="weui-cell__bd">
+                        <label for="gongying">
+                            供应<input id="gongying" type="radio" value="0" checked name="is_true" >
+                        </label>
+                        <label for="qiugou">
+                            求购<input id="qiugou" type="radio" value="1" name="is_true" value="">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">价<span style="visibility:hidden;">价格</span>格:</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text"  name="price" placeholder="价格面议">
+                    </div>
+                </div>
+            </div>
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">联系电话:</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="mobile" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 20px;">
+            <a href="javascript:;" class="weui-btn weui-btn_plain-default " id="btn-custom-theme">确认发布</a>
+        </div>
+        </div>
+    </div>
 </body>
 
 <input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
@@ -107,22 +146,24 @@
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script>
-    var open=0;
     /*图片上传无刷新预览*/
     window.onload = function(){
+        alert(0);
         var i = 1;
         // 选择图片
         document.getElementsByClassName('file')[0].onchange = function(){
-            var count_li = $("#imging").children().length;
-            if(count_li == '5'){
-                $("#file").css('display','none');
+            alert(1);
+            var count_li = $("#uploaderFiles").children().length;
+            alert(count_li);
+            if(count_li >= '5'){
+                $("#uploaderInput").css('display','none');
             }
             compress(event, function(base64Img){
-                $('#test'+i).attr('src',base64Img);
-                $('#testinput'+i).val(base64Img);
+                $('#fileshow'+i).attr('background-url',base64Img);
+            //  $('#testinput'+i).val(base64Img);
                 i++;
                 return;
-//                $('#test'+i).attr('src', '{pigcms::STATICS}/voteimg/img/upimg_loading.gif');
+            //  $('#test'+i).attr('src', '{pigcms::STATICS}/voteimg/img/upimg_loading.gif');
               /* $.ajax({
                     'url' : "/index.php?g=Wap&m=Custom&a=ajaxImgUpload&id={pigcms:$url_param['id']}&token={pigcms:$url_param['token']}&wecha_id={pigcms:$url_param['wecha_id']}",
                     'type' : 'post',
@@ -144,18 +185,16 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 var html = '';
-                html += '<li class="imgaeshow'+i+' imgaeshow"><input type="hidden" id="testinput'+i+'" name="testinput[]"><p class="showimg'+i+' showimg" id="showimg'+i+'"><img src="" id="test'+i+'"><img src="" id="testnone'+i+'"><span class="upload_delete" title="删除" style="display: block;" onclick="upload_delete(this)"></span></p></li>';
-                /*  html += '<li class="imgaeshow'+i+' imgaeshow">' +
-                    '<input type="hidden" id="testinput'+i+'" name="testinput[]">' +
-                    '<p class="showimg'+i+' showimg" id="showimg'+i+'">' +
-                    '<img src="" id="test'+i+'">'+
-                    '<img src="" id="testnone'+i+'">' +
-                    '<span class="upload_delete" title="删除" style="display: block;" onclick="upload_delete(this)">' +
-                    '</span></p></li>';*/
-                $("#imging").prepend(html);
+                html += '<li class="weui-uploader__file" id="fileshow'+i+'">' +
+                    '<img class="fileshow'+i+'" />'+
+                    '</li>';
+
+                $("#uploaderFiles").prepend(html);
                 console.log(html);
-                var image = $('#testnone'+i);
-                image.on('load', function () {
+                    var image = $('.fileshow'+i);
+                    alert(image);
+                    image.on('load', function () {
+                        alert(12312322);
                     var square = 700;
                     var canvas = document.createElement('canvas');
                     if(this.width > square) {
@@ -181,7 +220,7 @@
                 });
                 image.hidden = true;
                 image.attr('src', e.target.result);
-                image.css('display','none');
+//                image.css('display','none');
             };
             reader.readAsDataURL(file);
         }
@@ -199,7 +238,6 @@ $(function(){
 	}else {
         var supply_cat = $("#supply_cat").val();
         var id=sessionUserId;
-
         var url = HOST + 'mobile.php?c=index&a=supply_cat';
         $.ajax({
             type: 'post',
@@ -216,9 +254,10 @@ $(function(){
                     var cate = result.data;
                     var html='';
                     for(var i=0;i<cate_num;i++){
-                        html+='<input type="radio" name="cate_id" value="'+cate[i]['cate_id']+'">'+cate[i]['cate_name'];
+                        html+='<option  value="'+cate[i]['cate_id']+'">'+cate[i]['cate_name']+'</option>';
                     }
-                    $('#cate').html(html);
+                    console.log(html);
+                    $('select[name=cate_id]').append(html);
                     open=1;
                     var message = result.message;
                     //数据取回成功
@@ -237,7 +276,7 @@ $(function(){
         var url =HOST+'mobile.php?c=index&a=my_supply';
         var checkInfo = $("#checkInfo").val();
         var title = $("input[name=title]").val();
-        var cate_id = $("input[name=cate_id]").val();
+        var cate_id = $("select[name=cate_id]").val();
         var is_true = $("input[name=is_true]").val();
         var price = $("input[name=price]").val();
         var mobile = $("input[name=mobile]").val();
@@ -251,7 +290,7 @@ $(function(){
 			type: 'post',
 			url: url,
 			data: {
-                id_ad:id_session,
+                id:id_session,
                 checkInfo:checkInfo,
                 supply_id:'',
                 dotype:'add',
@@ -265,7 +304,6 @@ $(function(){
             },
 			dataType: 'json',
 			success: function (result) {
-                alert('123');
                 console.log(result);
 				/*var message=result.message;
 				if (result.statusCode==='0'){
