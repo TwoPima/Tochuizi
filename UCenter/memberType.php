@@ -12,25 +12,26 @@
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/dianliang.css"/>
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoBasicInfo"/>  
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/common.js"></script>
 <script>
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
 		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
 	}
 	//已经登陆  取会员类别
-  	var url =HOST+'mobile.php?c=index&a=my_resume';
-   var checkInfoResume = $("#checkInfoResume").val();
+  	var url =HOST+'mobile.php?c=index&a=login';
+   var checkInfoBasicInfo = $("#checkInfoBasicInfo").val();
 	 $.ajax({
 			type: 'post',
 			url: url,
-			data: {checkInfo:checkInfoResume,id:sessionUserId},
+			data: {checkInfo:checkInfoBasicInfo,id:sessionUserId},
 			dataType: 'json',
 			success: function (result) {
 				//查询当前会员类型  没有默认第一个  有直接跳转到  
@@ -38,38 +39,28 @@
 				if (result.statusCode==='0'){
 					
 				}else{
-					//跳转到简历
-					window.location.href='addJobResume.php';
+					if(result.data.idtype==null){
+					}else{
+						//跳转到简历
+						window.location.href='addJobResume.php';
+					}
 				}
 			}
 		});
-	 //注册checkbox的click事件
-     $(document).on('click', '.weui-cells_radio', function (e) {
-         //停止事件冒泡,当点击的是checkbox时,就不执行父div的click
-         e.stopPropagation();
-         //checkbox选中,div变色,否则不变色
-         $(this).prop('.weui-cells_radio') ? 
-         		$(this).children(":radio[name=typeMember]").attr("checked","true") 
-         : $(this).children(":radio[name=typeMember]").attr("checked","false");
-     });
-
-     //注册div的click事件,点击div时动态执行checkbox的click事件
-     $(document).on('click', '.weui-cells_radio', function () {
-         $(this).find('.weui-cells_radio').click();
-     })
-     
 $(function(){
-	 	//$(this).children(":radio[name=typeMember]").attr("checked","true");
-			//提交，最终验证。
+	 $(".weui-cells_radio").click(function(){
+	 		 $(this).siblings().children(":radio[name=typeMember]").prop('checked',false);
+	  		$(this).children(":radio[name=typeMember]").prop('checked',true); 
+	});
+	//提交，最终验证。
 		 $("#btn-custom-theme").click(function() {
-				var cate_id=$("input[name='typeMember']:checked").val();
-				alert(cate_id);
-				var  checkInfoResume = $("#checkInfoResume").val();
-		       	var url =HOST+'mobile.php?c=index&a=my_resume';
+				var id_type=$("input[name='typeMember']:checked").val();
+				var  checkInfoMemberType = $("#checkInfoMemberType").val();
+		       	var url =HOST+'mobile.php?c=index&a=my_idtype';
 				 $.ajax({
 					type: 'post',
 					url: url,
-					data: {id:sessionUserId,cate_id:cate_id,checkInfo:checkInfoResume,dotype:'add'},
+					data: {id:sessionUserId,id_type:id_type,checkInfo:checkInfoMemberType},
 					dataType: 'json',
 					success: function (result) {
 						var message=result.message;
@@ -77,7 +68,8 @@ $(function(){
 							$.toptip(message,2000, 'error');
 						}else{
 							$.toast(message);
-							window.location.href='myJob.php';
+							 setTimeout(window.location.href='myJob.php',8000)
+							window.location.href='addJobResume.php';
 						}
 					},
 				});

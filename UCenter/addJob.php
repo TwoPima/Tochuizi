@@ -97,7 +97,7 @@ $('form :input').blur(function(){
         <div id="header-left">
             <a href="javascript:history.go(-1);" >
                 <i class="icon iconfont icon-xiangzuo"></i>
-                <span class="title">发布职位</span>
+                <span class="title">发布求职</span>
             </a>
         </div>
         <div id="header-right">

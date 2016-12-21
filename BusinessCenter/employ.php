@@ -22,7 +22,7 @@
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="editEmploy.html"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<a href="editEmploy.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
                 </div>
 		</div>
 		<div class="employ">

@@ -16,6 +16,8 @@
     <script src="../Public/js/common.js"></script>
     <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
+<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfologin"/>  
+<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -44,10 +46,35 @@ $(function(){
 					}else{
 /* 						<p>成龙 1824514575</p>
 	                    <p>技工》木工</p> */
+	                    JobType($("#checkInfoJobType").val(),result.data.cate_id,1);
 						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+result.data.memberType+'>'+result.data.cate_id+'</p>';
 							$('.job_top_info').append(jobDetailHtml);
 					}
 				},
+			});
+	 
+ }
+ function selectMemberType(id,checkInfo){
+		 //查询
+		var url =HOST+'mobile.php?c=index&a=my_resume';
+		 $.ajax({
+				type: 'post',
+				url: url,
+				data: {id:sessionUserId,checkInfo:checkInfo},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+						window.location.href='./Login/login.php';
+					}else{
+/* 						<p>成龙 1824514575</p>
+	                    <p>技工》木工</p> */
+	                    JobType($("#checkInfoJobType").val(),result.data.cate_id,1);
+						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+result.data.memberType+'>'+result.data.cate_id+'</p>';
+							$('.job_top_info').append(jobDetailHtml);
+					}
+				}
 			});
 	 
  }
@@ -63,7 +90,8 @@ $(function(){
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addJob.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<a href="addJobResume.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<!--个人用户增加简历  会员用户增加职位  -->
                 </div>
 		</div>
 	<div class="clear"></div>
@@ -76,7 +104,7 @@ $(function(){
             </div>
             <div class="box_bg"></div>
         <div class="weui-cells">
-	             <a class="weui-cell weui-cell_access" href="addJobResume.php">
+	             <a class="weui-cell weui-cell_access" href="addJob.php">
 	                <div class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">诚求一个好工作</div>
 	                <div class="weui-cell__ft" style="font-size: 0">
 	                    <span style="vertical-align:middle; font-size: 14px;">5天以前</span>

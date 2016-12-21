@@ -1,5 +1,3 @@
-#jianliinfo{
-}
 #jianliinfo .info_box{
     margin-top:10px;
     background: #fff;
@@ -11,4 +9,10 @@
 }
 #jianliinfo .add_button a{
     background: #D04C02;
+}
+#jianliinfo .sex input{
+	margin-left: 10px;
+}
+#jianliinfo .sex p {
+    margin-right: 20px;
 }

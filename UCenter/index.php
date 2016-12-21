@@ -16,13 +16,14 @@
 <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <script>
 	sessionUserId=$.session.get('userId');
 	mobile=$.session.get('mobileSession');
 	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';
-	}else{
+	}
 		//已经登陆 去服务器比对sessionid
 		var url =HOST+'mobile.php?c=index&a=login';
 		var checkInfo=$("#checkInfo").val();
@@ -44,27 +45,11 @@
     					$("#mobile").html(mobile);
     					$("#nickname").html(nickname);
     					$("#typeMember").html(typeMember);
+    					$("#typeMember1").html(typeMember);
+    					$.session.set('typeMember', typeMember); 
 					} 
 				}
 			});
-	}
-	/* 会员类别 */
-	function getMemberType(idtype){
-		switch (idtype) {
-        case ("2"):
-            var typeMember='设计师';
-            break;
-        case ("3"):
-       	 var typeMember='组长';
-            break;
-        case ("4"):
-       	 var typeMember='管理人';
-            break;
-        default:
-       	 var typeMember='技工';
-    	}
-	    return  typeMember;
-	}
 </script>
 </head>
 <body>
@@ -86,7 +71,7 @@
 		<a href="memberType.php"class="header-a-2">
 		<div class="head_job">
 			<img src="../Public/img/index/headright.png" alt="">
-			<p>设计师</p>
+			<p><span id="typeMember1"></span></p>
 		</div>
 		</a>
 	</div>
@@ -158,7 +143,7 @@
 					</a>
 			</div>
 			<div class="weui-panel">
-					<a class="weui-cell weui-cell_access" href="myJob.php">
+					<a class="weui-cell weui-cell_access" id="judgeJob">
 						<div class="weui-cell__hd"><img src="../Public/img/index/job-icon.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
 						<div class="weui-cell__bd">
 							<p>我的求职</p>
@@ -283,6 +268,7 @@ $(function(){
 					$("#mobile").html(mobile);
 					$("#nickname").html(nickname);
 					$("#typeMember").html(typeMember);
+					$.session.set('idType', result.data.idtype); 
 				} 
 			}
 		});
@@ -306,8 +292,32 @@ $(function(){
 					} 
 				}
 			});
-
-	
+			//查询简历是否存在
+			$("#judgeJob").click(function(){
+				if($.session.get('idType')==null){
+					$.toast("请先点亮身份！", "forbidden");
+					 setTimeout(window.location.href='memberType.php',8000)
+				}else{
+					var url =HOST+'mobile.php?c=index&a=my_resume';
+					var checkInfoResume=$("#checkInfoResume").val();
+					 $.ajax({
+							type: 'post',
+							url: url,
+							data: {checkInfo:checkInfoResume,id:sessionUserId,dotype:'gain'},
+							dataType: 'json',
+							success: function (result) {
+								var name=result.data.name;
+								if(name==null){
+									window.location.href='noMyJob.php';
+								}else{
+									window.location.href='myJob.php';
+								}
+							} 
+						});
+				}
+				
+			});
+			
 });
 
 </script>

@@ -58,7 +58,7 @@
             <div class="weui-panel">
                 <a class="weui-cell weui-cell_access" href="">
                     <div class="weui-cell__bd">
-                        <p>宁夏亿次元科技网站销售 <span id="price" class="red">44元</span></p>
+                        <p id="company_name">宁夏亿次元科技网站销售 <span id="price" class="red">44元</span></p>
                     </div>
                     <div class="weui-cell__ft"></div>
                 </a>

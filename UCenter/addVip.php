@@ -83,16 +83,18 @@
 				</div>
 			</div>
 		</div>
-		<div  class="weui-flex buy_vip">
+		<div  class="weui-flex buy_vip" id="vip_category">
 			<div class="weui-flex__item">
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money" id="vip_category">
+					<div class="vip_money" >
 					</div>
+					<p class_id="'+obj.id+'" name="'+obj.name+'" count="'+obj.count+'" price="'+obj.price+'" class="vip_money_line1">'+obj.name+'<p><p class="vip_money_line2">'+obj.count+'次查询</p>
+					<div class="vip_action"><img class="vip_action_img" src="../Public/img/vip/select.png" ></div>
 				</div>
 			</div>
 
-			<div class="weui-flex__item  ">
+		<!-- 	<div class="weui-flex__item  ">
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
 					<div class="vip_money" id="vip_category">
@@ -105,7 +107,7 @@
 					<div class="vip_money" id="vip_category">
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="input_vip">
 			<input type="text" placeholder="点击输入自定义金额,1元/次">
@@ -122,22 +124,22 @@
 		</div>
 		<div  class="weui-flex zhifu_vip">
 
-			<div class="weui-flex__item ">
-				<div class="menu_2_box">
+			<div class="weui-flex__item zhifu-method" >
+				<div class="menu_2_box" >
 					<img src="../Public/img/vip/zhifubao.png" >
-					<div class="vip_money">
-						<p class="vip_money_line1">支付宝</p>
+					<div class="vip_money" id="weixin" value="2">
+						<p class="vip_money_line1" >支付宝</p>
 					</div>
 				</div>
 				<div class="vip_action">
 					<img class="vip_action_img" src="../Public/img/vip/select.png" >
 				</div>
 			</div>
-			<div class="weui-flex__item ">
+			<div class="weui-flex__item zhifu-method" >
 				<div class="menu_2_box">
 					<img src="../Public/img/vip/weixin.png" >
-					<div class="vip_money">
-						<p class="vip_money_line1">微信支付</p>
+					<div class="vip_money"  id="weixin" value="1">
+						<p class="vip_money_line1"  >微信支付</p>
 					</div>
 				</div>
 				<div class="vip_action">
@@ -152,32 +154,42 @@
 </div>
 </body>
 <script>
-//提交，最终验证。
-$("#btn-custom-theme").click(function() {
-		var method = $("#method").val();
-		var checkInfoRecharge = $("#checkInfoRecharge").val();
-		var vip_count = $("#vip_count").val();
-		var class_id = $("#class_id").val();
-		var vip_count = $("#vip_count").val();
-		var url =HOST+'mobile.php?c=index&a=vip_recharge';
-       if(mobile==""|| nickname==""){
-      		$.toptip('手机号昵称均不能为空！', 200, 'warning');
-      	    return false; 
-      	 }
-       $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfoRecharge,vip_count:vip_count,user_id:sessionUserId,method:method,class_id:class_id},
-			dataType: 'json',
-			success: function (result) {
-				var id=result.data.id;
-				var name=result.data.name;
-			}
-	  }); 
+
+	$(function(){
+		$('.zhifu-method').click(function(){
+				 $(this).siblings().children(".vip_action").css("visibility","hidden");
+		  		$(this).children(".vip_action").css("visibility","visible");  
+		  		$(this).children(".menu_2_box").attr("id","selectMethod");  
+		  		//$(this).siblings().children(".vip_action").css("visibility","hidden");
+		}); 
+    	$('.menu_3_box').click(function(){
+   			 $(this).siblings().children(".vip_action").css("visibility","hidden");
+	  		$(this).children(".vip_action").css("visibility","visible");  
+	  		$(this).children(".menu_2_box").attr("id","selectClassId");  
+    	});
+    	//提交，最终验证。
+    	$("#btn-custom-theme").click(function() {
+    			var method=$("#selectMethod").children(".vip_money").attr("value");
+    			var checkInfoRecharge = $("#checkInfoRecharge").val();
+    			var vip_count = $("#vip_count").val();
+    			var class_id = $("#class_id").val();
+    			var vip_count = $("#vip_count").val();
+    			var url =HOST+'mobile.php?c=index&a=vip_recharge';
+    	       if(method==""|| class_id==""){
+    	    	  	 $.toast("支付方式和套餐均不能为空！", "cancel");
+    	      	    return false; 
+    	      	 }
+    	       $.ajax({
+    				type: 'post',
+    				url: url,
+    				data: {checkInfo:checkInfoRecharge,vip_count:vip_count,user_id:sessionUserId,method:method,class_id:class_id},
+    				dataType: 'json',
+    				success: function (result) {
+        				
+    				}
+    		  }); 
+    	});
 });
-	$('.menu_3_box').click(function(){
-		selectHtml='<div class="vip_action"><img class="vip_action_img" src="../Public/img/vip/select.png" ></div>';
-		$(this).next().append(selectHtml);
-	});
+	
 </script>
 </html>

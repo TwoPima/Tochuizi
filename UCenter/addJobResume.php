@@ -18,13 +18,14 @@
         <div id="header-left">
             <a href="javascript:history.go(-1);" >
                 <i class="icon iconfont icon-xiangzuo"></i>
-                <span class="title">技工</span>
+                <span class="title" id="memberType"></span>
             </a>
         </div>
         <div id="header-right">
             <a href="addMySupply.php"><span></span></a>
         </div>
     </div>
+        <form>
     <div id="jianliinfo" class="clear">
         <div class="info_box">
             <div class="weui-cells weui-cells_form" style="margin-top: 10px;">
@@ -36,14 +37,13 @@
                         <input class="weui-input" type="text" name="name" id="name">
                     </div>
                 </div>
-                <div class="weui-cell ">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">性别:</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="sex" id="sex" >
-                    </div>
-                </div>
+                 <div class="weui-cell weui-cells_radio">
+                       <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
+                           <div class="weui-cell__bd sex">
+                               	<p class="float-left"><span>男</span><input type="radio"  value="0" name="sex" id="sexMan"></p>
+                               	<p class=""><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
+                           </div>
+                   </div>
                 <div class="weui-cell ">
                     <div class="weui-cell__hd">
                         <label class="weui-label">出生年份:</label>
@@ -66,7 +66,7 @@
                         <label class="weui-label">工作年限:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="home" id="home">
+                        <input class="weui-input" type="text" name="job_year" id="job_year">
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -100,13 +100,15 @@
             </div>
         </div>
         <div class="info_box">
-            <div class="weui-cell weui-cell_select">
-                <div class="weui-cell__bd">
-                    <select class="weui-select" name="cate_id" id="cate_id">
-                        <option selected="" value="1">工种类别</option>
-                    </select>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">工种类别</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="cate_id"  id="job_type" >
+                        </select>
+                    </div>
                 </div>
-            </div>
             <div class="weui-cells weui-cells_form" style="margin-top:0px;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
@@ -134,6 +136,7 @@
         <div class="add_button">
             <a  class="weui-btn weui-btn_default" id="btn-custom-theme">保存</a>
         </div>
+        </form>
     </div><!--main-->
 </div><!--app-->
 </body>
@@ -158,63 +161,61 @@ $(function(){
 	if(sessionUserId==null){
 		//没有登陆
 		window.location.href='../Login/login.php';
-	}else{
-		//已经登陆
-  	var checkInfo = $("#checkInfo").val();
-  	var url =HOST+'mobile.php?c=index&a=my_resume';
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-					window.location.href='../Login/login.php';
-				}else{
-					//数据取回成功
-					
-				}
-			}
-		});
-	  //文本框失去焦点后
-	   $('form :input').blur(function(){
-	        //验证手机
-	        if( $(this).is('#mobile') ){
-	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-	                return false; 
-	            } 
-	      }
-	});
 	}
+	//已经登陆
+	//写入基本信息
+	$("#memberType").html($.session.get('typeMember'));
+ 	 //文本框失去焦点后
+    $('form :input').blur(function(){
+        //验证手机
+        if( $(this).is('#mobile') ){
+       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
+                $.toptip('手机号码有误，请重填！', 2000, 'warning');
+                return false; 
+            } 
+    	  }
+        //验证邮件
+        if( $(this).is('#email') ){
+           if( this.value=="" || ( this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value) ) ){
+        	   $.toptip('邮箱地址有误，请重填！', 2000, 'warning');
+               return false; 
+           }
+        }
+	});
 	$("#birthday").calendar();//日历
 	//JobType($("#checkInfoJobType").val(),memberTypeCateId);//工种类别
 	getEduction($("#checkInfoZidian").val());//学历
+	JobType($("#checkInfoJobType").val(),$.session.get('idType'));
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
-		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
+		var sex=$("input[name='sex']:checked").val();
+		var name = $("#name").val();
+		var mobile = $("#mobile").val();
+		var desc = $("#desc").val();
+		var home = $("#home").val();
+		var birthday = $("#birthday").val();
+		var cate_id=$('#job_type option:selected').val();
+		var education=$('#education option:selected').val();
+		var job_year = $("#job_year").val();
+		var checkInfo = $("#checkInfo").val();
        	var url =HOST+'mobile.php?c=index&a=my_resume';
-        if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
+        if(mobile==""|| name==""){
+       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
        	    return false; 
        	 }
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
+			data: {mobile:mobile,cate_id:cate_id,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
+					$.toast(message, "cancel");
 				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
+					//$.toast("操作成功");
+					//window.location.href='myJob.php';
 				}
 			},
 		});

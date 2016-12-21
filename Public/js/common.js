@@ -10,17 +10,10 @@ function getAreaList(checkInfo,pid){
 		   url: urlArea,
 		   data: {checkInfo:checkInfo,pid:pid},
 		   dataType:"json",
-		   success: function(data){
-			 if (0 == data.status) {
-				 alert(data.id);
-					alert(data.name);
-				return false;
-			 }else{
-				alert(data.content);
-				var attstr= '<img src="'+data.url+'">'; 
-				$(".imglist").append(attstr);
-				return false;
-			 }
+		   success: function(result){
+			   $.each(result.data, function (index, obj) {
+				   	
+		        });
 		   }
 		}); 
 }
@@ -38,7 +31,7 @@ function getVipList(checkInfo){
 			 }else{
 				 $.each(result.data, function (index, obj) {
 					 var one='<p class_id="'+obj.id+'" name="'+obj.name+'" count="'+obj.count+'" price="'+obj.price+'" class="vip_money_line1">'+obj.name+'<p><p class="vip_money_line2">'+obj.count+'次查询</p>';
-						$('#vip_category').append(one);
+						//$('#vip_category').append(one);
 		            });
 				return false;
 			 }
@@ -86,6 +79,20 @@ function getEduction(checkInfoZidian){
 				return false;
 			}
 	  }); 
+}
+//选中的学历
+function getSingelEduction(checkInfoZidian,id){
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+				var partnerCateHtml=' <option selected value="'+result.data.id+'">'+result.data.name+'</option>';
+				$('#education').append(partnerCateHtml);
+		}
+	}); 
 }
 //福利要求
 function getBenefit(checkInfoZidian){
@@ -143,7 +150,7 @@ function jobDayWages(checkInfoZidian){
 }
 //身份角色
 function memberType(checkInfo,sessionUserId){
-  	var url =HOST+'mobile.php?c=index&a=my_resume';
+  	var url =HOST+'mobile.php?c=index&a=login';
 	 $.ajax({
 			type: 'post',
 			url: url,
@@ -153,14 +160,31 @@ function memberType(checkInfo,sessionUserId){
 				//查询当前会员类型  没有默认第一个  有直接跳转到  
 				var message=result.message;
 				if (result.statusCode==='0'){
-					//不存在简历  创建简历
-					window.location.href='addJobResume.php';
+					//不存在去注册页面
+					window.location.href='memberType.php';
 				}else{
-					var memberType=result.data.cate_id;
+					var memberType=result.data.idtype;
 					return memberType;
 				}
 			}
 		});
+}
+/* 会员类别 */
+function getMemberType(idtype){
+	switch (idtype) {
+    case ("2"):
+        var typeMember='设计师';
+        break;
+    case ("3"):
+   	 var typeMember='组长';
+        break;
+    case ("4"):
+   	 var typeMember='管理人';
+        break;
+    default:
+   	 var typeMember='技工';
+	}
+    return  typeMember;
 }
 //工种类别
 function JobType(checkInfo,cate_id){
@@ -176,6 +200,20 @@ function JobType(checkInfo,cate_id){
 				$('#job_type').append(jobTimeHtml);
 			});
 			return false;
+		}
+	});
+}
+//工种选中类别
+function JobSingelType(checkInfo,cate_id){
+	var url =HOST+'mobile.php?c=index&a=job_type';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfo,cate_id:cate_id},
+		dataType: 'json',
+		success: function (result) {
+				var jobTimeHtml=' <option selected value="'+result.data.id+'">'+result.data.name+'</option>';
+				$('#job_type').append(jobTimeHtml);
 		}
 	});
 }
