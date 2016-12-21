@@ -68,8 +68,8 @@ $(function(){
 							$.toptip(message,2000, 'error');
 						}else{
 							$.toast(message);
-							 setTimeout(window.location.href='myJob.php',8000)
-							window.location.href='addJobResume.php';
+							 setTimeout(window.location.href='noMyJob.php',8000)
+							//window.location.href='addJobResume.php';
 						}
 					},
 				});

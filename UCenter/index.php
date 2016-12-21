@@ -42,11 +42,17 @@
     					var mobile=$.session.get('mobileSession');
     					var typeMember=getMemberType(result.data.idtype);
     					var nickname=result.data.nickname;
+    					var is_vip=result.data.is_vip;
+    					if(is_vip=='0'){
+    						$("#vipType").html('普通用户');
+        					}else{
+    						$("#vipType").html('认证用户');
+        				}
     					$("#mobile").html(mobile);
     					$("#nickname").html(nickname);
     					$("#typeMember").html(typeMember);
-    					$("#typeMember1").html(typeMember);
     					$.session.set('typeMember', typeMember); 
+    					$.session.set('isVip', is_vip); 
 					} 
 				}
 			});
@@ -62,7 +68,7 @@
 		<div class="head_title" id="">
 			<p><span id="nickname"></span></p>
 			<p><span id="mobile"></span> </p>
-			<p><span id="typeMember"></span> </p>
+			<p><span id="vipType"></span> </p>
 		</div>
 		<!-- <div class="head_title" id="noLogin">
 			<p>请登录 </p>
@@ -71,7 +77,7 @@
 		<a href="memberType.php"class="header-a-2">
 		<div class="head_job">
 			<img src="../Public/img/index/headright.png" alt="">
-			<p><span id="typeMember1"></span></p>
+			<p><span id="typeMember"></span></p>
 		</div>
 		</a>
 	</div>

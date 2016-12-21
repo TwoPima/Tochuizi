@@ -30,6 +30,7 @@
     var url =HOST+'mobile.php?c=index&a=favorite_list';
     var checkInfo=$("#checkInfo").val();
     listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0:全部
+    listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0:全部
   	function listCollect(id,type,checkInfo,start,limit){
  		 var url =HOST+'mobile.php?c=index&a=favorite_list';
  		 $.ajax({
@@ -44,6 +45,10 @@
       				//$.toptip(tips,2000, 'error');
       			}else{
       				//数据取回成功
+      				$(".count_number").html(result.data.total_count);//合计
+      				$(".product_num").html(result.data.total_procount);//商品收藏总数
+      				$(".supply_num").html(result.data.total_gqcount);//供求收藏总数
+      				$(".shop_num").html(result.data.total_stcount);//店铺收藏总数
      				 $.each(result.data, function (index,obj) {
     					 var one='<div class="weui_media_hd" style=" border-radius:50%; overflow:hidden;"><a data-id="" href="javascript:void(0);"><img class="weui_media_appmsg_thumb" src="" alt=""></a></div><div class="weui_media_bd"><h4 class="weui_media_title">'+obj.name+'</h4><p class="weui_media_desc" id="shop-ratyStar" data-score="4"></p><p class="weui_media_desc fujin"><span><i class="icon iconfont icon-fujin1"></i></span><span>'+obj.area+'</span><span><100米</span></p></div>';
     					$('#collect-html-content').append(one);
@@ -73,11 +78,11 @@
 					<p class="float-left">
 						<img src="../Public/img/collect/collect-icon.png">
 						</p>
-					<h2 class="count_number float-left">512</h2>
+					<h2 class="count_number float-left"></h2>
 					<p class="count-left">
-						商铺<span class="shop_num">11</span>家,
-						商品<span class="product_num">11</span>件,
-						供求<span class="supply_num">11</span>条,
+						商铺<span class="shop_num"></span>家,
+						商品<span class="product_num"></span>件,
+						供求<span class="supply_num"></span>条,
 					</p>
 				</div>
 		    <div class="weui_tab">

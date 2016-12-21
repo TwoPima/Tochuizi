@@ -16,9 +16,10 @@
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
+<script src="../Public/js/city-picker.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."area_all"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <script>
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -29,10 +30,10 @@
 		var url =HOST+'mobile.php?c=index&a=login';
 		var checkInfoArea=$("#checkInfoArea").val();
 		getAreaList(checkInfoArea,'0');
-		/*  $.ajax({
+		 /*  $.ajax({
 				type: 'post',
 				url: url,
-				data: {checkInfo:checkInfo,id:sessionUserId},
+				data: {checkInfo:checkInfo,id:sessionUserId,dotype:dotype},
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
@@ -43,7 +44,32 @@
 						//数据取回成功
 					} 
 				}
-			}); */
+			});  */
+	$(function(){
+			//提交，最终验证。
+		 $("#saveInfo").click(function() {
+				var is_yes=$("input[name='is_yes']:checked").val();
+				var  checkInfo = $("#checkInfo").val();
+		       	var url =HOST+'mobile.php?c=index&a=my_address';
+		       	//var adr_id =HOST+'mobile.php?c=index&a=my_idtype';
+				 $.ajax({
+					type: 'post',
+					url: url,
+					data: {id:sessionUserId,adr_id:adr_id,is_yes:is_yes,checkInfo:checkInfo,dotype:'add'},
+					dataType: 'json',
+					success: function (result) {
+						var message=result.message;
+						if (result.statusCode==='0'){
+							$.toptip(message,2000, 'error');
+						}else{
+							$.toast(message);
+							// setTimeout(window.location.href='region.php',8000)
+							//window.location.href='addJobResume.php';
+						}
+					},
+				});
+		});
+	});
 </script>
 </head>
 <body>
@@ -56,7 +82,7 @@
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href=""><span>保存</span></a>
+                	<a id="saveInfo"><span>保存</span></a>
                 </div>
 		</div>
 	<div id="main clear">
@@ -65,7 +91,7 @@
 			    <div class="weui-cell">
 			        <div class="weui-cell__hd"><label class="weui-label">联系人姓名：</label></div>
 			        <div class="weui-cell__bd">
-			            <input class="weui-input" type="text" pattern="" placeholder=""/>
+			            <input class="weui-input" type="text" name="" id="" placeholder=""/>
 			        </div>
 <!-- 			        <div class="weui_cell weui_cell_warn">
 						</div>
@@ -75,7 +101,7 @@
 			            <label class="weui-label">手机号码：</label>
 			        </div>
 			        <div class="weui-cell__bd">
-			            <input class="weui-input" type="tel" placeholder="请输入手机号">
+			            <input class="weui-input" type="tel" name="mobile" id="mobile" placeholder="请输入手机号">
 			        </div>
 			    </div>
 			    <div class="weui-cell">
@@ -83,7 +109,7 @@
 			            <label class="weui-label">邮政编码：</label>
 			        </div>
 			        <div class="weui-cell__bd">
-			            <input class="weui-input" type="tel" pattern="[0-6]*"  placeholder="请输入邮政编码">
+			            <input class="weui-input" type="tel"   placeholder="请输入邮政编码">
 			        </div>
 			    </div>
 			    <div class="weui-cell">
@@ -91,24 +117,55 @@
 			            <label class="weui-label">所在地区：</label>
 			        </div>
 			        <div class="weui-cell__bd">
-			          <input class="weui-input" type="text" id='city-picker' value="宁夏回族自治区 银川市 金凤区" >
+			          <input class="weui-input" type="text" name="adr_id" id='adr_id' value="宁夏回族自治区 银川市 金凤区" >
 			        </div>
 			    </div>
 				     <div class="weui-cell">
 			        <div class="weui-cell__hd"><label class="weui-label">详细地址：</label></div>
 			        <div class="weui-cell__bd">
-			            <input class="weui-input" type="text" pattern="" placeholder="输入详细地址"/>
+			            <input class="weui-input" type="text" name="address" id="address" placeholder="输入详细地址"/>
 			        </div>
 			    </div>
 			</div>
 			</div>
+			<!-- 12 -->
+			<div class="weui-picker-container  weui-picker-container-visible">
+				<div class="weui-picker-modal picker-columns city-picker weui-picker-modal-visible"><div class="toolbar">
+			          <div class="toolbar-inner">          
+			          	 <a href="javascript:;" class="picker-button close-picker">完成</a> 
+			             <h1 class="title">请选择收货地址</h1> 
+			          </div> 
+				     </div>
+				     <div class="picker-modal-inner picker-items">
+				    	 <div class="picker-items-col  col-province">
+				    	 <div class="picker-items-col-wrapper" style="transform: translate3d(0px, -836px, 0px); transition-duration: 0ms;">
+    				     	<div class="picker-item" data-picker-value="110000">北京</div>
+    				     	<div class="picker-item picker-selected" data-picker-value="640000">宁夏回族自治区</div>
+				     	</div>
+				     	</div>
+				     	<div class="picker-items-col  col-city">
+    				     	<div class="picker-items-col-wrapper" style="transform: translate3d(0px, 92px, 0px); transition-duration: 0ms;">
+    				     	<div class="picker-item picker-selected" data-picker-value="640100">银川市</div>
+    				     	<div class="picker-item" data-picker-value="640200">石嘴山市</div>
+    				     	</div>
+				     	</div>
+				     	<div class="picker-items-col  col-district">
+    				     	<div class="picker-items-col-wrapper" style="transform: translate3d(0px, 28px, 0px); transition-duration: 0ms;">
+    				     	<div class="picker-item" data-picker-value="640104">兴庆区</div>
+    				     	<div class="picker-item" data-picker-value="640105">西夏区</div>
+    				     	<div class="picker-item picker-selected" data-picker-value="640106">金凤区</div>
+    				     	<div class="picker-item" data-picker-value="640121">永宁县</div>
+    				     	<div class="picker-item" data-picker-value="640122">贺兰县</div>
+    				     	<div class="picker-item" data-picker-value="640181">灵武市</div>
+    				     	</div>
+				     	</div>
+			<!-- 12 -->
 	</div><!--main-->
 </div><!--app-->
 </body>
-<script type="text/javascript" src="../Public/js/city-picker.js" charset="utf-8"></script>
 <script>
-	$("#city-picker").cityPicker({
+	/* $("#city-picker").cityPicker({
 	  title: "请选择收货地址"
-	});
+	}); */
 </script>
 </html>

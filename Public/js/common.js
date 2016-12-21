@@ -4,16 +4,15 @@
  * ******/
 //获取地址api
 function getAreaList(checkInfo,pid){
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	 //var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	 var urlArea= HOST+'mobile.php?c=index&a=area_all';
 	 $.ajax({
 		   type: "POST",
 		   url: urlArea,
 		   data: {checkInfo:checkInfo,pid:pid},
 		   dataType:"json",
 		   success: function(result){
-			   $.each(result.data, function (index, obj) {
-				   	
-		        });
+			   $.rawCitiesData = result.data;
 		   }
 		}); 
 }
