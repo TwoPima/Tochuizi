@@ -19,7 +19,7 @@
 <script src="../Public/js/city-picker.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."area_all"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <script>
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -28,23 +28,7 @@
 	}
 		//已经登陆 去服务器比对sessionid
 		var url =HOST+'mobile.php?c=index&a=login';
-		var checkInfoArea=$("#checkInfoArea").val();
-		getAreaList(checkInfoArea,'0');
-		 /*  $.ajax({
-				type: 'post',
-				url: url,
-				data: {checkInfo:checkInfo,id:sessionUserId,dotype:dotype},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					var tips=result.message;
-					if (result.statusCode=='0'){
-						$.toptip(tips,2000, 'error');
-					}else{
-						//数据取回成功
-					} 
-				}
-			});  */
+		getAreaListProvice($("#checkInfoArea").val(),'0');//省级
 	$(function(){
 			//提交，最终验证。
 		 $("#saveInfo").click(function() {
@@ -129,8 +113,9 @@
 			</div>
 			</div>
 			<!-- 12 -->
-			<div class="weui-picker-container  weui-picker-container-visible">
-				<div class="weui-picker-modal picker-columns city-picker weui-picker-modal-visible"><div class="toolbar">
+			<div class="weui-picker-container">
+				<div class="weui-picker-modal picker-columns city-picker weui-picker-modal-visible">
+				<div class="toolbar">
 			          <div class="toolbar-inner">          
 			          	 <a href="javascript:;" class="picker-button close-picker">完成</a> 
 			             <h1 class="title">请选择收货地址</h1> 
@@ -138,9 +123,8 @@
 				     </div>
 				     <div class="picker-modal-inner picker-items">
 				    	 <div class="picker-items-col  col-province">
-				    	 <div class="picker-items-col-wrapper" style="transform: translate3d(0px, -836px, 0px); transition-duration: 0ms;">
-    				     	<div class="picker-item" data-picker-value="110000">北京</div>
-    				     	<div class="picker-item picker-selected" data-picker-value="640000">宁夏回族自治区</div>
+				    	 <div class="picker-items-col-wrapper">
+    				    	 <div class="picker-item" data-picker-value="640105">西夏区</div>
 				     	</div>
 				     	</div>
 				     	<div class="picker-items-col  col-city">
@@ -164,8 +148,9 @@
 </div><!--app-->
 </body>
 <script>
-	/* $("#city-picker").cityPicker({
-	  title: "请选择收货地址"
-	}); */
+
+	$("#adr_id").click(function(){
+		$(".weui-picker-container").show();			
+		});
 </script>
 </html>

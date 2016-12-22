@@ -3,16 +3,19 @@
  * author:马晓成
  * ******/
 //获取地址api
-function getAreaList(checkInfo,pid){
-	 //var urlArea= HOST+'mobile.php?c=index&a=get_area';
-	 var urlArea= HOST+'mobile.php?c=index&a=area_all';
+function getAreaListProvice(checkInfo,pid){
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
 	 $.ajax({
 		   type: "POST",
 		   url: urlArea,
 		   data: {checkInfo:checkInfo,pid:pid},
 		   dataType:"json",
 		   success: function(result){
-			   $.rawCitiesData = result.data;
+			   $.each(result.data, function (index, obj) {
+				   var proviceHtml=' <div class="picker-item"id="provice" code="'+obj.id+'">'+obj.name+'</div>';
+				   $('.col-province').find(".picker-items-col-wrapper").append(proviceHtml);
+			   });
+				return false;
 		   }
 		}); 
 }

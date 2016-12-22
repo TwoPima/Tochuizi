@@ -11,6 +11,7 @@
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
+         <link rel="stylesheet" type="text/css" href="../Public/plugins/uploadImg/Huploadify.css"/>
 </head>
 <body>
 <div id="app">
@@ -29,9 +30,12 @@
 		<form id="myInfoForm" action="" method="post">
             <div class="info-head">
                     <div class="head_img ">
-                        <a><img src="../Public/img/index/index_headimg2.jpg" alt="">
-                        <input class="weui_uploader_input" id="uploadphoto" type="file" onchange="" style="display:none" name="avatar"accept="image/jpg,image/jpeg,image/png,image/gif" multiple="">
+                 	   <div id="queue"></div>
+                        <a id="headImg" href="uploadHead.php">
+                        	<img id="avatar" src="../Public/img/index/index_headimg2.jpg" alt="">
                         </a>
+                      <!--   <input class="weui_uploader_input" id="uploadPhoto" type="file" onclick="uploadImage()"  name="avatar"accept="image/jpg,image/jpeg,image/png,image/gif" multiple="true"></div> -->
+                      
                     </div>
             </div>
                     <div class="weui-cell">
@@ -71,6 +75,7 @@
                     <div class="height20px" ></div>
           	   <a  id="btn-custom-theme" class="weui-btn weui-btn_default" >保&nbsp;&nbsp;&nbsp;存</a>
 </div><!--app-->
+  <div id="upload"></div>
 </body>
 <input value="<?php echo md5(date('Ymd')."edit_self"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."headpic"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
@@ -82,9 +87,7 @@
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script type='text/javascript' src='../Public/plugins/uploadImg/LocalResizeIMG.js'></script>
-<script type='text/javascript' src='../Public/plugins/uploadImg/mobileBUGFix.mini.js'></script>
-<script>
+<script type="text/javascript">
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -130,7 +133,10 @@ $('form :input').blur(function(){
 						}
 						$('#nickname').attr("value",result.data.nickname);
 						$("#mobile").attr("value",result.data.mobile);
-						$("#avatar").attr("src",result.data.avatar);//头像
+						if(result.data.avatar==null){
+    					}else{
+    						$("#avatar").attr("src",result.data.avatar);//头像
+    					}
 						getMyAddress(sessionUserId);
 						
 					}
@@ -176,7 +182,7 @@ function getMyAddress(sessionUserId){
 		//data: {adr_id:adr_id,id:sessionUserId,dotype:'',checkInfo:checkInfoMyAdress,address:address},
 		dataType: 'json',
 		success: function (result) {
-			adr_id=getAreaList($("#checkInfoGetAddress").val(),result.data.adr_id);//获得具体城市
+			//adr_id=getAreaList($("#checkInfoGetAddress").val(),result.data.adr_id);//获得具体城市
 		}
 	});
 }

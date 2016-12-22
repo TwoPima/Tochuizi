@@ -51,6 +51,10 @@
     					$("#mobile").html(mobile);
     					$("#nickname").html(nickname);
     					$("#typeMember").html(typeMember);
+    					if(result.data.avatar==null){
+    					}else{
+    						$("#avatar").attr("src",result.data.avatar);//头像
+    					}
     					$.session.set('typeMember', typeMember); 
     					$.session.set('isVip', is_vip); 
 					} 
@@ -63,7 +67,7 @@
 	<div id="header" class="loginStatus">
 		<a href="myInfo.php" class="header-a-1">
 		<div class="head_img float-left">
-			<img src="../Public/img/index/index_headimg2.jpg" alt="">
+			<img id="avatar" src="../Public/img/index/index_headimg2.jpg" alt="">
 		</div>
 		<div class="head_title" id="">
 			<p><span id="nickname"></span></p>
