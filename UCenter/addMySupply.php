@@ -10,52 +10,9 @@
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
-    <style>
-        body{
-            background: #F1F1F1;
-        }
-        .main_box{
-            background: #fff;
-            margin:10px 0;
-        }
-        .weui-cells{
-            margin-top:0px;
-            width:100%;
-        }
-        .margin_fix{
-            margin:10px 10px;
-        }
-        .fenlei:after{
-            border-bottom:none;
-        }
-        .jiage{
-            background: #f1f1f1;
-            font-family: "Microsoft YaHei UI";
-        }
-        .jiage input{
-            font-size: 16px;
-        }
-        .jiage input[type=radio]{
-            font-size: 16px;
-        }
-        .jiage #gongying,
-        .jiage #qiugou{
-            margin: 0 10px;
-        }
-        .jiage .weui-cells{
-            margin:10px 0;
-        }
-        .weui-label {
-            width: 85px;
-        }
-
-        #btn-custom-theme{
-            background: #EC8711;
-        }
-    </style>
 </head>
 <body>
-<div id="">
+<div id="addmysupply_form">
     <div id="topback-header">
         <div id="header-left">
              <a href="javascript:history.go(-1);" >
@@ -70,17 +27,17 @@
             <div class="weui-cells">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name='title' placeholder="这里是标题...">
+                        <input class="weui-input" type="text" name='title' id="title" placeholder="这里是标题...">
                     </div>
                 </div>
             </div>
 
             <div class="weui-uploader__bd margin_fix">
                 <ul class="weui-uploader__files" id="uploaderFiles">
-<!--                    <li class="weui-uploader__file" style="background-image:url()"></li>-->
+                 <!-- <li class="weui-uploader__file" style="background-image:url(1.jpg)"></li> -->   
                 </ul>
                 <div class="weui-uploader__input-box">
-                    <input id="uploaderInput" class="weui-uploader__input file" name="image_url" type="file" accept="image/*" multiple="">
+                    <input id="uploaderInput" class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" multiple="">
                 </div>
             </div>
         </div>
@@ -88,7 +45,7 @@
             <div class="weui-cells fenlei">
                 <div class="weui-cell weui-cell_select">
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="cate_id">
+                        <select class="weui-select" name="cate_id" id="cate_id">
                             <option selected="" value="">选择分类</option>
                         </select>
                     </div>
@@ -97,7 +54,7 @@
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea name="desc" class="weui-textarea" placeholder="描述备注" rows="5"></textarea>
+                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="5"></textarea>
                     </div>
                 </div>
             </div>
@@ -120,7 +77,7 @@
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label class="weui-label">价<span style="visibility:hidden;">价格</span>格:</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text"  name="price" placeholder="价格面议">
+                        <input class="weui-input" type="text"  name="price"  name="id" placeholder="价格面议">
                     </div>
                 </div>
             </div>
@@ -128,13 +85,13 @@
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label class="weui-label">联系电话:</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="mobile" type="text">
+                        <input class="weui-input" name="mobile"  id="mobile" type="text">
                     </div>
                 </div>
             </div>
         </div>
         <div style="margin-top: 20px;">
-            <a href="javascript:;" class="weui-btn weui-btn_plain-default " id="btn-custom-theme">确认发布</a>
+            <a  class="weui-btn weui-btn_plain-default " id="btn-custom-theme">确认发布</a>
         </div>
         </div>
     </div>
@@ -148,13 +105,10 @@
 <script>
     /*图片上传无刷新预览*/
     window.onload = function(){
-        alert(0);
         var i = 1;
         // 选择图片
         document.getElementsByClassName('file')[0].onchange = function(){
-            alert(1);
             var count_li = $("#uploaderFiles").children().length;
-            alert(count_li);
             if(count_li >= '5'){
                 $("#uploaderInput").css('display','none');
             }
@@ -256,13 +210,8 @@ $(function(){
                     for(var i=0;i<cate_num;i++){
                         html+='<option  value="'+cate[i]['cate_id']+'">'+cate[i]['cate_name']+'</option>';
                     }
-                    console.log(html);
                     $('select[name=cate_id]').append(html);
                     open=1;
-                    var message = result.message;
-                    //数据取回成功
-                    console.log(message);
-                    var mobile = $.session.get('mobileSession');
 
                 }
             },
@@ -272,7 +221,6 @@ $(function(){
  //提交，最终验证。btn-custom-theme
  $("#btn-custom-theme").click(function() {
         sessionUserId=$.session.get('userId');
-        var id_session=sessionUserId;
         var url =HOST+'mobile.php?c=index&a=my_supply';
         var checkInfo = $("#checkInfo").val();
         var title = $("input[name=title]").val();
@@ -282,17 +230,16 @@ $(function(){
         var mobile = $("input[name=mobile]").val();
         var desc = $("textarea[name=desc]").val();
         var image_url = $("input[name=image_url]").val();
-   /*     if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
+      if(mobile==""|| title==""){
+       		$.toptip('手机号标题均不能为空！', 200, 'warning');
        	    return false; 
-       	 }*/
+       	 }
 		 $.ajax({
 			type: 'post',
 			url: url,
 			data: {
-                id:id_session,
+                id:sessionUserId,
                 checkInfo:checkInfo,
-                supply_id:'',
                 dotype:'add',
                 title:title,
                 cate_id:cate_id,
