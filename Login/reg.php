@@ -149,6 +149,7 @@ $(function(){
 						$.session.set('userId', userId); 
 						$.session.set('mobileSession', mobileSession); 
 						$.toptip(tips,2000, 'success');
+						window.location.href='login.php';
 					} 
 				}
 			});

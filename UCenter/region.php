@@ -16,6 +16,7 @@
 <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfoAddress"/>  
 <script>
 	sessionUserId=$.session.get('userId');
 	mobile=$.session.get('mobileSession');
@@ -24,12 +25,12 @@
 		window.location.href='../Login/login.php';
 	}else{
 		//已经登陆 去服务器比对sessionid
-		var url =HOST+'mobile.php?c=index&a=login';
-		var checkInfo=$("#checkInfo").val();
+		
+		var url =HOST+'mobile.php?c=index&a=my_address';
 		 $.ajax({
 				type: 'post',
 				url: url,
-				data: {checkInfo:checkInfo,id:sessionUserId},
+				data: {checkInfo:$("#checkInfoAddress").val(),id:sessionUserId,dotype:''},
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
@@ -38,12 +39,10 @@
 						$.toptip(tips,2000, 'error');
 					}else{
 						//数据取回成功
-    					var mobile=$.session.get('mobileSession');
-    					var typeMember=getMemberType(result.data.idtype);
-    					var nickname=result.data.nickname;
-    					$("#mobile").html(mobile);
-    					$("#nickname").html(nickname);
-    					$("#typeMember").html(typeMember);
+						   $.each(result.data, function (index, obj) {
+    					var addressHtml='<div class="weui-cell"><div class="weui-cell__bd region-main"><p class="region-title"><span id="name">'+obj.name+'</span> <span id="tel">'+obj.mobile+'</span></p><p class="region-content clear">'+obj.area+obj.address+'</p></div><div class="weui-cell__bd region-right-icon"><a href="editRegion.php?adr_id='+obj.id+'"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a></div></div>';
+   						 $(".weui-cells").append(addressHtml);
+						   });
 					} 
 				}
 			});
@@ -65,33 +64,6 @@
 		</div>
 		<div class="region">
 			<div class="weui-cells">
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd region-main">
-			            <p class="region-title"><span id="name">马晓成</span> <span id="tel">15909581102</span></p>
-			            <p class="region-content clear">宁夏银川市文昌北街明实楼A617</p>
-			        </div>
-			         <div class="weui-cell__bd region-right-icon">
-			           <a href="addRegion.php?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
-			        </div>
-			    </div>
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd region-main">
-			            <p class="region-title"><span id="name">马晓成</span> <span id="tel">15909581102</span></p>
-			            <p class="region-content clear">宁夏银川市文昌北街明实楼A617</p>
-			        </div>
-			         <div class="weui-cell__bd region-right-icon">
-			           <a href="addRegion.php?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
-			        </div>
-			    </div>
-			    <div class="weui-cell">
-			        <div class="weui-cell__bd region-main">
-			            <p class="region-title"><span id="name">马晓成</span> <span id="tel">15909581102</span></p>
-			            <p class="region-content clear">宁夏银川市文昌北街明实楼A617</p>
-			        </div>
-			         <div class="weui-cell__bd region-right-icon">
-			           <a href="addRegion.php?id=edit"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a>
-			        </div>
-			    </div>
 			</div>
 </div><!--app-->
 </body>

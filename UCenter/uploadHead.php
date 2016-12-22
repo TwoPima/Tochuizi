@@ -75,7 +75,7 @@ $(function() {
     	});
 	});
 });
-	//建立一個可存取到該file的url
+	//建立一个可以去到file的url
 	function getObjectURL(file) {
     	var url = null ;
     	if (window.createObjectURL!=undefined) { // basic

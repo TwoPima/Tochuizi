@@ -40,17 +40,25 @@
 					}else{
 						//数据取回成功
     					var mobile=$.session.get('mobileSession');
-    					var typeMember=getMemberType(result.data.idtype);
-    					var nickname=result.data.nickname;
+    					if(result.data.idtype==null){
+    						$("#typeMember").html('点亮身份');
+    					}else{
+    						var typeMember=getMemberType(result.data.idtype);
+    						$("#typeMember").html(typeMember);
+    					}
     					var is_vip=result.data.is_vip;
     					if(is_vip=='0'){
     						$("#vipType").html('普通用户');
         					}else{
     						$("#vipType").html('认证用户');
         				}
+    					if(result.data.nickname==null){
+    						$("#nickname").html('昵称');
+        				}else{
+    						$("#nickname").html(result.data.nickname);
+        				}
     					$("#mobile").html(mobile);
-    					$("#nickname").html(nickname);
-    					$("#typeMember").html(typeMember);
+    					
     					if(result.data.avatar==null){
     					}else{
     						$("#avatar").attr("src",result.data.avatar);//头像

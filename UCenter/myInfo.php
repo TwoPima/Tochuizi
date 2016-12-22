@@ -10,8 +10,6 @@
         <link rel="stylesheet" href="../Public/css/center.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
-         <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
-         <link rel="stylesheet" type="text/css" href="../Public/plugins/uploadImg/Huploadify.css"/>
 </head>
 <body>
 <div id="app">

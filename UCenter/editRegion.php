@@ -20,21 +20,40 @@
 <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<input value="<?php echo $_GET['adr_id'];?>"	type="hidden" id="adr_id"/>  
 <script>
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId==null){
-		//没有登陆  
-		window.location.href='../Login/login.php';
-	}
-		//已经登陆 去服务器比对sessionid
-		var url =HOST+'mobile.php?c=index&a=login';
-		getAreaListProvice($("#checkInfoArea").val(),'0');//省级
 	$(function(){
+		var  checkInfo = $("#checkInfo").val();
+		var  adr_id = $("#adr_id").val();
+			var url =HOST+'mobile.php?c=index&a=my_address';
+			getAreaListProvice($("#checkInfoArea").val(),'0');//省级
+		 $.ajax({
+			type: 'post',
+			url: url,
+			data: {id:$.session.get('userId'),adr_id:adr_id,checkInfo:checkInfo,dotype:''},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					var is_yes=$("input[name=is_yes]:checked").html();
+					var  checkInfo = $("#checkInfo").val();
+					var  name = $("#name").val();
+					var  adr_id = $("#adr_id").val();
+					var  mobile = $("#mobile").val();
+					var  area = $("#area").val();
+					var  address = $("#address").val();
+					var  code = $("#code").val();
+				}
+			}
+		});
 			//提交，最终验证。
 		 $("#saveInfo").click(function() {
 				var is_yes=$("input[name=is_yes]:checked").val();
 				var  checkInfo = $("#checkInfo").val();
 				var  name = $("#name").val();
+				var  adr_id = $("#adr_id").val();
 				var  mobile = $("#mobile").val();
 				var  area = $("#area").val();
 				var  address = $("#address").val();
@@ -43,7 +62,7 @@
 				 $.ajax({
 					type: 'post',
 					url: url,
-					data: {id:sessionUserId,adr_id:'1232',name:name,address:address,area:area,mobile:mobile,code:code,is_yes:is_yes,checkInfo:checkInfo,dotype:'add'},
+					data: {id:$.session.get('userId'),adr_id:adr_id,name:name,address:address,area:area,mobile:mobile,code:code,is_yes:is_yes,checkInfo:checkInfo,dotype:'edit'},
 					dataType: 'json',
 					success: function (result) {
 						var message=result.message;
@@ -66,7 +85,7 @@
  				<div id="header-left">
 	 				 <a href="javascript:history.go(-1);" >
 	                      <i class="icon iconfont icon-xiangzuo"></i>
-	                  	    <span class="title">新增地址</span>
+	                  	    <span class="title">编辑地址</span>
 	               	 </a>
  				</div>
                 <div id="header-right">
