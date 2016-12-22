@@ -10,45 +10,25 @@
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/common.css"/>
-	<script src="../Public/js/jquery-2.1.4.js"></script>
-<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
-<input value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
-<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/>
-<input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_all"/>
-<input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
 <!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
-<script src="../Public/js/require.config.js"></script>
+	<script src="../Public/js/jquery-2.1.4.js"></script>
+	<script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script src="../Public/plugins/touchWipe/touchWipe.js"></script>
-	<script src="../Public/js/iscroll.js"></script>
-	<script type="text/javascript">
-	/*******手机端a链接点击无反应问题解决-fastclick.js******/
-	//如果你使用原生js开发则进行如下声明即可。
-	if ('addEventListener' in document) {      
-	document.addEventListener('DOMContentLoaded', function() {  
-	FastClick.attach(document.body);  
-	}, false);  
-	}
-	//如果你想使用jquery
-	$(function() {  
-		FastClick.attach(document.body);  
-	});
-	
+<!--	<script type="text/javascript">
 		var myScroll;
 		function loaded () {
 			myScroll = new IScroll('#wrapper',{
 				preventDefault:false,
-				scrollX: true,
-				scrollY: false,
+
 				momentum: false,
 				snap: true,
 				snapSpeed: 400,
 				keyBindings: true,
 			});
 		}
-	</script>
+	</script>-->
 	<style>
 		html,body{
 			height: 100%;
@@ -107,7 +87,7 @@
 		}
 	</style>
 </head>
-<body onload="loaded()">
+<body id="body_box" >
 <div id="topback-header">
 	<div id="header-left">
 		 <a href="index.php">
@@ -145,144 +125,226 @@
 	</div>
 	<div id="wrapper">
 		<div id="scroller">
-			<div class="weui_panel">
-				<a class="weui_panel_ft">
-					<div class="weui_media_box weui_media_text">
-						<p class="weui_media_desc">淘宝装修是亿次元科技的一项业务</p>
-						<ul class="weui_media_info">
-							<li class="weui_media_info_meta">昨天发布
-							</li>
-							<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>23434</span></li>
-						</ul>
+			<template v-for="item in demoData">
+					<div class="weui_panel">
+						<a class="weui_panel_ft"  v-on:click="jump_url(item.id,item.url)"  href="{{item.url}}">
+							<div class="weui_media_box weui_media_text">
+								<p class="weui_media_desc">{{item.title}}</p>
+								<ul class="weui_media_info">
+									<li class="weui_media_info_meta">{{item."1482378345"}}
+									</li>
+									<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
+								</ul>
+							</div>
+						</a>
 					</div>
-				</a>
-			</div>
-			<div class="weui_panel">
-				<a class="weui_panel_ft">
-					<div class="weui_media_box weui_media_text">
-						<p class="weui_media_desc">淘宝装修是亿次元科技的一项业务</p>
-						<ul class="weui_media_info">
-							<li class="weui_media_info_meta">昨天发布
-							</li>
-							<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>23434</span></li>
-						</ul>
-					</div>
-				</a>
-			</div>
-			<div class="weui_panel">
-				<a class="weui_panel_ft">
-					<div class="weui_media_box weui_media_text">
-						<p class="weui_media_desc">淘宝装修是亿次元科技的一项业务</p>
-						<ul class="weui_media_info">
-							<li class="weui_media_info_meta">昨天发布
-							</li>
-							<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>23434</span></li>
-						</ul>
-					</div>
-				</a>
-			</div>
-			<div class="weui_panel">
-				<a class="weui_panel_ft">
-					<div class="weui_media_box weui_media_text">
-						<p class="weui_media_desc">淘宝装修是亿次元科技的一项业务</p>
-						<ul class="weui_media_info">
-							<li class="weui_media_info_meta">昨天发布
-							</li>
-							<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>23434</span></li>
-						</ul>
-					</div>
-				</a>
-			</div>
-			<div class="weui_panel">
-				<a class="weui_panel_ft">
-					<div class="weui_media_box weui_media_text">
-						<p class="weui_media_desc">淘宝装修是亿次元科技的一项业务</p>
-						<ul class="weui_media_info">
-							<li class="weui_media_info_meta">昨天发布
-							</li>
-							<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>23434</span></li>
-						</ul>
-					</div>
-				</a>
-			</div>
-			<div class="weui_panel">
-				<a class="weui_panel_ft">
-					<div class="weui_media_box weui_media_text">
-						<p class="weui_media_desc">淘宝装修是亿次元科技的一项业务</p>
-						<ul class="weui_media_info">
-							<li class="weui_media_info_meta">昨天发布
-							</li>
-							<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>23434</span></li>
-						</ul>
-					</div>
-				</a>
-			</div>
+			</template>
 		</div>
 	</div>
 </div>
 </div>
-</body>
+<input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
+<script type="text/javascript" src="../Public/js/vue.min.js"></script>
+<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
+<script src="../Public/js/iscroll.js"></script>
 <script>
-$(function(){
+	var checkInfo=$('#supply_list').val();
 	var sessionUserId=$.session.get('userId');
 	if(sessionUserId=='undefined'){
-		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
-	}else{
-		//已经登陆
-	var checkInfo = $("#supply_all").val();
-	var is_true ='';
-	var	start = 0;
-	var	limit = 5;
-  	var url =HOST+'mobile.php?c=index&a=supply_list';
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,is_true:'',start:'',limit:'',id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-
+	}
+	var demoApp = new Vue({
+		el: '#body_box',
+		data: {
+			demoData:'',
+			url:{
+				checkInfo:checkInfo,
+				id:sessionUserId,
+				is_true:'',
+				start:0,
+				limit:6
+			}
+		},
+		ready: function() {
+			var that = this;
+			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+				var res = response.data; //取出的数据
+				that.$set('demoData', res.data);  //把数据传给页面
+				var listdata =res.data;    //数据
+//				that.$set('start', listdata.length); //开始查询数据的值
+				Vue.nextTick(function () {
+					//初始化滚动插件
+					that.myScroll = new IScroll('#wrapper', {
+						mouseWheel: true,
+						wheelAction: 'zoom',
+						click: true,
+						scrollX: false,
+						scrollY: true,
+					});
+					//滚动监听
+					that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
+				})
+			}, function (response) {
+				that.$set('message', '服务器维护，请稍后重试');
+			});
+			function scrollaction(){
+				if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+					that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+							var res = response.data;
+							var listdata = res.data;    //数据
+							/*that.url.start += listdata.length;  //更新start
+							console.log(that.url.start);*/
+							//这个for循环是更新vue渲染列表的数据
+							for (var i = 0; i < listdata.length; i++) {
+								that.demoData.push(listdata[i]);
+							}
+							console.log(that.demoData);
+							Vue.nextTick(function () {
+								that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+							});
+						}, function (response) {
+							//取消加载效果
+							that.$set('message', '服务器维护，请稍后重试');
+						});
+					}
+			}
+		}, //created 结束
+		methods: {
+			jump_url: function (msg1,msg2){
+				var msg_url = msg2.indexOf('&m=Index&a=content&');
+				if(msg_url == -1){
+					this.$http(this.local_url+'/index.php?g=Wap&m=Index&a=jump_url&id='+msg1).then(function (response) {
+						return true;
+					});
 				}
 			},
-		 	error:{
+			ajaxdata: function (msg) {
+				var _self = this;
+				_self.$set('classid', msg);
+				_self.$set('startnum', 0);
+				_self.$set('message', '没有更多资讯');
+				//加载样式
+				var loadingToast = $('#loadingToast');
+				loadingToast.css('display', 'block');
+				//ajax  点击后 取值
+				_self.$http.jsonp(_self.url+'/Infomations/lists?token={pigcms:$token}&classid='+_self.classid+'&offset='+_self.startnum).then(function (response) {
+					_self.myScroll.destroy(); //把滑动注销掉
+					var res = response.data;
+					_self.$set('type', res.other);  //标识 类型
+					var listdata = res.data; //数据
+					_self.$set('startnum', listdata.length);//数据个数
+					var code = res.code;  //状态值
+					_self.$set('demoData', listdata);     //把数据传给前面
+					_self.$set('demoData2',  res.new);//二级菜单
+					if(_self.type !==1){
+						//提示内容
+						if( code == '20001' && listdata.length>9){
+							_self.$set('message', '正在加载数据');
+							_self.$set('iscrollaction', true);
+						}
+						if(code == '20002'){
+							_self.$set('message', '没有更多资讯');
+							_self.$set('iscrollaction', false);
+						}else if(code == '40001' || code == '40002'){
+							_self.$set('message', '访问错误');
+							_self.$set('iscrollaction', false);
+						}
+					}else{
+						_self.$set('iscrollaction', false);
+					}
+					//dom 节点更新以后
+					Vue.nextTick(function () {
+						_self.myScroll = new IScroll('#wrapper', {
+							mouseWheel: true,
+							wheelAction: 'zoom',
+							click: true,
+							scrollX: false,
+							scrollY: true,
+						});
+						_self.myScroll.on('scrollEnd',scrollaction);//滚动监听
+					})
+					loadingToast.css('display', 'none'); //消除样式加载
+				}, function (response) {
+					//取消加载效果
+					loadingToast.css('display', 'none');
+					_self.$set('message', '服务器维护，请稍后重试');
+				});
+				function scrollaction(){
+					if(_self.iscrollaction){
+						if (-(this.y) + $('#wrapper').height()+45 >= $('.main').height()) {
+							loadingToast.css('display', 'block');  //出现加载样式
+							_self.$http.jsonp(_self.url+'/Infomations/lists?token={pigcms:$token}&classid='+_self.classid+'&offset='+_self.startnum).then(function (response) {
+								var res = response.data;
+								var code = res.code;           //状态值
+								var listdata = res.data;        //数据
+								if( code == '20001'){         //提示内容
+									_self.startnum += listdata.length;  //更新startnum
+									//这个for循环是更新vue渲染列表的数据
+									for (var i = 0; i < listdata.length; i++) {
+										_self.demoData.push(listdata[i]);
+									}
+									_self.$set('message', '正在加载数据');
+									Vue.nextTick(function () {
+										_self.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+									});
+								}else if(code == '20002'){
+									_self.$set('iscrollaction', false);
+									_self.$set('message', '没有更多资讯');
+								}else if(code == '40001' || code == '40002'){
+									_self.$set('iscrollaction', false);
+									_self.$set('message', '访问错误');
+								}else{
+									_self.$set('iscrollaction', false);
+									_self.$set('message', '服务器维护，请稍后重试');
+								}
+								//加载样式消失
+								loadingToast.css('display', 'none');
+							}, function (response) {
+								//取消加载效果
+								loadingToast.css('display', 'none');
+								_self.$set('message', '服务器维护，请稍后重试');
+							});
+						}
+					}}
+			}//ajaxdata
+		}//method  结束
+	});
 
-			}
-		});
-	}
-});
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
-		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
-       	var url =HOST+'mobile.php?c=index&a=my_resume';
-        if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
-		 $.ajax({
-			type: 'post',
-			url: url,
-			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
+/*	$(function(){
+		var sessionUserId=$.session.get('userId');
+		if(sessionUserId=='undefined'){
+			//没有登陆
+			$.toptip('您还没有登陆！',2000, 'error');
+			window.location.href='../Login/login.php';
+		}else{
+			//已经登陆
+			var checkInfo = $("#supply_all").val();
+			var is_true ='';
+			var	start = 0;
+			var	limit = 5;
+			var url =HOST+'mobile.php?c=index&a=supply_list';
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: {checkInfo:checkInfo,is_true:'',start:'',limit:'',id:sessionUserId},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+					}else{
+						//数据取回成功
+						var mobile=$.session.get('mobileSession');
+
+					}
+				},
+				error:{
+
 				}
-			}
-		});
-});
+			});
+		}
+	});*/
 </script>
-</script>
+</body>
 </html>
