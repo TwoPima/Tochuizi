@@ -91,14 +91,14 @@ function uploadImage() {
     //判断是否有选择上传文件
         var imgPath = $("#avatar").val();
         if (imgPath == "") {
-            alert("请选择上传图片！");
+            $.toast("请选择上传图片！", "forbidden");
             return;
         }
         //判断上传文件的后缀名
         var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
         if (strExtension != 'jpg' && strExtension != 'gif'
         && strExtension != 'png' && strExtension != 'bmp') {
-            alert("请选择图片文件");
+            $.toast("必须选择图片", "forbidden");
             return;
         }
        var url =HOST+'mobile.php?c=index&a=headpic';
@@ -114,7 +114,7 @@ function uploadImage() {
                 //data:$('#myInfoForm').serialize(),
                 async: false,
                 error: function(request) {
-                	alert("上传失败，请检查网络后重试");
+               	 $.toast("上传失败，请检查网络后重试", "cancel");
                 },
                 success: function(result) {
                     if(result.data.id==null){
@@ -137,7 +137,7 @@ function uploadImage() {
 				success: function (result) {
 					var message=result.message;
 					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
+						 $.toast(message, "cancel");
 						window.location.href='./Login/login.php';
 					}else{
 						$("#avatar").attr("src",result.data.avatar);//头像

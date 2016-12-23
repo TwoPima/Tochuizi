@@ -14,6 +14,7 @@
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 	<script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script src="../Public/plugins/touchWipe/touchWipe.js"></script>
 <!--	<script type="text/javascript">
@@ -127,6 +128,7 @@
 		<div id="scroller">
 			<template v-for="item in demoData">
 					<div class="weui_panel">
+					<div class="list-data">
 						<a class="weui_panel_ft"  v-on:click="jump_url(item.id,item.url)"  href="{{item.url}}">
 							<div class="weui_media_box weui_media_text">
 								<p class="weui_media_desc">{{item.title}}</p>
@@ -136,7 +138,9 @@
 									<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
 								</ul>
 							</div>
+							<div class="del-btn">删除</div>
 						</a>
+						</div>
 					</div>
 			</template>
 		</div>
@@ -172,8 +176,10 @@
 				var res = response.data; //取出的数据
 				that.$set('demoData', res.data);  //把数据传给页面
 				var listdata =res.data;    //数据
-				//console.log(res.data.total_hits);
-				//console.log(res.data[0]);
+				console.log(res);
+				console.log(res.data);
+				console.log(res.data.total_hits);
+				console.log(res.data[0]);
 //				that.$set('start', listdata.length); //开始查询数据的值
 				Vue.nextTick(function () {
 					//初始化滚动插件
@@ -314,41 +320,130 @@
 			}//ajaxdata
 		}//method  结束
 	});
+	/*
+	 * 描述：html5苹果手机向左滑动删除特效
+	 */
+	 /*
+	  * 描述：html5苹果手机向左滑动删除特效
+	  */
+	window.addEventListener('load',function(){
+	     var initX;        //触摸位置
+	    var moveX;        //滑动时的位置
+	     var X = 0;        //移动距离
+	    var objX = 0;    //目标对象位置
+	    window.addEventListener('touchstart',function(event){
+	         event.preventDefault();
+	        var obj = event.target.parentNode;
+	       // alert(obj.className);
+	         if(obj.className == "list-data"||obj.className == "weui_panel_ft"){
+	            initX = event.targetTouches[0].pageX;
+	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+	         }
+	       if( objX == 0){
+	            window.addEventListener('touchmove',function(event) {
+	                 event.preventDefault();
+	                var obj = event.target.parentNode;
+	                if (obj.className == "weui_media_box weui_media_text"||obj.className == "weui_panel_ft") {
+	                    moveX = event.targetTouches[0].pageX;
+	                     X = moveX - initX;
+	                    if (X >= 0) {
+	                         obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+	                   }
+	                    else if (X < 0) {
+	                        var l = Math.abs(X);
+	                         obj.style.WebkitTransform = "translateX(" + -l + "px)";
+	                        if(l>80){
+	                            l=80;
+	                           obj.style.WebkitTransform = "translateX(" + -l + "px)";
+	                        }
+	                     }
+	                 }
+	             });
+	        }
+	        else if(objX<0){
+	          window.addEventListener('touchmove',function(event) {
+	                 event.preventDefault();
+	                var obj = event.target.parentNode;
+	                 if (obj.className == "list-data"||obj.className == "weui_panel_ft") {
+	                     moveX = event.targetTouches[0].pageX;
+	                    X = moveX - initX;
+	                     if (X >= 0) {
+	                         var r = -80 + Math.abs(X);
+	                         obj.style.WebkitTransform = "translateX(" + r + "px)";
+	                        if(r>0){
+	                             r=0;
+	                             obj.style.WebkitTransform = "translateX(" + r + "px)";
+	                         }
+	                     }
+	                     else {     //向左滑动
+	                        obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+	                     }
+	                }
+	            });
+	        }
 
-/* 	$(function(){
-		var sessionUserId=$.session.get('userId');
-		if(sessionUserId=='undefined'){
-			//没有登陆
-			$.toptip('您还没有登陆！',2000, 'error');
-			window.location.href='../Login/login.php';
-		}else{
-			//已经登陆
-			var checkInfo = $("#supply_list").val();
-			var is_true ='';
-			var	start = 0;
-			var	limit = 5;
-			var url =HOST+'mobile.php?c=index&a=supply_list';
-			$.ajax({
-				type: 'post',
-				url: url,
-				data: {checkInfo:checkInfo,is_true:'',start:'',limit:'',id:sessionUserId},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
-					}else{
-						//数据取回成功
-						var mobile=$.session.get('mobileSession');
-
-					}
-				},
-				error:{
-
-				}
-			});
-		}
-	}); */
+	    })
+	     window.addEventListener('touchend',function(event){
+	        event.preventDefault();
+	        var obj = event.target.parentNode;
+	        if(obj.className == "list-data"||obj.className == "weui_panel_ft"){
+	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+	             if(objX>-40){
+	                obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+	                 objX = 0;
+	            }else{
+	                 obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+	                objX = -80;
+	             }
+	         }
+	      })
+	 })
+	  function confirmDelete(id,name){
+	 alert(id);
+	 $.confirm({
+		  title: '确认删除',
+		  text: name,
+		  onOK: function () {
+		    //点击确认
+			    delData(id,$("#checkInfoAddress").val());
+		  },
+		  onCancel: function () {
+			  return false;
+		  }
+		});/* 
+	  	$.Dialog.confirmBox('温馨提示','确认删除？',{rightCallback:function(){
+	  		$.Dialog.loading();
+	  		$.get(url,function(res){
+	  			  setTimeout(function(){
+	  				 location.reload();	
+	  			},1500);  	
+	  	    });
+		}}); */
+	  }
+	//删除
+ function  delData(id,checkInfo){
+ 	var url =HOST+'mobile.php?c=index&a=my_address';
+	 alert(id);
+ 	 $.ajax({
+ 			type: 'post',
+ 			url: url,
+ 			data: {checkInfo:checkInfo,id:sessionUserId,dotype:'del',adr_id:id},
+ 			dataType: 'json',
+ 			success: function (result) {
+ 				var message=result.message;
+ 				var tips=result.message;
+ 				if (result.statusCode=='0'){
+ 					$.toast("删除错误，请重试", "cancel");
+ 				}else{
+ 					//$.toast("删除成功");
+ 					 setTimeout(function(){
+ 		  				 location.reload();	
+ 		  			},1500); 
+ 				} 
+ 			}
+ 		});
+ }
+	</script>
 </script>
 </body>
 </html>

@@ -32,8 +32,8 @@ function getVipList(checkInfo){
 				return false;
 			 }else{
 				 $.each(result.data, function (index, obj) {
-					 var one='<p class_id="'+obj.id+'" name="'+obj.name+'" count="'+obj.count+'" price="'+obj.price+'" class="vip_money_line1">'+obj.name+'<p><p class="vip_money_line2">'+obj.count+'次查询</p>';
-						//$('#vip_category').append(one);
+					 var vipCategoryHtml='<div class="weui-flex__item packageCategory"><div class="menu_3_box"><img src="../Public/img/vip/vip-icon-1.png" ><div class="vip_money" value="'+obj.id+'"><p class_id="'+obj.id+'" name="'+obj.name+'" count="'+obj.count+'" price="'+obj.price+'" class="vip_money_line1">'+obj.name+'<p><p class="vip_money_line2">'+obj.count+'次查询</p></div></div><div class="vip_category_action"><img class="vip_category_action_img" src="../Public/img/vip/select.png" ></div></div>';
+						$('#vip_category').append(vipCategoryHtml);
 		            });
 				return false;
 			 }
@@ -233,3 +233,14 @@ function uploadMultImg(add_picture,id){
 			}
 	  }); 
 }
+/*******手机端a链接点击无反应问题解决-fastclick.js******/
+//如果你使用原生js开发则进行如下声明即可。
+if ('addEventListener' in document) {      
+  document.addEventListener('DOMContentLoaded', function() {  
+  FastClick.attach(document.body);  
+}, false);  
+}
+//如果你想使用jquery
+$(function() {  
+  FastClick.attach(document.body);  
+});

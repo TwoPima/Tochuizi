@@ -20,6 +20,10 @@
 <script src="../Public/js/jquery-weui.min.js"></script>
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<style>
+#dpCity{ display:none; position:relative;} 
+#dpArea{ display:none;position:relative;} 
+</style>
 <script>
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -28,7 +32,7 @@
 	}
 		//已经登陆 去服务器比对sessionid
 		var url =HOST+'mobile.php?c=index&a=login';
-		getAreaListProvice($("#checkInfoArea").val(),'0');//省级
+		//getAreaListProvice($("#checkInfoArea").val(),'0');//省级
 	$(function(){
 			//提交，最终验证。
 		 $("#saveInfo").click(function() {
@@ -58,6 +62,76 @@
 				});
 		});
 	});
+	$(function () { 
+		var dp1 = $("#dpProvince"); 
+		var dp2 = $("#dpCity"); 
+		var dp3 = $("#dpArea"); 
+		//填充省的数据 
+		loadAreasProvince($("#checkInfoArea").val(), 0); 
+		//给省绑定事件，触发事件后填充市的数据 
+		jQuery(dp1).bind("change keyup", function () { 
+    		var provinceID = dp1.prop("value"); 
+    		loadAreasCity($("#checkInfoArea").val(), provinceID); 
+    		dp2.fadeIn("slow"); 
+		}); 
+		//给市绑定事件，触发事件后填充区的数据 
+		jQuery(dp2).bind("change keyup", function () { 
+    		var cityID = dp2.prop("value"); 
+    		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
+    		dp3.fadeIn("slow"); 
+    		}); 
+		}); 
+		//获得省级
+		function loadAreasProvince(checkInfo, pid) { 
+			 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+    		jQuery.ajax({ 
+        	   type: "POST",
+        	   url: urlArea,
+        	   data: {checkInfo:checkInfo,pid:pid},
+        	   dataType:"json",
+        	   success: function(result){
+        		   $('#dpProvince').append("<option value='' selected='selected'>请选择</option>"); 
+          		 $.each(result.data, function (index, obj) {
+      			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+      			   $('#dpProvince').append(proviceHtml);
+      		  	 });
+        	   }
+    		}); 
+		} 
+		//获得市级
+		function loadAreasCity(checkInfo, pid) { 
+			 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+    		jQuery.ajax({ 
+        	   type: "POST",
+        	   url: urlArea,
+        	   data: {checkInfo:checkInfo,pid:pid},
+        	   dataType:"json",
+        	   success: function(result){
+        		   $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
+          		 $.each(result.data, function (index, obj) {
+      			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+      			   $('#dpCity').append(proviceHtml);
+      		  	 });
+        	   }
+    		}); 
+		} 
+		//获得区级
+		function loadAreasDistrict(checkInfo, pid) { 
+			 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+    		jQuery.ajax({ 
+        	   type: "POST",
+        	   url: urlArea,
+        	   data: {checkInfo:checkInfo,pid:pid},
+        	   dataType:"json",
+        	   success: function(result){
+        		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
+          		 $.each(result.data, function (index, obj) {
+      			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+      			   $('#dpArea').append(proviceHtml);
+      		  	 });
+        	   }
+    		}); 
+		} 
 </script>
 </head>
 <body>
@@ -105,6 +179,7 @@
 			            <label class="weui-label">所在地区：</label>
 			        </div>
 			        <div class="weui-cell__bd">
+						<select id="dpProvince"></select><select id="dpCity"></select><select id="dpArea"></select>
 			          <input class="weui-input" type="text" name="area" id='area' value="宁夏回族自治区 银川市 金凤区" >
 			        </div>
 			    </div>
@@ -123,45 +198,7 @@
                    </div>
 			</div>
 			</div>
-			<!-- 12 -->
-			<div class="weui-picker-container">
-				<div class="weui-picker-modal picker-columns city-picker weui-picker-modal-visible">
-				<div class="toolbar">
-			          <div class="toolbar-inner">          
-			          	 <a href="javascript:;" class="picker-button close-picker">完成</a> 
-			             <h1 class="title">请选择收货地址</h1> 
-			          </div> 
-				     </div>
-				     <div class="picker-modal-inner picker-items">
-				    	 <div class="picker-items-col  col-province">
-				    	 <div class="picker-items-col-wrapper">
-    				    	 <div class="picker-item" data-picker-value="640105">西夏区</div>
-				     	</div>
-				     	</div>
-				     	<div class="picker-items-col  col-city">
-    				     	<div class="picker-items-col-wrapper" style="transform: translate3d(0px, 92px, 0px); transition-duration: 0ms;">
-    				     	<div class="picker-item picker-selected" data-picker-value="640100">银川市</div>
-    				     	<div class="picker-item" data-picker-value="640200">石嘴山市</div>
-    				     	</div>
-				     	</div>
-				     	<div class="picker-items-col  col-district">
-    				     	<div class="picker-items-col-wrapper" style="transform: translate3d(0px, 28px, 0px); transition-duration: 0ms;">
-    				     	<div class="picker-item" data-picker-value="640104">兴庆区</div>
-    				     	<div class="picker-item" data-picker-value="640105">西夏区</div>
-    				     	<div class="picker-item picker-selected" data-picker-value="640106">金凤区</div>
-    				     	<div class="picker-item" data-picker-value="640121">永宁县</div>
-    				     	<div class="picker-item" data-picker-value="640122">贺兰县</div>
-    				     	<div class="picker-item" data-picker-value="640181">灵武市</div>
-    				     	</div>
-				     	</div>
-			<!-- 12 -->
 	</div><!--main-->
 </div><!--app-->
 </body>
-<script>
-
-	$("#adr_id").click(function(){
-		$(".weui-picker-container").show();			
-		});
-</script>
 </html>

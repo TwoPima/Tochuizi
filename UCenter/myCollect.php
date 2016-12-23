@@ -29,8 +29,9 @@
     //已经登陆 去服务器比对sessionid
     var url =HOST+'mobile.php?c=index&a=favorite_list';
     var checkInfo=$("#checkInfo").val();
-    listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0:全部
-    listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0:全部
+    listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0：店铺
+    listCollect(sessionUserId,2,checkInfo,0,10);//type 1:商品，2：供求,0:店铺
+    listCollect(sessionUserId,0,checkInfo,0,10);//type 1:商品，2：供求,0:店铺
   	function listCollect(id,type,checkInfo,start,limit){
  		 var url =HOST+'mobile.php?c=index&a=favorite_list';
  		 $.ajax({

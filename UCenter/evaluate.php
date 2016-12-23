@@ -13,6 +13,29 @@
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
+  <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
+<script>
+$(function() {
+    $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
+    $('#description-raty').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+    $('#logistic-raty').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+    $('#server-raty').raty({ 
+    	  score: function() { 
+    	    return $(this).attr('data-score'); 
+    	  } 
+    	}); 
+});
+
+</script>
 <script>
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -64,27 +87,4 @@
         </div><!--main-->
     </div><!--app-->
 </body>
-<script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
-  <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
-<script>
-$(function() {
-    $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-    $('#description-raty').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
-    $('#logistic-raty').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
-    $('#server-raty').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
-});
-
-</script>
 </html>

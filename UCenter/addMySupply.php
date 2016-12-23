@@ -111,6 +111,8 @@
             var count_li = $("#uploaderFiles").children().length;
             if(count_li >= '5'){
                 $("#uploaderInput").css('display','none');
+              	 $.toast("不能超过五张图片！", "cancel");
+              	 return false;
             }
             compress(event, function(base64Img){
                 $('#fileshow'+i).attr('background-url',base64Img);
@@ -230,6 +232,13 @@ $(function(){
         var mobile = $("input[name=mobile]").val();
         var desc = $("textarea[name=desc]").val();
         var image_url = $("input[name=image_url]").val();
+        var vehicleIdArray = new Array();  
+        if(undefined != nodes){  
+            $(nodes).each(function (ind,val){  
+                vehicleIdArray.push(val.id);// 把数据放入到数组里面去  
+            });  
+        }  
+        var vehicleName=$("#vehicleName").val(); 
       if(mobile==""|| title==""){
        		$.toptip('手机号标题均不能为空！', 200, 'warning');
        	    return false; 
@@ -237,6 +246,7 @@ $(function(){
 		 $.ajax({
 			type: 'post',
 			url: url,
+			 traditional:true,//必须设成 true  
 			data: {
                 id:sessionUserId,
                 checkInfo:checkInfo,

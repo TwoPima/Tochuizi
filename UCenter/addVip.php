@@ -84,33 +84,31 @@
 			</div>
 		</div>
 		<div  class="weui-flex buy_vip" id="vip_category">
-			<div class="weui-flex__item">
+			<!-- <div class="weui-flex__item">
 				<div class="menu_3_box">
 					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money" >
+					<div class="vip_money vip-category" >
 					</div>
-					<p class_id="'+obj.id+'" name="'+obj.name+'" count="'+obj.count+'" price="'+obj.price+'" class="vip_money_line1">'+obj.name+'<p><p class="vip_money_line2">'+obj.count+'次查询</p>
-					<div class="vip_action"><img class="vip_action_img" src="../Public/img/vip/select.png" ></div>
-				</div>
-			</div>
-
-		<!-- 	<div class="weui-flex__item  ">
-				<div class="menu_3_box">
-					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money" id="vip_category">
-					</div>
-				</div>
-			</div>
-			<div class="weui-flex__item ">
-				<div class="menu_3_box">
-					<img src="../Public/img/vip/vip-icon-1.png" >
-					<div class="vip_money" id="vip_category">
+					<div class="vip_action">
+						<img class="vip_action_img" src="../Public/img/vip/select.png" >
 					</div>
 				</div>
 			</div> -->
+			<div class="weui-flex__item packageCategory">
+				<div class="menu_3_box">
+					<img src="../Public/img/vip/vip-icon-1.png" >
+					<div class="vip_money">
+						<p class="vip_money_line1"><span id="price">100</span>元</p>
+						<p class="vip_money_line2"><span id="count">120</span>次查询</p>
+					</div>
+				</div>
+				<div class="vip_category_action">
+						<img class="vip_category_action_img" src="../Public/img/vip/select.png" >
+				</div>
+			</div> 
 		</div>
 		<div class="input_vip">
-			<input type="text" placeholder="点击输入自定义金额,1元/次">
+			<input type="text" name="price" id="price" placeholder="点击输入自定义金额,1元/次">
 		</div>
 	</div>
 	<div class="vip_box ">
@@ -160,20 +158,22 @@
 				 $(this).siblings().children(".vip_action").css("visibility","hidden");
 		  		$(this).children(".vip_action").css("visibility","visible");  
 		  		$(this).children(".menu_2_box").attr("id","selectMethod");  
-		  		//$(this).siblings().children(".vip_action").css("visibility","hidden");
 		}); 
-    	$('.menu_3_box').click(function(){
-   			 $(this).siblings().children(".vip_action").css("visibility","hidden");
-	  		$(this).children(".vip_action").css("visibility","visible");  
-	  		$(this).children(".menu_2_box").attr("id","selectClassId");  
-    	});
+    	//套餐类型
+		$(document).on("click", ".packageCategory", function() {
+			 $(this).siblings().children(".vip_category_action").css("visibility","hidden");
+	  		$(this).children(".vip_category_action").css("visibility","visible");  
+	  		$(this).children(".menu_3_box").attr("id","selectClassId");  
+		});
     	//提交，最终验证。
     	$("#btn-custom-theme").click(function() {
-    			var method=$("#selectMethod").children(".vip_money").attr("value");
+    			var method=$("#selectMethod").children(".vip_money").attr("value");//支付方式
+    			var class_id=$("#selectClassId").children(".vip_money").attr("value");//套餐类别
+    			//alert(method);
+    			//alert(class_id);
     			var checkInfoRecharge = $("#checkInfoRecharge").val();
-    			var vip_count = $("#vip_count").val();
-    			var class_id = $("#class_id").val();
-    			var vip_count = $("#vip_count").val();
+    			var price = $("#price").val();
+    			var vip_count = $("#vip_count").val();//充值次数
     			var url =HOST+'mobile.php?c=index&a=vip_recharge';
     	       if(method==""|| class_id==""){
     	    	  	 $.toast("支付方式和套餐均不能为空！", "cancel");
@@ -182,7 +182,7 @@
     	       $.ajax({
     				type: 'post',
     				url: url,
-    				data: {checkInfo:checkInfoRecharge,vip_count:vip_count,user_id:sessionUserId,method:method,class_id:class_id},
+    				data: {checkInfo:checkInfoRecharge,price:price,vip_count:'4',id:sessionUserId,method:method,class_id:class_id},
     				dataType: 'json',
     				success: function (result) {
         				

@@ -1,88 +1,103 @@
 <style>
-input[type=radio]{
-    width: .975rem;
-    visibility: hidden;
-    vertical-align: middle;
-  }
-  .r-label{
-        display: inline-block;
-        height: 1.55rem;
-        background: url("../img/radio.png") left center no-repeat;
-        background-size: 0.975rem 0.975rem;
-        padding-left: 0.45rem;
-  }
-  .r-label.checked{
-    background: url("../img/radio-checked.png") left center no-repeat;
-    background-size: 0.975rem 0.975rem;
-  }
-</style>
-<label for="bill_y" class="r-label checked"><label for="bill_n" class="r-label"><input type="radio" name="bill" id="bill_n"/>否</label>
+*{ 
+padding:0; 
+margin:0; 
+} 
+/*一级菜单*/
+.navMenu { 
+width:570px; 
+margin:0 auto; 
+} 
+.navMenu ul li{ 
+float: left; 
+position: relative; 
+} 
+li{ 
+list-style: none; 
+background-color: #eee; 
+width: 140px; 
+height: 40px; 
+text-align: center; 
+margin-right: 2px; 
+margin-bottom: 2px; 
+} 
+ul li a{ 
+line-height: 40px; 
+text-align: center; 
+font-size: 20px; 
+color: #000; 
+text-decoration: none; 
+display: block; 
+padding:0 10px; 
+} 
+/*二级菜单*/
+.navMenu ul li ul { 
+display: none; 
+position:absolute; 
+left: 0; 
+top:0; 
+margin-top:42px; 
+} 
+.navMenu ul li ul li{ 
+float:none; 
+} 
+/*三级菜单*/
+.navMenu ul li ul li ul{ 
+display: none; 
+left:140px; 
+top:-42px; 
+}</style>
 <script src="../Public/js/jquery-2.1.4.js"></script>
-<script>
-//处理单选框选中
-$(".r-label").on("tap",function(){
-    var $this = $(this);
-    var $radio = $(this).find("input[type=radio]");
-    var checked = $radio.prop("checked");
-    if(!checked && !$this.hasClass("checked")){
-        $(".r-label").removeClass("checked");
-        $this.addClass("checked");
-    }
-});
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-<style>
-label{
-height:40px;
-width:100px;
-border:1px solid #666;
-display:block;
-text-align:center;
-line-height:40px;
-border-radius:10px;
-background:lightgreen;
-opacity: 1;
-}
-input{
-display:none;
-}
-span{
-display:block;
-height:100%;
-width:100%;
-}
-#canvas {
-border:1px solid #666;
-}
-</style>
-</head>
-<body>
-<label>
-<input type="file" id="file" />
-<span>上传文件</span>
-</label>
-<canvas width="300" height="300" id="canvas"></canvas>
-</body>
-<script>
-$("#file").change(function (){
-var file = new FileReader();//读取文件2进制
-file.onload = function(e){
-var base64 = e.target.result;
-var img = new Image();//创建一个图片对象
-img.onload = function (){
-var canvas = $("#canvas").get(0);
-var ctx = canvas.getContext("2d");
-//使用drawImage显示图片
-ctx.drawImage(img,0,0,canvas.width,canvas.height);
-}
-//把base64添加到图片上
-img.src = base64;
-};
-file.readAsDataURL(this.files[0]);
-});
+<script type="text/javascript"> 
+$(function(){ 
+$("li").has("ul").mouseover(function(){ 
+$(this).children("ul").css("display","block"); 
+$(this).css("backgroundColor","#0066FF"); 
+}).mouseout(function () { 
+$(this).children("ul").css("display","none"); 
+$(this).css("backgroundColor","#eee"); 
+}) 
+}) 
 </script>
-</html>
+<body> 
+<div class="navMenu"> 
+<ul> 
+<li><a href="#">首页</a> 
+<ul> 
+<li><a href="#">JavaScript+</a> 
+<ul> 
+<li><a href="#">三角函数</a></li> 
+<li><a href="#">矩形</a></li> 
+</ul> 
+</li> 
+<li><a href="#">语文</a> 
+<ul> 
+<li><a href="#">唐诗</a></li> 
+<li><a href="#">宋词</a></li> 
+</ul> 
+</li> 
+<li><a href="#">英语</a></li> 
+</ul> 
+</li> 
+<li><a href="#">课程大厅</a></li> 
+<li><a href="#">学习中心+</a> 
+<ul> 
+<li><a href="#">JavaScript+</a> 
+<ul> 
+<li><a href="#">三角函数</a></li> 
+<li><a href="#">矩形</a></li> 
+</ul> 
+</li> 
+<li><a href="#">语文</a> 
+<ul> 
+<li><a href="#">三角函数</a></li> 
+<li><a href="#">矩形</a></li> 
+</ul> 
+</li> 
+<li><a href="#">英语</a></li> 
+</ul> 
+</li> 
+<li><a href="#">帮助</a></li> 
+</ul> 
+</div> 
+</body>

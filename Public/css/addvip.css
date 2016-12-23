@@ -151,4 +151,16 @@ body{
     width: 100%;
     height:100%;
 }
+.vip_category_action {
+    position: absolute;
+    right:5px ;
+    bottom:3px;
+     visibility: hidden; 
+    height:30px;
+    width: 30px;
+}
+.vip_category_action_img{
+    width: 100%;
+    height:100%;
+}
 
