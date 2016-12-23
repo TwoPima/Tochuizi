@@ -172,6 +172,8 @@
 				var res = response.data; //取出的数据
 				that.$set('demoData', res.data);  //把数据传给页面
 				var listdata =res.data;    //数据
+				//console.log(res.data.total_hits);
+				//console.log(res.data[0]);
 //				that.$set('start', listdata.length); //开始查询数据的值
 				Vue.nextTick(function () {
 					//初始化滚动插件
@@ -185,7 +187,8 @@
 					//滚动监听
 					that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
 				})
-			}, function (response) {
+			}, 
+			function (response) {
 				that.$set('message', '服务器维护，请稍后重试');
 			});
 			function scrollaction(){
@@ -193,13 +196,14 @@
 					that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data;
 							var listdata = res.data;    //数据
+							//console.log(listdata);
 							/*that.url.start += listdata.length;  //更新start
 							console.log(that.url.start);*/
 							//这个for循环是更新vue渲染列表的数据
 							for (var i = 0; i < listdata.length; i++) {
 								that.demoData.push(listdata[i]);
 							}
-							console.log(that.demoData);
+							//console.log(that.demoData);
 							Vue.nextTick(function () {
 								that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
 							});
@@ -311,7 +315,7 @@
 		}//method  结束
 	});
 
-/*	$(function(){
+/* 	$(function(){
 		var sessionUserId=$.session.get('userId');
 		if(sessionUserId=='undefined'){
 			//没有登陆
@@ -319,7 +323,7 @@
 			window.location.href='../Login/login.php';
 		}else{
 			//已经登陆
-			var checkInfo = $("#supply_all").val();
+			var checkInfo = $("#supply_list").val();
 			var is_true ='';
 			var	start = 0;
 			var	limit = 5;
@@ -344,7 +348,7 @@
 				}
 			});
 		}
-	});*/
+	}); */
 </script>
 </body>
 </html>

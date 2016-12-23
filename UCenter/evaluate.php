@@ -36,23 +36,9 @@
 				}else{
 					//查询信息
 					  $.each(result.data, function (index, obj) {
-	    					var addressHtml='<a class="weui-cell weui-cell_access" href="index.html?goods_id='+obj.goods_id+'">
-	    	                    <div class="weui-cell__bd">
-	                        <p id="company_name">宁夏亿次元科技网站销售 <span id="price" class="red">44元</span></p>
-	                    </div>
-	                    <div class="weui-cell__ft"></div>
-	                </a>
-	                <div class="height1px"></div>
-	               <article class="weui-article">
-	              	  <section><p id="evaluate-content">'+obj.desc+'</p></section>
-	                    <section><p id="description">描述评级：<span id="description-raty" data-score="'+obj.miao_star+'"></span></p>
-	                        <p id="logistic">物流评级：<span id="logistic-raty"data-score="'+liu_star+'" ></span></p>
-	                        <p id="server">服务评级：<span id="server-raty" data-score="'+obj.fuwu_star+'"></span></p>
-	                        </section>
-	                        <section id="content-img" ><p><img src="../Public/img/test1.png" alt=""><img src="../Public/img/test1.png" alt=""></p></section>
-	                        <section><p id="article-date" class="float-right">'+obj.add_time+'</p> </section> </article>';
+	    					var addressHtml='<a class="weui-cell weui-cell_access" href="index.html?goods_id='+obj.goods_id+'"><div class="weui-cell__bd"><p id="company_name">宁夏亿次元科技网站销售 <span id="price" class="red">44元</span></p></div><div class="weui-cell__ft"></div></a><div class="height1px"></div><article class="weui-article"><section><p id="evaluate-content">'+obj.desc+'</p></section><section><p id="description">描述评级：<span id="description-raty" data-score="'+obj.miao_star+'"></span></p><p id="logistic">物流评级：<span id="logistic-raty"data-score="'+liu_star+'" ></span></p><p id="server">服务评级：<span id="server-raty" data-score="'+obj.fuwu_star+'"></span></p> </section><section id="content-img" ><p><img src="../Public/img/test1.png" alt=""><img src="../Public/img/test1.png" alt=""></p></section> <section><p id="article-date" class="float-right">'+obj.add_time+'</p> </section> </article>';
 	   						 $(".weui-panel").append(addressHtml);
-							   });
+					 });
 				}
 			}
 		});
