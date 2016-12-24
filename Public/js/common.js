@@ -188,6 +188,23 @@ function getMemberType(idtype){
 	}
     return  typeMember;
 }
+//招聘人数分类
+function getRecruitCountCat(checkInfo,cate_id){
+	var url =HOST+'mobile.php?c=index&a=job_type';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfo,cate_id:cate_id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#job_type').append(jobTimeHtml);
+			});
+			return false;
+		}
+	});
+}
 //工种类别
 function JobType(checkInfo,cate_id){
 	var url =HOST+'mobile.php?c=index&a=job_type';
@@ -232,6 +249,57 @@ function uploadMultImg(add_picture,id){
 				var name=result.data.name;
 			}
 	  }); 
+}
+//获得一级招聘分类
+function getRecruitCat(checkInfo,pid){
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	jQuery.ajax({ 
+	   type: "POST",
+	   url: urlArea,
+	   data: {checkInfo:checkInfo,pid:pid},
+	   dataType:"json",
+	   success: function(result){
+		   $('#dpProvince').append("<option value='' selected='selected'>请选择</option>"); 
+  		 $.each(result.data, function (index, obj) {
+			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   $('#dpProvince').append(proviceHtml);
+		  	 });
+	   }
+	}); 
+} 
+//获得二级招聘分类
+function getRecruitCatSub(checkInfo, pid) { 
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	jQuery.ajax({ 
+	   type: "POST",
+	   url: urlArea,
+	   data: {checkInfo:checkInfo,pid:pid},
+	   dataType:"json",
+	   success: function(result){
+		   $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
+  		 $.each(result.data, function (index, obj) {
+			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   $('#dpCity').append(proviceHtml);
+		  	 });
+	   }
+	}); 
+} 
+//获得三级招聘分类
+function getRecruitCatThere(checkInfo, pid) { 
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	jQuery.ajax({ 
+	   type: "POST",
+	   url: urlArea,
+	   data: {checkInfo:checkInfo,pid:pid},
+	   dataType:"json",
+	   success: function(result){
+		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
+  		 $.each(result.data, function (index, obj) {
+			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   $('#dpArea').append(proviceHtml);
+		  	 });
+	   }
+	}); 
 }
 /*******手机端a链接点击无反应问题解决-fastclick.js******/
 //如果你使用原生js开发则进行如下声明即可。
