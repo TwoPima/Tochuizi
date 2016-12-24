@@ -21,8 +21,7 @@
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <style>
-#dpCity{ display:none; position:relative;} 
-#dpArea{ display:none;position:relative;} 
+#dpCity,#dpArea{ display:none; position:relative;} 
 </style>
 <script>
 	sessionUserId=$.session.get('userId');
@@ -34,13 +33,17 @@
 		var url =HOST+'mobile.php?c=index&a=login';
 		//getAreaListProvice($("#checkInfoArea").val(),'0');//省级
 	$(function(){
-			//提交，最终验证。
+		var dp1 = $("#dpProvince"); 
+		var dp2 = $("#dpCity"); 
+		var dp3 = $("#dpArea"); 
+		//提交，最终验证。
 		 $("#saveInfo").click(function() {
 				var is_yes=$("input[name=is_yes]:checked").val();
 				var  checkInfo = $("#checkInfo").val();
 				var  name = $("#name").val();
 				var  mobile = $("#mobile").val();
-				var  area = $("#area").val();
+				var  area = dp1.val()+dp2.val()+dp3.val();//是id还是name
+				alert(area)
 				var  address = $("#address").val();
 				var  code = $("#code").val();
 		       	var url =HOST+'mobile.php?c=index&a=my_address';
@@ -51,7 +54,7 @@
 					dataType: 'json',
 					success: function (result) {
 						var message=result.message;
-						if (result.statusCode==='0'){
+						if (result.statusCode=='0'){
 							$.toptip(message,2000, 'error');
 						}else{
 							$.toast(message);
@@ -61,11 +64,7 @@
 					}
 				});
 		});
-	});
-	$(function () { 
-		var dp1 = $("#dpProvince"); 
-		var dp2 = $("#dpCity"); 
-		var dp3 = $("#dpArea"); 
+	
 		//填充省的数据 
 		loadAreasProvince($("#checkInfoArea").val(), 0); 
 		//给省绑定事件，触发事件后填充市的数据 
@@ -174,15 +173,18 @@
 			            <input class="weui-input" type="text"  name="code" id="code" placeholder="请输入邮政编码">
 			        </div>
 			    </div>
-			    <div class="weui-cell">
-			        <div class="weui-cell__hd">
-			            <label class="weui-label">所在地区：</label>
-			        </div>
-			        <div class="weui-cell__bd">
-						<select id="dpProvince"></select><select id="dpCity"></select><select id="dpArea"></select>
-			          <input class="weui-input" type="text" name="area" id='area' value="宁夏回族自治区 银川市 金凤区" >
-			        </div>
-			    </div>
+			      <div class="weui_cell">
+					    <div class="weui_cell_hd"><label class="weui_label">工作地区</label></div>
+					    <div class="weui_cell_bd weui_cell_primary">
+					      <select class="area" name="cate_id" id="dpProvince">
+					      </select>
+					     <!--  <span class="">&nbsp;|</span> -->
+					      <select class=" area" name="cate_id" id="dpCity">
+					      </select>
+					      <select class=" area" name="cate_id" id="dpArea">
+					      </select>
+					    </div>
+					  </div>
 				     <div class="weui-cell">
 			        <div class="weui-cell__hd"><label class="weui-label">详细地址：</label></div>
 			        <div class="weui-cell__bd">

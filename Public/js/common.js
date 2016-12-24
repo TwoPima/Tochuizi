@@ -191,7 +191,7 @@ function getMemberType(idtype){
 //招聘人数分类
 function getRecruitCountCat(checkInfo,cate_id){
 	var url =HOST+'mobile.php?c=index&a=job_type';
-	$.ajax({
+	/*$.ajax({
 		type: 'post',
 		url: url,
 		data: {checkInfo:checkInfo,cate_id:cate_id},
@@ -203,7 +203,7 @@ function getRecruitCountCat(checkInfo,cate_id){
 			});
 			return false;
 		}
-	});
+	});*/
 }
 //工种类别
 function JobType(checkInfo,cate_id){
@@ -252,41 +252,41 @@ function uploadMultImg(add_picture,id){
 }
 //获得一级招聘分类
 function getRecruitCat(checkInfo,pid){
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	 var urlArea= HOST+'mobile.php?c=index&a=recruit_cat';
 	jQuery.ajax({ 
 	   type: "POST",
 	   url: urlArea,
 	   data: {checkInfo:checkInfo,pid:pid},
 	   dataType:"json",
 	   success: function(result){
-		   $('#dpProvince').append("<option value='' selected='selected'>请选择</option>"); 
+		   $('#getRecruitCat').append("<option value='' selected='selected'>请选择</option>"); 
   		 $.each(result.data, function (index, obj) {
 			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-			   $('#dpProvince').append(proviceHtml);
+			   $('#getRecruitCat').append(proviceHtml);
 		  	 });
 	   }
 	}); 
 } 
 //获得二级招聘分类
 function getRecruitCatSub(checkInfo, pid) { 
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	 var urlArea= HOST+'mobile.php?c=index&a=recruit_cat';
 	jQuery.ajax({ 
 	   type: "POST",
 	   url: urlArea,
 	   data: {checkInfo:checkInfo,pid:pid},
 	   dataType:"json",
 	   success: function(result){
-		   $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
+		   $('#getRecruitCatSub').append("<option value='' selected='selected'>请选择</option>"); 
   		 $.each(result.data, function (index, obj) {
 			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-			   $('#dpCity').append(proviceHtml);
+			   $('#getRecruitCatSub').append(proviceHtml);
 		  	 });
 	   }
 	}); 
 } 
 //获得三级招聘分类
 function getRecruitCatThere(checkInfo, pid) { 
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	 var urlArea= HOST+'mobile.php?c=index&a=recruit_cat';
 	jQuery.ajax({ 
 	   type: "POST",
 	   url: urlArea,

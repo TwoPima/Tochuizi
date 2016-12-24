@@ -47,39 +47,38 @@ $(function(){
 	getRecruitCat($("#checkInfoRecruitCat").val(),0);//招聘分类 三级
 	getRecruitCountCat($("#checkInfoRecruitCat").val(),0);//招聘人数分类
 	jobDayWages($("#checkInfoZidian").val());//薪资要求
-});
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var sex=$("input[name='sex']:checked").val();
-		var name = $("#name").val();
-		var mobile = $("#mobile").val();
-		var desc = $("#desc").val();
-		var home = $("#home").val();
-		var birthday = $("#birthday").val();
-		var cate_id=$('#job_type option:selected').val();
-		var education=$('#education option:selected').val();
-		var job_year = $("#job_year").val();
-		var checkInfo = $("#checkInfo").val();
-       	var url =HOST+'mobile.php?c=index&a=my_resume';
-        if(mobile==""|| name==""){
-       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
-		 $.ajax({
-			type: 'post',
-			url: url,
-			data: {mobile:mobile,cate_id:cate_id,recruit_id:recruit_id,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toast(message, "cancel");
-				}else{
-					//$.toast("操作成功");
-					//window.location.href='myJob.php';
+	 //提交，最终验证。
+	 $("#btn-custom-theme").click(function() {
+			var title = $("#title").val();
+			var mobile = $("#mobile").val();
+			var desc = $("#desc").val();
+			var home = $("#home").val();
+			var birthday = $("#birthday").val();
+			var cate_id=$('#job_type option:selected').val();
+			var education=$('#education option:selected').val();
+			var job_year = $("#job_year").val();
+			var checkInfo = $("#checkInfo").val();
+	       	var url =HOST+'mobile.php?c=index&a=my_resume';
+	        if(mobile==""|| name==""){
+	       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
+	       	    return false; 
+	       	 }
+			 $.ajax({
+				type: 'post',
+				url: url,
+				data: {mobile:mobile,cate_id:cate_id,recruit_id:recruit_id,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toast(message, "cancel");
+					}else{
+						//$.toast("操作成功");
+						//window.location.href='myJob.php';
+					}
 				}
-			},
-		});
+			});
+	 });
 });
 </script>
 </head>
@@ -105,13 +104,16 @@ $(function(){
 								<input class="weui-input" name="title" id="title"type="text" placeholder="职位名称" />
 							</div>
 						</div>
-					 <div class="weui_cell weui_cell_select">
+					 <div class="weui_cell">
+					    <div class="weui_cell_hd"><label class="weui_label">职位类别</label></div>
 					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="weui_select" name="cate_id" id="cate_id">
-					        <option selected="" value="0">请选择职位类别</option>
-					        <option  value="1">技工</option>
-					        <option value="2">木工</option>
-					        <option value="3">家装木工</option>
+					      <select class="jobCategory" name="getRecruitCat" id="getRecruitCat">
+					      </select>
+					      <span class="">&nbsp;|</span>
+					      <select class=" jobCategory" name="getRecruitCatSub" id="getRecruitCatSub">
+					      </select>
+					      <span class="">&nbsp;|</span>
+					      <select class=" jobCategory" name="getRecruitCatThere" id="getRecruitCatThere">
 					      </select>
 					    </div>
 					  </div>
@@ -147,30 +149,43 @@ $(function(){
 						<div class="weui_cell weui_cell_select">
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="weui_select" name="wages" id="wages">
-					        <option selected="" value="0">选择工资待遇</option>
+					        <option selected="" value="0">工资待遇</option>
 					      </select>
 					    </div>
 					  </div>
-					<!-- <div class="weui-cells weui-cells_checkbox">
+					  <div class="height1px"></div>
+					 <div class="weui-cells weui-cells_checkbox" >
 					     <div class="push_checkbox">
 					     <div class="weui_cell_hd"><label class="weui_label jobPosition">职位福利</label></div>
 		                    <div id="benefit">
-		                    <!-- <div class="daiyu_checkbox">
+		                     <div class="daiyu_checkbox">
+		                        <label for="one">包食宿</label>
+		                        <input type="checkbox" name="benefit" id="one">
+		                    </div> 
+		                     <div class="daiyu_checkbox">
+		                        <label for="one">包食宿</label>
+		                        <input type="checkbox" name="benefit" id="one">
+		                    </div> 
+		                     <div class="daiyu_checkbox">
 		                        <label for="one">包食宿</label>
 		                        <input type="checkbox" name="benefit" id="one">
 		                    </div> 
 		                    </div>
 		                </div>
-					</div> -->
-					<div class="weui-cells weui-cells_checkbox" id="benefit">
-                </div>
-						<div class="weui_cell weui_cell_select">
+					</div>
+					   <div class="weui_cell">
+					    <div class="weui_cell_hd"><label class="weui_label">工作地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="weui_select" name="area" id="area">
-					        <option selected="" value="0">选择工作地区</option>
-					        <option value="1">高中</option>
-					        <option value="2">大学本科</option>
-					        <option value="3">本科以上</option>
+					      <select class="jobCategory" name="cate_id" id="cate_id">
+					        <option selected="" value="0">类别1</option>
+					      </select>
+					      <span class="">&nbsp;|</span>
+					      <select class=" jobCategory" name="cate_id" id="cate_id">
+					        <option selected="" value="0">类别2</option>
+					      </select>
+					      <span class="">&nbsp;|</span>
+					      <select class=" jobCategory" name="cate_id3" id="cate_id">
+					        <option selected="" value="0">类别</option>
 					      </select>
 					    </div>
 					  </div>
@@ -203,4 +218,25 @@ $(function(){
 		</div>
 	</div>
 </body>
+<script>
+$(function(){
+	var dp1 = $("#getRecruitCat"); 
+	var dp2 = $("#getRecruitCatSub"); 
+	var dp3 = $("#getRecruitCatThere"); 
+	//填充一级的数据 
+	getRecruitCat($("#checkInfoRecruitCat").val(), 0); 
+	//给省绑定事件，触发事件后填充市的数据 
+	$(dp1).bind("change keyup", function () { 
+		var firstId = dp1.prop("value"); 
+		getRecruitCatSub($("#checkInfoRecruitCat").val(), firstId); 
+		dp2.fadeIn("slow"); 
+	}); 
+	//给市绑定事件，触发事件后填充区的数据 
+	$(dp2).bind("change keyup", function () { 
+		var subId = dp2.prop("value"); 
+		getRecruitCatThere($("#checkInfoRecruitCat").val(), subId); 
+		dp3.fadeIn("slow"); 
+		}); 
+});
+</script>
 </html>

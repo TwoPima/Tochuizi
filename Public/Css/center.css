@@ -265,6 +265,11 @@ body{
 .weui-picker-modal .picker-item.picker-selected,.weui-picker-modal .picker-item {
 	font-size:14px;
 }
+.area{
+	display:inline;
+	width: 26%;
+	border:0px;
+}
 /* 地址管理 结束*/
 /* 我的订单管理 开始*/
 .myOrder  .weui-cell__bd{

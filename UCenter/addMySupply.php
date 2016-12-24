@@ -148,9 +148,7 @@
                 $("#uploaderFiles").prepend(html);
                 console.log(html);
                     var image = $('.fileshow'+i);
-                    alert(image);
                     image.on('load', function () {
-                        alert(12312322);
                     var square = 700;
                     var canvas = document.createElement('canvas');
                     if(this.width > square) {
@@ -231,14 +229,15 @@ $(function(){
         var price = $("input[name=price]").val();
         var mobile = $("input[name=mobile]").val();
         var desc = $("textarea[name=desc]").val();
-        var image_url = $("input[name=image_url]").val();
-        var vehicleIdArray = new Array();  
+        //var image_url = $("input[name=image_url]").val();
+        /* var imageUrlArray = new Array();  
         if(undefined != nodes){  
-            $(nodes).each(function (ind,val){  
-                vehicleIdArray.push(val.id);// 把数据放入到数组里面去  
+            $(imageUrlArray).each(function (ind,val){  
+            	imageUrlArray.push(val.id);// 把数据放入到数组里面去  
             });  
-        }  
-        var vehicleName=$("#vehicleName").val(); 
+        }   */
+        var image_url=$("#image_url").val(); 
+        alert(image_url);
       if(mobile==""|| title==""){
        		$.toptip('手机号标题均不能为空！', 200, 'warning');
        	    return false; 

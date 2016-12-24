@@ -279,6 +279,14 @@ body{
 	font-size: 14px;
 	color:#666;
 }
+.jobCategory{
+	display:inline;
+	width: 26%;
+	border:0px;
+}
+#getRecruitCatSub,#getRecruitCatThere{
+	display:none;position:relative;
+}
 .addbuin_form .weui-input {
     font-size: 14px;
     color: inherit;
