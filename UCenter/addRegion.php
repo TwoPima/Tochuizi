@@ -16,22 +16,19 @@
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
-<script src="../Public/js/city-picker.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
-<style>
-#dpCity,#dpArea{ display:none; position:relative;} 
-</style>
 <script>
 	sessionUserId=$.session.get('userId');
+	//getNowPosition();
 	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';
 	}
 		//已经登陆 去服务器比对sessionid
 		var url =HOST+'mobile.php?c=index&a=login';
-		//getAreaListProvice($("#checkInfoArea").val(),'0');//省级
 	$(function(){
 		var dp1 = $("#dpProvince"); 
 		var dp2 = $("#dpCity"); 
@@ -80,57 +77,6 @@
     		dp3.fadeIn("slow"); 
     		}); 
 		}); 
-		//获得省级
-		function loadAreasProvince(checkInfo, pid) { 
-			 var urlArea= HOST+'mobile.php?c=index&a=get_area';
-    		jQuery.ajax({ 
-        	   type: "POST",
-        	   url: urlArea,
-        	   data: {checkInfo:checkInfo,pid:pid},
-        	   dataType:"json",
-        	   success: function(result){
-        		   $('#dpProvince').append("<option value='' selected='selected'>请选择</option>"); 
-          		 $.each(result.data, function (index, obj) {
-      			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-      			   $('#dpProvince').append(proviceHtml);
-      		  	 });
-        	   }
-    		}); 
-		} 
-		//获得市级
-		function loadAreasCity(checkInfo, pid) { 
-			 var urlArea= HOST+'mobile.php?c=index&a=get_area';
-    		jQuery.ajax({ 
-        	   type: "POST",
-        	   url: urlArea,
-        	   data: {checkInfo:checkInfo,pid:pid},
-        	   dataType:"json",
-        	   success: function(result){
-        		   $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
-          		 $.each(result.data, function (index, obj) {
-      			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-      			   $('#dpCity').append(proviceHtml);
-      		  	 });
-        	   }
-    		}); 
-		} 
-		//获得区级
-		function loadAreasDistrict(checkInfo, pid) { 
-			 var urlArea= HOST+'mobile.php?c=index&a=get_area';
-    		jQuery.ajax({ 
-        	   type: "POST",
-        	   url: urlArea,
-        	   data: {checkInfo:checkInfo,pid:pid},
-        	   dataType:"json",
-        	   success: function(result){
-        		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
-          		 $.each(result.data, function (index, obj) {
-      			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-      			   $('#dpArea').append(proviceHtml);
-      		  	 });
-        	   }
-    		}); 
-		} 
 </script>
 </head>
 <body>
@@ -174,7 +120,7 @@
 			        </div>
 			    </div>
 			      <div class="weui_cell">
-					    <div class="weui_cell_hd"><label class="weui_label">工作地区</label></div>
+					    <div class="weui_cell_hd"><label class="weui_label">收货地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="area" name="cate_id" id="dpProvince">
 					      </select>

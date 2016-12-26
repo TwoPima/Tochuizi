@@ -23,6 +23,7 @@
         <div id="header-right"></div>
     </div>
     <div id="main">
+    <form action="" method="post"  enctype="multipart/form-data">
         <div class="main_box">
             <div class="weui-cells">
                 <div class="weui-cell">
@@ -37,7 +38,7 @@
                  <!-- <li class="weui-uploader__file" style="background-image:url(1.jpg)"></li> -->   
                 </ul>
                 <div class="weui-uploader__input-box">
-                    <input id="uploaderInput" class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" multiple="">
+                    <input class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" >
                 </div>
             </div>
         </div>
@@ -93,18 +94,56 @@
         <div style="margin-top: 20px;">
             <a  class="weui-btn weui-btn_plain-default " id="btn-custom-theme">确认发布</a>
         </div>
+        </form>
         </div>
     </div>
 </body>
-
 <input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <input value="<?php echo md5(date('Ymd')."supply_cat"."tuchuinet");?>"	type="hidden" id="supply_cat"/>
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script>
+$(function() {
+	$('#image_url').change(function(event) {
+		// 根据这个 <input> 获取文件的 HTML5 js 对象
+		var files = event.target.files, file;		
+		if (files && files.length > 0) {
+			// 获取目前上传的文件
+			file = files[0];
+			// 来在控制台看看到底这个对象是什么
+			console.log(file);
+			// 那么我们可以做一下诸如文件大小校验的动作
+			if(file.size > 1024 * 1024 * 2) {
+				alert('图片大小不能超过 2MB!');
+				return false;
+			}
+			var count_li = $("#uploaderFiles").children().length;
+            if(count_li >= '5'){
+                $("#uploaderInput").css('display','none');
+              	 $.toast("不能超过五张图片！", "cancel");
+              	 return false;
+            }
+			// 下面是关键的关键，通过这个 file 对象生成一个可用的图像 URL
+			// 获取 window 的 URL 工具
+			var URL = window.URL || window.webkitURL;
+			// 通过 file 生成目标 url
+			var imgURL = URL.createObjectURL(file);
+			// 用这个 URL 产生一个 <img> 将其显示出来
+			console.log(imgURL);
+			  var html = '';
+              html += '<li class="weui-uploader__file" >' +
+                  '<img src="'+imgURL+'"class="fileshow" />'+
+                  '</li>';
+
+              $("#uploaderFiles").prepend(html);
+			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
+			// URL.revokeObjectURL(imgURL);
+		}
+	});
+});
     /*图片上传无刷新预览*/
-    window.onload = function(){
+     window.onload = function(){
         var i = 1;
         // 选择图片
         document.getElementsByClassName('file')[0].onchange = function(){
@@ -114,27 +153,15 @@
               	 $.toast("不能超过五张图片！", "cancel");
               	 return false;
             }
-            compress(event, function(base64Img){
+        	//console.log(objUrl);
+             /* compress(event, function(base64Img){
+                 console.log(base64Img);
                 $('#fileshow'+i).attr('background-url',base64Img);
-            //  $('#testinput'+i).val(base64Img);
+               // $('#fileshow'+i).attr('src',base64Img);
                 i++;
                 return;
-            //  $('#test'+i).attr('src', '{pigcms::STATICS}/voteimg/img/upimg_loading.gif');
-              /* $.ajax({
-                    'url' : "/index.php?g=Wap&m=Custom&a=ajaxImgUpload&id={pigcms:$url_param['id']}&token={pigcms:$url_param['token']}&wecha_id={pigcms:$url_param['wecha_id']}",
-                    'type' : 'post',
-                    'data' : {'base64Img' : base64Img},
-                    'success' : function(ret){
-                        //拿到php传过来的图片地址
-                        console.log(ret.img);
-                        $('#test'+i).attr('src',ret.img);
-                        $('#testinput'+i).val(ret.img);
-                        i++;
-                        return;
-                    }
-                });*/
-            });
-
+            });  */
+             
         }
         function compress(event, callback){
             var file = event.currentTarget.files[0];
@@ -146,7 +173,6 @@
                     '</li>';
 
                 $("#uploaderFiles").prepend(html);
-                console.log(html);
                     var image = $('.fileshow'+i);
                     image.on('load', function () {
                     var square = 700;
@@ -169,19 +195,29 @@
                     }
                     context.drawImage(this, offsetX, offsetY, imageWidth, imageHeight);
                     var data = canvas.toDataURL('image/jpeg');
-                    console.log(e.target.result);
+                   // alert(e.target.result);
                     callback(e.target.result);
                 });
                 image.hidden = true;
                 image.attr('src', e.target.result);
-//                image.css('display','none');
+              /*   $.ajax({
+                    type: "POST",
+                    url:'addMySupply.php?from=1',
+                    contentType: false,  
+                    data:{baseImg:e.target.result},
+                    success: function(result) {
+                        if(result){
+                            console.log(result);
+                            //image.attr('src', e.target.result);
+                        }else{
+                        }
+                    }
+                }); */
+               
             };
             reader.readAsDataURL(file);
         }
-    }
-</script>
-<script>
-
+       }
 </script>
 <script>
 $(function(){
@@ -273,41 +309,7 @@ $(function(){
 });
 </script>
 </html>
-<!--
-  <div class="weui-cells">
-                <div class="weui-cell weui-cell_select">
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="select1">
-                            <option selected value="1">选择分类</option>
-                            <option value="2">QQ号</option>
-                            <option value="3">Email</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="weui-cells weui-cells_form">
-                    <div class="weui-cell">
-                        <div class="weui-cell__bd">
-                            <textarea class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
-                            <div class="weui-textarea-counter"><span>0</span>/200</div>-->
-
-<!--</div>
 </div>
 </div>
 </div>
 
-
-<div class="weui-cells">
-    <a class="weui-cell weui-cell_access" href="javascript:;">
-        <div class="weui-cell__bd">
-            <p id="name">价&nbsp;&nbsp;格：<span></span><span>价格可选</span></p>
-        </div>
-    </a>
-</div>
-<div class="weui-cells">
-    <a class="weui-cell weui-cell_access" href="javascript:;">
-        <div class="weui-cell__bd">
-            <p id="name">联系电话：<span>123123232</span></p>
-        </div>
-    </a>
-</div>
--->

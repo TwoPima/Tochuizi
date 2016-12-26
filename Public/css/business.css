@@ -37,14 +37,17 @@ body{
 #addbuin-main .addbuin_title{
     background: #fff;
     padding:10px 10px;
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: none;
+   display: none;
     -webkit-box-align: center;
     -webkit-align-items: center;
     align-items: center;
-
+  height:60px;
+}
+#addbuin-main .addbuin_title_img{
+	   width: 20%;
+    height:60px;
+	 isplay: inline;
+	float:left;
 }
 #addbuin-main .addbuin_title_img img{
     width: 60px;
@@ -52,9 +55,12 @@ body{
     margin-right: 8px;
 }
 #addbuin-main .addbuin_title_info {
+	 width: 60%;
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
+	float:left;
+	padding:16px 16px;
 }
 
 #addbuin-main .weui-uploader__input-box_title{
@@ -284,7 +290,12 @@ body{
 	width: 26%;
 	border:0px;
 }
-#getRecruitCatSub,#getRecruitCatThere{
+.area{
+	display:inline;
+	width: 26%;
+	border:0px;
+}
+#getRecruitCatSub,#getRecruitCatThere,.jobCategory-there-line,.jobCategory-sub-line{
 	display:none;position:relative;
 }
 .addbuin_form .weui-input {
@@ -293,6 +304,7 @@ body{
     height: 1.41176471em;
     line-height: 1.41176471;
 }
+#dpCity,#dpArea{ display:none; position:relative;} 
 /*我的招聘结束*/
 /*提现开始  */
 .cash .weui_cell_primary{

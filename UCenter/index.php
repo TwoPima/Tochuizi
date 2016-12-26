@@ -15,11 +15,14 @@
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <script>
 	sessionUserId=$.session.get('userId');
 	mobile=$.session.get('mobileSession');
+	var userIp = returnCitySN["cip"];
+	getNowPosition();
 	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';

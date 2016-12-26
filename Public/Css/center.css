@@ -83,11 +83,14 @@ body{
 .weui_tab_bd{
 	margin-top:15px;
 }
-.weui-select {
+/* 表单 */
+.weui-select,.weui-label,.weui-select option{
 	font-size:14px;
+	color:#666;
 }
-.weui-select option{
+.weui-label{
 	font-size:14px;
+	color:#666;
 }
 /* 单选对号 */
 /* 首页开始 */
@@ -269,7 +272,12 @@ body{
 	display:inline;
 	width: 26%;
 	border:0px;
+	color:#666;
 }
+.area option{
+	
+}
+#dpCity,#dpArea{ display:none; position:relative;} 
 /* 地址管理 结束*/
 /* 我的订单管理 开始*/
 .myOrder  .weui-cell__bd{

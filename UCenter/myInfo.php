@@ -7,9 +7,9 @@
        <link rel="stylesheet" href="../Public/css/weui.min.css"/>
 	 <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
 	 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
-        <link rel="stylesheet" href="../Public/css/center.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
+        <link rel="stylesheet" href="../Public/css/center.css"/>
 </head>
 <body>
 <div id="app">
@@ -55,18 +55,21 @@
                                	<p class=""><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
                            </div>
                    </div>
-                       <div class="weui-cell weui-cell_select weui-cell_select-after">
-                           <div class="weui-cell__hd">
-                               <label for="" class="weui-label">收货地址</label>
-                           </div>
-                             <a href="region.php">
-                           <div class="weui-cell__bd">
-                               <select class="weui-select" required name="select2">
-                                   <option value="1">宁夏银川市金凤区</option>
-                               </select>
-                           </div>
-                           </a>
-                       </div>
+                        <div class="weui_cell  weui-cell_select weui-cell_select-after">
+					    <div class="weui_cell_hd"><label class="weui_label">收货地址</label></div>
+					    <div class="weui_cell_bd weui_cell_primary">
+					      <select class="area" name="cate_id" id="dpProvince">
+					      </select>
+					     <!--  <span class="">&nbsp;|</span> -->
+					      <select class="area" name="cate_id" id="dpCity">
+					      </select>
+					      <select class="area" name="cate_id" id="dpArea">
+					      </select>
+					      <select class="area" name="address" id="address">
+					      <option id="addressDetail"></option>
+					      </select>
+					    </div>
+					  </div>
                       </form>
 		</div>
 		<div class="height20px" ></div>
@@ -79,12 +82,13 @@
 <input value="<?php echo md5(date('Ymd')."headpic"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfoMyAddress"/>  
-<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoGetAddress"/>  
+<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
  <script src="../Public/js/require.config.js"></script>
- <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
+ <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+ <script src="../Public/js/common.js"></script>
 <script type="text/javascript">
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -95,8 +99,77 @@ $(function(){
 	}
 	//已经登陆
   	selectMyInfo(sessionUserId,$("#checkInfoLogin").val());//查询信息
-  	
+  	var dp1 = $("#dpProvince"); 
+	var dp2 = $("#dpCity"); 
+	var dp3 = $("#dpArea"); 
+	//填充省的数据 
+	loadAreasProvince($("#checkInfoArea").val(), 0); 
+	//给省绑定事件，触发事件后填充市的数据 
+	jQuery(dp1).bind("change keyup", function () { 
+		var provinceID = dp1.prop("value"); 
+		loadAreasCity($("#checkInfoArea").val(), provinceID); 
+		dp2.fadeIn("slow"); 
+	}); 
+	//给市绑定事件，触发事件后填充区的数据 
+	jQuery(dp2).bind("change keyup", function () { 
+		var cityID = dp2.prop("value"); 
+		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
+		dp3.fadeIn("slow"); 
+		}); 
+	getAddressArea($("#checkInfoMyAddress").val(),sessionUserId);//填充默认 收货地区
 });
+ 
+//获得省级
+function loadAreasProvince(checkInfo, pid) { 
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	jQuery.ajax({ 
+	   type: "POST",
+	   url: urlArea,
+	   data: {checkInfo:checkInfo,pid:pid},
+	   dataType:"json",
+	   success: function(result){
+		   $('#dpProvince').append("<option value='' selected='selected'>请选择</option>"); 
+  		 $.each(result.data, function (index, obj) {
+			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   $('#dpProvince').append(proviceHtml);
+		  	 });
+	   }
+	}); 
+} 
+//获得市级
+function loadAreasCity(checkInfo, pid) { 
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	jQuery.ajax({ 
+	   type: "POST",
+	   url: urlArea,
+	   data: {checkInfo:checkInfo,pid:pid},
+	   dataType:"json",
+	   success: function(result){
+		   $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
+  		 $.each(result.data, function (index, obj) {
+			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   $('#dpCity').append(proviceHtml);
+		  	 });
+	   }
+	}); 
+} 
+//获得区级
+function loadAreasDistrict(checkInfo, pid) { 
+	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
+	jQuery.ajax({ 
+	   type: "POST",
+	   url: urlArea,
+	   data: {checkInfo:checkInfo,pid:pid},
+	   dataType:"json",
+	   success: function(result){
+		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
+  		 $.each(result.data, function (index, obj) {
+			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   $('#dpArea').append(proviceHtml);
+		  	 });
+	   }
+	}); 
+} 
 //文本框失去焦点后
 $('form :input').blur(function(){
      //验证手机
@@ -107,6 +180,7 @@ $('form :input').blur(function(){
          } 
    }
 });
+
  function selectMyInfo(id,checkInfo){
 		 //查询
 		var url =HOST+'mobile.php?c=index&a=login';
@@ -135,8 +209,6 @@ $('form :input').blur(function(){
     					}else{
     						$("#avatar").attr("src",result.data.avatar);//头像
     					}
-						getMyAddress(sessionUserId);
-						
 					}
 				},
 			});
@@ -169,20 +241,5 @@ $('form :input').blur(function(){
 			}
 		});
   });
-  //获得收获地址
-function getMyAddress(sessionUserId){
-	var url =HOST+'mobile.php?c=index&a=my_address';
-	checkInfoMyAdress=$("#checkInfoMyAddress").val();
-    $.ajax({
-		type: 'post',
-		url: url,
-		data: {id:sessionUserId,dotype:'',checkInfo:checkInfoMyAdress},
-		//data: {adr_id:adr_id,id:sessionUserId,dotype:'',checkInfo:checkInfoMyAdress,address:address},
-		dataType: 'json',
-		success: function (result) {
-			//adr_id=getAreaList($("#checkInfoGetAddress").val(),result.data.adr_id);//获得具体城市
-		}
-	});
-}
 </script>
 </html>

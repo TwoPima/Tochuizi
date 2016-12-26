@@ -116,9 +116,6 @@ var url =HOST+'mobile.php?c=index&a=my_address';
 /*
  * 描述：html5苹果手机向左滑动删除特效
  */
- /*
-  * 描述：html5苹果手机向左滑动删除特效
-  */
 window.addEventListener('load',function(){
      var initX;        //触摸位置
     var moveX;        //滑动时的位置

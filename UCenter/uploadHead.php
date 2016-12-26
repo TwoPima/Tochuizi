@@ -33,7 +33,7 @@
                             <input name="name" type="hidden"/>
                             <input name="id" id="userid" type="hidden"/>
                             <input value="<?php echo md5(date('Ymd')."headpic"."tuchuinet");?>"	type="hidden" name="checkInfo" id="checkInfo"/>  
-                       	   <input class="weui_uploader_input" id="avatar" type="file"  name="avatar">
+                       	   <input class="weui_uploader_input" id="avatar" type="file"  name="avatar" accept="image/*" >
                         </div>
                	 </div>
             </form>
@@ -46,11 +46,12 @@
 
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
  <script src="../Public/js/require.config.js"></script>
- <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<!-- 上传头像| -->
+ <script src="../Public/js/fastclick.js"></script>
+ <script src="../Public/js/common.js"></script>
+<!-- 上传头像 -->
 <script type="text/javascript">
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -97,7 +98,7 @@ function uploadImage() {
         //判断上传文件的后缀名
         var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
         if (strExtension != 'jpg' && strExtension != 'gif'
-        && strExtension != 'png' && strExtension != 'bmp') {
+        && strExtension != 'png' && strExtension != 'bmp'&& strExtension != 'PNG') {
             $.toast("必须选择图片", "forbidden");
             return;
         }
@@ -117,8 +118,8 @@ function uploadImage() {
                	 $.toast("上传失败，请检查网络后重试", "cancel");
                 },
                 success: function(result) {
-                    if(result.data.id==null){
-                        
+                    if(result.statusCode=='0'){
+                   	 $.toast("上传失败，请检查网络后重试", "cancel");
                     }else{
                     	window.location.href='index.php';
                     }

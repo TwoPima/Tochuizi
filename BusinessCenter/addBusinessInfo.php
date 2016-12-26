@@ -65,11 +65,9 @@ var url =HOST+'mobile.php?c=index&a=login';
     			<div class="addbuin_title_img ">
     				<img src="../Public/img/warnning.png" class="" alt="">
     			</div>
-    			<div class="addbuin_title_info">
-    				公司名称是必须要填写的
-    			</div>
+    			<div class="addbuin_title_info"></div>
     		</div>		
-		<div class="addbuin_form" >
+		<div class="addbuin_form clear" >
 			<form action="">
 				<div class="addbuin_form_jichu">
 					<div class="weui-cells weui-cells_form">
@@ -198,14 +196,14 @@ $(function(){
 	        //验证手机
 	        if( $(this).is('#mobile') ){
 	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
+	                getTips('手机号码有误，请重填！');
 	                return false; 
 	            } 
 	      	}
 	        //验证名称
 	        if( $(this).is('#name') ){
 	       	 if(this==""||this.length<6){ 
-	                $.toptip('名称非法', 2000, 'warning');
+	       		 getTips('名称非法！');
 	                return false; 
 	            } 
 	      	}
@@ -213,15 +211,14 @@ $(function(){
 	        if( $(this).is('#licence') ){
 	       	 if(this==""){ 
 	                //$.toptip('手机号码有误，请重填！', 2000, 'warning');
-	       		 $.toptip('执照编号非法', 2000, 'warning');
+		       	  getTips('执照编号非法！');
 	                return false; 
 	            } 
 	      	}
 	        //验证address
 	        if( $(this).is('#address') ){
 	       	 if(this==""){ 
-	                //$.toptip('手机号码有误，请重填！', 2000, 'warning');
-	       		 $.toptip('地址非法', 2000, 'warning');
+		       	  getTips('地址非法！');
 	                return false; 
 	            } 
 	      	}
@@ -241,7 +238,7 @@ $("#btn-custom-theme").click(function() {
       	var url =HOST+'mobile.php?c=index&a=my_partner';
       	var checkInfo = $("#checkInfo").val();
        if(mobile==""|| name==""){
-    	   $.toptip('手机号码或者昵称不能为空！', 2000, 'warning');
+    	   getTips('手机号码或者昵称不能为空！');
       	    return false; 
       	 }
 		 $.ajax({
@@ -259,5 +256,9 @@ $("#btn-custom-theme").click(function() {
 			},
 		});
 });
+function getTips(message){
+	$(".addbuin_title_info").html(message);
+	$("#topTips").fadeIn("slow");
+}
 </script>
 </html>

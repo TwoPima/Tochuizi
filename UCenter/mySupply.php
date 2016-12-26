@@ -126,7 +126,7 @@
 	</div>
 	<div id="wrapper">
 		<div id="scroller">
-			<template v-for="item in demoData">
+			<template v-for="item in demoData"><!--三层  -->
 					<div class="weui_panel">
 					<div class="list-data">
 						<a class="weui_panel_ft"  v-on:click="jump_url(item.id,item.url)"  href="{{item.url}}">
@@ -138,7 +138,7 @@
 									<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
 								</ul>
 							</div>
-							<div class="del-btn">删除</div>
+							<div style="line-height:67px;"class="del-btn"><a onClick="confirmDelete('+obj.id+');" >删除</a></div>
 						</a>
 						</div>
 					</div>
@@ -167,9 +167,9 @@
 				id:sessionUserId,
 				is_true:'',
 				start:0,
-				limit:6
+				limit:10
 			}
-		},
+		},/*初始化，el控制区域，  */
 		ready: function() {
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
@@ -197,6 +197,7 @@
 			function (response) {
 				that.$set('message', '服务器维护，请稍后重试');
 			});
+			/*再次加载  */
 			function scrollaction(){
 				if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
 					that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
@@ -323,9 +324,6 @@
 	/*
 	 * 描述：html5苹果手机向左滑动删除特效
 	 */
-	 /*
-	  * 描述：html5苹果手机向左滑动删除特效
-	  */
 	window.addEventListener('load',function(){
 	     var initX;        //触摸位置
 	    var moveX;        //滑动时的位置
