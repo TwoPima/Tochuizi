@@ -130,94 +130,19 @@ $(function() {
 			// 通过 file 生成目标 url
 			var imgURL = URL.createObjectURL(file);
 			// 用这个 URL 产生一个 <img> 将其显示出来
-			console.log(imgURL);
-			  var html = '';
-              html += '<li class="weui-uploader__file" >' +
-                  '<img src="'+imgURL+'"class="fileshow" />'+
-                  '</li>';
-
-              $("#uploaderFiles").prepend(html);
+			 for(var i=0;i<count_li;i++){
+				 var html = '';
+				 html += '<li class="weui-uploader__file" id="fileshow'+i+'">' +
+	             '<img src="'+imgURL+'" class="fileshow'+i+'" />'+
+	             '</li>';
+	              $("#uploaderFiles").prepend(html);
+             }
+			
 			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
 			// URL.revokeObjectURL(imgURL);
 		}
 	});
 });
-    /*图片上传无刷新预览*/
-     window.onload = function(){
-        var i = 1;
-        // 选择图片
-        document.getElementsByClassName('file')[0].onchange = function(){
-            var count_li = $("#uploaderFiles").children().length;
-            if(count_li >= '5'){
-                $("#uploaderInput").css('display','none');
-              	 $.toast("不能超过五张图片！", "cancel");
-              	 return false;
-            }
-        	//console.log(objUrl);
-             /* compress(event, function(base64Img){
-                 console.log(base64Img);
-                $('#fileshow'+i).attr('background-url',base64Img);
-               // $('#fileshow'+i).attr('src',base64Img);
-                i++;
-                return;
-            });  */
-             
-        }
-        function compress(event, callback){
-            var file = event.currentTarget.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var html = '';
-                html += '<li class="weui-uploader__file" id="fileshow'+i+'">' +
-                    '<img class="fileshow'+i+'" />'+
-                    '</li>';
-
-                $("#uploaderFiles").prepend(html);
-                    var image = $('.fileshow'+i);
-                    image.on('load', function () {
-                    var square = 700;
-                    var canvas = document.createElement('canvas');
-                    if(this.width > square) {
-                        canvas.width = square;
-                        canvas.height = Math.round(square * this.height / this.width);
-                    } else {
-                        canvas.height = this.height;
-                        canvas.width = this.width;
-                    }
-                    var context = canvas.getContext('2d');
-                    context.clearRect(0, 0, square, square);
-                    var imageWidth = canvas.width;
-                    var imageHeight = canvas.height;
-                    var offsetX = 0;
-                    var offsetY = 0;
-                    if (this.width > square) {
-                        offsetX = - Math.round((imageWidth - square) / 2);
-                    }
-                    context.drawImage(this, offsetX, offsetY, imageWidth, imageHeight);
-                    var data = canvas.toDataURL('image/jpeg');
-                   // alert(e.target.result);
-                    callback(e.target.result);
-                });
-                image.hidden = true;
-                image.attr('src', e.target.result);
-              /*   $.ajax({
-                    type: "POST",
-                    url:'addMySupply.php?from=1',
-                    contentType: false,  
-                    data:{baseImg:e.target.result},
-                    success: function(result) {
-                        if(result){
-                            console.log(result);
-                            //image.attr('src', e.target.result);
-                        }else{
-                        }
-                    }
-                }); */
-               
-            };
-            reader.readAsDataURL(file);
-        }
-       }
 </script>
 <script>
 $(function(){
