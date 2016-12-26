@@ -112,14 +112,16 @@
 		</p>
 	</div>
 	<div class="sipply_nav">
-		<div class="weui-flex ">
-			<div class="weui-flex__item action">
-				<div class="placeholder">全部</div>
+		<div class="weui-flex">
+			<div class="weui-flex__item one action"  v-on:click="classdata('')" >
+				<div class="placeholder">
+					全部
+				</div>
 			</div>
-			<div class="weui-flex__item">
+			<div class="weui-flex__item two"  v-on:click="classdata('0')">
 				<div class="placeholder">供应</div>
 			</div>
-			<div class="weui-flex__item">
+			<div class="weui-flex__item three"  v-on:click="classdata('1')">
 				<div class="placeholder">求购</div>
 			</div>
 		</div>
@@ -129,7 +131,7 @@
 			<template v-for="item in demoData"><!--三层  -->
 					<div class="weui_panel">
 					<div class="list-data">
-						<a class="weui_panel_ft"  v-on:click="jump_url(item.id,item.url)"  href="{{item.url}}">
+						<a  v-on:click="jump_url(item.id,item.url)" >
 							<div class="weui_media_box weui_media_text">
 								<p class="weui_media_desc">{{item.title}}</p>
 								<ul class="weui_media_info">
@@ -161,7 +163,10 @@
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {
+			num:'',
 			demoData:'',
+			total_tie:'',
+			total_hits:'',
 			url:{
 				checkInfo:checkInfo,
 				id:sessionUserId,
@@ -174,13 +179,21 @@
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
-				that.$set('demoData', res.data);  //把数据传给页面
-				var listdata =res.data;    //数据
-				console.log(res);
-				console.log(res.data);
-				console.log(res.data.total_hits);
-				console.log(res.data[0]);
-//				that.$set('start', listdata.length); //开始查询数据的值
+				var listdata=[];
+				for(x  in res.data){
+					if (typeof (res.data[x]) == 'object'){
+						listdata[x]=res.data[x];
+					}
+					if (x == 'total_tie'){
+						that.$set('total_tie', res.data['total_tie']);
+					}
+					if (x == 'total_hits'){
+						that.$set('total_hits', res.data['total_hits']);
+					}
+				}
+				that.$set('demoData', listdata);  //把数据传给页面
+				that.$set('url.start', listdata.length);
+
 				Vue.nextTick(function () {
 					//初始化滚动插件
 					that.myScroll = new IScroll('#wrapper', {
@@ -199,18 +212,24 @@
 			});
 			/*再次加载  */
 			function scrollaction(){
-				if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
-					that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+				if(that.url.start  <  that.total_tie){
+					if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+						console.log(that.url);
+						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data;
-							var listdata = res.data;    //数据
-							//console.log(listdata);
-							/*that.url.start += listdata.length;  //更新start
-							console.log(that.url.start);*/
+							var listdata=[];
+							for(x  in res.data){
+								console.log(typeof (res.data[x]));
+								if (typeof (res.data[x]) == 'object'){
+									listdata[x]=res.data[x];
+								}
+							}
+							this.url.start+=listdata.length;
 							//这个for循环是更新vue渲染列表的数据
 							for (var i = 0; i < listdata.length; i++) {
 								that.demoData.push(listdata[i]);
 							}
-							//console.log(that.demoData);
+							console.log(that.demoData);
 							Vue.nextTick(function () {
 								that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
 							});
@@ -219,105 +238,110 @@
 							that.$set('message', '服务器维护，请稍后重试');
 						});
 					}
+				}
 			}
 		}, //created 结束
 		methods: {
 			jump_url: function (msg1,msg2){
-				var msg_url = msg2.indexOf('&m=Index&a=content&');
+				/*var msg_url = msg2.indexOf('&m=Index&a=content&');
 				if(msg_url == -1){
 					this.$http(this.local_url+'/index.php?g=Wap&m=Index&a=jump_url&id='+msg1).then(function (response) {
 						return true;
 					});
-				}
+				}*/
+				alert('跳转url');
 			},
-			ajaxdata: function (msg) {
-				var _self = this;
-				_self.$set('classid', msg);
-				_self.$set('startnum', 0);
-				_self.$set('message', '没有更多资讯');
-				//加载样式
-				var loadingToast = $('#loadingToast');
-				loadingToast.css('display', 'block');
-				//ajax  点击后 取值
-				_self.$http.jsonp(_self.url+'/Infomations/lists?token={pigcms:$token}&classid='+_self.classid+'&offset='+_self.startnum).then(function (response) {
-					_self.myScroll.destroy(); //把滑动注销掉
-					var res = response.data;
-					_self.$set('type', res.other);  //标识 类型
-					var listdata = res.data; //数据
-					_self.$set('startnum', listdata.length);//数据个数
-					var code = res.code;  //状态值
-					_self.$set('demoData', listdata);     //把数据传给前面
-					_self.$set('demoData2',  res.new);//二级菜单
-					if(_self.type !==1){
-						//提示内容
-						if( code == '20001' && listdata.length>9){
-							_self.$set('message', '正在加载数据');
-							_self.$set('iscrollaction', true);
+			classdata: function (msg) {
+				$('.sipply_nav .action').removeClass('action');
+				var that = this;
+				that.$set('num', 0);
+				that.$set('url.start', 0);
+				that.$set('total_tie',0);
+				that.$set('total_hits', 0);
+				switch(msg){
+					case '':
+						that.$set('url.is_true', '');
+						$('.sipply_nav .one').addClass('action');
+					break;
+					case '0':
+						that.$set('url.is_true', 0);
+						console.log('选择第er个');
+						$('.sipply_nav .two').addClass('action');
+					break;
+					case '1':
+						that.$set('url.is_true', 1);
+						$('.sipply_nav .three').addClass('action');
+					break;
+					default:
+						$('.sipply_nav .one').addClass('action');
+						that.$set('url.is_true', '');
+				}
+				that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+						var res = response.data; //取出的数据
+						var listdata=[];
+						for(x  in res.data){
+							if (typeof (res.data[x]) == 'object'){
+								listdata[x]=res.data[x];
+							}
+							if (x == 'total_tie'){
+								that.$set('total_tie', res.data['total_tie']);
+							}
+							if (x == 'total_hits'){
+								that.$set('total_hits', res.data['total_hits']);
+							}
 						}
-						if(code == '20002'){
-							_self.$set('message', '没有更多资讯');
-							_self.$set('iscrollaction', false);
-						}else if(code == '40001' || code == '40002'){
-							_self.$set('message', '访问错误');
-							_self.$set('iscrollaction', false);
-						}
-					}else{
-						_self.$set('iscrollaction', false);
-					}
-					//dom 节点更新以后
-					Vue.nextTick(function () {
-						_self.myScroll = new IScroll('#wrapper', {
-							mouseWheel: true,
-							wheelAction: 'zoom',
-							click: true,
-							scrollX: false,
-							scrollY: true,
-						});
-						_self.myScroll.on('scrollEnd',scrollaction);//滚动监听
-					})
-					loadingToast.css('display', 'none'); //消除样式加载
-				}, function (response) {
-					//取消加载效果
-					loadingToast.css('display', 'none');
-					_self.$set('message', '服务器维护，请稍后重试');
-				});
-				function scrollaction(){
-					if(_self.iscrollaction){
-						if (-(this.y) + $('#wrapper').height()+45 >= $('.main').height()) {
-							loadingToast.css('display', 'block');  //出现加载样式
-							_self.$http.jsonp(_self.url+'/Infomations/lists?token={pigcms:$token}&classid='+_self.classid+'&offset='+_self.startnum).then(function (response) {
+						console.log(that.url);
+						console.log(that.total_hits);
+						console.log(that.total_tie);
+						that.$set('num', that.url.limit);
+						that.$set('demoData', listdata);  //把数据传给页面
+						that.$set('url.start', listdata.length);
+						Vue.nextTick(function () {
+							//初始化滚动插件
+							that.myScroll = new IScroll('#wrapper', {
+								mouseWheel: true,
+								wheelAction: 'zoom',
+								click: true,
+								scrollX: false,
+								scrollY: true,
+							});
+							//滚动监听
+							that.myScroll.on('scrollEnd',scrollaction1);//滚动监听,1000
+						})
+					},
+					function (response) {
+						that.$set('message', '服务器维护，请稍后重试');
+					});
+				/*再次加载  */
+				function scrollaction1(){
+
+					if( that.url.start >=  that.num ){
+						if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+							console.log(that.url);
+							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 								var res = response.data;
-								var code = res.code;           //状态值
-								var listdata = res.data;        //数据
-								if( code == '20001'){         //提示内容
-									_self.startnum += listdata.length;  //更新startnum
-									//这个for循环是更新vue渲染列表的数据
-									for (var i = 0; i < listdata.length; i++) {
-										_self.demoData.push(listdata[i]);
+								var listdata=[];
+								for(x  in res.data){
+									if (typeof (res.data[x]) == 'object'){
+										listdata[x]=res.data[x];
 									}
-									_self.$set('message', '正在加载数据');
-									Vue.nextTick(function () {
-										_self.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
-									});
-								}else if(code == '20002'){
-									_self.$set('iscrollaction', false);
-									_self.$set('message', '没有更多资讯');
-								}else if(code == '40001' || code == '40002'){
-									_self.$set('iscrollaction', false);
-									_self.$set('message', '访问错误');
-								}else{
-									_self.$set('iscrollaction', false);
-									_self.$set('message', '服务器维护，请稍后重试');
 								}
-								//加载样式消失
-								loadingToast.css('display', 'none');
+								this.url.start+=listdata.length;
+								//这个for循环是更新vue渲染列表的数据
+								for (var i = 0; i < listdata.length; i++) {
+									that.demoData.push(listdata[i]);
+								}
+								console.log(that.demoData);
+								Vue.nextTick(function () {
+									that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+								});
 							}, function (response) {
 								//取消加载效果
-								loadingToast.css('display', 'none');
-								_self.$set('message', '服务器维护，请稍后重试');
+								that.$set('message', '服务器维护，请稍后重试');
 							});
 						}
-					}}
+					}
+				}
 			}//ajaxdata
 		}//method  结束
 	});
