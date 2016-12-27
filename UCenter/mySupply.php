@@ -264,7 +264,6 @@
 					break;
 					case '0':
 						that.$set('url.is_true', 0);
-						console.log('选择第er个');
 						$('.sipply_nav .two').addClass('action');
 					break;
 					case '1':

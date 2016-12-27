@@ -19,6 +19,9 @@
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <script>
+/* if(!window.sessionStorage.login){
+    // go to login page
+} */
 	sessionUserId=$.session.get('userId');
 	mobile=$.session.get('mobileSession');
 	var userIp = returnCitySN["cip"];

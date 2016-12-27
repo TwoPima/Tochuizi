@@ -18,7 +18,7 @@
         <div id="header-left">
             <a href="javascript:history.go(-1);" >
                 <i class="icon iconfont icon-xiangzuo"></i>
-                <span class="title" id="memberType">设计师</span>
+                <span class="title" id="memberType">技工</span>
             </a>
         </div>
         <div id="header-right">
@@ -37,7 +37,7 @@
                         <input class="weui-input" type="text" name="name" id="name">
                     </div>
                 </div>
-                <div class="weui-cell ">
+                   <div class="weui-cell ">
                     <div class="weui-cell__hd">
                         <label class="weui-label">民族:</label>
                     </div>
@@ -50,13 +50,6 @@
                            <div class="weui-cell__bd sex">
                                	<p class="float-left font14px"><span>男</span><input type="radio"  value="0" name="sex" id="sexMan"></p>
                                	<p class="font14px"><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
-                           </div>
-                   </div>
-                 <div class="weui-cell weui-cells_radio">
-                       <div class="weui-cell__hd"><label class="weui-label">全职/兼职</label></div>
-                           <div class="weui-cell__bd sex">
-                               	<p class="float-left font14px"><span>全职</span><input type="radio"  value="0" name="she_type" id="sexMan"></p>
-                               	<p class="font14px"><span>兼职</span><input type="radio" name="she_type" value="1" id="sexWoman" checked='checked' ></p>
                            </div>
                    </div>
                 <div class="weui-cell ">
@@ -76,7 +69,7 @@
                         </select>
                     </div>
                 </div>
-                 <div class="weui-cell weui-cell_select weui-cell_select-after">
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label">工作年限</label>
                     </div>
@@ -116,7 +109,7 @@
             </div>
         </div>
         <div class="info_box">
-            <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label">薪资要求</label>
                     </div>
@@ -127,7 +120,7 @@
                 </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
-                        <label for="" class="weui-label">设计特长</label>
+                        <label for="" class="weui-label">工种类别</label>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="cate_id"  id="job_type" >
@@ -147,7 +140,7 @@
                 <div class="weui-cell__bd">
                     <div class="weui-uploader">
                         <div class="weui-uploader__hd" style="border-bottom: 1px solid #EFEFEF;margin-bottom: 10px;">
-                            <p class="weui-uploader__title font14px">作品案例</p>
+                            <p class="weui-uploader__title">工作风采</p>
                         </div>
                         <div class="weui-uploader__bd">
                             <div class="weui-uploader__input-box">
@@ -206,14 +199,16 @@ $(function(){
         }
 	});
 	$("#birthday").calendar();//日历
-	//JobType($("#checkInfoJobType").val(),memberTypeCateId);//工种类别
 	getEduction($("#checkInfoZidian").val());//学历
-	JobType($("#checkInfoJobType").val(),$.session.get('idType'));
+	getJobYear($("#checkInfoZidian").val());//工作年限
+	jobDayWages($("#checkInfoZidian").val());//薪资
+	JobType($("#checkInfoJobType").val(),$.session.get('idType'));//工种类别
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {
 		var sex=$("input[name='sex']:checked").val();
 		var name = $("#name").val();
+		var zu = $("#zu").val();
 		var mobile = $("#mobile").val();
 		var desc = $("#desc").val();
 		var home = $("#home").val();
@@ -230,7 +225,7 @@ $(function(){
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {mobile:mobile,cate_id:cate_id,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
+			data: {mobile:mobile,cate_id:cate_id,zu:zu,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
@@ -239,6 +234,16 @@ $(function(){
 				}else{
 					//$.toast("操作成功");
 					//window.location.href='myJob.php';
+					$("input[name='sex']:checked").html();
+					 $("#name").val();
+					$("#zu").val();
+					$("#mobile").val();
+					$("#desc").val();
+					$("#home").val();
+					$("#birthday").val();
+					$('#job_type option:selected').val();
+					$('#education option:selected').val();
+				$("#job_year").val();
 				}
 			},
 		});

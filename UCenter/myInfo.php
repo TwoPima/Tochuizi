@@ -222,7 +222,7 @@ $('form :input').blur(function(){
 		var sex=$("input[name='sex']:checked").val();
       	var url =HOST+'mobile.php?c=index&a=edit_self';
         if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
+        	$.toast("手机号昵称均不能为空！", "cancel");
        	    return false; 
        	 }
         $.ajax({

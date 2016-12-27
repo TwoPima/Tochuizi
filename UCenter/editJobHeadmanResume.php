@@ -18,7 +18,7 @@
         <div id="header-left">
             <a href="javascript:history.go(-1);" >
                 <i class="icon iconfont icon-xiangzuo"></i>
-                <span class="title" id="memberType"></span>
+                <span class="title" id="memberType">组长</span>
             </a>
         </div>
         <div id="header-right">
@@ -132,7 +132,7 @@
                         <label for="" class="weui-label">专业类型</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="cate_id"  id="job_type" >
+                        <select class="weui-select" name="zhuan_type"  id="zhuan_type" >
                         </select>
                     </div>
                 </div>
@@ -191,7 +191,6 @@ $(function(){
 	}
 	//已经登陆
 	//写入基本信息
-	$("#memberType").html($.session.get('typeMember'));
  	 //文本框失去焦点后
     $('form :input').blur(function(){
         //验证手机
@@ -212,19 +211,25 @@ $(function(){
 	$("#birthday").calendar();//日历
 	//JobType($("#checkInfoJobType").val(),memberTypeCateId);//工种类别
 	getEduction($("#checkInfoZidian").val());//学历
-	JobType($("#checkInfoJobType").val(),$.session.get('idType'));
+	getJobYear($("#checkInfoZidian").val());//工作年限
+	getTroopsAptitude($("#checkInfoZidian").val());//队伍资质
+	getTroopsCount($("#checkInfoZidian").val());//队伍人数
+	getZhuanYeType($("#checkInfoZidian").val());//专业类型
 });
  //提交，最终验证。
  $("#btn-custom-theme").click(function() {
 		var sex=$("input[name='sex']:checked").val();
 		var name = $("#name").val();
+		var zu = $("#zu").val();
 		var mobile = $("#mobile").val();
 		var desc = $("#desc").val();
 		var home = $("#home").val();
 		var birthday = $("#birthday").val();
-		var cate_id=$('#job_type option:selected').val();
 		var education=$('#education option:selected').val();
-		var job_year = $("#job_year").val();
+		var job_year=$('#job_year option:selected').val();
+		var dui_type=$('#dui_type option:selected').val();
+		var zhuan_type=$('#zhuan_type option:selected').val();
+		var peo_count=$('#peo_count option:selected').val();
 		var checkInfo = $("#checkInfo").val();
        	var url =HOST+'mobile.php?c=index&a=my_resume';
         if(mobile==""|| name==""){
@@ -234,7 +239,10 @@ $(function(){
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {mobile:mobile,cate_id:cate_id,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
+			data: {
+				mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,
+				dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
+				sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;

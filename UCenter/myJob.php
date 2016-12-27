@@ -19,16 +19,20 @@
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfologin"/>  
 <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
 <script>
+var memeberTypeResume='';//定义取出角色id
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
 		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
-		window.location.href='../Login/login.php';
+		$.toast("您还没有登陆！", "cancel");
+		setTimeout(window.location.href='../Login/login.php',2000);
 	}
 	//已经登陆
   	selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
-  	
+  	memberType($("#checkInfologin").val(),sessionUserId);//取出的是id 跳转
+  	$("#judgeMemberResumeType").click(function(){
+  		jumlResumeType(memeberTypeResume,'2');
+  	 });
 });
  function selectMyResumeInfo(id,checkInfo){
 		 //查询
@@ -36,7 +40,7 @@ $(function(){
 		 $.ajax({
 				type: 'post',
 				url: url,
-				data: {id:sessionUserId,checkInfo:checkInfo},
+				data: {id:sessionUserId,checkInfo:checkInfo,dotype:'gain'},
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
@@ -44,37 +48,11 @@ $(function(){
 						$.toptip(message,2000, 'error');
 						window.location.href='./Login/login.php';
 					}else{
-/* 						<p>成龙 1824514575</p>
-	                    <p>技工》木工</p> */
-	                    JobType($("#checkInfoJobType").val(),result.data.cate_id,1);
-						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+result.data.memberType+'>'+result.data.cate_id+'</p>';
+						typeMember=$.session.get('typeMember');
+						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+typeMember+'>'+result.data.cate_id.cate_name+'</p>';
 							$('.job_top_info').append(jobDetailHtml);
 					}
 				},
-			});
-	 
- }
- function selectMemberType(id,checkInfo){
-		 //查询
-		var url =HOST+'mobile.php?c=index&a=my_resume';
-		 $.ajax({
-				type: 'post',
-				url: url,
-				data: {id:sessionUserId,checkInfo:checkInfo},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
-						window.location.href='./Login/login.php';
-					}else{
-/* 						<p>成龙 1824514575</p>
-	                    <p>技工》木工</p> */
-	                    JobType($("#checkInfoJobType").val(),result.data.cate_id,1);
-						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+result.data.memberType+'>'+result.data.cate_id+'</p>';
-							$('.job_top_info').append(jobDetailHtml);
-					}
-				}
 			});
 	 
  }
@@ -90,7 +68,7 @@ $(function(){
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addJobResume.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<a id="judgeMemberResumeType"><img alt="" src="../Public/img/business/addEmploy.png"></a>
                 	<!--个人用户增加简历  会员用户增加职位  -->
                 </div>
 		</div>

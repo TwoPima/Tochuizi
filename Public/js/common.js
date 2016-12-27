@@ -165,6 +165,7 @@ function getPartnerType(checkInfoPartnerType){
 有效期：21
 福利要求:20
  */
+//学历数据提取
 function getEduction(checkInfoZidian){
 	id='18';
 	var url =HOST+'mobile.php?c=index&a=zidian';
@@ -244,20 +245,113 @@ function jobDayWages(checkInfoZidian){
 		success: function (result) {
 			$.each(result.data, function (index, obj) {
 				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
-				$('#wages').append(jobTimeHtml);
+				$('#wage').append(jobTimeHtml);
 			});
 			return false;
 		}
 	}); 
 }
-//身份角色
+//工作年限 22
+function getJobYear(checkInfoZidian){
+	id='22';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#job_year').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//队伍资质 26
+function getTroopsAptitude(checkInfoZidian){
+	id='26';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#dui_type').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//队伍人数  23
+function getTroopsCount(checkInfoZidian){
+	id='23';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#peo_count').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//专业类型  25
+function getZhuanYeType(checkInfoZidian){
+	id='25';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#zhuan_type').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//设计特长  27
+function getDesignSkillType(checkInfoZidian){
+	id='27';
+	var url =HOST+'mobile.php?c=index&a=zidian';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfoZidian,zidian_id:id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#design_skill').append(jobTimeHtml);
+			});
+			return false;
+		}
+	}); 
+}
+//身份角色 取出的是id
 function memberType(checkInfo,sessionUserId){
+	var memberType='';
   	var url =HOST+'mobile.php?c=index&a=login';
 	 $.ajax({
 			type: 'post',
 			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
 			dataType: 'json',
+			async:false,
+			cache:false,
+			data: {checkInfo:checkInfo,id:sessionUserId},
 			success: function (result) {
 				//查询当前会员类型  没有默认第一个  有直接跳转到  
 				var message=result.message;
@@ -265,13 +359,44 @@ function memberType(checkInfo,sessionUserId){
 					//不存在去注册页面
 					window.location.href='memberType.php';
 				}else{
-					var memberType=result.data.idtype;
-					return memberType;
+					var memeberTypeResume=result.data.idtype;
 				}
 			}
 		});
 }
-/* 会员类别 */
+//根据角色id 去跳转url type=2为编辑  1为add
+function jumlResumeType(id,type){
+	if(type=='1'){
+		switch (id) {
+	    case ("2"):
+	    	window.location.href='addJobDesignResume.php';//设计师
+	        break;
+	    case ("3"):
+	    	window.location.href='addJobHeadmanResume.php';//组长
+	        break;
+	    case ("4"):
+	    	window.location.href='addJobHeadmanResume.php';//管理人
+	        break;
+	    default:
+	    	window.location.href='addJobSkillResume.php';//技工
+		}
+	}else{
+		switch (id) {
+	    case ("2"):
+	    	window.location.href='editJobDesignResume.php';//设计师
+	        break;
+	    case ("3"):
+	    	window.location.href='editJobHeadmanResume.php';//组长
+	        break;
+	    case ("4"):
+	    	window.location.href='editJobHeadmanResume.php';//管理人
+	        break;
+	    default:
+	    	window.location.href='editJobSkillResume.php';//技工
+	}
+  }
+}
+//根据角色id 取汉字角色名称
 function getMemberType(idtype){
 	switch (idtype) {
     case ("2"):
