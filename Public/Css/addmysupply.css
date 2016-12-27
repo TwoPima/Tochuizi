@@ -42,7 +42,7 @@
         #uploaderFiles li{
         	background-size:70px 70px;
         }
-        #uploaderFiles li img{
+        #uploaderFiles .thumb-img{
         	width:70px;
         	height:70px;
         }

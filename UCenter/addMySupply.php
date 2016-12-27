@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
     <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+    	<link rel="stylesheet" type="text/css" href="../Public/font/Font-Awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../Public/css/common.css"/>
+    <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
 </head>
 <body>
@@ -35,7 +37,26 @@
 
             <div class="weui-uploader__bd margin_fix">
                 <ul class="weui-uploader__files" id="uploaderFiles">
-                 <!-- <li class="weui-uploader__file" style="background-image:url(1.jpg)"></li> -->   
+             <!--   <li class="weui-uploader__file" id="fileshow">
+	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
+	             <img src="1.jpg" class="fileshow thumb-img" />
+	             </li>
+               <li class="weui-uploader__file" id="fileshow">
+	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
+	             <img src="1.jpg" class="fileshow thumb-img" />
+	             </li>
+               <li class="weui-uploader__file" id="fileshow">
+	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
+	             <img src="1.jpg" class="fileshow thumb-img" />
+	             </li>
+               <li class="weui-uploader__file" id="fileshow">
+	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
+	             <img src="1.jpg" class="fileshow thumb-img" />
+	             </li>
+               <li class="weui-uploader__file" id="fileshow">
+	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
+	             <img src="1.jpg" class="fileshow thumb-img" />
+	             </li> -->
                 </ul>
                 <div class="weui-uploader__input-box">
                     <input class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" >
@@ -100,57 +121,19 @@
 </body>
 <input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <input value="<?php echo md5(date('Ymd')."supply_cat"."tuchuinet");?>"	type="hidden" id="supply_cat"/>
+<input value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="add_picture"/>
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script>
-$(function() {
-	$('#image_url').change(function(event) {
-		// 根据这个 <input> 获取文件的 HTML5 js 对象
-		var files = event.target.files, file;		
-		if (files && files.length > 0) {
-			// 获取目前上传的文件
-			file = files[0];
-			// 来在控制台看看到底这个对象是什么
-			console.log(file);
-			// 那么我们可以做一下诸如文件大小校验的动作
-			if(file.size > 1024 * 1024 * 2) {
-				alert('图片大小不能超过 2MB!');
-				return false;
-			}
-			var count_li = $("#uploaderFiles").children().length;
-            if(count_li >= '5'){
-                $("#uploaderInput").css('display','none');
-              	 $.toast("不能超过五张图片！", "cancel");
-              	 return false;
-            }
-			// 下面是关键的关键，通过这个 file 对象生成一个可用的图像 URL
-			// 获取 window 的 URL 工具
-			var URL = window.URL || window.webkitURL;
-			// 通过 file 生成目标 url
-			var imgURL = URL.createObjectURL(file);
-			// 用这个 URL 产生一个 <img> 将其显示出来
-			 for(var i=0;i<count_li;i++){
-				 var html = '';
-				 html += '<li class="weui-uploader__file" id="fileshow'+i+'">' +
-	             '<img src="'+imgURL+'" class="fileshow'+i+'" />'+
-	             '</li>';
-	              $("#uploaderFiles").prepend(html);
-             }
-			
-			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
-			// URL.revokeObjectURL(imgURL);
-		}
-	});
-});
-</script>
+<script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/common.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId=='undefined'){
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
-	}else {
+	}
         var supply_cat = $("#supply_cat").val();
         var id=sessionUserId;
         var url = HOST + 'mobile.php?c=index&a=supply_cat';
@@ -163,8 +146,6 @@ $(function(){
                 if (result.statusCode === '0') {
                     $.toptip(message, 2000, 'error');
                 } else {
-                    console.log(result);
-                    console.log(result.data);
                     var cate_num = result.data.length;
                     var cate = result.data;
                     var html='';
@@ -177,60 +158,87 @@ $(function(){
                 }
             },
         });
-    }
-});
- //提交，最终验证。btn-custom-theme
- $("#btn-custom-theme").click(function() {
-        sessionUserId=$.session.get('userId');
-        var url =HOST+'mobile.php?c=index&a=my_supply';
-        var checkInfo = $("#checkInfo").val();
-        var title = $("input[name=title]").val();
-        var cate_id = $("select[name=cate_id]").val();
-        var is_true = $("input[name=is_true]").val();
-        var price = $("input[name=price]").val();
-        var mobile = $("input[name=mobile]").val();
-        var desc = $("textarea[name=desc]").val();
-        //var image_url = $("input[name=image_url]").val();
-        /* var imageUrlArray = new Array();  
-        if(undefined != nodes){  
-            $(imageUrlArray).each(function (ind,val){  
-            	imageUrlArray.push(val.id);// 把数据放入到数组里面去  
-            });  
-        }   */
-        var image_url=$("#image_url").val(); 
-        alert(image_url);
-      if(mobile==""|| title==""){
-       		$.toptip('手机号标题均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
-		 $.ajax({
-			type: 'post',
-			url: url,
-			 traditional:true,//必须设成 true  
-			data: {
-                id:sessionUserId,
-                checkInfo:checkInfo,
-                dotype:'add',
-                title:title,
-                cate_id:cate_id,
-                is_true:is_true,
-                price:price,
-                mobile:mobile,
-                desc:desc,
-                image_url:image_url
-            },
-			dataType: 'json',
-			success: function (result) {
-                console.log(result);
-				/*var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
-				}*/
-			},
-		});
+        $('#image_url').change(function(event) {
+    		// 根据这个 <input> 获取文件的 HTML5 js 对象
+    		var files = event.target.files, file;		
+    		if (files && files.length > 0) {
+    			// 获取目前上传的文件
+    			file = files[0];
+    			// 来在控制台看看到底这个对象是什么
+    			console.log(file);
+    			// 那么我们可以做一下诸如文件大小校验的动作
+    			if(file.size > 1024 * 1024 * 2) {
+    				alert('图片大小不能超过 2MB!');
+    				return false;
+    			}
+    			var count_li = $("#uploaderFiles").children().length;
+                if(count_li >= '5'){
+                    $("#uploaderInput").css('display','none');
+                  	 $.toast("不能超过五张图片！", "cancel");
+                  	 return false;
+                }
+    			// 下面是关键的关键，通过这个 file 对象生成一个可用的图像 URL
+    			// 获取 window 的 URL 工具
+    			var URL = window.URL || window.webkitURL;
+    			// 通过 file 生成目标 url
+    			var imgURL = URL.createObjectURL(file);
+    			// 用这个 URL 产生一个 <img> 将其显示出来
+    			uploadMultImg($("#add_picture").val(),sessionUserId,imgURL);
+    			 for(var i=0;i<count_li;i++){
+    				 var html = '';
+    				 html += ' <li class="weui-uploader__file" id="fileshow'+i+'">' +
+    	             ' <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow'+i+'thumb-img" />'+
+    	             '</li>';
+    	              $("#uploaderFiles").prepend(html);
+                 }
+    			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
+    			// URL.revokeObjectURL(imgURL);
+    		}
+    	});
+        //提交，最终验证。btn-custom-theme
+        $("#btn-custom-theme").click(function() {
+               sessionUserId=$.session.get('userId');
+               var url =HOST+'mobile.php?c=index&a=my_supply';
+               var checkInfo = $("#checkInfo").val();
+               var title = $("input[name=title]").val();
+               var cate_id = $("select[name=cate_id]").val();
+               var is_true = $("input[name=is_true]").val();
+               var price = $("input[name=price]").val();
+               var mobile = $("input[name=mobile]").val();
+               var desc = $("textarea[name=desc]").val();
+               alert(image_url);
+             if(mobile==""|| title==""){
+              		$.toptip('手机号标题均不能为空！', 200, 'warning');
+              	    return false; 
+              	 }
+       		 $.ajax({
+       			type: 'post',
+       			url: url,
+       			 traditional:true,//必须设成 true  
+       			data: {
+                       id:sessionUserId,
+                       checkInfo:checkInfo,
+                       dotype:'add',
+                       title:title,
+                       cate_id:cate_id,
+                       is_true:is_true,
+                       price:price,
+                       mobile:mobile,
+                       desc:desc,
+                   },
+       			dataType: 'json',
+       			success: function (result) {
+                       console.log(result);
+       				/*var message=result.message;
+       				if (result.statusCode==='0'){
+       					$.toptip(message,2000, 'error');
+       				}else{
+       					$.toptip(message,2000, 'success');
+       					window.location.href='./UCenter/index.php';
+       				}*/
+       			},
+       		});
+       });
 });
 </script>
 </html>

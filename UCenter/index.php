@@ -160,7 +160,7 @@
 						<div class="weui-cell__bd">
 							<p>我的供求</p>
 						</div>
-						<div class="weui-cell__ft"><span class="icon_num">3</span></div>
+						<div class="weui-cell__ft"></div>
 					</a>
 			</div>
 			<div class="weui-panel">

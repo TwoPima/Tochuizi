@@ -37,11 +37,19 @@
                         <input class="weui-input" type="text" name="name" id="name">
                     </div>
                 </div>
+                   <div class="weui-cell ">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">民族:</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="text" name="zu" id="zu">
+                    </div>
+                </div>
                  <div class="weui-cell weui-cells_radio">
                        <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
                            <div class="weui-cell__bd sex">
-                               	<p class="float-left"><span>男</span><input type="radio"  value="0" name="sex" id="sexMan"></p>
-                               	<p class=""><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
+                               	<p class="float-left font14px"><span>男</span><input type="radio"  value="0" name="sex" id="sexMan"></p>
+                               	<p class="font14px"><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
                            </div>
                    </div>
                 <div class="weui-cell ">
@@ -61,12 +69,13 @@
                         </select>
                     </div>
                 </div>
-                <div class="weui-cell ">
+                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">工作年限:</label>
+                        <label for="" class="weui-label">工作年限</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="job_year" id="job_year">
+                        <select class="weui-select" name="job_year"  id="job_year" >
+                        </select>
                     </div>
                 </div>
                 <div class="weui-cell ">
@@ -102,7 +111,25 @@
         <div class="info_box">
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
-                        <label for="" class="weui-label">工种类别</label>
+                        <label for="" class="weui-label">队伍资质</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="dui_type"  id="dui_type" >
+                        </select>
+                    </div>
+                </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">队伍人数</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="peo_count"  id="peo_count" >
+                        </select>
+                    </div>
+                </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">专业类型</label>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="cate_id"  id="job_type" >
@@ -122,7 +149,7 @@
                 <div class="weui-cell__bd">
                     <div class="weui-uploader">
                         <div class="weui-uploader__hd" style="border-bottom: 1px solid #EFEFEF;margin-bottom: 10px;">
-                            <p class="weui-uploader__title">工作风采</p>
+                            <p class="weui-uploader__title font14px">工程案例</p>
                         </div>
                         <div class="weui-uploader__bd">
                             <div class="weui-uploader__input-box">

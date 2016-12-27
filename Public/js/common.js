@@ -336,17 +336,16 @@ function JobSingelType(checkInfo,cate_id){
 		}
 	});
 }
-//上传多张图片
-function uploadMultImg(add_picture,id){
+//上传多张图片--增加供求图片--
+function uploadMultImg(checkInfo,id,imgUrl){
+	console.log(imgUrl);
 	var url =HOST+'mobile.php?c=index&a=add_picture';
 	  $.ajax({
 			type: 'post',
 			url: url,
-			data: {checkInfo:checkInfoZidian,id:id,image_url:image_url},
+			data: {checkInfo:checkInfo,id:id,image_url:imgUrl},
 			dataType: 'json',
 			success: function (result) {
-				var id=result.data.id;
-				var name=result.data.name;
 			}
 	  }); 
 }

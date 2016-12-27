@@ -31,6 +31,7 @@ body{
 }
 .font14px{
 	   font-size:14px;
+	color:#666;
    }
 
 /* 右指示箭头 */
@@ -39,6 +40,15 @@ body{
     width: 11px;
 	border-color: #686868;
 	top: 35%;
+}
+/*删除图片按钮  */
+.deletePicture{
+	 position:absolute;
+	float:right;
+	width:15px;
+	height:15px;
+	text-align:center;
+	padding:0px;left: 55px;
 }
 /* 滑动删除 */
 .del-btn{

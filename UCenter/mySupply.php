@@ -16,7 +16,6 @@
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
-<script src="../Public/plugins/touchWipe/touchWipe.js"></script>
 <!--	<script type="text/javascript">
 		var myScroll;
 		function loaded () {
@@ -290,9 +289,6 @@
 								that.$set('total_hits', res.data['total_hits']);
 							}
 						}
-						console.log(that.url);
-						console.log(that.total_hits);
-						console.log(that.total_tie);
 						that.$set('num', that.url.limit);
 						that.$set('demoData', listdata);  //把数据传给页面
 						that.$set('url.start', listdata.length);
@@ -314,7 +310,6 @@
 					});
 				/*再次加载  */
 				function scrollaction1(){
-
 					if( that.url.start >=  that.num ){
 						if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
 							console.log(that.url);
@@ -356,8 +351,9 @@
 	    window.addEventListener('touchstart',function(event){
 	         event.preventDefault();
 	        var obj = event.target.parentNode;
-	       // alert(obj.className);
-	         if(obj.className == "list-data"||obj.className == "weui_panel_ft"){
+	        console.log(obj.className);
+	      // alert(obj.className);
+	         if(obj.className == "weui_panel"||obj.className == "weui_panel_ft"){
 	            initX = event.targetTouches[0].pageX;
 	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
 	         }
@@ -365,7 +361,7 @@
 	            window.addEventListener('touchmove',function(event) {
 	                 event.preventDefault();
 	                var obj = event.target.parentNode;
-	                if (obj.className == "weui_media_box weui_media_text"||obj.className == "weui_panel_ft") {
+	                if (obj.className == "weui_panel"||obj.className == "weui_panel_ft") {
 	                    moveX = event.targetTouches[0].pageX;
 	                     X = moveX - initX;
 	                    if (X >= 0) {
