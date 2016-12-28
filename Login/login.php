@@ -77,7 +77,7 @@
 		  }
     	checkPhone(mobile);
     });
-	$("#btn-custom-theme").click(function() {
+    $("#btn-custom-theme").bind("click keyup", function () { 
 		var userIp = returnCitySN["cip"];
 		var mobile = $("#mobile").val();
 		var password = $("#password").val();

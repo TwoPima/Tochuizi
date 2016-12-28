@@ -77,7 +77,7 @@
 <script type="text/javascript">
 $(function(){
      //文本框失去焦点后
-    $('form:input').blur(function(){
+   $('form :input').blur(function(){
          //验证手机
          if( $(this).is('#mobile') ){
         	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
@@ -101,23 +101,13 @@ $(function(){
           	    return false;
           	  }
          }
-       /*   //验证邮件
-         if( $(this).is('#email') ){
-            if( this.value=="" || ( this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value) ) ){
-                  var errorMsg = '请输入正确的E-Mail地址.';
-                  $parent.append('<span class="formtips onError">'+errorMsg+'</span>');
-            }else{
-                  var okMsg = '输入正确.';
-                  $parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
-            }
-         } */
     });/* .keyup(function(){
        $(this).triggerHandler("blur");
     }).focus(function(){
        $(this).triggerHandler("blur"); 
  });//end blur*/
   //提交，最终验证。
-  $("#btn-custom-theme").click(function() {
+    $("#btn-custom-theme").bind("click keyup", function () { 
         	var mobile = $("#mobile").val();
         	var password = $("#password").val();
         	var code = $("#code").val();

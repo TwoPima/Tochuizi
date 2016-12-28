@@ -155,8 +155,7 @@
 <script>
 	var checkInfo=$('#supply_list').val();
 	var sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
-		$.toptip('您还没有登陆！',2000, 'error');
+	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
 	var demoApp = new Vue({
@@ -350,7 +349,6 @@
 	    window.addEventListener('touchstart',function(event){
 	         event.preventDefault();
 	        var obj = event.target.parentNode;
-	        console.log(obj.className);
 	      // alert(obj.className);
 	         if(obj.className == "weui_panel"||obj.className == "weui_panel_ft"){
 	            initX = event.targetTouches[0].pageX;

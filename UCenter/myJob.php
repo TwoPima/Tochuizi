@@ -19,7 +19,6 @@
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfologin"/>  
 <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
 <script>
-var memeberTypeResume='';//定义取出角色id
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -29,9 +28,8 @@ $(function(){
 	}
 	//已经登陆
   	selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
-  	memberType($("#checkInfologin").val(),sessionUserId);//取出的是id 跳转
   	$("#judgeMemberResumeType").click(function(){
-  		jumlResumeType(memeberTypeResume,'2');
+  		jumlResumeType($.session.get('idType'),'2');
   	 });
 });
  function selectMyResumeInfo(id,checkInfo){
@@ -48,6 +46,7 @@ $(function(){
 						$.toptip(message,2000, 'error');
 						window.location.href='./Login/login.php';
 					}else{
+						$.session.set('idType',result.data.id_type);
 						typeMember=$.session.get('typeMember');
 						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+typeMember+'>'+result.data.cate_id.cate_name+'</p>';
 							$('.job_top_info').append(jobDetailHtml);

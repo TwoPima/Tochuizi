@@ -342,28 +342,26 @@ function getDesignSkillType(checkInfoZidian){
 	}); 
 }
 //身份角色 取出的是id
-function memberType(checkInfo,sessionUserId){
-	var memberType='';
+/*function memberType(checkInfo,sessionUserId){
   	var url =HOST+'mobile.php?c=index&a=login';
 	 $.ajax({
 			type: 'post',
 			url: url,
 			dataType: 'json',
-			async:false,
-			cache:false,
 			data: {checkInfo:checkInfo,id:sessionUserId},
-			success: function (result) {
+			success: function () {
+				var memeberTypeResume=result.data.idtype;
 				//查询当前会员类型  没有默认第一个  有直接跳转到  
 				var message=result.message;
 				if (result.statusCode==='0'){
 					//不存在去注册页面
 					window.location.href='memberType.php';
 				}else{
-					var memeberTypeResume=result.data.idtype;
+					
 				}
 			}
 		});
-}
+}*/
 //根据角色id 去跳转url type=2为编辑  1为add
 function jumlResumeType(id,type){
 	if(type=='1'){
@@ -430,6 +428,41 @@ function getRecruitCountCat(checkInfo,cate_id){
 		}
 	});*/
 }
+/*//工种类别 设计特长-一级菜单
+function loadJobFirstCate(checkInfo,cate_id){
+	var url =HOST+'mobile.php?c=index&a=job_type';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfo,cate_id:cate_id},
+		dataType: 'json',
+		success: function (result) {
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#firstMenu').append(jobTimeHtml);
+			});
+			return false;
+		}
+	});
+}
+//工种类别 设计特长-二级菜单
+function loadJobSubCate(checkInfo,cate_id){
+	var url =HOST+'mobile.php?c=index&a=job_type';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfo,cate_id:cate_id},
+		dataType: 'json',
+		success: function (result) {
+			  $('#subMenu').append("<option value='' selected='selected'>请选择</option>"); 
+			$.each(result.data, function (index, obj) {
+				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
+				$('#subMenu').append(jobTimeHtml);
+			});
+			return false;
+		}
+	});
+}*/
 //工种类别
 function JobType(checkInfo,cate_id){
 	var url =HOST+'mobile.php?c=index&a=job_type';
@@ -465,9 +498,18 @@ function JobSingelType(checkInfo,cate_id){
 function uploadMultImg(checkInfo,id,imgUrl){
 	console.log(imgUrl);
 	var url =HOST+'mobile.php?c=index&a=add_picture';
+	 $("#image_url").uploadify({
+          'uploader': 'uploadify.swf',
+          'script': 'UploadHandler.php',                
+          'folder': 'UploadFile',
+          'queueID': 'fileQueue',
+          'auto': true,
+          'multi': true
+      });
 	  $.ajax({
 			type: 'post',
 			url: url,
+			traditional:true,//必须设成 true  
 			data: {checkInfo:checkInfo,id:id,image_url:imgUrl},
 			dataType: 'json',
 			success: function (result) {
@@ -523,6 +565,59 @@ function getRecruitCatThere(checkInfo, pid) {
 			   $('#dpArea').append(proviceHtml);
 		  	 });
 	   }
+	}); 
+}
+//获得一级供求分类
+function loadSupplyFirstCate(checkInfo,pid){
+	var urlArea= HOST+'mobile.php?c=index&a=supply_cat';
+	jQuery.ajax({ 
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo:checkInfo,pid:pid},
+		dataType:"json",
+		success: function(result){
+			$('#firstMenu').append("<option value='' selected='selected'>请选择</option>"); 
+			$.each(result.data, function (index, obj) {
+				var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+				$('#firstMenu').append(proviceHtml);
+			});
+		}
+	}); 
+} 
+//获得二级供求分类
+function loadSupplySubCate(checkInfo, pid) { 
+	var urlArea= HOST+'mobile.php?c=index&a=supply_cat';
+	jQuery.ajax({ 
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo:checkInfo,pid:pid},
+		dataType:"json",
+		success: function(result){
+			console.log(result);
+			$('#subMenu').append("<option value='' selected='selected'>请选择</option>"); 
+			$.each(result.data, function (index, obj) {
+				console.log(obj);
+				var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+				$('#subMenu').append(proviceHtml);
+			});
+		}
+	}); 
+} 
+//获得三级供求分类
+function loadSupplyThereCate(checkInfo, pid) { 
+	var urlArea= HOST+'mobile.php?c=index&a=supply_cat';
+	jQuery.ajax({ 
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo:checkInfo,pid:pid},
+		dataType:"json",
+		success: function(result){
+			$('#thereMenu').append("<option value='' selected='selected'>请选择</option>"); 
+			$.each(result.data, function (index, obj) {
+				var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+				$('#thereMenu').append(proviceHtml);
+			});
+		}
 	}); 
 }
 /*******手机端a链接点击无反应问题解决-fastclick.js******/

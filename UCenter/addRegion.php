@@ -39,8 +39,7 @@
 				var  checkInfo = $("#checkInfo").val();
 				var  name = $("#name").val();
 				var  mobile = $("#mobile").val();
-				var  area = dp1.val()+dp2.val()+dp3.val();//是id还是name
-				alert(area)
+				var  area = dp3.val();//是id还是name
 				var  address = $("#address").val();
 				var  code = $("#code").val();
 		       	var url =HOST+'mobile.php?c=index&a=my_address';
@@ -61,22 +60,22 @@
 					}
 				});
 		});
-	
-		//填充省的数据 
-		loadAreasProvince($("#checkInfoArea").val(), 0); 
-		//给省绑定事件，触发事件后填充市的数据 
-		jQuery(dp1).bind("change keyup", function () { 
-    		var provinceID = dp1.prop("value"); 
-    		loadAreasCity($("#checkInfoArea").val(), provinceID); 
-    		dp2.fadeIn("slow"); 
-		}); 
-		//给市绑定事件，触发事件后填充区的数据 
-		jQuery(dp2).bind("change keyup", function () { 
-    		var cityID = dp2.prop("value"); 
-    		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
-    		dp3.fadeIn("slow"); 
-    		}); 
-		}); 
+
+			//填充省的数据 
+			loadAreasProvince($("#checkInfoArea").val(), 0); 
+			//给省绑定事件，触发事件后填充市的数据 
+			jQuery(dp1).bind("change keyup", function () { 
+	    		var provinceID = dp1.prop("value"); 
+	    		loadAreasCity($("#checkInfoArea").val(), provinceID); 
+	    		dp2.fadeIn("slow"); 
+			}); 
+			//给市绑定事件，触发事件后填充区的数据 
+			jQuery(dp2).bind("change keyup", function () { 
+	    		var cityID = dp2.prop("value"); 
+	    		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
+	    		dp3.fadeIn("slow"); 
+	    		}); 
+			}); 
 </script>
 </head>
 <body>

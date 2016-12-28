@@ -288,6 +288,7 @@ body{
 	
 }
 #dpCity,#dpArea{ display:none; position:relative;} 
+#subMenu,#thereMenu{ display:none; position:relative;} 
 /* 地址管理 结束*/
 /* 我的订单管理 开始*/
 .myOrder  .weui-cell__bd{

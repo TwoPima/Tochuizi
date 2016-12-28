@@ -108,7 +108,7 @@
 			</div> 
 		</div>
 		<div class="input_vip">
-			<input type="text" name="price" id="price" placeholder="点击输入自定义金额,1元/次">
+			<input type="text" name="price-count" id="price-count"   placeholder="点击输入自定义金额,1元/次">
 		</div>
 	</div>
 	<div class="vip_box ">
@@ -172,8 +172,8 @@
     			//alert(method);
     			//alert(class_id);
     			var checkInfoRecharge = $("#checkInfoRecharge").val();
-    			var price = $("#price").val();
-    			var vip_count = $("#vip_count").val();//充值次数
+    			var price = $("#price-count").val();
+    			var vip_count = $("#price-count").val();//充值次数
     			var url =HOST+'mobile.php?c=index&a=vip_recharge';
     	       if(method==""|| class_id==""){
     	    	  	 $.toast("支付方式和套餐均不能为空！", "cancel");
@@ -182,7 +182,9 @@
     	       $.ajax({
     				type: 'post',
     				url: url,
-    				data: {checkInfo:checkInfoRecharge,price:price,vip_count:'4',id:sessionUserId,method:method,class_id:class_id},
+    				data: {
+        				checkInfo:checkInfoRecharge,price:price,vip_count:vip_count,
+        				id:sessionUserId,method:method,class_id:class_id},
     				dataType: 'json',
     				success: function (result) {
         				
