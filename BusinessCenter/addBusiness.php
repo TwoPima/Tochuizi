@@ -13,9 +13,7 @@
 	text-indent:2em;
 }
 .zck{
-        position: fixed;
-	     width:100%;
-	padding-bottom:20px;
+    position: fixed;
 	min-height:550px;overflow-y:auto;
     }
 </style>
