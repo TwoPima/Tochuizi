@@ -20,6 +20,7 @@
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+<script charset='utf-8' src="../Public/js/swiper.min.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
@@ -191,6 +192,15 @@ var url =HOST+'mobile.php?c=index&a=login';
 <script type="text/javascript">
 $(function(){
 	getPartnerType($("#checkInfoPartnerType").val());
+	//图片浏览器
+	$("#licence_thumb").prop("src");
+	var pb1 = $.photoBrowser({
+		  items: [
+		    "./images/swiper-1.jpg",
+		    "./images/swiper-2.jpg",
+		    "./images/swiper-3.jpg"
+		  ]
+		});
 	 //文本框失去焦点后
 	   $('form :input').blur(function(){
 	        //验证手机

@@ -33,7 +33,11 @@ body{
 	   font-size:14px;
 	color:#666;
    }
-
+/* 无信息显示 */
+.noinfo {
+    margin-top: 50px;
+    padding: 10px 15px;
+}
 /* 右指示箭头 */
 .weui-cell_access .weui-cell__ft:after{
 	 height: 11px;

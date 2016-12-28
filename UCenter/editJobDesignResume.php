@@ -260,7 +260,7 @@ $(function(){
 						}
 						//下拉框
 						console.log(result.data.job_year);
-						if(result.data.job_year!=""){
+						if(result.data.job_year!= null){
 							$('#job_year').append('<option value="'+result.data.job_year.id+'" selected="selected">'+result.data.job_year.name+'</option>'); 
 						}
 						console.log(result.data.education);
