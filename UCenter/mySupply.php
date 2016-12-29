@@ -105,9 +105,9 @@
 		<p class="float-left">
 			<img src="../Public/img/supply/supply-icon.png">
 		</p>
-		<h2 class="supply_number float-left">512<span>个帖子</span></h2>
+		<h2 class="supply_number float-left"><span class="supply_number_count"></span><span>个帖子</span></h2>
 		<p class="supply-right float-right">
-			被阅览<span class="supply_see_num">123441</span>次
+			被阅览<span class="supply_see_num"></span>次
 		</p>
 	</div>
 	<div class="sipply_nav">
@@ -149,6 +149,7 @@
 </div>
 </div>
 <input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
+<input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
 <script type="text/javascript" src="../Public/js/vue.min.js"></script>
 <script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 <script src="../Public/js/iscroll.js"></script>
@@ -158,6 +159,7 @@
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
+	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {

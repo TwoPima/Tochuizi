@@ -13,9 +13,12 @@
      <link rel="stylesheet" href="../Public/css/common.css"/>
  <input value="<?php echo md5(date('Ymd')."favorite_list"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
  <input value="<?php echo md5(date('Ymd')."dd_favorite"."tuchuinet");?>"	type="hidden" id="checkInfoAddFavorite"/>
+ <input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/require.config.js"></script>
  <script src="../Public/js/jquery-weui.min.js"></script>
+ <script src="../Public/js/fastclick.js"></script>
+  <script src="../Public/js/common.js"></script>
 <!-- 拓展插件 -->
 <script src="../Public/js/jquery-session.js"></script>
   <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
@@ -27,10 +30,11 @@
 		window.location.href='../Login/login.php';
 	}
     //已经登陆 去服务器比对sessionid
+    	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
     var url =HOST+'mobile.php?c=index&a=favorite_list';
     var checkInfo=$("#checkInfo").val();
     listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0：店铺
-    listCollect(sessionUserId,2,checkInfo,0,10);//type 1:商品，2：供求,0:店铺
+   // listCollect(sessionUserId,2,checkInfo,0,10);//type 1:商品，2：供求,0:店铺
     listCollect(sessionUserId,0,checkInfo,0,10);//type 1:商品，2：供求,0:店铺
   	function listCollect(id,type,checkInfo,start,limit){
  		 var url =HOST+'mobile.php?c=index&a=favorite_list';
@@ -46,10 +50,6 @@
       				//$.toptip(tips,2000, 'error');
       			}else{
       				//数据取回成功
-      				$(".count_number").html(result.data.total_count);//合计
-      				$(".product_num").html(result.data.total_procount);//商品收藏总数
-      				$(".supply_num").html(result.data.total_gqcount);//供求收藏总数
-      				$(".shop_num").html(result.data.total_stcount);//店铺收藏总数
      				 $.each(result.data, function (index,obj) {
     					 var one='<div class="weui_media_hd" style=" border-radius:50%; overflow:hidden;"><a data-id="" href="javascript:void(0);"><img class="weui_media_appmsg_thumb" src="" alt=""></a></div><div class="weui_media_bd"><h4 class="weui_media_title">'+obj.name+'</h4><p class="weui_media_desc" id="shop-ratyStar" data-score="4"></p><p class="weui_media_desc fujin"><span><i class="icon iconfont icon-fujin1"></i></span><span>'+obj.area+'</span><span><100米</span></p></div>';
     					$('#collect-html-content').append(one);

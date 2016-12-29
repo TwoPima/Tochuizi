@@ -52,7 +52,6 @@ $(function(){
 			success: function (result) {
 				//查询当前会员类型  没有默认第一个  有直接跳转到  
 				var message=result.message;
-				alert(result.statusCode);
 				if (result.statusCode=='0'){
 					window.location.href='noEvaluate.php';
 				}else{

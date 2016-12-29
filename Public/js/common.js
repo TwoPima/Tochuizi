@@ -620,6 +620,32 @@ function loadSupplyThereCate(checkInfo, pid) {
 		}
 	}); 
 }
+//获取供求和收藏统计代码
+function getSupplyCollectNumber(checkInfo,id){
+	var urlArea= HOST+'mobile.php?c=index&a=sum_count';
+	jQuery.ajax({ 
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo:checkInfo,id:id},
+		dataType:"json",
+		success: function(result){
+			if(result.statusCode=='1'){
+				//供求
+				$(".supply_number_count").html(result.data.total_tie);//帖子总数
+				$(".supply_see_num").html(result.data.total_hits);//总浏览数
+				//收藏
+				$(".count_number").html(result.data.total_count);//收藏总数
+				$(".product_num").html(result.data.total_procount);//商品收藏总数
+				$(".supply_num").html(result.data.total_gqcount);//供求收藏总数
+				$(".shop_num").html(result.data.total_stcount);//店铺收藏总数
+			}else{
+				
+			}
+
+			
+		}
+	}); 
+}
 /*******手机端a链接点击无反应问题解决-fastclick.js******/
 //如果你使用原生js开发则进行如下声明即可。
 if ('addEventListener' in document) {      
