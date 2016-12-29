@@ -1,0 +1,119 @@
+/* 我的供求开始*/
+html,body{
+    height: 100%;
+}
+#main{
+    margin-top: 0 !important;
+}
+.sipply_nav{
+    margin-top: 15px;
+    background: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+.sipply_nav .weui-flex__item{
+    padding:13px 0;
+}
+.action{
+    border-bottom:3px solid red;
+}
+#wrapper {
+    position: fixed;
+    width:100%;
+    top:220px;
+    bottom: 0;
+    background: #dedede;
+    overflow: hidden;
+    z-index: 999;
+    /* Prevent native touch events on Windows */
+    -ms-touch-action: none;
+    /* Prevent the callout on tap-hold and text selection */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Prevent text resize on orientation change, useful for web-apps */
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+}
+.weui-loadmore{
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+#scroller {
+    z-index: 9999;
+    position: absolute;
+    background: #f1f1f1;
+    width:100%;
+    /* Prevent elements to be highlighted on tap */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    /* Put the scroller into the HW Compositing layer right from the start */
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+#main .supply_count{
+    background: #fff;
+    padding:20px;
+    height:50px;
+    color:#eb8f1b;
+    background-image:url("../img/myjob/bg.jpg");
+}
+#main .supply_count img{
+    width:50px;
+    height:50px;
+    display: inline-block;
+    float: left;
+}
+#main .supply_count .supply-right span{
+    margin-left:5px;
+    margin-right:5px;
+}
+#main .supply_count .supply-right{
+    margin-top:18px;
+    font-size:0.3em;
+
+}
+#main .supply_count .supply_number span{
+    font-size:14px;
+    margin-left:5px;
+}
+#main .supply_count .supply_number{
+    margin-top:5px;
+    margin-left:20px;
+}
+
+#main .weui-flex{
+    padding: 0 10px ;
+}
+
+
+.mySupply{
+    margin-top:15px;
+}
+.mySupply .weui_media_box{
+    height:38px;
+}
+.mySupply .weui_media_text .weui_media_desc{
+    color:#666;
+}
+.mySupply .weui_media_info_meta{
+    color:#888;
+}
+.mySupply .weui_tab_bd{
+    margin-top:15px;
+}
+.mySupply .weui_panel_ft{
+    color:#888;
+    font-size:20px;
+}
+/* 我的供求结束*/

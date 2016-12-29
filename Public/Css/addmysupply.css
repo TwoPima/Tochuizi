@@ -49,3 +49,28 @@
         	font-size:14px;
         	color:#666;
 }
+#fileshow{
+    position: relative;
+    border:1px solid #dedede;
+}
+
+#fileshow .deletePicture{
+    position: absolute;
+    top:0;
+    right:0;
+    width:35px;
+    height:35px;
+}
+#fileshow .thumb-img{
+    width:100%;
+    height:100%;
+}
+/*
+#fileshow{
+    border:1px solid #dedede;
+    background-image:url("../img/delete-icon-picture.png");
+    background-repeat:no-repeat;
+    -webkit-background-size:35px;
+    background-size:35px;
+    background-position:right top;
+}*/

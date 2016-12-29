@@ -510,56 +510,6 @@ background-color:#ffffff;
 .about-content{
 }
 /* 关于我们结束*/
-/* 我的供求开始*/
-#main .supply_count{
-    background: #fff;
-    padding:20px;
-    height:50px;
-	color:#eb8f1b;
-}
-#main .supply_count img{
-    width:50px;
-    height:50px;
-    display: inline-block;
-    float: left;
-}
-#main .supply_count .supply-right span{
-	margin-left:5px;
-	margin-right:5px;
-}
-#main .supply_count .supply-right{
-	margin-top:18px;
-	font-size:0.3em;
-	
-}
-#main .supply_count .supply_number span{
-	font-size:14px;
-	margin-left:5px;
-}
-#main .supply_count .supply_number{
-	margin-top:5px;
-	margin-left:20px;
-}
-.mySupply{
-	margin-top:15px;
-}
-.mySupply .weui_media_box{
-	height:38px;
-}
-.mySupply .weui_media_text .weui_media_desc{
-	color:#666;
-}
-.mySupply .weui_media_info_meta{
-	color:#888;
-}
-.mySupply .weui_tab_bd{
-	margin-top:15px;
-}
-.mySupply .weui_panel_ft{
-	color:#888;
-	font-size:20px;
-}
-/* 我的供求结束*/
 /* 我的评价开始*/
 .evaluate #content-img img{
 	width:20%;

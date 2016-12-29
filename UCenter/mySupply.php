@@ -10,102 +10,33 @@
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/common.css"/>
-<!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
+	<link rel="stylesheet" href="../Public/css/mysupply.css"/>
+	<!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 	<script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/fastclick.js"></script>
-<script src="../Public/js/common.js"></script>
-<!--	<script type="text/javascript">
-		var myScroll;
-		function loaded () {
-			myScroll = new IScroll('#wrapper',{
-				preventDefault:false,
-
-				momentum: false,
-				snap: true,
-				snapSpeed: 400,
-				keyBindings: true,
-			});
-		}
-	</script>-->
-	<style>
-		html,body{
-			height: 100%;
-		}
-		#main{
-		/*	position: fixed;
-			width: 100%;
-			top:48px;
-			bottom: 0;*/
-		}
-		.sipply_nav{
-			margin-top: 15px;
-			background: #fff;
-			font-size: 16px;
-			text-align: center;
-		}
-		.sipply_nav .weui-flex__item{
-			padding:13px 0;
-		}
-		.action{
-			border-bottom:3px solid red;
-		}
-		#wrapper {
-			position: fixed;
-			width:100%;
-			top:222px;
-			bottom: 0;
-			background: #dedede;
-			overflow: hidden;
-			/* Prevent native touch events on Windows */
-			-ms-touch-action: none;
-			/* Prevent the callout on tap-hold and text selection */
-			-webkit-touch-callout: none;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-			/* Prevent text resize on orientation change, useful for web-apps */
-			-webkit-text-size-adjust: none;
-			-moz-text-size-adjust: none;
-			-ms-text-size-adjust: none;
-			-o-text-size-adjust: none;
-			text-size-adjust: none;
-		}
-		#scroller {
-			position: absolute;
-			width:100%;
-			/* Prevent elements to be highlighted on tap */
-			-webkit-tap-highlight-color: rgba(0,0,0,0);
-			/* Put the scroller into the HW Compositing layer right from the start */
-			-webkit-transform: translateZ(0);
-			-moz-transform: translateZ(0);
-			-ms-transform: translateZ(0);
-			-o-transform: translateZ(0);
-			transform: translateZ(0);
-		}
-	</style>
+	<script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/fastclick.js"></script>
+	<script src="../Public/js/common.js"></script>
 </head>
 <body id="body_box" >
-<div id="topback-header">
-	<div id="header-left">
-		 <a href="index.php">
-			  <i class="icon iconfont icon-xiangzuo"></i>
-				<span class="title">我的供求</span>
-		 </a>
+	<div id="topback-header">
+		<div id="header-left">
+			 <a href="index.php">
+				  <i class="icon iconfont icon-xiangzuo"></i>
+					<span class="title">我的供求</span>
+			 </a>
+		</div>
+		<div id="header-right">
+			<a href="addMySupply.php"><span>发布供求</span></a>
+		</div>
 	</div>
-	<div id="header-right">
-		<a href="addMySupply.php"><span>发布供求</span></a>
-	</div>
-</div>
 <!--内容页面  -->
 <div id="main">
 	<div class="supply_count">
 		<p class="float-left">
 			<img src="../Public/img/supply/supply-icon.png">
 		</p>
-		<h2 class="supply_number float-left"><span class="supply_number_count"></span><span>个帖子</span></h2>
+		<h2 class="supply_number float-left"><span class="supply_number_count">{{total_tie}}</span><span>个帖子</span></h2>
 		<p class="supply-right float-right">
 			被阅览<span class="supply_see_num"></span>次
 		</p>
@@ -127,6 +58,7 @@
 	</div>
 	<div id="wrapper">
 		<div id="scroller">
+
 			<template v-for="item in demoData"><!--三层  -->
 					<div class="weui_panel">
 					<div class="list-data">
@@ -145,6 +77,10 @@
 					</div>
 			</template>
 		</div>
+		<div class="weui-loadmore">
+			<i class="weui-loading"></i>
+			<span class="weui-loadmore__tips">正在加载</span>
+		</div>
 	</div>
 </div>
 </div>
@@ -159,7 +95,6 @@
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
-	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {
@@ -175,20 +110,16 @@
 				limit:10
 			}
 		},/*初始化，el控制区域，  */
-		ready: function() {
+		ready: function() { 
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
 				var listdata=[];
 				for(x  in res.data){
+					/*console.log(x);
+					console.log(res.data[x]);*/
 					if (typeof (res.data[x]) == 'object'){
 						listdata[x]=res.data[x];
-					}
-					if (x == 'total_tie'){
-						that.$set('total_tie', res.data['total_tie']);
-					}
-					if (x == 'total_hits'){
-						that.$set('total_hits', res.data['total_hits']);
 					}
 				}
 				that.$set('demoData', listdata);  //把数据传给页面
@@ -202,9 +133,12 @@
 						click: true,
 						scrollX: false,
 						scrollY: true,
+						probeType: 3,
 					});
 					//滚动监听
-					that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
+					that.myScroll.on('scrollEnd',function(){
+						alert('123');
+					});//滚动监听,1000
 				})
 			}, 
 			function (response) {
@@ -212,7 +146,9 @@
 			});
 			/*再次加载  */
 			function scrollaction(){
-				if(that.url.start  <  that.total_tie){
+				alert('123');
+				if(1){
+					console.log(this.y);
 					if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
 						console.log(that.url);
 						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
@@ -238,6 +174,7 @@
 							that.$set('message', '服务器维护，请稍后重试');
 						});
 					}
+
 				}
 			}
 		}, //created 结束
@@ -340,127 +277,7 @@
 			}//ajaxdata
 		}//method  结束
 	});
-	/*
-	 * 描述：html5苹果手机向左滑动删除特效
-	 */
-	window.addEventListener('load',function(){
-	     var initX;        //触摸位置
-	    var moveX;        //滑动时的位置
-	     var X = 0;        //移动距离
-	    var objX = 0;    //目标对象位置
-	    window.addEventListener('touchstart',function(event){
-	         event.preventDefault();
-	        var obj = event.target.parentNode;
-	      // alert(obj.className);
-	         if(obj.className == "weui_panel"||obj.className == "weui_panel_ft"){
-	            initX = event.targetTouches[0].pageX;
-	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
-	         }
-	       if( objX == 0){
-	            window.addEventListener('touchmove',function(event) {
-	                 event.preventDefault();
-	                var obj = event.target.parentNode;
-	                if (obj.className == "weui_panel"||obj.className == "weui_panel_ft") {
-	                    moveX = event.targetTouches[0].pageX;
-	                     X = moveX - initX;
-	                    if (X >= 0) {
-	                         obj.style.WebkitTransform = "translateX(" + 0 + "px)";
-	                   }
-	                    else if (X < 0) {
-	                        var l = Math.abs(X);
-	                         obj.style.WebkitTransform = "translateX(" + -l + "px)";
-	                        if(l>80){
-	                            l=80;
-	                           obj.style.WebkitTransform = "translateX(" + -l + "px)";
-	                        }
-	                     }
-	                 }
-	             });
-	        }
-	        else if(objX<0){
-	          window.addEventListener('touchmove',function(event) {
-	                 event.preventDefault();
-	                var obj = event.target.parentNode;
-	                 if (obj.className == "list-data"||obj.className == "weui_panel_ft") {
-	                     moveX = event.targetTouches[0].pageX;
-	                    X = moveX - initX;
-	                     if (X >= 0) {
-	                         var r = -80 + Math.abs(X);
-	                         obj.style.WebkitTransform = "translateX(" + r + "px)";
-	                        if(r>0){
-	                             r=0;
-	                             obj.style.WebkitTransform = "translateX(" + r + "px)";
-	                         }
-	                     }
-	                     else {     //向左滑动
-	                        obj.style.WebkitTransform = "translateX(" + -80 + "px)";
-	                     }
-	                }
-	            });
-	        }
 
-	    })
-	     window.addEventListener('touchend',function(event){
-	        event.preventDefault();
-	        var obj = event.target.parentNode;
-	        if(obj.className == "list-data"||obj.className == "weui_panel_ft"){
-	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
-	             if(objX>-40){
-	                obj.style.WebkitTransform = "translateX(" + 0 + "px)";
-	                 objX = 0;
-	            }else{
-	                 obj.style.WebkitTransform = "translateX(" + -80 + "px)";
-	                objX = -80;
-	             }
-	         }
-	      })
-	 })
-	  function confirmDelete(id,name){
-	 alert(id);
-	 $.confirm({
-		  title: '确认删除',
-		  text: name,
-		  onOK: function () {
-		    //点击确认
-			    delData(id,$("#checkInfoAddress").val());
-		  },
-		  onCancel: function () {
-			  return false;
-		  }
-		});/* 
-	  	$.Dialog.confirmBox('温馨提示','确认删除？',{rightCallback:function(){
-	  		$.Dialog.loading();
-	  		$.get(url,function(res){
-	  			  setTimeout(function(){
-	  				 location.reload();	
-	  			},1500);  	
-	  	    });
-		}}); */
-	  }
-	//删除
- function  delData(id,checkInfo){
- 	var url =HOST+'mobile.php?c=index&a=my_address';
-	 alert(id);
- 	 $.ajax({
- 			type: 'post',
- 			url: url,
- 			data: {checkInfo:checkInfo,id:sessionUserId,dotype:'del',adr_id:id},
- 			dataType: 'json',
- 			success: function (result) {
- 				var message=result.message;
- 				var tips=result.message;
- 				if (result.statusCode=='0'){
- 					$.toast("删除错误，请重试", "cancel");
- 				}else{
- 					//$.toast("删除成功");
- 					 setTimeout(function(){
- 		  				 location.reload();	
- 		  			},1500); 
- 				} 
- 			}
- 		});
- }
 	</script>
-</script>
 </body>
 </html>

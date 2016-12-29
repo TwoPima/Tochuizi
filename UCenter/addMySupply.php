@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
+    <style>
+
+    </style>
 </head>
 <body>
 <div id="addmysupply_form">
@@ -37,14 +40,14 @@
 
             <div class="weui-uploader__bd margin_fix">
                 <ul class="weui-uploader__files" id="uploaderFiles">
-              <li class="weui-uploader__file" id="fileshow">
-	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
-	             <img src="1.jpg" class="fileshow thumb-img" />
-	             </li>
-               <li class="weui-uploader__file" id="fileshow">
-	             <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
-	             <img src="1.jpg" class="fileshow thumb-img" />
-	             </li> 
+                     <li class="weui-uploader__file" id="fileshow">
+                         <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
+                         <img src="1.jpg" class="fileshow thumb-img" />
+                     </li>
+                    <li class="weui-uploader__file" id="fileshow">
+                        <img class="deletePicture" onclick="delete_img()" src="../Public/img/delete-icon-picture.png"/>
+                        <img src="1.jpg" class="fileshow thumb-img"/>
+                    </li>
                 </ul>
                 <div class="weui-uploader__input-box">
                     <input class="weui-uploader__input file" multiple="true" name="image_url[]" id="image_url" type="file" accept="image/*" >
@@ -130,6 +133,9 @@
 <script src="../Public/js/common.js"></script>
 
 <script>
+function delete_img(){
+    alert('一点就可以删除了哦');
+}
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
