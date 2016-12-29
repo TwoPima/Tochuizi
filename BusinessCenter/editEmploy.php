@@ -43,10 +43,6 @@ $(function(){
             } 
     	  }
 	});
-	//JobType($("#checkInfoJobType").val(),memberTypeCateId);//工种类别
-	getEduction($("#checkInfoZidian").val());//学历
-	getRecruitCountCat($("#checkInfoRecruitCat").val(),0);//招聘人数分类
-	jobDayWages($("#checkInfoZidian").val());//薪资要求
 	 //提交，最终验证。
 	 $("#btn-custom-theme").click(function() {
 			var title = $("#title").val();
@@ -58,7 +54,13 @@ $(function(){
 			var education=$('#education option:selected').val();
 			var job_year = $("#job_year").val();
 			var checkInfo = $("#checkInfo").val();
-	       	var url =HOST+'mobile.php?c=index&a=my_resume';
+	       	var url =HOST+'mobile.php?c=index&a=recruit_job';
+	       	benefitArr=[];
+	       	benefit=$("input[name=benefit]").val();
+   			$.each(benefit,function(index,obj){
+   				 benefitArr.push(obj);
+   			});
+   			console.log(benefitArr);
 	        if(mobile==""|| name==""){
 	       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
 	       	    return false; 
@@ -66,7 +68,11 @@ $(function(){
 			 $.ajax({
 				type: 'post',
 				url: url,
-				data: {mobile:mobile,cate_id:cate_id,recruit_id:recruit_id,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
+				data: {
+					mobile:mobile,cate_id:cate_id,recruit_id:recruit_id,education:education,
+					job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,
+					name:name,checkInfo:checkInfo,sex:sex
+					},
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
@@ -117,27 +123,33 @@ $(function(){
 					      </select>
 					    </div>
 					  </div>
-					 <div class="weui_cell weui_cell_select">
-					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="weui_select" name="education" id="education">
-					        <option selected="" value="0">学历要求</option>
-					      </select>
-					    </div>
-					  </div>
-					 <div class="weui_cell weui_cell_select">
-					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="weui_select" name="job_year">
-					        <option selected="" value="0">工作年限</option>
-					      </select>
-					    </div>
-					  </div>
-					 <div class="weui_cell weui_cell_select">
-					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="weui_select" name="count" id="count">
-					        <option selected="" value="0">招聘人数</option>
-					      </select>
-					    </div>
-					  </div>
+					  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">最高学历</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="education"  id="education" >
+                        </select>
+                    </div>
+                </div>
+					<div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label font14px">工作年限</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="job_year"  id="job_year" >
+                        </select>
+                    </div>
+                </div>
+					  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label font14px">招聘人数</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="count"  id="count" >
+                        </select>
+                    </div>
+                </div>
 						<div class="weui_cells weui_cells_form">
 						  <div class="weui_cell">
 						    <div class="weui_cell_bd weui_cell_primary">
@@ -146,19 +158,21 @@ $(function(){
 						    </div>
 						  </div>
 						</div>
-						<div class="weui_cell weui_cell_select">
-					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="weui_select" name="wages" id="wages">
-					        <option selected="" value="0">工资待遇</option>
-					      </select>
-					    </div>
-					  </div>
+					   <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label font14px">工资待遇</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="wage"  id="wage" >
+                        </select>
+                    </div>
+                </div>
 					  <div class="height1px"></div>
 					 <div class="weui-cells weui-cells_checkbox" >
 					     <div class="push_checkbox">
 					     <div class="weui_cell_hd"><label class="weui_label jobPosition">职位福利</label></div>
 		                    <div id="benefit">
-		                     <div class="daiyu_checkbox">
+		                    <!-- <div class="daiyu_checkbox">
 		                        <label for="one">包食宿</label>
 		                        <input type="checkbox" name="benefit" id="one">
 		                    </div> 
@@ -169,7 +183,7 @@ $(function(){
 		                     <div class="daiyu_checkbox">
 		                        <label for="one">包食宿</label>
 		                        <input type="checkbox" name="benefit" id="one">
-		                    </div> 
+		                    </div> -->
 		                    </div>
 		                </div>
 					</div>
@@ -178,7 +192,6 @@ $(function(){
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="area" name="cate_id" id="dpProvince">
 					      </select>
-					     <!--  <span class="">&nbsp;|</span> -->
 					      <select class="area" name="cate_id" id="dpCity">
 					      </select>
 					      <select class=" area" name="cate_id" id="dpArea">
@@ -236,6 +249,11 @@ $(function(){
 		getCatThere.fadeIn("slow"); 
 		$(".jobCategory-there-line").fadeIn("slow");
 		}); 
+	getEduction($("#checkInfoZidian").val());//学历
+	getJobYear($("#checkInfoZidian").val());//工作年限
+	getRecruitCountPeople($("#checkInfoZidian").val(),24);//招聘人数分类
+	jobDayWages($("#checkInfoZidian").val());//薪资要求
+	getBenefit($("#checkInfoZidian").val()); //福利
 	/* 城市区三级联动 */
 		 var dp1 = $("#dpProvince"); 
 		var dp2 = $("#dpCity"); 
