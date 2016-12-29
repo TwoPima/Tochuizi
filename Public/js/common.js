@@ -411,22 +411,22 @@ function getMemberType(idtype){
 	}
     return  typeMember;
 }
-//招聘人数分类 24
-function getRecruitCountPeople(checkInfo,cate_id){
-	var url =HOST+'mobile.php?c=index&a=zidian';
-	$.ajax({
+//招聘人数分类
+function getRecruitCountCat(checkInfo,cate_id){
+	var url =HOST+'mobile.php?c=index&a=job_type';
+	/*$.ajax({
 		type: 'post',
 		url: url,
-		data: {checkInfo:checkInfo,zidian_id:cate_id},
+		data: {checkInfo:checkInfo,cate_id:cate_id},
 		dataType: 'json',
 		success: function (result) {
 			$.each(result.data, function (index, obj) {
 				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
-				$('#count').append(jobTimeHtml);
+				$('#job_type').append(jobTimeHtml);
 			});
 			return false;
 		}
-	});
+	});*/
 }
 /*//工种类别 设计特长-一级菜单
 function loadJobFirstCate(checkInfo,cate_id){
