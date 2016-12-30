@@ -28,7 +28,7 @@
                 <div class="info-head">
                         <div class="head_img ">
                             <a id="headImg">
-                        	    <img id="img-thumb" src="../Public/img/index/index_headimg2.jpg" alt="">
+                        	    <img id="img-thumb" src="" alt="">
                             </a>
                             <input name="name" type="hidden"/>
                             <input name="id" id="userid" type="hidden"/>
@@ -115,13 +115,13 @@ function uploadImage() {
                 //data:$('#myInfoForm').serialize(),
                 async: false,
                 error: function(request) {
-               	 $.toast("上传失败，请检查网络后重试", "cancel");
+             	  	 $.toast("上传失败，请检查网络后重试", "cancel");
                 },
                 success: function(result) {
                     if(result.statusCode=='0'){
                    	 $.toast("上传失败，请检查网络后重试", "cancel");
                     }else{
-                    	window.location.href='index.php';
+                    	window.location.href='myInfo.php';
                     }
                 	
                 }

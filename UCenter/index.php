@@ -46,18 +46,21 @@
 					}else{
 						//数据取回成功
     					var mobile=$.session.get('mobileSession');
-    					if(result.data.idtype==null){
+    					if(eval('(' + result.data.idtype+ ')')==null){
     						$("#typeMember").html('点亮身份');
     					}else{
     						var typeMember=getMemberType(result.data.idtype);
     						$("#typeMember").html(typeMember);
+    						$.session.set('typeMember', typeMember); 
+    						$.session.set('idType', result.data.idtype);
     					}
     					var is_vip=result.data.is_vip;
     					if(is_vip=='0'){
     						$("#vipType").html('普通用户');
-        					}else{
+        				}else{
     						$("#vipType").html('认证用户');
         				}
+        				$.session.set('isVip', is_vip); 
     					if(result.data.nickname==null){
     						$("#nickname").html('昵称');
         				}else{
@@ -66,11 +69,11 @@
     					$("#mobile").html(mobile);
     					
     					if(result.data.avatar==null){
+    						
     					}else{
     						$("#avatar").attr("src",result.data.avatar);//头像
     					}
-    					$.session.set('typeMember', typeMember); 
-    					$.session.set('isVip', is_vip); 
+    					
 					} 
 				}
 			});
@@ -81,7 +84,7 @@
 	<div id="header" class="loginStatus">
 		<a href="myInfo.php" class="header-a-1">
 		<div class="head_img float-left">
-			<img id="avatar" src="../Public/img/index/index_headimg2.jpg" alt="">
+			<img id="avatar" src="" alt="">
 		</div>
 		<div class="head_title" id="">
 			<p><span id="nickname"></span></p>
@@ -99,23 +102,6 @@
 		</div>
 		</a>
 	</div>
-	<!-- 未登录状态 -->
-	<!--  <div id="header" class="nologin">
-		<a href="../login.php" class="header-a-1">
-		<div class="head_img float-left">
-			<img src="../Public/img/index/index_headimg2.jpg" alt="">
-		</div>
-		<div class="head_title" id="">
-			<p>请登录</p>
-		</div>
-		</a>
-		<a href="memberType.php"class="header-a-2">
-		<div class="head_job">
-			<img src="../Public/img/index/headright.png" alt="">
-			<p>点亮身份</p>
-		</div>
-		</a>
-	</div>-->
 	<div id="main">
 		<div class="page">
 			<div class="weui-panel menu_order">
@@ -272,7 +258,7 @@
 <script type="text/javascript">
 $(function(){
 //多少个订单
-	var url =HOST+'mobile.php?c=index&a=login';
+/*	var url =HOST+'mobile.php?c=index&a=login';
 	var checkInfo=$("#checkInfo").val();
 	 $.ajax({
 			type: 'post',
@@ -286,36 +272,16 @@ $(function(){
 					$.toptip(tips,2000, 'error');
 				}else{
 					//数据取回成功
-					var mobile=$.session.get('mobileSession');
+				var mobile=$.session.get('mobileSession');
 					var typeMember=getMemberType(result.data.idtype);
 					var nickname=result.data.nickname;
 					$("#mobile").html(mobile);
 					$("#nickname").html(nickname);
 					$("#typeMember").html(typeMember);
-					$.session.set('idType', result.data.idtype); 
+					$.session.set('idType', result.data.idtype); *
 				} 
 			}
-		});
-//多少个供求
-	 var url =HOST+'mobile.php?c=index&a=login';
-		var checkInfo=$("#checkInfo").val();
-		 $.ajax({
-				type: 'post',
-				url: url,
-				data: {checkInfo:checkInfo,id:sessionUserId},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					var tips=result.message;
-					if (result.statusCode=='0'){
-						$.toptip(tips,2000, 'error');
-					}else{
-						//数据取回成功
-					var typeMember=getMemberType(result.data.idtype);
-					$("#typeMember").html(typeMember);
-					} 
-				}
-			});
+		});*/
 			//查询简历是否存在
 			$("#judgeJob").click(function(){
 				if($.session.get('idType')==null){

@@ -30,7 +30,7 @@
                     <div class="head_img ">
                  	   <div id="queue"></div>
                         <a id="headImg" href="uploadHead.php">
-                        	<img id="avatar" src="../Public/img/index/index_headimg2.jpg" alt="">
+                        	<img id="avatar" src="" alt="">
                         </a>
                       <!--   <input class="weui_uploader_input" id="uploadPhoto" type="file" onclick="uploadImage()"  name="avatar"accept="image/jpg,image/jpeg,image/png,image/gif" multiple="true"></div> -->
                       

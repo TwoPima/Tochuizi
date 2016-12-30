@@ -181,13 +181,7 @@
 		}, //created 结束
 		methods: {
 			jump_url: function (msg1,msg2){
-				/*var msg_url = msg2.indexOf('&m=Index&a=content&');
-				if(msg_url == -1){
-					this.$http(this.local_url+'/index.php?g=Wap&m=Index&a=jump_url&id='+msg1).then(function (response) {
-						return true;
-					});
-				}*/
-				alert('跳转url');
+				window.location.href='editMySupply.php';
 			},
 			classdata: function (msg) {
 				$('.sipply_nav .action').removeClass('action');

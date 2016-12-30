@@ -25,29 +25,7 @@
 		//没有登陆
 		window.location.href='../Login/login.php';
 	}
-	//已经登陆  取会员类别
-  	var url =HOST+'mobile.php?c=index&a=login';
-   var checkInfoBasicInfo = $("#checkInfoBasicInfo").val();
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfoBasicInfo,id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				//查询当前会员类型  没有默认第一个  有直接跳转到  
-				var message=result.message;
-				if (result.statusCode==='0'){
-					
-				}else{
-					if(result.data.idtype==null){
-					}else{
-						//跳转到简历
-						window.location.href='addJobResume.php';
-					}
-				}
-			}
-		});
-$(function(){
+	$(function(){
 	 $(".weui-cells_radio").click(function(){
 	 		 $(this).siblings().children(":radio[name=typeMember]").prop('checked',false);
 	  		$(this).children(":radio[name=typeMember]").prop('checked',true); 
@@ -66,6 +44,7 @@ $(function(){
 						var message=result.message;
 						if (result.statusCode==='0'){
 							$.toptip(message,2000, 'error');
+							window.location.href='myJob.php';
 						}else{
 							$.toast(message);
 							 setTimeout(window.location.href='noMyJob.php',8000)

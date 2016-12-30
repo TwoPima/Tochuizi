@@ -56,7 +56,7 @@ var url =HOST+'mobile.php?c=index&a=login';
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addBusinessInfo.php"><i class="icon iconfont icon-shezhi"></i></a>
+                <!--	<a href="addBusinessInfo.php"><i class="icon iconfont icon-shezhi"></i></a>-->
                 </div>
 		</div>
 			<section id="shopIndex">

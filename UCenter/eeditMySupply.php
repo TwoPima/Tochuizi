@@ -168,7 +168,6 @@ $(function(){
 	});  
         $('#image_url').change(function(event) {
     		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
-    		 var imgPathArr = $(this).val();
     		if (files && files.length > 0) {
     			file = files[0];// 获取目前上传的文件
     			if(file.size > 1024 * 1024 * 2) {
@@ -182,6 +181,7 @@ $(function(){
 	                  	 $.toast("不能超过五张图片！", "cancel");
 	                  	 return false;
 	                }
+	                imgPathArr.push(obj);
 	    			// 通过这个 file 对象生成一个可用的图像 URL
 	    			// 获取 window 的 URL 工具
 	    			var URL = window.URL || window.webkitURL;
@@ -196,11 +196,6 @@ $(function(){
 	    			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
 	    			// URL.revokeObjectURL(imgURL);
 		      	});
-		      	$.each(imgPathArr, function(index,obj) {
-		      		    imgPathArr.push(obj);
-		      	});
-		      	console.log(imgPathArr);
-		      	
     		}
     	});
         //提交，最终验证。btn-custom-theme
@@ -228,7 +223,7 @@ $(function(){
        			data: {
                        id:sessionUserId,
                        checkInfo:checkInfo,
-                       dotype:'add',
+                       dotype:'edit',
                        title:title,
                        cate_id:cate_id,
                        is_true:is_true,
