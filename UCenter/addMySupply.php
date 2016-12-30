@@ -40,14 +40,6 @@
 
             <div class="weui-uploader__bd margin_fix">
                 <ul class="weui-uploader__files" id="uploaderFiles">
-                     <li class="weui-uploader__file" id="fileshow">
-                         <img class="deletePicture"src="../Public/img/delete-icon-picture.png"/>
-                         <img src="1.jpg" class="fileshow thumb-img" />
-                     </li>
-                    <li class="weui-uploader__file" id="fileshow">
-                        <img class="deletePicture" onclick="delete_img()" src="../Public/img/delete-icon-picture.png"/>
-                        <img src="1.jpg" class="fileshow thumb-img"/>
-                    </li>
                 </ul>
                 <div class="weui-uploader__input-box">
                     <input class="weui-uploader__input file" multiple="true" name="image_url[]" id="image_url" type="file" accept="image/*" >
@@ -55,7 +47,7 @@
             </div>
         </div>
         <div class="main_box">
-             <div class="weui_cell">
+          			  <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
 					      <select class="supplyCate" name="cate_id" id="firstMenu">
@@ -66,7 +58,7 @@
 					      </select>
 					    </div>
 					  </div>
-					 <!--  <div class="weui_cell">
+				<div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
 					      <select class="area" name="area" id="dpProvince">
@@ -76,7 +68,7 @@
 					      <select class="area" name="area" id="dpArea">
 					      </select>
 					    </div>
-					  </div> -->
+					  </div> 
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
@@ -133,9 +125,6 @@
 <script src="../Public/js/common.js"></script>
 
 <script>
-function delete_img(){
-    alert('一点就可以删除了哦');
-}
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -143,7 +132,7 @@ $(function(){
 	}
 	var dp1 = $("#firstMenu"); 
 	var dp2 = $("#subMenu"); 
-	var dp3 = $("thereMenu"); 
+	var dp3 = $("#thereMenu"); 
  	var dpProvince = $("#dpProvince"); 
 	var dpCity = $("#dpCity"); 
 	var dpArea = $("#dpArea");  
@@ -151,7 +140,8 @@ $(function(){
 	loadSupplyFirstCate($("#supply_cat").val(), 0); 
 	//给一级绑定事件，触发事件后填充二级的数据 
 	jQuery(dp1).bind("change keyup", function () { 
-		var firstID = dp1.prop("value"); 
+		var firstID = dp1.prop("value"); //$("input").attr("value","");
+		dp2.prop("value","");dp3.prop("value","");
 		loadSupplySubCate($("#supply_cat").val(), firstID); 
 		dp2.fadeIn("slow"); 
 	}); 
@@ -166,6 +156,7 @@ $(function(){
 	//给省绑定事件，触发事件后填充市的数据 
 	jQuery(dpProvince).bind("change keyup", function () {
 		var provinceID = dpProvince.prop("value"); 
+		dpCity.prop("value","");dpArea.prop("value","");
 		loadAreasCity($("#checkInfoArea").val(), provinceID); 
 		dpCity.fadeIn("slow"); 
 	}); 
@@ -174,7 +165,7 @@ $(function(){
 		var cityID = dpCity.prop("value"); 
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
-		});  
+	});  
         $('#image_url').change(function(event) {
     		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
     		if (files && files.length > 0) {
@@ -200,7 +191,7 @@ $(function(){
 	    			// 用这个 URL 产生一个 <img> 将其显示出来
 	                  var html = '';
 	    				 html += ' <li class="weui-uploader__file" id="fileshow">' +
-	    	             ' <img class="deletePicture" src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+	    	             '  <img class="deletePicture" data="'+obj+'"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
 	    	             '</li>';
 	    	              $("#uploaderFiles").prepend(html);
 	    			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
@@ -215,16 +206,13 @@ $(function(){
                var checkInfo = $("#checkInfo").val();
                var title = $("input[name=title]").val();
                var cate_id = $("#thereMenu").val();
-               var area ='1';
-               //var area = $("#dpArea").val();
+               var area=$('#dpArea option:selected').val();
                var is_true=$("input[name=is_true]:checked").val();
                var price = $("input[name=price]").val();
                var mobile = $("input[name=mobile]").val();
                var desc = $("textarea[name=desc]").val();
+               var zu = $("input[name=zu]").val();
                var image_url = imgPathArr;
-               console.log(sessionUserId);
-               console.log(is_true);
-               console.log(image_url);
              if(mobile==""|| title==""){
               		alert('手机号标题均不能为空！', 200, 'warning');
               	    return false; 
@@ -236,14 +224,16 @@ $(function(){
        			data: {
                        id:sessionUserId,
                        checkInfo:checkInfo,
-                       dotype:'add',
+                       dotype:'edit',
                        title:title,
                        cate_id:cate_id,
                        is_true:is_true,
                        price:price,
                        mobile:mobile,
                        desc:desc,
-                       image_url:image_url,area:area
+                       zu:zu,
+                       image_url:image_url,
+                       area:area
                    },
        			dataType: 'json',
        			success: function (result) {
@@ -259,6 +249,9 @@ $(function(){
        		});
        });
 });
+	$(document).on("click", ".deletePicture", function() {
+			$(this).parent().remove();
+		});
 </script>
 </html>
 </div>

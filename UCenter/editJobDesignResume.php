@@ -134,6 +134,17 @@
                         </select>
                     </div>
                 </div>
+                	<div class="weui_cell weui-cell_select weui-cell_select-after">
+					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
+					    <div class="weui_cell_bd weui_cell_primary font14px">
+					      <select class="area" name="area" id="dpProvince">
+					      </select>
+					      <select class="area" name="area" id="dpCity">
+					      </select>
+					      <select class="area" name="area" id="dpArea">
+					      </select>
+					    </div>
+					  </div> 
             <div class="weui-cells weui-cells_form" style="margin-top:0px;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
@@ -149,11 +160,13 @@
                         <div class="weui-uploader__hd" style="border-bottom: 1px solid #EFEFEF;margin-bottom: 10px;">
                             <p class="weui-uploader__title font14px">作品案例</p>
                         </div>
-                        <div class="weui-uploader__bd">
-                            <div class="weui-uploader__input-box">
-                                <input id="uploaderInput" class="weui-uploader__input" name="image_url" type="file" accept="image/*" multiple="">
-                            </div>
-                        </div>
+                         <div class="weui-uploader__bd margin_fix">
+			                <ul class="weui-uploader__files" id="uploaderFiles">
+			                </ul>
+			                <div class="weui-uploader__input-box">
+			                    <input class="weui-uploader__input file" multiple="true" name="image_url[]" id="image_url" type="file" accept="image/*" >
+			                </div>
+			            </div>
                     </div>
                 </div>
             </div>
@@ -175,10 +188,11 @@
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
 <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
+<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
- <script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/js/jquery-weui.min.js"></script>
  <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
@@ -200,6 +214,26 @@ $(function(){
 		dp2.fadeIn("slow"); 
 	});  */
 	//已经登陆
+	var dpProvince = $("#dpProvince"); 
+	var dpCity = $("#dpCity"); 
+	var dpArea = $("#dpArea");  
+	 //填充省的数据 
+	loadAreasProvince($("#checkInfoArea").val(), 0); 
+	//给省绑定事件，触发事件后填充市的数据 
+	jQuery(dpProvince).bind("change keyup", function () {
+		var provinceID = dpProvince.prop("value"); 
+		/*   $('#dpCity option:selected').prop("value","");
+		   $('#dpArea option:selected').prop("value","");*/
+		loadAreasCity($("#checkInfoArea").val(), provinceID); 
+		
+		dpCity.fadeIn("slow"); 
+	}); 
+	//给市绑定事件，触发事件后填充区的数据 
+	jQuery(dpCity).bind("change keyup", function () { 
+		var cityID = dpCity.prop("value"); 
+		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
+		dpArea.fadeIn("slow"); 
+		});  
  	 //文本框失去焦点后
     $('form :input').blur(function(){
         //验证手机
@@ -223,8 +257,7 @@ $(function(){
 	getJobYear($("#checkInfoZidian").val());//工作年限
 	jobDayWages($("#checkInfoZidian").val());//薪资
 	JobType($("#checkInfoJobType").val(),$.session.get('idType'));//设计特长
-	function selectMyResumeInfo(id,checkInfo){
-		 //查询
+	function selectMyResumeInfo(id,checkInfo){	 //查询
 		var url =HOST+'mobile.php?c=index&a=my_resume';
 		 $.ajax({
 				type: 'post',
@@ -239,9 +272,9 @@ $(function(){
 					}else{
 						$('#name').attr("value",result.data.name);
 						$('#zu').attr("value",result.data.zu);
-						$('#Resumeid').attr("value",result.data.Resumeid);
+						$('#Resumeid').attr("value",result.data.id);
 						$('#mobile').attr("value",result.data.mobile);
-						$('#desc').attr("value",result.data.desc);
+						$('#desc').html(result.data.desc);
 						$('#home').attr("value",result.data.home);
 						$('#birthday').attr("value",result.data.birthday);
 						$('#email').attr("value",result.data.email);
@@ -259,21 +292,16 @@ $(function(){
 							$(":radio[name=she_type][value=0]").prop("checked","true");//指定value的选项为选中项
 						}
 						//下拉框
-						console.log(result.data.job_year);
-						if(result.data.job_year!= null){
-							$('#job_year').append('<option value="'+result.data.job_year.id+'" selected="selected">'+result.data.job_year.name+'</option>'); 
+						if(eval('(' + result.data.job_year+ ')')!=null){
+							$('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>'); 
 						}
-						console.log(result.data.education);
-						if(result.data.education!='undefined'){
-							console.log(result.data.education['id']);
-							$('#education').append('<option value="'+result.data.education.id+'" selected="selected">'+result.data.education.name+'</option>');
+						if(eval('(' + result.data.education+ ')')!=null){
+							$('#education').append('<option value="'+eval('(' + result.data.education+ ')').id+'" selected="selected">'+eval('(' + result.data.education+ ')').name+'</option>');
 						}
-						console.log(result.data.wage);
-						if(result.data.wage!='undefined'){
-							console.log('wage');
-							$('#wage').append('<option value="'+result.data.wage.id+'" selected="selected">'+result.data.wage.name+'</option>'); 
+						if(eval('(' + result.data.wage+ ')')!=null){
+							$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>'); 
 						}
-						if(result.data.job_type!='undefined'){
+						if(eval('(' + result.data.job_type+ ')')!=null){
 							$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
 						}
 						
@@ -282,14 +310,55 @@ $(function(){
 			});
 
 	}
+	  $('#image_url').change(function(event) {
+    		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
+    		if (files && files.length > 0) {
+    			file = files[0];// 获取目前上传的文件
+    			if(file.size > 1024 * 1024 * 2) {
+    				alert('图片大小不能超过 2MB!');
+    				return false;
+    			}
+    		imgPathArr=[];
+ 			   $(files).each(function(index, obj) {
+  				  var count_li = $("#uploaderFiles").children().length;
+	                if(count_li >= '5'){
+	                    $("#uploaderInput").css('display','none');
+	                  	 $.toast("不能超过五张图片！", "cancel");
+	                  	 return false;
+	                }
+	                imgPathArr.push(obj);
+		      	});
+		      	 $.ajax({
+				type: 'post',
+				url: HOST+'mobile.php?c=index&a=add_picture',
+				traditional:true,//必须设成 true  
+				data: {checkInfo:$("#checkInfoAddImg").val(),image_url:imgPathArr,id:sessionUserId},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='1'){
+						  var html = '';
+	    				 html += ' <li class="weui-uploader__file" id="fileshow" value="'+result.data.image_id+'">' +
+	    	             '  <img class="deletePicture"  src="../Public/img/delete-icon-picture.png"/><img src="'+result.data.image_url+'" class="fileshow thumb-img" />'+
+	    	             '</li>';
+	    	              $("#uploaderFiles").prepend(html);
+					}
+				}
+			});
+    		}
+    	});
+    	$(document).on("click", ".deletePicture", function() {
+			$(this).parent().remove();
+		});
 	 //提交，最终验证。
 	 $("#btn-custom-theme").click(function() {
 			var sex=$("input[name='sex']:checked").val();
 			var she_type=$("input[name='she_type']:checked").val();
 			var name = $("#name").val();
+			var email = $("email").val();
 			var zu = $("#zu").val();
 			var mobile = $("#mobile").val();
-			var id=$("#Resumeid").html(result.data.id);
+			var id=$("#Resumeid").val();
 			var desc = $("#desc").val();
 			var home = $("#home").val();
 			var birthday = $("#birthday").val();
@@ -297,7 +366,8 @@ $(function(){
 			var job_year=$('#job_year option:selected').val();
 			var education=$('#education option:selected').val();
 			var wage=$('#wage option:selected').val();
-			var checkInfo = $("#checkInfo").val();
+			var area=$('#dpArea option:selected').val();
+			var checkInfo = $("#checkInfoResume").val();
 	       	var url =HOST+'mobile.php?c=index&a=my_resume';
 	        if(mobile==""|| name==""){
 	       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
@@ -307,7 +377,7 @@ $(function(){
 				type: 'post',
 				url: url,
 				data: {
-					mobile:mobile,cate_id:cate_id,she_type:she_type,
+					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,
 					education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,
 					home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex,wage:wage,zu:zu
 					},
@@ -317,8 +387,8 @@ $(function(){
 					if (result.statusCode==='0'){
 						$.toast(message, "cancel");
 					}else{
-						//$.toast("操作成功");
-						//window.location.href='myJob.php';
+						$.toast("操作成功！");
+						window.location.href='myJob.php';
 					}
 				},
 			});

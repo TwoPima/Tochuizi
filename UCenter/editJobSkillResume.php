@@ -142,11 +142,13 @@
                         <div class="weui-uploader__hd" style="border-bottom: 1px solid #EFEFEF;margin-bottom: 10px;">
                             <p class="weui-uploader__title">工作风采</p>
                         </div>
-                        <div class="weui-uploader__bd">
-                            <div class="weui-uploader__input-box">
-                                <input id="uploaderInput" class="weui-uploader__input" name="image_url" type="file" accept="image/*" multiple="">
-                            </div>
-                        </div>
+                           <div class="weui-uploader__bd margin_fix">
+				                <ul class="weui-uploader__files" id="uploaderFiles">
+				                </ul>
+				                <div class="weui-uploader__input-box">
+				                    <input class="weui-uploader__input file" multiple="true" name="image_url[]" id="image_url" type="file" accept="image/*" >
+				                </div>
+				            </div>
                     </div>
                 </div>
             </div>

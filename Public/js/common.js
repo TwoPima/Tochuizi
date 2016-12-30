@@ -55,9 +55,9 @@ function loadAreasCity(checkInfo, pid) {
 	   data: {checkInfo:checkInfo,pid:pid},
 	   dataType:"json",
 	   success: function(result){
-		   nowPositionCity=$.session.get("nowPositionCity");
-		   var selectHtml='<option value="" selected="selected">'+nowPositionCity+'</option>';
-		   $('#dpCity').append(selectHtml); 
+		  // nowPositionCity=$.session.get("nowPositionCity");
+		  // var selectHtml='<option value="" selected="selected">'+nowPositionCity+'</option>';
+		    $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
   		 $.each(result.data, function (index, obj) {
 			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 			   $('#dpCity').append(proviceHtml);
@@ -527,7 +527,7 @@ function getRecruitCat(checkInfo,pid){
 	   success: function(result){
 		   $('#getRecruitCat').append("<option value='' selected='selected'>请选择</option>"); 
   		 $.each(result.data, function (index, obj) {
-			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
 			   $('#getRecruitCat').append(proviceHtml);
 		  	 });
 	   }
@@ -544,7 +544,7 @@ function getRecruitCatSub(checkInfo, pid) {
 	   success: function(result){
 		   $('#getRecruitCatSub').append("<option value='' selected='selected'>请选择</option>"); 
   		 $.each(result.data, function (index, obj) {
-			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
 			   $('#getRecruitCatSub').append(proviceHtml);
 		  	 });
 	   }
@@ -561,7 +561,7 @@ function getRecruitCatThere(checkInfo, pid) {
 	   success: function(result){
 		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
   		 $.each(result.data, function (index, obj) {
-			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+			   var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
 			   $('#dpArea').append(proviceHtml);
 		  	 });
 	   }

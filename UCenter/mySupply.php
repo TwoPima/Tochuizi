@@ -36,7 +36,7 @@
 		<p class="float-left">
 			<img src="../Public/img/supply/supply-icon.png">
 		</p>
-		<h2 class="supply_number float-left"><span class="supply_number_count">{{total_tie}}</span><span>个帖子</span></h2>
+		<h2 class="supply_number float-left"><span class="supply_number_count"></span><span>个帖子</span></h2>
 		<p class="supply-right float-right">
 			被阅览<span class="supply_see_num"></span>次
 		</p>
@@ -95,6 +95,7 @@
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
+		getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {

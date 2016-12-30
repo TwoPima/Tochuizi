@@ -67,7 +67,7 @@ $(function(){
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a id="judgeMemberResumeType"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<a href="addJob.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
                 	<!--个人用户增加简历  会员用户增加职位  -->
                 </div>
 		</div>
@@ -77,7 +77,7 @@ $(function(){
                 <img class="job_top_people" src="../Public/img/myjob/people.jpg" alt="">
                 <div class="job_top_info">
                 </div>
-               <a href="editJobResume.php"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
+               <a  id="judgeMemberResumeType"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
             </div>
             <div class="box_bg"></div>
         <div class="weui-cells">
