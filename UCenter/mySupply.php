@@ -66,7 +66,7 @@
 							<div class="weui_media_box weui_media_text">
 								<p class="weui_media_desc">{{item.title}}</p>
 								<ul class="weui_media_info">
-									<li class="weui_media_info_meta">{{item."1482378345"}}
+									<li class="weui_media_info_meta">{{item.mobile}}
 									</li>
 									<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
 								</ul>

@@ -13,11 +13,13 @@
 	<link rel="stylesheet" href="../Public/css/dianliang.css"/>
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoBasicInfo"/>  
+<input value="<?php echo md5(date('Ymd')."my_idtype"."tuchuinet");?>"	type="hidden" id="checkInfoMemberType"/>
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
 	sessionUserId=$.session.get('userId');
@@ -28,7 +30,7 @@
 	$(function(){
 	 $(".weui-cells_radio").click(function(){
 	 		 $(this).siblings().children(":radio[name=typeMember]").prop('checked',false);
-	  		$(this).children(":radio[name=typeMember]").prop('checked',true); 
+	  	 		$(this).children(":radio[name=typeMember]").prop('checked',true);
 	});
 	//提交，最终验证。
 		 $("#btn-custom-theme").click(function() {
@@ -44,13 +46,11 @@
 						var message=result.message;
 						if (result.statusCode==='0'){
 							$.toptip(message,2000, 'error');
-							window.location.href='myJob.php';
 						}else{
 							$.toast(message);
-							 setTimeout(window.location.href='noMyJob.php',8000)
-							//window.location.href='addJobResume.php';
+							 setTimeout(window.location.href='noMyJob.php',8000);
 						}
-					},
+					}
 				});
 		});
 });
@@ -83,7 +83,7 @@
 					<img src="../Public/img/memberType/jigong.png" >
 					 <div class="weui-cells_radio">
                         <p id="test">我是技工</p>
-                        <input type="radio" name="typeMember" class="weui-check"  value="1">
+                        <input type="radio" name="typeMember" class="weui-check"  checked="checked" value="1">
                         <span class="weui-icon-checked"></span>
                     </div>
 				</div>
@@ -91,7 +91,7 @@
 					<img src="../Public/img/memberType/design.png" data-number="2" id="designer" >
 					<div class="weui-cells_radio">
                         <p>设计师</p>
-                        <input type="radio" name="typeMember" class="weui-check"  checked="checked" value="2">
+                        <input type="radio" name="typeMember" class="weui-check"  value="2">
                         <span class="weui-icon-checked"></span>
                     </div>
 				</div>

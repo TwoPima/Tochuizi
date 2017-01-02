@@ -15,6 +15,8 @@
     <script src="../Public/js/fastclick.js"></script>
     <script src="../Public/js/common.js"></script>
     <script src="../Public/js/jquery-weui.min.js"></script>
+    <script type="text/javascript" src="../Public/js/vue.min.js"></script>
+<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfologin"/>  
 <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
@@ -46,8 +48,10 @@ $(function(){
 						$.toptip(message,2000, 'error');
 						window.location.href='./Login/login.php';
 					}else{
+						console.log(result.data.id_type);
 						$.session.set('idType',result.data.id_type);
 						typeMember=$.session.get('typeMember');
+
 						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+typeMember+'>'+result.data.cate_id.cate_name+'</p>';
 							$('.job_top_info').append(jobDetailHtml);
 					}
@@ -80,16 +84,19 @@ $(function(){
                <a  id="judgeMemberResumeType"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
             </div>
             <div class="box_bg"></div>
+
         <div class="weui-cells">
-	             <a class="weui-cell weui-cell_access" href="addJob.php">
-	                <div class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">诚求一个好工作</div>
+			<template v-for="item in demoData"><!--三层  -->
+	             <a class="weui-cell weui-cell_access"   v-on:click="jump_url(item.id,item.url)" href="editJob.php?">
+	                <div class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
 	                <div class="weui-cell__ft" style="font-size: 0">
-	                    <span style="vertical-align:middle; font-size: 14px;">5天以前</span>
+	                    <span style="vertical-align:middle; font-size: 14px;">{{item.title}}</span>
 	                    <span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
 	                </div>
                 </a>
+				</template>
         </div>
-        <div class="weui-cells">
+        <!--<div class="weui-cells">
            <a class="weui-cell weui-cell_access" href="addJobResume.php">
                 <div class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">专业版和普通版区别，专业版收费</div>
                 <div class="weui-cell__ft" style="font-size: 0">
@@ -97,8 +104,20 @@ $(function(){
                     <span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
                 </div>
                 </a>
-        </div>
+        </div>-->
     </div><!--main-->
 </div><!--app-->
 </body>
+<script type="text/javascript">
+	new Vue({
+		el: '#ul-lists',
+		data: {
+			todos: [
+				{ text: 'Learn JavaScript' },
+				{ text: 'Learn Vue.js' },
+				{ text: 'Learn Angular.js' }
+			]
+		}
+	});
+</script>
 </html>

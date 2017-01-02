@@ -48,6 +48,7 @@
     					var mobile=$.session.get('mobileSession');
     					if(eval('(' + result.data.idtype+ ')')==null){
     						$("#typeMember").html('点亮身份');
+							$("#header-a-2").attr("href","memberType.php");
     					}else{
     						var typeMember=getMemberType(result.data.idtype);
     						$("#typeMember").html(typeMember);
@@ -83,19 +84,16 @@
 <div id="app">
 	<div id="header" class="loginStatus">
 		<a href="myInfo.php" class="header-a-1">
-		<div class="head_img float-left">
-			<img id="avatar" src="" alt="">
-		</div>
-		<div class="head_title" id="">
-			<p><span id="nickname"></span></p>
-			<p><span id="mobile"></span> </p>
-			<p><span id="vipType"></span> </p>
-		</div>
-		<!-- <div class="head_title" id="noLogin">
-			<p>请登录 </p>
-		</div> -->
+			<div class="head_img float-left">
+				<img id="avatar" src="" alt="">
+			</div>
+			<div class="head_title" id="">
+				<p><span id="nickname"></span></p>
+				<p><span id="mobile"></span> </p>
+				<p><span id="vipType"></span> </p>
+			</div>
 		</a>
-		<a href="memberType.php"class="header-a-2">
+		<a class="header-a-2" id="header-a-2">
 		<div class="head_job">
 			<img src="../Public/img/index/headright.png" alt="">
 			<p><span id="typeMember"></span></p>

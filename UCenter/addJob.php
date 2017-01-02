@@ -12,7 +12,6 @@
     <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <!--do 添加：add，修改：edit，获取：gain -->
 	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
-	<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 	<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
@@ -29,11 +28,12 @@ $(function(){
 	}
 		//已经登陆
   	var checkInfo = $("#checkInfo").val();
-  	var url =HOST+'mobile.php?c=index&a=my_resume';
+  	var url =HOST+'mobile.php?c=index&a=my_recruit';
+  	recruit_id='1';
 	 $.ajax({
 			type: 'post',
 			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
+			data: {checkInfo:checkInfo,id:sessionUserId,recruit_id:recruit_id},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
@@ -48,11 +48,8 @@ $(function(){
 		});
 		jobValueTime($("#checkInfoZidian").val());//有效期
 		jobDayWages($("#checkInfoZidian").val());//薪资要求
-		getBenefit($("#checkInfoZidian").val());//薪资要求
-		//memberType($("#checkInfoResume").val(),sessionUserId);//身份角色
-		//var memberTypeCateId=memberType($("#checkInfoJobType").val(),sessionUserId);//工种类别
-		JobType($("#checkInfoJobType").val(),memberTypeCateId);//身份角色
-		
+		getBenefit($("#checkInfoZidian").val());//福利
+      //  judgeJobType($.session.get('idType'),1);//{设计特长，工种类别  ，专业类型 1增加 2是编辑}
 });
 //文本框失去焦点后
 $('form :input').blur(function(){
@@ -107,14 +104,13 @@ $('form :input').blur(function(){
     <div style="clear: both"></div>
     <div id="job_mainpush">
             <div class="push_box push_pinfo">
+                <div class="weui-cells weui-cells_form" style="margin-top: 0;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <input class="weui-input" type="text" name="title"  id="title" placeholder="输入标题">
                     </div>
                      <div class="height1px"></div>
                 </div>
-               
-                <div class="weui-cells weui-cells_form" style="margin-top: 0;">
                     <div class="weui-cell ">
                         <div class="weui-cell__hd">
                             <label class="weui-label">手机</label>
@@ -131,15 +127,33 @@ $('form :input').blur(function(){
                             <input class="weui-input"  name="email"  id="email" type="email" >
                         </div>
                     </div>
-                      <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__hd">
-                        <label for="" class="weui-label">工种</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="job_type"  id="job_type" >
-                        </select>
-                    </div>
-                </div>
+                      <div class="weui-cell weui-cell_select weui-cell_select-after" id="skillCate">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">工种</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <select class="weui-select" name="job_type"  id="job_type" >
+                                </select>
+                            </div>
+                        </div>
+                    <div class="weui-cell weui-cell_select weui-cell_select-after" id="designCate" >
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">设计特长</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <select class="weui-select" name="job_type"  id="job_type" >
+                                </select>
+                            </div>
+                        </div>
+                    <div class="weui-cell weui-cell_select weui-cell_select-after"  id="professionCate">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">专业类别</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <select class="weui-select" name="job_type"  id="job_type" >
+                                </select>
+                            </div>
+                        </div>
                 </div>
             </div>
 
@@ -154,10 +168,10 @@ $('form :input').blur(function(){
                 </div>
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
-                        <label for="" class="weui-label">日薪要求:</label>
+                        <label for="" class="weui-label">薪资要求:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="wages"  id="wages" >
+                        <select class="weui-select" name="wage"  id="wage" >
                         </select>
                     </div>
                 </div>
@@ -184,7 +198,7 @@ $('form :input').blur(function(){
                         <label class="weui-label">备注</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" placeholder="可选">
+                        <input class="weui-input" type="text" name="desc" id="desc" placeholder="可选">
                     </div>
                 </div>
             </div>

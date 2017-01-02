@@ -362,7 +362,7 @@ function getDesignSkillType(checkInfoZidian){
 			}
 		});
 }*/
-//根据角色id 去跳转url type=2为编辑  1为add
+//根据角色id 去跳转编辑简历 url type=2为编辑  1为add
 function jumlResumeType(id,type){
 	if(type=='1'){
 		switch (id) {
@@ -377,6 +377,45 @@ function jumlResumeType(id,type){
 	        break;
 	    default:
 	    	window.location.href='addJobSkillResume.php';//技工
+		}
+	}else{
+		switch (id) {
+	    case ("2"):
+	    	window.location.href='editJobDesignResume.php';//设计师
+	        break;
+	    case ("3"):
+	    	window.location.href='editJobHeadmanResume.php';//组长
+	        break;
+	    case ("4"):
+	    	window.location.href='editJobHeadmanResume.php';//管理人
+	        break;
+	    default:
+	    	window.location.href='editJobSkillResume.php';//技工
+	}
+  }
+}//根据角色id 去提取增加职位和编辑职位的类别
+function judgeJobType(id,type){
+	if(type=='1'){
+		switch (id) {
+	    case ("2")://设计师
+			$("#skillCate").show();
+			$("#professionCate").css("display","none");//组长
+			$("#professionCate").show();//管理人
+	        break;
+	    case ("3"):;//组长
+			$(".designCate").css("display","none");
+			$("#professionCate").css("display","none");//组长
+			$("#skillCate").show();//组长
+	        break;
+	    case ("4")://管理人
+			$(".designCate").css("display","none");
+			$("#professionCate").show();//管理人
+
+	        break;
+	    default://技工
+			$("#professionCate").css("display","none");//组长
+			$(".designCate").css("display","none");
+			$("#professionCate").show();//管理人
 		}
 	}else{
 		switch (id) {
@@ -463,7 +502,7 @@ function loadJobSubCate(checkInfo,cate_id){
 		}
 	});
 }*/
-//工种类别
+//角色类别  {设计特长，工种类别  ，专业类型}
 function JobType(checkInfo,cate_id){
 	var url =HOST+'mobile.php?c=index&a=job_type';
 	$.ajax({

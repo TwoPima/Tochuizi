@@ -7,9 +7,7 @@ body{
 #job_mainpush .push_box{
     margin-top:10px;
     background: #fff;
-}
-#job_mainpush .push_pinfo .weui-label{
-    width:60px;
+    padding-right:10px;
 }
 #job_mainpush .push_beizhu .weui-label{
     width:60px;
