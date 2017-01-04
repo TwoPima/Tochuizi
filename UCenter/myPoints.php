@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<title>个人主页-设置</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../Public/Css/weui.css"/>
-	<link rel="stylesheet" href="../Public/Css/setting.css"/>
-	<link rel="stylesheet" href="../Public/Css/common.css"/>
+	<link rel="stylesheet" href="../Public/css/weui.css"/>
+	<link rel="stylesheet" href="../Public/css/setting.css"/>
+	<link rel="stylesheet" href="../Public/css/common.css"/>
 </head>
 <body>
 <div id="app">

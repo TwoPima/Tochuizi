@@ -3310,7 +3310,7 @@
         
 
         /*=========================
-          Plugins API. Collect all and init all plugins
+          plugins API. Collect all and init all plugins
           ===========================*/
         s._plugins = [];
         for (var plugin in s.plugins) {
@@ -3327,7 +3327,7 @@
         };
 
         /*=========================
-          Events/Callbacks/Plugins Emitter
+          Events/Callbacks/plugins Emitter
           ===========================*/
         function normalizeEventName (eventName) {
             if (eventName.indexOf('on') !== 0) {
@@ -3678,7 +3678,7 @@
             })()
         },
         /*==================================================
-        Plugins
+        plugins
         ====================================================*/
         plugins: {}
     };
@@ -3693,7 +3693,7 @@
     		addLibraryPlugin(window[swiperDomPlugins[i]]);
     	}
     }
-    // Required DOM Plugins
+    // Required DOM plugins
     var domLib;
     if (typeof Dom7 === 'undefined') {
     	domLib = window.Dom7 || window.Zepto || window.jQuery;

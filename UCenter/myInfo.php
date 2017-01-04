@@ -55,12 +55,11 @@
                                	<p class=""><span>女</span><input type="radio" name="sex" value="1" id="sexWoman" checked='checked' ></p>
                            </div>
                    </div>
-                        <div class="weui_cell  weui-cell_select weui-cell_select-after">
-					    <div class="weui_cell_hd"><label class="weui_label">收货地址</label></div>
+                       <!-- <div class="weui_cell  weui-cell_select weui-cell_select-after">
+					    <div class="weui_cell_hd"><label class="weui_label font14px">收货地址</label></div>
 					    <div class="weui_cell_bd weui_cell_primary">
 					      <select class="area" name="cate_id" id="dpProvince">
 					      </select>
-					     <!--  <span class="">&nbsp;|</span> -->
 					      <select class="area" name="cate_id" id="dpCity">
 					      </select>
 					      <select class="area" name="cate_id" id="dpArea">
@@ -69,7 +68,7 @@
 					      <option id="addressDetail"></option>
 					      </select>
 					    </div>
-					  </div>
+					  </div>-->
                       </form>
 		</div>
 		<div class="height20px" ></div>
@@ -99,77 +98,7 @@ $(function(){
 	}
 	//已经登陆
   	selectMyInfo(sessionUserId,$("#checkInfoLogin").val());//查询信息
-  	var dp1 = $("#dpProvince"); 
-	var dp2 = $("#dpCity"); 
-	var dp3 = $("#dpArea"); 
-	//填充省的数据 
-	loadAreasProvince($("#checkInfoArea").val(), 0); 
-	//给省绑定事件，触发事件后填充市的数据 
-	jQuery(dp1).bind("change keyup", function () { 
-		var provinceID = dp1.prop("value"); 
-		loadAreasCity($("#checkInfoArea").val(), provinceID); 
-		dp2.fadeIn("slow"); 
-	}); 
-	//给市绑定事件，触发事件后填充区的数据 
-	jQuery(dp2).bind("change keyup", function () { 
-		var cityID = dp2.prop("value"); 
-		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
-		dp3.fadeIn("slow"); 
-		}); 
-	getAddressArea($("#checkInfoMyAddress").val(),sessionUserId);//填充默认 收货地区
-});
- 
-//获得省级
-function loadAreasProvince(checkInfo, pid) { 
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
-	jQuery.ajax({ 
-	   type: "POST",
-	   url: urlArea,
-	   data: {checkInfo:checkInfo,pid:pid},
-	   dataType:"json",
-	   success: function(result){
-		   $('#dpProvince').append("<option value='' selected='selected'>请选择</option>"); 
-  		 $.each(result.data, function (index, obj) {
-			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-			   $('#dpProvince').append(proviceHtml);
-		  	 });
-	   }
-	}); 
-} 
-//获得市级
-function loadAreasCity(checkInfo, pid) { 
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
-	jQuery.ajax({ 
-	   type: "POST",
-	   url: urlArea,
-	   data: {checkInfo:checkInfo,pid:pid},
-	   dataType:"json",
-	   success: function(result){
-		   $('#dpCity').append("<option value='' selected='selected'>请选择</option>"); 
-  		 $.each(result.data, function (index, obj) {
-			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-			   $('#dpCity').append(proviceHtml);
-		  	 });
-	   }
-	}); 
-} 
-//获得区级
-function loadAreasDistrict(checkInfo, pid) { 
-	 var urlArea= HOST+'mobile.php?c=index&a=get_area';
-	jQuery.ajax({ 
-	   type: "POST",
-	   url: urlArea,
-	   data: {checkInfo:checkInfo,pid:pid},
-	   dataType:"json",
-	   success: function(result){
-		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
-  		 $.each(result.data, function (index, obj) {
-			   var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-			   $('#dpArea').append(proviceHtml);
-		  	 });
-	   }
-	}); 
-} 
+
 //文本框失去焦点后
 $('form :input').blur(function(){
      //验证手机
@@ -241,5 +170,6 @@ $('form :input').blur(function(){
 			}
 		});
   });
+});
 </script>
 </html>

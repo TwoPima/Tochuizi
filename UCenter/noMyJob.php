@@ -48,12 +48,8 @@
                         $.toptip(message,2000, 'error');
                         window.location.href='./Login/login.php';
                     }else{
-                        console.log(result.data.id_type);
                         $.session.set('idType',result.data.id_type);
                         typeMember=$.session.get('typeMember');
-
-                        var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+typeMember+'>'+result.data.cate_id.cate_name+'</p>';
-                        $('.job_top_info').append(jobDetailHtml);
                     }
                 },
             });
@@ -87,7 +83,7 @@
         </div>
         <div class="job_noinfo">
             <img src="../Public/img/no-info.png " >
-            <p>您还没有发不过求职</p>
+            <p>您还没有发布过求职</p>
         </div>
     </div><!--main-->
 </div><!--app-->

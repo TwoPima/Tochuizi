@@ -198,6 +198,66 @@ $(function(){
 		      	});
     		}
     	});
+    function selectMyResumeInfo(id,checkInfo){	 //查询
+        var url =HOST+'mobile.php?c=index&a=my_resume';
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: {id:sessionUserId,checkInfo:checkInfo,dotype:'gain'},
+            dataType: 'json',
+            success: function (result) {
+                var message=result.message;
+                if (result.statusCode==='0'){
+                    $.toptip(message,2000, 'error');
+                    window.location.href='./Login/login.php';
+                }else{
+                    $('#name').attr("value",result.data.name);
+                    $('#zu').attr("value",result.data.zu);
+                    $('#Resumeid').attr("value",result.data.id);
+                    $('#mobile').attr("value",result.data.mobile);
+                    $('#desc').attr("value",result.data.desc);
+                    $('#home').attr("value",result.data.home);
+                    $('#birthday').attr("value",result.data.birthday);
+                    $('#email').attr("value",result.data.email);
+                    $(result.data.img_url).each(function(index, obj) {
+                        var html = '';
+                        html += ' <li class="weui-uploader__file" id="fileshow">' +
+                            '  <img class="deletePicture" data="'+obj.image_id+'"  src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.image_url+'" class="fileshow thumb-img" />'+
+                            '</li>';
+                        $("#uploaderFiles").prepend(html);
+                    });
+                    //单选
+                    if(result.data.sex=='1'){
+                        $(":radio[name=sex][value=1]").prop("checked","true");//指定value的选项为选中项
+                    }
+                    if(result.data.sex=='0'){
+                        $(":radio[name=sex][value=0]").prop("checked","true");//指定value的选项为选中项
+                    }
+                    if(result.data.she_type=='1'){
+                        $(":radio[name=she_type][value=1]").prop("checked","true");//指定value的选项为选中项
+                    }
+                    if(result.data.she_type=='0'){
+                        $(":radio[name=she_type][value=0]").prop("checked","true");//指定value的选项为选中项
+                    }
+                    //下拉框
+                    if(eval('(' + result.data.job_year+ ')')!=null){
+                        $('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>');
+                    }
+                    if(eval('(' + result.data.education+ ')')!=null){
+                        $('#education').append('<option value="'+eval('(' + result.data.education+ ')').id+'" selected="selected">'+eval('(' + result.data.education+ ')').name+'</option>');
+                    }
+                    if(eval('(' + result.data.wage+ ')')!=null){
+                        $('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
+                    }
+                    if(eval('(' + result.data.job_type+ ')')!=null){
+                        $('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
+                    }
+
+                }
+            },
+        });
+
+    }
         //提交，最终验证。btn-custom-theme
         $("#btn-custom-theme").click(function() {
                sessionUserId=$.session.get('userId');

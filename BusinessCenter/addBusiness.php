@@ -14,14 +14,15 @@
 }
 .zck{
     position: fixed;
-	min-height:550px;overflow-y:auto;
+	min-height:479px;overflow-y:auto;
     }
+
 </style>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height(); //浏览器当前窗口可视区域高度   
+		var height=$(window).height()*80/100; //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>

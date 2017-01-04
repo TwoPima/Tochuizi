@@ -30,7 +30,7 @@
 		window.location.href='../Login/login.php';
 	}
     //已经登陆 去服务器比对sessionid
-    	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
+	 getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
     var url =HOST+'mobile.php?c=index&a=favorite_list';
     var checkInfo=$("#checkInfo").val();
     listCollect(sessionUserId,1,checkInfo,0,10);//type 1:商品，2：供求,0：店铺

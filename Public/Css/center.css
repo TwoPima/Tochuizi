@@ -196,7 +196,6 @@ body{
 	 top:2%;
 	 right: 18%;
  }
-
 #main .icon_num{
 	display: block;
 	-webkit-border-radius:25px;
@@ -331,7 +330,6 @@ body{
     white-space: nowrap;
     word-wrap: break-word;
     word-break: break-all;
-	
 }
 .myOrder #singel-number{
 	font-size: 13px;
@@ -345,9 +343,6 @@ body{
 	font-weight:100;
 	position:absolute;
 	top:-38%;
-	
-}
-.order-foot{
 }
 .order-del{
 	height:60px;

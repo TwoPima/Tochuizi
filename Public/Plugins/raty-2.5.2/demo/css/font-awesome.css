@@ -27,7 +27,7 @@
   font-weight: normal;
   font-style: normal;
 }
-/*  Font Awesome styles
+/*  font Awesome styles
     ------------------------------------------------------- */
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
@@ -82,7 +82,7 @@ ul.icons li .icon-large:before {
 
   vertical-align: initial;
 }
-/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+/*  font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
     readers do not read off random characters that represent icons */
 .icon-glass:before {
   content: "\f000";

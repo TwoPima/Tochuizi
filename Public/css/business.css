@@ -18,7 +18,7 @@ body{
     margin: 0 auto;
 }
 #box-main .addbu_button{
-    padding:40px 0;
+	margin-top:40px;
 }
 #box-main .addbu_button .weui-btn_warn{
     background: #D04C02;

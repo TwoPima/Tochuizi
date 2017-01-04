@@ -140,24 +140,58 @@ function getVipList(checkInfo){
 		   }
 		}); 
 }
-//提取经营类别
-function getPartnerType(checkInfoPartnerType){
-	var url =HOST+'mobile.php?c=index&a=partner_cat';
-	  $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfoPartnerType},
-			dataType: 'json',
-			success: function (result) {
-				 $.each(result.data, function (index, obj) {
-					 var partnerCateHtml=' <option class="partner_cate_option" value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
-					$('#partner_cate').append(partnerCateHtml);
-		            });
-				return false;
-			}
-	  }); 
-}
+//提取经营类别 一级
+function getPartnerType(checkInfo,pid){
+	var urlArea= HOST+'mobile.php?c=index&a=partner_cat';
+	jQuery.ajax({
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo:checkInfo,pid:pid},
+		dataType:"json",
+		success: function(result){
+			$('#partner_cate_first').append("<option value='' selected='selected'>请选择</option>");
+			$.each(result.data, function (index, obj) {
+				var firstHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+				$('#partner_cate_first').append(firstHtml);
+			});
 
+		}
+	});
+}
+//获得二级经营分类
+function getPartnerTypeSub(checkInfo, pid) {
+	var urlArea= HOST+'mobile.php?c=index&a=partner_cat';
+	jQuery.ajax({
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo:checkInfo,pid:pid},
+		dataType:"json",
+		success: function(result){
+			$('#partner_cate_sub').append("<option value='' selected='selected'>请选择</option>");
+			$.each(result.data, function (index, obj) {
+				var subHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+				$('#partner_cate_sub').append(subHtml);
+			});
+		}
+	});
+}
+//获得三级经营分类
+function getPartnerTypeThere(checkInfo, pid) {
+	var urlArea = HOST + 'mobile.php?c=index&a=partner_cat';
+	jQuery.ajax({
+		type: "POST",
+		url: urlArea,
+		data: {checkInfo: checkInfo, pid: pid},
+		dataType: "json",
+		success: function (result) {
+			$('#partner_cate_there').append("<option value='' selected='selected'>请选择</option>");
+			$.each(result.data, function (index, obj) {
+				var thereHtml = '<option value="' + obj.cate_id + '">' + obj.cate_name + '</option>';
+				$('#partner_cate_there').append(thereHtml);
+			});
+		}
+	});
+}
 //字典接口
 /*
  学历id：18
@@ -208,7 +242,7 @@ function getBenefit(checkInfoZidian){
 		dataType: 'json',
 		success: function (result) {
 			$.each(result.data, function (index,obj) {
-				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="banefit" id="'+obj.id+'" value="'+obj.name+'"></div>';
+				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="banefit" id="'+obj.id+'" value="'+obj.id+'"></div>';
 				$('#benefit').append(getBenefitHtml);
 			});
 			return false;
@@ -398,39 +432,39 @@ function judgeJobType(id,type){
 	if(type=='1'){
 		switch (id) {
 	    case ("2")://设计师
-			$("#skillCate").show();
-			$("#professionCate").css("display","none");//组长
-			$("#professionCate").show();//管理人
+			$("#skillCate").remove();//技工
+			$("#professionCate").remove();//管理人 组长
 	        break;
-	    case ("3"):;//组长
-			$(".designCate").css("display","none");
-			$("#professionCate").css("display","none");//组长
-			$("#skillCate").show();//组长
+	    case ("3")://组长
+			$("#skillCate").remove();//技工
+			$("#designCate").remove();//设计师
 	        break;
 	    case ("4")://管理人
-			$(".designCate").css("display","none");
-			$("#professionCate").show();//管理人
-
+			$("#skillCate").remove();//技工
+			$("#designCate").remove();//设计师
 	        break;
 	    default://技工
-			$("#professionCate").css("display","none");//组长
-			$(".designCate").css("display","none");
-			$("#professionCate").show();//管理人
+			$("#professionCate").remove();//管理人 组长
+			$("#designCate").remove();//设计师
 		}
 	}else{
 		switch (id) {
-	    case ("2"):
-	    	window.location.href='editJobDesignResume.php';//设计师
-	        break;
-	    case ("3"):
-	    	window.location.href='editJobHeadmanResume.php';//组长
-	        break;
-	    case ("4"):
-	    	window.location.href='editJobHeadmanResume.php';//管理人
-	        break;
-	    default:
-	    	window.location.href='editJobSkillResume.php';//技工
-	}
+			case ("2")://设计师
+				$("#skillCate").remove();//技工
+				$("#professionCate").remove();//管理人 组长
+				break;
+			case ("3")://组长
+				$("#skillCate").remove();//技工
+				$("#designCate").remove();//设计师
+				break;
+			case ("4")://管理人
+				$("#skillCate").remove();//技工
+				$("#designCate").remove();//设计师
+				break;
+			default://技工
+				$("#professionCate").remove();//管理人 组长
+				$("#designCate").remove();//设计师
+		}
   }
 }
 //根据角色id 取汉字角色名称
@@ -684,6 +718,30 @@ function getSupplyCollectNumber(checkInfo,id){
 			
 		}
 	}); 
+}
+/*
+删除操作
+ id： 用户id
+ list_id：列表id
+ model_id：供求信息：1 招聘信息：2 求职信息：3
+ model:a的值
+ */
+function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){
+	var url =HOST+'mobile.php?c=index&a=del_list';
+	$.ajax({
+		type: 'post',
+		url: url,
+		data: {checkInfo:checkInfo,id:id,list_id:list_id,model_id:model_id},
+		dataType: 'json',
+		success: function (result) {
+			var message=result.message;
+			if (result.statusCode==='0'){
+				$.toast(message, "cancel");
+			}else{
+				$.toast("操作成功");
+			}
+		}
+	});
 }
 /*******手机端a链接点击无反应问题解决-fastclick.js******/
 //如果你使用原生js开发则进行如下声明即可。

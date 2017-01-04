@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/myjob_jianliinfo.css"/>
+	<link rel="stylesheet" type="text/css" href="../Public/plugins/uploadImg/uploadifive.css">
 </head>
 <body>
 <div id="app">
@@ -25,8 +26,8 @@
             <a href="addMySupply.php"><span></span></a>
         </div>
     </div>
-        <form>
     <div id="jianliinfo" class="clear">
+		<form  method="post" enctype="multipart/form-data">
         <div class="info_box">
             <div class="weui-cells weui-cells_form" style="margin-top: 10px;">
                 <div class="weui-cell ">
@@ -153,6 +154,8 @@
                 </div>
             </div>
         </div>
+		</form>
+		<form  name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
         <div class="info_box">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -164,24 +167,25 @@
 			                <ul class="weui-uploader__files" id="uploaderFiles">
 			                </ul>
 			                <div class="weui-uploader__input-box">
-			                    <input class="weui-uploader__input file" multiple="true" name="image_url[]" id="image_url" type="file" accept="image/*" >
+								<input class="weui-uploader__input file"  name="image_url" id="image_url" type="file" accept="image/*" >
+								<input  name="checkInfo" value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
+								<input  name="id" id="userId" type="hidden"  >
 			                </div>
 			            </div>
                     </div>
                 </div>
             </div>
         </div>
+		</form>
         <div class="add_button">
             <a  class="weui-btn weui-btn_default" id="btn-custom-theme">保存</a>
         </div>
-        </form>
+
     </div><!--main-->
 </div><!--app-->
 </body>
 <input value=""	type="hidden" id="Resumeid"/>  
-<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
-<input value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>  
-<!--添加工作风采  -->
+<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>
 <input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/>  
 <!--删除工作风采  -->
 <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
@@ -193,26 +197,18 @@
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+<script src="../Public/plugins/uploadImg/jquery.uploadifive.js" type="text/javascript"></script>
  <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
+
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
 		//没有登陆
 		window.location.href='../Login/login.php';
 	}
-	/* var dp1 = $("#firstMenu"); 
-	var dp2 = $("#subMenu"); 
-	var dp3 = $("thereMenu"); 
-	//填充一级数据 
-	loadSupplyFirstCate($("#checkInfoJobType").val(), 0); 
-	//给一级绑定事件，触发事件后填充二级的数据 
-	jQuery(dp1).bind("change keyup", function () { 
-		var firstID = dp1.prop("value"); 
-		loadSupplySubCate($("#checkInfoJobType").val(), firstID); 
-		dp2.fadeIn("slow"); 
-	});  */
+	$("#userId").attr("value",sessionUserId);
 	//已经登陆
 	var dpProvince = $("#dpProvince"); 
 	var dpCity = $("#dpCity"); 
@@ -274,10 +270,17 @@ $(function(){
 						$('#zu').attr("value",result.data.zu);
 						$('#Resumeid').attr("value",result.data.id);
 						$('#mobile').attr("value",result.data.mobile);
-						$('#desc').html(result.data.desc);
+						$('#desc').attr("value",result.data.desc);
 						$('#home').attr("value",result.data.home);
 						$('#birthday').attr("value",result.data.birthday);
 						$('#email').attr("value",result.data.email);
+						$(result.data.img_url).each(function(index, obj) {
+							var html = '';
+							html += ' <li class="weui-uploader__file" id="fileshow">' +
+								'  <img class="deletePicture" data="'+obj.image_id+'"  src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.image_url+'" class="fileshow thumb-img" />'+
+								'</li>';
+							$("#uploaderFiles").prepend(html);
+						});
 						//单选
 						if(result.data.sex=='1'){
 							$(":radio[name=sex][value=1]").prop("checked","true");//指定value的选项为选中项
@@ -306,49 +309,80 @@ $(function(){
 						}
 						
 					}
-				},
+				}
 			});
 
 	}
-	  $('#image_url').change(function(event) {
-    		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
-    		if (files && files.length > 0) {
-    			file = files[0];// 获取目前上传的文件
-    			if(file.size > 1024 * 1024 * 2) {
-    				alert('图片大小不能超过 2MB!');
-    				return false;
-    			}
-    		imgPathArr=[];
- 			   $(files).each(function(index, obj) {
-  				  var count_li = $("#uploaderFiles").children().length;
-	                if(count_li >= '5'){
-	                    $("#uploaderInput").css('display','none');
-	                  	 $.toast("不能超过五张图片！", "cancel");
-	                  	 return false;
-	                }
-	                imgPathArr.push(obj);
-		      	});
-		      	 $.ajax({
+	//点击input 转换成预览图
+	$('#image_url').change(function(event) {
+			var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
+			if (files && files.length > 0) {
+				file = files[0];// 获取目前上传的文件
+				if(file.size > 1024 * 1024 * 2) {
+					alert('图片大小不能超过 2MB!');
+					return false;
+				}
+				var URL = window.URL || window.webkitURL;
+				var imgURL = URL.createObjectURL(file);
+				var html = '';
+				html += ' <li class="weui-uploader__file" id="fileshow">' +
+					'  <img class="deletePicture" src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+					'</li>';
+				$("#uploaderFiles").prepend(html);
+					uploadImage();
+				}
+			});
+	function uploadImage() {
+		var url =HOST+'mobile.php?c=index&a=add_picture';
+		var formData = new FormData($( "#uploadForm" )[0]);
+		$.showLoading('正在上传');
+		setTimeout(function() {
+			$.hideLoading();
+		}, 3000)
+		$.ajax({
+			type: "POST",
+			url:url,
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			//data:$('#myInfoForm').serialize(),
+			async: false,
+			error: function(request) {
+				$.toast("上传失败，请检查网络后重试", "cancel");
+			},
+			success: function(result) {
+				if(result.statusCode=='0'){
+					$.toast("上传失败，请检查网络后重试", "cancel");
+				}else{
+					window.location.reload();//刷新当前页面.
+				}
+
+			}
+		});
+	}
+    	$(document).on("click", ".deletePicture", function() {
+			var url =HOST+'mobile.php?c=index&a=del_picture';
+			console.log();
+			$.ajax({
 				type: 'post',
-				url: HOST+'mobile.php?c=index&a=add_picture',
-				traditional:true,//必须设成 true  
-				data: {checkInfo:$("#checkInfoAddImg").val(),image_url:imgPathArr,id:sessionUserId},
+				url: url,
+				data: {
+					checkInfo:$("#checkInfoDelImg").val(),image_id:$(this).attr('data'),id:sessionUserId
+				},
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='1'){
-						  var html = '';
-	    				 html += ' <li class="weui-uploader__file" id="fileshow" value="'+result.data.image_id+'">' +
-	    	             '  <img class="deletePicture"  src="../Public/img/delete-icon-picture.png"/><img src="'+result.data.image_url+'" class="fileshow thumb-img" />'+
-	    	             '</li>';
-	    	              $("#uploaderFiles").prepend(html);
+					if (result.statusCode==='0'){
+						$.toast(message, "cancel");
+					}else{
+						$.toast("操作成功！");
+						window.location.reload();//刷新当前页面.
+						//window.location.href='myJob.php';
 					}
 				}
 			});
-    		}
-    	});
-    	$(document).on("click", ".deletePicture", function() {
-			$(this).parent().remove();
 		});
 	 //提交，最终验证。
 	 $("#btn-custom-theme").click(function() {
@@ -390,7 +424,7 @@ $(function(){
 						$.toast("操作成功！");
 						window.location.href='myJob.php';
 					}
-				},
+				}
 			});
 	});
 });

@@ -102,7 +102,7 @@ $(function(){
 	<!--内容页面  -->
 	<div id="addbuin-main clear">
 		<div class="addbuin_form" >
-			<form action="">
+			<form action=""  method="post"  enctype="multipart/form-data">
 				<div class="addbuin_form_jichu">
 					<div class="weui-cells weui-cells_form">
 						<div class="weui-cell">

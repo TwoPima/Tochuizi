@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>个人主页-发布求职</title>
+    <title>个人主页-编辑求职</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../Public/css/weui.css"/>
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
@@ -14,8 +14,9 @@
     <input value="<?php echo md5(date('Ymd')."my_recruit"."tuchuinet");?>"	type="hidden" id="checkInfo"/> <!--t添加信息-->
     <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <!--do 添加：add，修改：edit，获取：gain -->
-	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
-	<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
+	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>
+    <input value="<?php echo $_GET['recruit_id'];?>"	type="hidden" id="recruit_id"/>
+    <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
     <script src="../Public/js/require.config.js"></script>
     <script src="../Public/js/jquery-2.1.4.js"></script>
     <script src="../Public/js/jquery-session.js"></script>
@@ -25,6 +26,7 @@
 <script>
     sessionUserId=$.session.get('userId');
     memberType=$.session.get('idType');
+    recruit_id=$("#recruit_id").val();
     if(sessionUserId=='undefined'){
         //没有登陆
         $.toptip('您还没有登陆！',2000, 'error');
@@ -32,13 +34,14 @@
     }
 
 $(function(){
+    selectMyRecuitInfo(recruit_id);//具体信息
     jobValueTime($("#checkInfoZidian").val());//有效期
     jobDayWages($("#checkInfoZidian").val());//薪资要求
     getBenefit($("#checkInfoZidian").val());//福利
     judgeJobType(memberType,1);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
     JobType($("#checkInfoJobType").val(),memberType);//提取具体类别信息
     //文本框失去焦点后
-   /* $('form :input').blur(function(){
+   $('form :input').blur(function(){
         //验证手机
         if( $(this).is('#mobile') ){
             if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){
@@ -53,7 +56,48 @@ $(function(){
                 return false;
             }
         }
-    });*/
+    });
+    //提取具体信息
+   function  selectMyRecuitInfo(recruit_id){
+        var url =HOST+'mobile.php?c=index&a=my_recruit';
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: {
+               recruit_id:recruit_id,checkInfo:$("#checkInfo").val(),dotype:'gain',id:sessionUserId
+            },
+            dataType: 'json',
+            success: function (result) {
+                var message=result.message;
+                if (result.statusCode==='0'){
+                    $.toptip(message,2000, 'error');
+                    window.location.href='myJob.php';
+                }else{
+                    //$.toptip(message,2000, 'success');
+                    $('#title').attr("value",result.data.title);
+                    $('#mobile').attr("value",result.data.mobile);
+                    $('#desc').attr("value",result.data.bei);
+                  //  $('#desc').html(result.data.bei);
+                    $('#area').attr("value",result.data.area);
+                    $('#email').attr("value",result.data.email);
+                    //下拉框
+                   /* if(eval('(' + result.data.job_year+ ')')!=null){
+                        $('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>');
+                    }*/
+                    if(eval('(' + result.data.valuetime+ ')')!=null){
+                        $('#education').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
+                    }
+                    if(eval('(' + result.data.wages+ ')')!=null){
+                        $('#wage').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
+                    }
+                    if(eval('(' + result.data.job_type+ ')')!=null){
+                        $('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
+                    }
+
+                }
+            }
+        });
+    }
     //提交，最终验证。
     $("#btn-custom-theme").click(function() {
         var mobile = $("#mobile").val();
@@ -81,8 +125,8 @@ $(function(){
             type: 'post',
             url: url,
             data: {
-                mobile:mobile,id:sessionUserId,checkInfo:$("#checkInfo").val(),cate_id:cate_id,
-                dotype:'add',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefitArray,
+                mobile:mobile,id:sessionUserId,recruit_id:recruit_id,checkInfo:$("#checkInfo").val(),cate_id:cate_id,
+                dotype:'edit',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefitArray,
                 bei:bei
             },
             dataType: 'json',
@@ -92,7 +136,7 @@ $(function(){
                     $.toptip(message,2000, 'error');
                 }else{
                     $.toptip(message,2000, 'success');
-                  //  window.location.href='myJob.php';
+                    window.location.href='myJob.php';
                 }
             },
         });
@@ -106,7 +150,7 @@ $(function(){
         <div id="header-left">
             <a href="javascript:history.go(-1);" >
                 <i class="icon iconfont icon-xiangzuo"></i>
-                <span class="title">发布求职</span>
+                <span class="title">编辑求职</span>
             </a>
         </div>
         <div id="header-right">
