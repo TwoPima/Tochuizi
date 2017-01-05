@@ -46,6 +46,7 @@
 					}else{
 						//数据取回成功
     					var mobile=$.session.get('mobileSession');
+						$("#mobile").html(mobile);
     					if(eval('(' + result.data.idtype+ ')')==null){
     						$("#typeMember").html('点亮身份');
 							$("#header-a-2").attr("href","memberType.php");
@@ -61,18 +62,22 @@
         				}else{
     						$("#vipType").html('认证用户');
         				}
+						//判断是否进入店铺中心
+						if(result.data.is_partner=='0'){
+    						$("#BusinessCenter").hide();
+        				}else{
+    						//$("#vipType").html('认证用户');
+        				}
         				$.session.set('isVip', is_vip); 
     					if(result.data.nickname==null){
     						$("#nickname").html('昵称');
         				}else{
     						$("#nickname").html(result.data.nickname);
         				}
-    					$("#mobile").html(mobile);
-    					
     					if(result.data.avatar==null){
     						
     					}else{
-    						$("#avatar").attr("src",result.data.avatar);//头像
+    						$("#avatar").attr("src",HOST+result.data.avatar);//头像
     					}
     					
 					} 
@@ -198,7 +203,7 @@
 				</a>
 			</div> -->
 
-			<div class="weui-panel">
+			<div class="weui-panel" id="addBusiness">
 				<a class="weui-cell weui-cell_access" href="../BusinessCenter/addBusiness.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_006.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
@@ -207,7 +212,7 @@
 					<div class="weui-cell__ft"></div>
 				</a>
 			</div>
-			<div class="weui-panel">
+			<div class="weui-panel" id="BusinessCenter">
 				<a class="weui-cell weui-cell_access" href="../BusinessCenter/index.php">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_006.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">

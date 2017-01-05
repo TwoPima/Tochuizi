@@ -24,33 +24,23 @@
                 <div id="header-right">
                 </div>
 		</div>
-			<div class="myOrder clear">
+			<div class="myOrder clear" id="body_box">
 			 <div class="weui_tab">
 				  <div class="weui_navbar">
-				     <a href="#nopay-order" class="weui_navbar_item weui_bar_item_on">  待付款
-				    </a>
-				    <a href="#noget-order" class="weui_navbar_item"> 待收货
-				    </a>
-				    <a href="#noevaluation-order" class="weui_navbar_item"> 待评价
-				    </a>
-				    <a href="#drawback-order" class="weui_navbar_item">  退款
-				    </a>
+				     <div class="weui_navbar_item weui_bar_item_on" v-on:click="classdata('0')">待付款
+				    </div>
+				    <div  class="weui_navbar_item" v-on:click="classdata('1')"> 待收货
+				    </div>
+				    <div class="weui_navbar_item" v-on:click="classdata('2')"> 待评价
+				    </div>
+				    <div class="weui_navbar_item" v-on:click="classdata('3')">  退款
+				    </div>
 				  </div>
 			  <div class="weui_tab_bd">
 			       <div class="weui_panel weui_panel_access">
 					  <div class="weui_panel_bd weui-article">
 					 <!--待付款-->
 									 <div  id="nopay-order" class="weui_tab_bd_item weui_tab_bd_item_active">
-									 <!--下拉刷新  -->
-									<!--  <div class="pull-to-refresh">
-									   <div class="weui-pull-to-refresh-layer">
-									        <div class="pull-to-refresh-arrow"></div>
-									        <div class="pull-to-refresh-preloader"></div>
-									        <div class="down">下拉刷新</div>
-									        <div class="up">释放刷新</div>
-									        <div class="refresh">正在刷新...</div>
-									      </div>
-									      </div> -->
 												 <div class="order-title">
 													 <h2 class="title">
 														 <span class="cb disabled float-left"></span>
@@ -169,8 +159,8 @@
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.js"></script>
-<script src="../Public/js/center.js"></script>
+<script type="text/javascript" src="../Public/js/vue.min.js"></script>
+<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -207,32 +197,184 @@ $(function(){
 	            } 
 	      }
 		});
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
-		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
-       	var url =HOST+'mobile.php?c=index&a=my_resume';
-        if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
-		 $.ajax({
-			type: 'post',
-			url: url,
-			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
+	var demoApp = new Vue({
+		el: '#body_box',
+		data: {
+			num:'',
+			demoData:'',
+			total_tie:'',
+			total_hits:'',
+			url:{
+				checkInfo:checkInfo,
+				id:sessionUserId,
+				is_true:'',
+				start:0,
+				limit:10
+			}
+		},/*初始化，el控制区域，  */
+		ready: function() {
+			var that = this;
+			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+					var res = response.data; //取出的数据
+					var listdata=[];
+					for(x  in res.data){
+						/*console.log(x);
+						 console.log(res.data[x]);*/
+						if (typeof (res.data[x]) == 'object'){
+							listdata[x]=res.data[x];
+						}
+					}
+					that.$set('demoData', listdata);  //把数据传给页面
+					that.$set('url.start', listdata.length);
+
+					Vue.nextTick(function () {
+						//初始化滚动插件
+						that.myScroll = new IScroll('#wrapper', {
+							mouseWheel: true,
+							wheelAction: 'zoom',
+							click: true,
+							scrollX: false,
+							scrollY: true,
+							probeType: 3,
+						});
+						//滚动监听
+						that.myScroll.on('scrollEnd',function(){
+							alert('123');
+						});//滚动监听,1000
+					})
+				},
+				function (response) {
+					that.$set('message', '服务器维护，请稍后重试');
+				});
+			/*再次加载  */
+			function scrollaction(){
+				alert('123');
+				if(1){
+					console.log(this.y);
+					if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+						console.log(that.url);
+						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+							var res = response.data;
+							var listdata=[];
+							for(x  in res.data){
+								console.log(typeof (res.data[x]));
+								if (typeof (res.data[x]) == 'object'){
+									listdata[x]=res.data[x];
+								}
+							}
+							this.url.start+=listdata.length;
+							//这个for循环是更新vue渲染列表的数据
+							for (var i = 0; i < listdata.length; i++) {
+								that.demoData.push(listdata[i]);
+							}
+							console.log(that.demoData);
+							Vue.nextTick(function () {
+								that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+							});
+						}, function (response) {
+							//取消加载效果
+							that.$set('message', '服务器维护，请稍后重试');
+						});
+					}
+
 				}
+			}
+		}, //created 结束
+		methods: {
+			jump_url: function (msg1,msg2){
+				window.location.href='editMySupply.php?supply_id='+msg1;
 			},
-		});
+			classdata: function (msg) {
+				$('.sipply_nav .action').removeClass('action');
+				var that = this;
+				that.$set('num', 0);
+				that.$set('url.start', 0);
+				that.$set('total_tie',0);
+				that.$set('total_hits', 0);
+				switch(msg){
+					case '':
+						that.$set('url.is_true', '');
+						$('.sipply_nav .one').addClass('action');
+						break;
+					case '0':
+						that.$set('url.is_true', 0);
+						$('.sipply_nav .two').addClass('action');
+						break;
+					case '1':
+						that.$set('url.is_true', 1);
+						$('.sipply_nav .three').addClass('action');
+						break;
+					default:
+						$('.sipply_nav .one').addClass('action');
+						that.$set('url.is_true', '');
+				}
+				that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+						var res = response.data; //取出的数据
+						var listdata=[];
+						for(x  in res.data){
+							if (typeof (res.data[x]) == 'object'){
+								listdata[x]=res.data[x];
+							}
+							if (x == 'total_tie'){
+								that.$set('total_tie', res.data['total_tie']);
+							}
+							if (x == 'total_hits'){
+								that.$set('total_hits', res.data['total_hits']);
+							}
+						}
+						that.$set('num', that.url.limit);
+						that.$set('demoData', listdata);  //把数据传给页面
+						that.$set('url.start', listdata.length);
+						Vue.nextTick(function () {
+							//初始化滚动插件
+							that.myScroll = new IScroll('#wrapper', {
+								mouseWheel: true,
+								wheelAction: 'zoom',
+								click: true,
+								scrollX: false,
+								scrollY: true,
+							});
+							//滚动监听
+							that.myScroll.on('scrollEnd',scrollaction1);//滚动监听,1000
+						})
+					},
+					function (response) {
+						that.$set('message', '服务器维护，请稍后重试');
+					});
+				/*再次加载  */
+				function scrollaction1(){
+					if( that.url.start >=  that.num ){
+						if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+							console.log(that.url);
+							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+								var res = response.data;
+								var listdata=[];
+								for(x  in res.data){
+									if (typeof (res.data[x]) == 'object'){
+										listdata[x]=res.data[x];
+									}
+								}
+								this.url.start+=listdata.length;
+								//这个for循环是更新vue渲染列表的数据
+								for (var i = 0; i < listdata.length; i++) {
+									that.demoData.push(listdata[i]);
+								}
+								console.log(that.demoData);
+								Vue.nextTick(function () {
+									that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+								});
+							}, function (response) {
+								//取消加载效果
+								that.$set('message', '服务器维护，请稍后重试');
+							});
+						}
+					}
+				}
+			}//ajaxdata
+		}//method  结束
 	});
+
+
 });
 </script>
 </html>

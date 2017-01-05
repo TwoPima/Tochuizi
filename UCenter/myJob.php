@@ -67,7 +67,6 @@ $(function(){
 		},//created 结束
 		methods: {
 			jump_url: function (msg1){
-				console.log(msg1);
 				window.location.href='editJob.php?recruit_id='+msg1;
 
 			}

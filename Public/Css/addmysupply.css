@@ -19,12 +19,6 @@
             background: #f1f1f1;
             font-family: "Microsoft YaHei UI";
         }
-        .jiage input{
-            font-size: 16px;
-        }
-        .jiage input[type=radio]{
-            font-size: 16px;
-        }
         .jiage #gongying,
         .jiage #qiugou{
             margin: 0 10px;

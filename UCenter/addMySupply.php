@@ -28,7 +28,7 @@
         <div id="header-right"></div>
     </div>
     <div id="main">
-    <form action="" method="post"  enctype="multipart/form-data">
+        <form action="" method="post"  id="supplyForm" enctype="multipart/form-data">
         <div class="main_box">
             <div class="weui-cells">
                 <div class="weui-cell">
@@ -50,9 +50,9 @@
           			  <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="supplyCate" name="cate_id" id="firstMenu">
+					      <select class="supplyCate" name="firstMenu" id="firstMenu">
 					      </select>
-					      <select class="supplyCate" name="cate_id" id="subMenu">
+					      <select class="supplyCate" name="subMenu" id="subMenu">
 					      </select>
 					      <select class="supplyCate" name="cate_id" id="thereMenu">
 					      </select>
@@ -61,9 +61,9 @@
 				<div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="area" name="area" id="dpProvince">
+					      <select class="area" name="dpProvince" id="dpProvince">
 					      </select>
-					      <select class="area" name="area" id="dpCity">
+					      <select class="area" name="dpCity" id="dpCity">
 					      </select>
 					      <select class="area" name="area" id="dpArea">
 					      </select>
@@ -95,7 +95,7 @@
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label class="weui-label">价<span style="visibility:hidden;">价格</span>格:</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text"  name="price"  name="price" placeholder="价格面议">
+                        <input class="weui-input" type="text"  id="price"  name="price" placeholder="价格面议">
                     </div>
                 </div>
             </div>
@@ -187,51 +187,27 @@ $(function(){
     	});
         //提交，最终验证。btn-custom-theme
         $("#btn-custom-theme").click(function() {
-               sessionUserId=$.session.get('userId');
-               var url =HOST+'mobile.php?c=index&a=my_supply';
-               var checkInfo = $("#checkInfo").val();
-               var title = $("input[name=title]").val();
-               var cate_id = $("#thereMenu").val();
-               var area=$('#dpArea option:selected').val();
-               var is_true=$("input[name=is_true]:checked").val();
-               var price = $("input[name=price]").val();
-               var mobile = $("input[name=mobile]").val();
-               var desc = $("textarea[name=desc]").val();
-               var zu = $("input[name=zu]").val();
-               var image_url = $("#image_url").val();
-             if(mobile==""|| title==""){
-              		alert('手机号标题均不能为空！', 200, 'warning');
-              	    return false; 
-               }
-       		 $.ajax({
-       			type: 'post',
-       			url: url,
-       			traditional:true,//必须设成 true  
-       			data: {
-                       id:sessionUserId,
-                       checkInfo:checkInfo,
-                       dotype:'add',
-                       title:title,
-                       cate_id:cate_id,
-                       is_true:is_true,
-                       price:price,
-                       mobile:mobile,
-                       desc:desc,
-                       zu:zu,
-                       image_url:image_url,
-                       area:area
-                   },
-       			dataType: 'json',
-       			success: function (result) {
-       				var message=result.message;
-       				if (result.statusCode==='0'){
-       					$.toptip(message,2000, 'error');
-       				}else{
-       					$.toptip(message,2000, 'success');
-       					window.location.href='mySupply.php';
-       				}
-       			},
-       		});
+            var formData = new FormData($( "#supplyForm" )[0]);
+            formData.append('checkInfo',$( "#checkInfo").val());
+            formData.append('id',sessionUserId);
+            formData.append('dotype','add');
+            $.ajax({
+                type: 'post',
+                url:HOST+'mobile.php?c=index&a=my_supply',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    var message=result.message;
+                    if (result.statusCode==='0'){
+                        $.toast(message, "cancel");
+                    }else{
+                        window.location.href='mySupply.php';
+                    }
+                }
+            });
        });
 });
 	$(document).on("click", ".deletePicture", function() {

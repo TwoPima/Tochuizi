@@ -14,9 +14,8 @@
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
 <input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
-<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
-<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/> <!-- 删除公司照片 -->
 	<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
+	<input value="<?php echo $_GET['recruit_id'];?>"	type="hidden" id="recruit_id"/>
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -30,14 +29,12 @@ if(sessionUserId==null){
 	//没有登陆
 	$.toptip('您还没有登陆！',2000, 'error');
 	window.location.href='../Login/login.php';
-}else{
+}
 	//已经登陆
-var checkInfoLogin = $("#checkInfoLogin").val();
-var url =HOST+'mobile.php?c=index&a=login';
   $.ajax({
 		type: 'post',
-		url: url,
-		data: {checkInfo:checkInfoLogin,id:sessionUserId},
+		url: HOST+'mobile.php?c=index&a=login',
+		data: {checkInfo:$("#checkInfoLogin").val(),id:sessionUserId},
 		dataType: 'json',
 		success: function (result) {
 			var message=result.message;
@@ -46,8 +43,8 @@ var url =HOST+'mobile.php?c=index&a=login';
 				window.location.href='../Login/login.php';
 			}
 		}
-	}); 
-}
+	});
+selectBusinessInfo($("#checkInfo").val(),sessionUserId);
 //取出加盟商信息
 	function selectBusinessInfo(checkInfo,id){
 		var url =HOST+'mobile.php?c=index&a=my_partner';
@@ -55,36 +52,40 @@ var url =HOST+'mobile.php?c=index&a=login';
 			type: 'post',
 			url: url,
 			data: {id:sessionUserId,checkInfo:checkInfo,dotype:''},
-			dataType:'json'
+			dataType:'json',
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
-					window.location.href='./Login/login.php';
+					//window.location.href='./Login/login.php';
 				}else{
 					$('#name').attr("value",result.data.name);
 					$('#zu').attr("value",result.data.zu);
-					$('#Resumeid').attr("value",result.data.id);
 					$('#mobile').attr("value",result.data.mobile);
-					$('#desc').attr("value",result.data.desc);
-					$('#home').attr("value",result.data.home);
-					$('#birthday').attr("value",result.data.birthday);
-					$('#email').attr("value",result.data.email);
+					$('#address').attr("value",result.data.address);
+					$('#desc').html(result.data.desc);
 					$(result.data.img_url).each(function(index, obj) {
 						var html = '';
 						html += ' <li class="weui-uploader__file" id="fileshow">' +
-							'  <img class="deletePicture" data="'+obj.image_id+'"  src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.image_url+'" class="fileshow thumb-img" />'+
+							'  <img class="deletePicture" data-mainkey="'+obj.id+'" data-userid="'+obj.partner_id+'"   src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.thumb+'" class="fileshow thumb-img" />'+
 							'</li>';
-						$("#uploaderFiles").prepend(html);
+						$("#uploaderFiles1").prepend(html);
 					});
-
+					var licence_thumb = '';
+					licence_thumb += ' <li class="weui-uploader__file" id="fileshow">' +
+						' <img src="'+HOST+result.data.licence_thumb+'" class="fileshow thumb-img" id="licence_thumb_url" />'+
+						'</li>';
+					$("#uploaderFiles").prepend(licence_thumb);
+					//图片浏览器
+					var licence_thumb_url=$("#licence_thumb_url").attr("src");
+					alert(licence_thumb_url);
+					var pb1 = $.photoBrowser({
+						items: [
+							"'+licence_thumb_url+'"
+						]
+					});
 					//下拉框
-					if(eval('(' + result.data.job_year+ ')')!=null){
-						$('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>');
-					}
-					if(eval('(' + result.data.education+ ')')!=null){
-						$('#education').append('<option value="'+eval('(' + result.data.education+ ')').id+'" selected="selected">'+eval('(' + result.data.education+ ')').name+'</option>');
-					}
+
 					if(eval('(' + result.data.wage+ ')')!=null){
 						$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
 					}
@@ -93,6 +94,7 @@ var url =HOST+'mobile.php?c=index&a=login';
 					}
 
 				}
+			}
 		});
 	}
 
@@ -200,32 +202,37 @@ var url =HOST+'mobile.php?c=index&a=login';
 								<textarea class="weui-cell-textarea font14px" name="desc" id="desc" placeholder="备注..."></textarea>
 							</div>
 							<p class="box-in"></p>
-						<div class="weui-cell">
-							<div class="weui-cell__bd">
-								<div class="weui-uploader">
-									<div class="weui-uploader__hd">
-										<p class="weui-uploader__title font14px">企业图片</p>
-									</div>
-									<div class="weui-uploader__bd line">
-										<ul class="weui-uploader__files" id="uploaderFiles1">
+						</form>
+						<form  action=""  method="post"  id="addBusinessImageForm" enctype="multipart/form-data">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<div class="weui-uploader">
+										<div class="weui-uploader__hd">
+											<p class="weui-uploader__title font14px">企业图片</p>
+										</div>
+										<div class="weui-uploader__bd line">
+											<ul class="weui-uploader__files" id="uploaderFiles1">
 
-										</ul>
-										<div class="weui-uploader__input-box">
-											<input id="thumb" class="weui-uploader__input" name="thumb" type="file" accept="image/*"/>
+											</ul>
+											<div class="weui-uploader__input-box">
+												<input id="thumb" class="weui-uploader__input" name="thumb" type="file" accept="image/*"/>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div><!--upload end-->
+							</div><!--upload end-->
+							<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
+							<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/> <!-- 删除公司照片 -->
+						</form>
 					</div>
 				</div>
-			</form>
-			<div class="addbuin_form_button">
-				<a id="btn-custom-theme" class="weui-btn">申请加盟</a>
-			</div>
 
+					<div class="addbuin_form_button">
+						<a id="btn-custom-theme" class="weui-btn">申请加盟</a>
+					</div>
+
+					</div>
 		</div>
-	</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -274,30 +281,50 @@ $(function(){
 			var imgURL = URL.createObjectURL(file);
 			var html = '';
 			html += ' <li class="weui-uploader__file" id="fileshow">' +
-				'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+				'  <img class="deletePicture"  data='1' src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
 				'</li>';
 			$("#uploaderFiles").prepend(html);
 		}
 
 	});
-	var thumb='';
 	$('#thumb').change(function(event) {
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
 			if(file.size > 1024 * 1024 * 2) {
-				alert('图片大小不能超过 2MB!');
+				getTips('图片大小不能超过 2MB!');
 				return false;
 			}
-			var URL = window.URL || window.webkitURL;
-			var imgURL = URL.createObjectURL(file);
-			var html = '';
-			html += ' <li class="weui-uploader__file" id="fileshow">' +
-				'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
-				'</li>';
-			$("#uploaderFiles1").prepend(html);
+			var url =HOST+'mobile.php?c=index&a=pic_partner';
+			var formData = new FormData($( "#addBusinessImageForm" )[0]);
+			formData.append('checkInfo',$( "#checkInfoAddImg").val());
+			formData.append('id',sessionUserId);
+			$.showLoading('正在添加');
+			setTimeout(function() {
+				$.hideLoading();
+			}, 3000)
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+					}else{
+						var html = '';
+						html += ' <li class="weui-uploader__file" id="fileshow">' +
+							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
+							'</li>';
+						$("#uploaderFiles1").prepend(html);
+					}
+				}
+			});
 		}
-
 	});
 	/* 经营分类 */
 	var partner_cate_first = $("#partner_cate_first");
@@ -314,7 +341,7 @@ $(function(){
 	});
 	//给三级绑定事件，触发事件后填充区的数据
 	$(partner_cate_sub).bind("change keyup", function () {
-		var subId = getCatSub.prop("value");
+		var subId = partner_cate_sub.prop("value");
 		getPartnerTypeThere($("#checkInfoPartnerType").val(), subId);
 		partner_cate_there.fadeIn("slow");
 		$(".jobCategory-there-line").fadeIn("slow");
@@ -338,21 +365,11 @@ $(function(){
 		loadAreasDistrict($("#checkInfoArea").val(), cityID);
 		dp3.fadeIn("slow");
 	});
-/*	//图片浏览器
-	$("#licence_thumb").prop("src");
-	var pb1 = $.photoBrowser({
-		items: [
-			"./images/swiper-1.jpg",
-			"./images/swiper-2.jpg",
-			"./images/swiper-3.jpg"
-		]
-	});*/
+
 	//提交，最终验证。
 	$("#btn-custom-theme").click(function() {
 		var url =HOST+'mobile.php?c=index&a=my_partner';
 		var formData = new FormData($( "#addBusinessForm" )[0]);
-		formData.append('cate_id','1');
-		formData.append('area','1');
 		formData.append('checkInfo',$( "#checkInfo").val());
 		formData.append('id',sessionUserId);
 		$.showLoading('正在添加');
@@ -382,8 +399,38 @@ $(function(){
 		$("#topTips").fadeIn("slow");
 	}
 	$(document).on("click", ".deletePicture", function() {
-		$(this).parent().remove();
+		$(document).on("click", ".deletePicture", function() {
+			if($(this).attr('data')=='1'){
+				$(this).parent().remove();
+			}else {
+				var url = HOST + 'mobile.php?c=index&a=my_partner';
+				$.showLoading('正在删除');
+				setTimeout(function () {
+					$.hideLoading();
+				}, 3000)
+				$.ajax({
+					type: 'post',
+					url: url,
+					data: {
+						checkInfo: $("#checkInfoDelImg").val(),
+						id: $(this).attr("data-mainkey"),
+						partner_id: $(this).attr("data-userid")
+					},
+					dataType: 'json',
+					success: function (result) {
+						var message = result.message;
+						if (result.statusCode === '0') {
+							$.toptip(message, 2000, 'error');
+						} else {
+							$(this).parent().remove();
+							window.location.href = 'editBusinessInfo.php?recruit_id=' + result.data.id;
+						}
+					}
+				});
+			}
 	});
+
 });
+
 </script>
 </html>

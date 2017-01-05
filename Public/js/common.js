@@ -666,10 +666,8 @@ function loadSupplySubCate(checkInfo, pid) {
 		data: {checkInfo:checkInfo,pid:pid},
 		dataType:"json",
 		success: function(result){
-			console.log(result);
-			$('#subMenu').append("<option value='' selected='selected'>请选择</option>"); 
+			$('#subMenu').append("<option value='' selected='selected'>请选择</option>");
 			$.each(result.data, function (index, obj) {
-				console.log(obj);
 				var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
 				$('#subMenu').append(proviceHtml);
 			});
@@ -685,10 +683,11 @@ function loadSupplyThereCate(checkInfo, pid) {
 		data: {checkInfo:checkInfo,pid:pid},
 		dataType:"json",
 		success: function(result){
-			$('#thereMenu').append("<option value='' selected='selected'>请选择</option>"); 
+			$('#thereMenu').append("<option value='' selected='selected'>请选择</option>");
 			$.each(result.data, function (index, obj) {
-				var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
-				$('#thereMenu').append(proviceHtml);
+					var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+					$('#thereMenu').append(proviceHtml);
+
 			});
 		}
 	}); 

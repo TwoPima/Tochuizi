@@ -14,8 +14,7 @@
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
 <input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
-<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
-<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/> <!-- 删除公司照片 -->
+
 	<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-2.1.4.js"></script>
@@ -70,9 +69,10 @@ var url =HOST+'mobile.php?c=index&a=login';
     			<div class="addbuin_title_info"></div>
     		</div>		
 		<div class="addbuin_form clear" >
-			<form action=""  method="post"  id="addBusinessForm" enctype="multipart/form-data">
+
 				<div class="addbuin_form_jichu">
 					<div class="weui-cells weui-cells_form">
+						<form action=""  method="post"  id="addBusinessForm" enctype="multipart/form-data">
 						<div class="weui-cell">
 							<div class="weui-cell__hd"><label class="weui-label">公司名称</label></div>
 							<div class="weui-cell__bd">
@@ -152,6 +152,8 @@ var url =HOST+'mobile.php?c=index&a=login';
 								<textarea class="weui-cell-textarea font14px" name="desc" id="desc" placeholder="备注..."></textarea>
 							</div>
 							<p class="box-in"></p>
+						</form>
+						<form  action=""  method="post"  id="addBusinessImageForm" enctype="multipart/form-data">
 						<div class="weui-cell">
 							<div class="weui-cell__bd">
 								<div class="weui-uploader">
@@ -169,9 +171,12 @@ var url =HOST+'mobile.php?c=index&a=login';
 								</div>
 							</div>
 						</div><!--upload end-->
+							<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
+							<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/> <!-- 删除公司照片 -->
+						</form>
 					</div>
 				</div>
-			</form>
+
 			<div class="addbuin_form_button">
 				<a id="btn-custom-theme" class="weui-btn">申请加盟</a>
 			</div>
@@ -219,7 +224,8 @@ $(function(){
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
 			if(file.size > 1024 * 1024 * 2) {
-				alert('图片大小不能超过 2MB!');
+				getTips('图片大小不能超过 2MB!');
+				return false;
 				return false;
 			}
 			var URL = window.URL || window.webkitURL;
@@ -232,24 +238,44 @@ $(function(){
 		}
 
 	});
-	var thumb='';
 	$('#thumb').change(function(event) {
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
 			if(file.size > 1024 * 1024 * 2) {
-				alert('图片大小不能超过 2MB!');
+				getTips('图片大小不能超过 2MB!');
 				return false;
 			}
-			var URL = window.URL || window.webkitURL;
-			var imgURL = URL.createObjectURL(file);
-			var html = '';
-			html += ' <li class="weui-uploader__file" id="fileshow">' +
-				'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
-				'</li>';
-			$("#uploaderFiles1").prepend(html);
+			var url =HOST+'mobile.php?c=index&a=pic_partner';
+			var formData = new FormData($( "#addBusinessImageForm" )[0]);
+			formData.append('checkInfo',$( "#checkInfoAddImg").val());
+			formData.append('id',sessionUserId);
+			$.showLoading('正在添加');
+			setTimeout(function() {
+				$.hideLoading();
+			}, 3000)
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+					}else{
+						var html = '';
+						html += ' <li class="weui-uploader__file" id="fileshow">' +
+							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
+							'</li>';
+						$("#uploaderFiles1").prepend(html);
+					}
+				}
+			});
 		}
-
 	});
 	/* 经营分类 */
 	var partner_cate_first = $("#partner_cate_first");
@@ -266,7 +292,7 @@ $(function(){
 	});
 	//给三级绑定事件，触发事件后填充区的数据
 	$(partner_cate_sub).bind("change keyup", function () {
-		var subId = getCatSub.prop("value");
+		var subId = partner_cate_sub.prop("value");
 		getPartnerTypeThere($("#checkInfoPartnerType").val(), subId);
 		partner_cate_there.fadeIn("slow");
 		$(".jobCategory-there-line").fadeIn("slow");
@@ -303,8 +329,7 @@ $(function(){
 	$("#btn-custom-theme").click(function() {
 		var url =HOST+'mobile.php?c=index&a=my_partner';
 		var formData = new FormData($( "#addBusinessForm" )[0]);
-		formData.append('cate_id','1');
-		formData.append('area','1');
+		formData.append('dotype','add');
 		formData.append('checkInfo',$( "#checkInfo").val());
 		formData.append('id',sessionUserId);
 		$.showLoading('正在添加');
@@ -322,20 +347,41 @@ $(function(){
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
+					getTips(message);return false;
 				}else{
-					//window.location.href='./tips.php';
+					window.location.href='editBusinessInfo.php?recruit_id='+result.data.id;
 				}
 			}
 		});
 	});
+	$(document).on("click", ".deletePicture", function() {
+		var url =HOST+'mobile.php?c=index&a=my_partner';
+		$.showLoading('正在删除');
+		setTimeout(function() {
+			$.hideLoading();
+		}, 3000)
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:$("#checkInfoDelImg").val(),id:$(this).attr("data-mainkey"),partner_id:$(this).attr("data-userid")},
+			dataType:'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+				}else{
+					$(this).parent().remove();
+					//window.location.href='editBusinessInfo.php?recruit_id='+result.data.id;
+				}
+			}
+		});
+
+	});
+	//自定义提醒方式
 	function getTips(message){
 		$(".addbuin_title_info").html(message);
 		$("#topTips").fadeIn("slow");
 	}
-	$(document).on("click", ".deletePicture", function() {
-		$(this).parent().remove();
-	});
 });
 </script>
 </html>

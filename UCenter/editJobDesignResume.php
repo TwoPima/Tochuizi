@@ -364,7 +364,6 @@ $(function(){
 	}
     	$(document).on("click", ".deletePicture", function() {
 			var url =HOST+'mobile.php?c=index&a=del_picture';
-			console.log();
 			$.ajax({
 				type: 'post',
 				url: url,

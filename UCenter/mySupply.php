@@ -58,11 +58,10 @@
 	</div>
 	<div id="wrapper">
 		<div id="scroller">
-
 			<template v-for="item in demoData"><!--三层  -->
 					<div class="weui_panel">
-					<div class="list-data">
-						<a  v-on:click="jump_url(item.id,item.url)" >
+					<div class="list-data" >
+						<a v-on:click="jump_url(item.id,item.url)">
 							<div class="weui_media_box weui_media_text">
 								<p class="weui_media_desc">{{item.title}}</p>
 								<ul class="weui_media_info">
@@ -181,7 +180,7 @@
 		}, //created 结束
 		methods: {
 			jump_url: function (msg1,msg2){
-				window.location.href='editMySupply.php';
+				window.location.href='editMySupply.php?supply_id='+msg1;
 			},
 			classdata: function (msg) {
 				$('.sipply_nav .action').removeClass('action');

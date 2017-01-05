@@ -136,7 +136,7 @@ $('form :input').blur(function(){
 						$("#mobile").attr("value",result.data.mobile);
 						if(result.data.avatar==null){
     					}else{
-    						$("#avatar").attr("src",result.data.avatar);//头像
+    						$("#avatar").attr("src",HOST+result.data.avatar);//头像
     					}
 					}
 				},

@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
+    <style>
+
+    </style>
 </head>
 <body>
 <div id="addmysupply_form">
@@ -25,7 +28,7 @@
         <div id="header-right"></div>
     </div>
     <div id="main">
-    <form action="" method="post"  id="supplyForm" enctype="multipart/form-data">
+    <form action="" method="post"  enctype="multipart/form-data">
         <div class="main_box">
             <div class="weui-cells">
                 <div class="weui-cell">
@@ -39,7 +42,7 @@
                 <ul class="weui-uploader__files" id="uploaderFiles">
                 </ul>
                 <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" >
+                    <input class="weui-uploader__input file" multiple="true" name="image_url[]" id="image_url" type="file" accept="image/*" >
                 </div>
             </div>
         </div>
@@ -47,9 +50,9 @@
           			  <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="supplyCate" name="firstMenu" id="firstMenu">
+					      <select class="supplyCate" name="cate_id" id="firstMenu">
 					      </select>
-					      <select class="supplyCate" name="subMenu" id="subMenu">
+					      <select class="supplyCate" name="cate_id" id="subMenu">
 					      </select>
 					      <select class="supplyCate" name="cate_id" id="thereMenu">
 					      </select>
@@ -58,9 +61,9 @@
 				<div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="area" name="dpProvince" id="dpProvince">
+					      <select class="area" name="area" id="dpProvince">
 					      </select>
-					      <select class="area" name="dpCity" id="dpCity">
+					      <select class="area" name="area" id="dpCity">
 					      </select>
 					      <select class="area" name="area" id="dpArea">
 					      </select>
@@ -92,7 +95,7 @@
                 <div class="weui-cell">
                     <div class="weui-cell__hd"><label class="weui-label">价<span style="visibility:hidden;">价格</span>格:</label></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text"  id="price"  name="price" placeholder="价格面议">
+                        <input class="weui-input" type="text"  name="price"  name="price" placeholder="价格面议">
                     </div>
                 </div>
             </div>
@@ -114,14 +117,13 @@
 </body>
 <input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <input value="<?php echo md5(date('Ymd')."supply_cat"."tuchuinet");?>"	type="hidden" id="supply_cat"/>
-<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
-<input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/>
-<input value="<?php echo $_GET['supply_id'];?>"	type="hidden" id="supply_id"/>
+<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
+
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -188,7 +190,7 @@ $(function(){
 	    			// 用这个 URL 产生一个 <img> 将其显示出来
 	                  var html = '';
 	    				 html += ' <li class="weui-uploader__file" id="fileshow">' +
-	    	             '  <img class="deletePicture" data="1"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+	    	             '  <img class="deletePicture" data="'+obj+'"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
 	    	             '</li>';
 	    	              $("#uploaderFiles").prepend(html);
 	    			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
@@ -196,109 +198,62 @@ $(function(){
 		      	});
     		}
     	});
-    selectMySupplyInfo($("#checkInfo").val());
-    function selectMySupplyInfo(checkInfo){	 //查询
-        $.ajax({
-            type: 'post',
-            url: HOST+'mobile.php?c=index&a=my_supply',
-            data: {id:sessionUserId,checkInfo,supply_id:$("#supply_id").val(),checkInfo,dotype:'gain'},
-            dataType: 'json',
-            success: function (result) {
-                var message=result.message;
-                if (result.statusCode==='0'){
-                    $.toptip(message,2000, 'error');
-                    window.location.href='./Login/login.php';
-                }else{
-                    $('#name').attr("value",result.data.name);
-                    $('#title').attr("value",result.data.title);
-                    $('#mobile').attr("value",result.data.mobile);
-                    $('#desc').html(result.data.desc);
-                    $('#price').attr("value",result.data.price);
-                    $(result.data.img_url).each(function(index, obj) {
-                        var html = '';
-                        html += ' <li class="weui-uploader__file" id="fileshow">' +
-                            '  <img class="deletePicture" data-mainkey="'+obj.image_id+'" data-userid="'+result.data.partner_id+'"   src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.image_url+'" class="fileshow thumb-img" />'+
-                            '</li>';
-                        $("#uploaderFiles").prepend(html);
-                    });
-                    //单选
-                    if(result.data.is_true=='1'){
-                        $(":radio[name=is_true][value=1]").prop("checked","true");//指定value的选项为选中项
-                    }
-                    if(result.data.is_true=='0'){
-                        $(":radio[name=is_true][value=1]").prop("checked","true");//指定value的选项为选中项
-                    }
-
-                    //下拉框
-
-                    //地方
-
-                   /* if(eval('(' + result.data.cate_id+ ')')!=null){
-                        $('#cate_id').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
-                    }*/
-
-                }
-            },
-         });
-      }
         //提交，最终验证。btn-custom-theme
         $("#btn-custom-theme").click(function() {
-            var formData = new FormData($( "#supplyForm" )[0]);
-            formData.append('checkInfo',$( "#checkInfo").val());
-            formData.append('supply_id',$( "#supply_id").val());
-            formData.append('id',sessionUserId);
-            formData.append('dotype','edit');
-         /*   $.showLoading('正在添加');
-            setTimeout(function() {
-                $.hideLoading();
-            }, 3000)*/
-            $.ajax({
-                type: 'post',
-                url:HOST+'mobile.php?c=index&a=my_supply',
-                data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (result) {
-                    var message=result.message;
-                    if (result.statusCode==='0'){
-                        $.toptip(message,2000, 'error');
-                    }else{
-                        //window.location.href='./tips.php';
-                    }
-                }
-            });
+               sessionUserId=$.session.get('userId');
+               var url =HOST+'mobile.php?c=index&a=my_supply';
+               var checkInfo = $("#checkInfo").val();
+               var title = $("input[name=title]").val();
+               var cate_id = $("#thereMenu").val();
+               var area=$('#dpArea option:selected').val();
+               var is_true=$("input[name=is_true]:checked").val();
+               var price = $("input[name=price]").val();
+               var mobile = $("input[name=mobile]").val();
+               var desc = $("textarea[name=desc]").val();
+               var zu = $("input[name=zu]").val();
+               var image_url = imgPathArr;
+             if(mobile==""|| title==""){
+              		alert('手机号标题均不能为空！', 200, 'warning');
+              	    return false; 
+               }
+       		 $.ajax({
+       			type: 'post',
+       			url: url,
+       			traditional:true,//必须设成 true  
+       			data: {
+                       id:sessionUserId,
+                       checkInfo:checkInfo,
+                       dotype:'edit',
+                       title:title,
+                       cate_id:cate_id,
+                       is_true:is_true,
+                       price:price,
+                       mobile:mobile,
+                       desc:desc,
+                       zu:zu,
+                       image_url:image_url,
+                       area:area
+                   },
+       			dataType: 'json',
+       			success: function (result) {
+                       console.log(result);
+       				/*var message=result.message;
+       				if (result.statusCode==='0'){
+       					$.toptip(message,2000, 'error');
+       				}else{
+       					$.toptip(message,2000, 'success');
+       					window.location.href='./UCenter/index.php';
+       				}*/
+       			},
+       		});
        });
-    $(document).on("click", ".deletePicture", function() {
-        if($(this).attr('data')=='1'){
-            $(this).parent().remove();
-        }else{
-            /*  alert($(this).attr("data-mainkey"));
-             alert($(this).attr("data-userid"));*/
-            // $.showLoading('正在删除');
-            /*  setTimeout(function() {
-             $.hideLoading();
-             }, 3000)*/
-            $.ajax({
-                type: 'post',
-                url: HOST+'mobile.php?c=index&a=del_picture',
-                data: {
-                    checkInfo:$("#checkInfoDelImg").val(),image_id:$(this).attr("data-mainkey"),
-                    id:$(this).attr("data-userid"),model_id:'1'},
-                dataType:'json',
-                success: function (result) {
-                    var message=result.message;
-                    if (result.statusCode==='0'){
-                        $.toptip(message,2000, 'error');
-                    }else{
-                        window.location.reload();
-                        //window.location.href='editBusinessInfo.php?recruit_id='+result.data.id;
-                    }
-                }
-            });
-        }
-    });
 });
+	$(document).on("click", ".deletePicture", function() {
+			$(this).parent().remove();
+		});
 </script>
 </html>
+</div>
+</div>
+</div>
+
