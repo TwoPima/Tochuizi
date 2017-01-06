@@ -172,23 +172,11 @@
 											<p class="weui-media-box__desc">宁夏银川自治区  >100米</p>
 										</div>
 									</a>
-								<!--	<a  >
-										<div class="weui_media_box weui_media_text">
-											<p class="weui_media_desc">{{item.title}}</p>
-											<ul class="weui_media_info">
-												<li class="weui_media_info_meta">{{item.mobile}}
-												</li>
-												<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
-											</ul>
-										</div>
-
-									</a>-->
-									<!--<div style="line-height:67px;"class="del-btn"><a onClick="confirmDelete('+obj.id+');" >删除</a></div>-->
 								</div>
 							</div>
 						</template>
 					</div>
-
+					<!--上下两种加载方式-->
 					<div class="weui-loadmore">
 						<i class="weui-loading"></i>
 						<span class="weui-loadmore__tips">正在加载</span>
@@ -196,8 +184,7 @@
 					<div class="weui-loadmore2">
 						<span class="weui-loadmore__tips">{{message}}</span>
 					</div>
-
-
+					<!--上下两种加载方式-->
 				</div>
 			</template>
 			<template v-if="showtype == 2">
@@ -233,7 +220,6 @@
 	}
     //已经登陆 去服务器比对sessionid
 	 getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
-
 //	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	var checkInfo=$("#checkInfo").val();
 	var demoApp = new Vue({
@@ -273,68 +259,73 @@
 							that.$set('isalldata', true);
 							that.$set('message', '数据加载完成');
 							$('.weui-loadmore2').css('display','block');
+						}else{
+							Vue.nextTick(function () {
+								//初始化滚动插件
+								that.myScroll = new IScroll('#wrapper', {
+									mouseWheel: true,
+									wheelAction: 'zoom',
+									click: true,
+									scrollX: false,
+									scrollY: true,
+									probeType: 3,
+								});
+								//滚动监听
+								that.myScroll.on('scroll',is_scroll_action);//滚动监听,1000
+								that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
+							})
 						}
-						Vue.nextTick(function () {
-							//初始化滚动插件
-							that.myScroll = new IScroll('#wrapper', {
-								mouseWheel: true,
-								wheelAction: 'zoom',
-								click: true,
-								scrollX: false,
-								scrollY: true,
-								probeType: 3,
-							});
-							//滚动监听
-							that.myScroll.on('scroll',is_scroll_action);//滚动监听,1000
-							that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
-						})
 					}
 				},
 				function (response) {
+					$('#loadingToast').css('display','none');
 					that.$set('message', '服务器维护，请稍后重试');
+					$('.weui-loadmore2').css('display','block');
 				});
 			/*判断是否加载 */
 			function is_scroll_action() {
 				if((this.y)>50){
-					that.$set('isalldata', false);
-					that.$set('message', '正在加载');
 					$('.weui-loadmore').css('display','block');
-					that.$set('isPulled', 1);//确定下拉刷新可以开始
-					//重置下拉刷新需要的参数
-					that.$set('url.start', 0);//从0开始
+					//确定下拉刷新可以开始
+					that.$set('isPulled', 1);
 					return;
 				}
-				if((this.y)<40){
+				if( this.y < 50 && this.y > 0 ){
 					$('.weui-loadmore').css('display','none');
+					return;
 				}
 				//有数据
 				if(that.isalldata == false){
-					if (-(this.y) + $('#wrapper').height()>= $('#scroller').height() +50 ) {
+					if ( (-(this.y) + $('#wrapper').height())-( $('#scroller').height() )>= 50 ) {
 						$('.weui-loadmore2').css('display','block');
 						that.$set('isPulled', 2);
 						that.$set('isscrollaction',true);
-						return;
 					}
-					if(-(this.y) + $('#wrapper').height()>= $('#scroller').height()){
+					if((-(this.y) + $('#wrapper').height())-( $('#scroller').height() ) <50 && (-(this.y) + $('#wrapper').height())-( $('#scroller').height() ) >0 ){
 						$('.weui-loadmore2').css('display','none');
 					}
+					return;
 				}
-				// 但是数据加载完成
 				if (that.isalldata == true){
 					that.$set('isPulled', 0);
 					that.$set('isscrollaction',false);
+					return;
 				}
 			}
 			function scrollaction(){
 				if (that.isPulled==1){
+						//重新拉取数据，重新渲染列表
 						$('#loadingToast').css('display','block');
+						that.$set('isalldata', false);
+						that.$set('message', '正在加载');
+						that.$set('url.start', 0);//从0开始
 						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 								var res = response.data; //取出的数据
 								//如果数据为空
 								if (res.statusCode==0){
 									that.$set('showtype', 2);
-									that.$set('isalldata', true);
-									that.$set('message', '数据加载完成');
+									/*that.$set('isalldata', true);
+									that.$set('message', '数据加载完成');*/
 								}
 								//如果数据不为空
 								if(res.statusCode==1){
@@ -352,7 +343,6 @@
 										$('#loadingToast').css('display','none');
 									});
 								}
-
 							},function (response) {
 								that.$set('isPulled', 0);
 								that.$set('message', '服务器维护，请稍后重试');
@@ -410,17 +400,20 @@
 				var that = this;
 				that.$set('url.start', 0);
 				that.$set('message','正在加载');
+				that.$set('isalldata',false);
+				that.$set('isPulled',0);
+				that.$set('isscrollaction',false);
 				switch(msg){
 					case '':
-						that.$set('url.is_true', '');
+						that.$set('url.is_ture', '');
 						$('.sipply_nav .one').addClass('action');
 						break;
 					case '0':
-						that.$set('url.is_true', 0);
+						that.$set('url.is_ture', 0);
 						$('.sipply_nav .two').addClass('action');
 						break;
 					case '1':
-						that.$set('url.is_true', 1);
+						that.$set('url.is_ture', 1);
 						$('.sipply_nav .three').addClass('action');
 						break;
 					default:
@@ -430,7 +423,6 @@
 				$('#loadingToast').css('display','block');
 				that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 						var res = response.data; //取出的数据
-						console.log(res);
 						//如果数据为空
 						if (res.statusCode==0){
 							that.$set('showtype', 2);
@@ -444,24 +436,25 @@
 								that.$set('isalldata', true);
 								that.$set('message', '数据加载完成');
 								$('.weui-loadmore2').css('display','block');
+							}else{
+								Vue.nextTick(function () {
+									//初始化滚动插件
+									that.myScroll = new IScroll('#wrapper', {
+										mouseWheel: true,
+										wheelAction: 'zoom',
+										click: true,
+										scrollX: false,
+										scrollY: true,
+										probeType: 3,
+									});
+									//滚动监听
+									that.myScroll.on('scroll',is_scroll_action);//滚动监听,1000
+									that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
+								})
+
 							}
-							Vue.nextTick(function () {
-								//初始化滚动插件
-								that.myScroll = new IScroll('#wrapper', {
-									mouseWheel: true,
-									wheelAction: 'zoom',
-									click: true,
-									scrollX: false,
-									scrollY: true,
-									probeType: 3,
-								});
-								//滚动监听
-								that.myScroll.on('scroll',is_scroll_action);//滚动监听,1000
-								that.myScroll.on('scrollEnd',scrollaction);//滚动监听,1000
-							})
 						}
 						$('#loadingToast').css('display','none');
-
 					},
 					function (response) {
 						$('#loadingToast').css('display','none');
@@ -471,46 +464,47 @@
 					});
 				function is_scroll_action() {
 					if((this.y)>50){
-						that.$set('isalldata', false);
-						that.$set('message', '正在加载');
 						$('.weui-loadmore').css('display','block');
-						that.$set('isPulled', 1);//确定下拉刷新可以开始
-						//重置下拉刷新需要的参数
-						that.$set('url.start', 0);//从0开始
+						//确定下拉刷新可以开始
+						that.$set('isPulled', 1);
 						return;
 					}
-					if((this.y)<40){
+					if( this.y < 50 && this.y > 0 ){
 						$('.weui-loadmore').css('display','none');
+						return;
 					}
 					//有数据
 					if(that.isalldata == false){
-						if (-(this.y) + $('#wrapper').height()>= $('#scroller').height() +50 ) {
+						if ( (-(this.y) + $('#wrapper').height())-( $('#scroller').height() )>= 50 ) {
 							$('.weui-loadmore2').css('display','block');
 							that.$set('isPulled', 2);
 							that.$set('isscrollaction',true);
-							return;
 						}
-						if(-(this.y) + $('#wrapper').height()>= $('#scroller').height()){
+						if((-(this.y) + $('#wrapper').height())-( $('#scroller').height() ) <50 && (-(this.y) + $('#wrapper').height())-( $('#scroller').height() ) >0 ){
 							$('.weui-loadmore2').css('display','none');
 						}
+						return;
 					}
-					// 但是数据加载完成
 					if (that.isalldata == true){
 						that.$set('isPulled', 0);
 						that.$set('isscrollaction',false);
+						return;
 					}
 				}
 				function scrollaction(){
 					if (that.isPulled==1){
+						//重新拉取数据，重新渲染列表
 						$('#loadingToast').css('display','block');
+						that.$set('isalldata', false);
+						that.$set('message', '正在加载');
+						that.$set('url.start', 0);//从0开始
 						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data; //取出的数据
-							console.log(res);
 							//如果数据为空
 							if (res.statusCode==0){
 								that.$set('showtype', 2);
-								that.$set('isalldata', true);
-								that.$set('message', '数据加载完成');
+								/*that.$set('isalldata', true);
+								 that.$set('message', '数据加载完成');*/
 							}
 							//如果数据不为空
 							if(res.statusCode==1){
@@ -528,12 +522,10 @@
 									$('#loadingToast').css('display','none');
 								});
 							}
-
 						},function (response) {
 							that.$set('isPulled', 0);
 							that.$set('message', '服务器维护，请稍后重试');
 							$('#loadingToast').css('display','none');
-							$('.weui-loadmore2').css('display','block');
 						});
 					}
 					if (that.isPulled==2){
@@ -570,8 +562,8 @@
 								that.$set('isPulled', 0);
 								$('#loadingToast').css('display','none');
 								that.$set('message', '服务器维护，请稍后重试');
-								that.$set('isscrollaction',true);
 								$('.weui-loadmore2').css('display','block');
+								that.$set('isscrollaction',true);
 							});
 						}
 					}
