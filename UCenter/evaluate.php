@@ -13,9 +13,10 @@
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+	<script type="text/javascript" src="../Public/js/vue.min.js"></script>
+	<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
-<!-- <script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script> -->
   <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
 <script>
 $(function(){
@@ -27,51 +28,53 @@ $(function(){
 	}
 	//已经登陆 
 	 $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-	    $('#description-raty').raty({ 
-	    	  score: function() { 
-	    	    return $(this).attr('data-score'); 
-	    	  } 
-	    	}); 
-	    $('#logistic-raty').raty({ 
-	    	  score: function() { 
-	    	    return $(this).attr('data-score'); 
-	    	  } 
-	    	}); 
-	    $('#server-raty').raty({ 
-	    	  score: function() { 
-	    	    return $(this).attr('data-score'); 
-	    	  } 
-	    	}); 
-  	var url =HOST+'mobile.php?c=index&a=comment_list';
-   var checkInfoComment = $("#checkInfoComment").val();
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfoComment,id:sessionUserId,start:'0',limit:'10'},
-			dataType: 'json',
-			success: function (result) {
-				//查询当前会员类型  没有默认第一个  有直接跳转到  
-				var message=result.message;
-				if (result.statusCode=='0'){
-					window.location.href='noEvaluate.php';
-				}else{
-					//查询信息
-					  $.each(result.data, function (index, obj) {
-						  var addressHtml='';
-	    				addressHtml+= ' <a class="weui-cell weui-cell_access" href="index.html?goods_id='+obj.goods_id+'">' +
-	    					'<div class="weui-cell__bd"><p id="company_name">宁夏亿次元科技网站销售 <span id="price" class="red">44元</span></p></div>' +
-	    					'<div class="weui-cell__ft"></div></a><div class="height1px"></div>'+
-	    					'<article class="weui-article"><section><p id="evaluate-content">'+obj.desc+'</p>'+
-	    					'</section><section><p id="description">描述评级：<span id="description-raty" data-score="'+obj.miao_star+'"></span></p>' +
-	    					'<p id="logistic">物流评级：<span id="logistic-raty"data-score="'+liu_star+'" ></span></p>'+
-	    					'<p id="server">服务评级：<span id="server-raty" data-score="'+obj.fuwu_star+'"></span></p> </section>'+
-	    					'<section id="content-img" ><p><img src="../Public/img/test1.png" alt=""><img src="../Public/img/test1.png" alt=""></p></section>'+
-	    					' <section><p id="article-date" class="float-right">'+obj.add_time+'</p> </section> </article>';
-	   						 $(".weui-panel").append(addressHtml);
-					 });
-				}
+	    $('.description-raty').raty({
+	    	  score: function() {
+	    	    return $(this).attr('data-score');
+	    	  }
+	    	});
+	    $('.logistic-raty').raty({
+	    	  score: function() {
+	    	    return $(this).attr('data-score');
+	    	  }
+	    	});
+	    $('.server-raty').raty({
+	    	  score: function() {
+	    	    return $(this).attr('data-score');
+	    	  }
+	    	});
+	//取出信息
+	new Vue({
+		el: '#app',
+		data: {
+			listData: {},
+			url:{
+				checkInfo:$("#checkInfoComment").val(),
+				id:sessionUserId,
 			}
-		});
+		},
+		/*初始化，el控制区域，  */
+		ready: function() {
+			var that = this;
+			that.$http.get(HOST+'mobile.php?c=index&a=comment_list',that.url).then(function (response) {
+				var res = response.data; //取出的数据
+				//	console.log(res);
+//	window.location.href='noEvaluate.php';
+
+				that.$set('listData', res.data);  //把数据传给页面
+				$('.description-raty').raty({
+					score: function() {
+						return $(this).attr('data-score');
+					}
+				});
+			});
+		},//created 结束
+		methods: {
+			jump_url: function (msg1){
+				window.location.href='index.php?goods_id='+msg1;
+			}
+		}
+	});
 });
 </script>
 </head>
@@ -90,6 +93,21 @@ $(function(){
     <div id="main">
         <div class="evaluate">
             <div class="weui-panel">
+				<template v-for="item in listData "><!--三层  -->
+					<a class="weui-cell weui-cell_access"  v-on:click="jump_url(item.goods_id)">
+						<div class="weui-cell__bd"><p id="company_name">{{item.goods_title}}{{item.goods_id}}  <span id="price" class="red">{{item.price}}元</span></p></div>
+						<div class="weui-cell__ft"></div></a><div class="height1px"></div>
+					<article class="weui-article"><section><p id="evaluate-content">{{item.desc}}</p>
+							</section><section>
+							<p id="description">描述评级：<span class="description-raty" data-score="{{item.miao_star}}"></span></p>
+							<p id="logistic">物流评级：<span class="logistic-raty" data-score="{{item.liu_star}}" ></span></p>
+							<p id="server">服务评级：<span class="server-raty" data-score="{{item.fuwu_star}}"></span></p> </section>
+						<section id="content-img" ><p><img src="../Public/img/test1.png" alt=""><img src="../Public/img/test1.png" alt=""></p></section>
+						 <section><p id="article-date" class="float-right">{{item.add_time}}</p></section> </article>
+				</template>
+					<!--	<p id="description">描述评级：<span class="description-raty" data-score="3"></span></p>
+						<p id="logistic">物流评级：<span class="logistic-raty" data-score="4" ></span></p>
+						<p id="server">服务评级：<span class="server-raty" data-score="{{item.fuwu_star}}"></span></p> </section>-->
             </div>
             </div>
         </div><!--main-->

@@ -120,7 +120,11 @@
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA&v=1.0"></script>
 <script src="../Public/js/fastclick.js"></script>
+<script src="../Public/js/location.js"></script>
+<script src="../Public/js/there-category.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
 $(function(){
@@ -128,7 +132,7 @@ $(function(){
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
-	var dp1 = $("#firstMenu"); 
+/*	var dp1 = $("#firstMenu");
 	var dp2 = $("#subMenu"); 
 	var dp3 = $("#thereMenu"); 
  	var dpProvince = $("#dpProvince"); 
@@ -163,7 +167,7 @@ $(function(){
 		var cityID = dpCity.prop("value"); 
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
-	});  
+	}); */
         $('#image_url').change(function(event) {
     		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
     		if (files && files.length > 0) {

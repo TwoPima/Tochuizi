@@ -311,6 +311,32 @@ class OrderController extends BaseController
         $this->assign('paymentCofig', $paymentCofig);
         $this->display();
     }
+// 获取某一用户的某一状态的订单总数；
+    public function get_order_count_by_user_by_status()
+    {
+
+        // 用户id
+        $user_id = I('user_id');
+        $order_status = I("order_status");
+
+        if (empty($user_id)) {
+            JReturn("用户ID 'user_id' 不能为空", 0);
+        }
+
+        //统计条件
+        $cond["user_id"] = $user_id;
+        if (! empty($order_status)) {
+            $cond["order_status"] = $order_status;
+        }
+        $mall_order = D("mall_order");
+        $count_order = $mall_order->where($cond)->count(); // 计算记录数
+
+        // 分页开始行数;
+        $result = array(
+            "order_count" => $count_order
+        );
+        JReturn('查询成功', 1, $result);
+    }
 
     function payparam()
     {

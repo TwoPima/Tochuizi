@@ -18,14 +18,33 @@
 <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
+<input value="<?php echo md5(date('Ymd')."get_order_count_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_count_by_user_by_status"/>
 <script>
 /* if(!window.sessionStorage.login){
     // go to login page
-} */
+
+}
+ localStorage.setItem("key","value");//以“key”为名称存储一个值“value”
+ localStorage.getItem("key");//获取名称为“key”的值
+ 删除localStorage中存储信息的方法：
+ localStorage.removeItem("key");//删除名称为“key”的信息。
+ localStorage.clear();​//清空localStorage中所有信息
+*/
+/*if(window.localStorage){
+	alert("浏览器支持localStorage");
+}else{
+	alert("浏览器暂不支持localStorage");
+}
+if(window.sessionStorage){
+	alert("浏览器支持sessionStorage");
+}else{
+	alert("浏览器暂不支持sessionStorage");
+}*/
 	sessionUserId=$.session.get('userId');
 	mobile=$.session.get('mobileSession');
 	var userIp = returnCitySN["cip"];
-	getNowPosition();
+	//getNowPosition();
+
 	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';
@@ -121,28 +140,28 @@
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/nopay.png" >
 					<p>待付款</p>
-					<span class="icon_num  icon_num_float">3</span>
+					<span id="wait_pay" class="icon_num  icon_num_float">0</span>
 				</div>
 				</a>
 				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/noget.png" >
 					<p>待收货</p>
-					<span class="icon_num  icon_num_float">3</span>
+					<span  id="wait_get_goods" class="icon_num  icon_num_float">0</span>
 				</div>
 				</a>
 				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/pingjia.png" >
 					<p>待评价</p>
-					<span class="icon_num  icon_num_float">3</span>
+					<span  id="wait_evaluate" class="icon_num  icon_num_float">0</span>
 				</div>
 				</a>
 				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/tuihuo.png" >
 					<p>退货</p>
-					<span class="icon_num  icon_num_float">3</span>
+					<span  id="back_goods"  class="icon_num  icon_num_float">0</span>
 				</div>
 				</a>
 			</div>
@@ -260,31 +279,38 @@
 </body>
 <script type="text/javascript">
 $(function(){
-//多少个订单
-/*	var url =HOST+'mobile.php?c=index&a=login';
-	var checkInfo=$("#checkInfo").val();
-	 $.ajax({
+	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),0);
+	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),1);
+	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),2);
+	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),3);
+//每个用户下的订单状态的总数
+	function get_user_by_status(user_id,checkInfo,order_status){
+		$.ajax({
 			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
+			url: HOST+'index.php?c=order&a=get_order_count_by_user_by_status',
+			data: {checkInfo:checkInfo,user_id:user_id,order_status:order_status},
 			dataType: 'json',
 			success: function (result) {
-				var message=result.message;
-				var tips=result.message;
 				if (result.statusCode=='0'){
 					$.toptip(tips,2000, 'error');
 				}else{
 					//数据取回成功
-				var mobile=$.session.get('mobileSession');
-					var typeMember=getMemberType(result.data.idtype);
-					var nickname=result.data.nickname;
-					$("#mobile").html(mobile);
-					$("#nickname").html(nickname);
-					$("#typeMember").html(typeMember);
-					$.session.set('idType', result.data.idtype); *
-				} 
+					if (order_status=='0'){
+						$("#wait_pay").html(result.order_count);
+					}
+					if (order_status=='1'){
+						$("#wait_get_goods").html(result.order_count);
+					}
+					if (order_status=='2'){
+						$("#wait_evaluate").html(result.order_count);
+					}
+					if (order_status=='3'){
+						$("#back_goods").html(result.order_count);
+					}
+				}
 			}
-		});*/
+		});
+	}
 			//查询简历是否存在
 			$("#judgeJob").click(function(){
 				if($.session.get('idType')==null){
