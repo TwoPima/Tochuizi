@@ -3,6 +3,43 @@
  * author:马晓成@亿次元科技
  * email:857773627@qq.com
  * ******/
+
+	/*var dp1 = $("#firstMenu");
+	var dp2 = $("#subMenu");
+	var dp3 = $("#thereMenu");
+	var dpProvince = $("#dpProvince");
+	var dpCity = $("#dpCity");
+	var dpArea = $("#dpArea");
+	imgPathArr=[];
+//填充一级数据
+	loadSupplyFirstCate($("#supply_cat").val(), 0);
+//给一级绑定事件，触发事件后填充二级的数据
+	jQuery(dp1).bind("change keyup", function () {
+		var firstID = dp1.prop("value"); //$("input").attr("value","");
+		dp2.prop("value","");dp3.prop("value","");
+		loadSupplySubCate($("#supply_cat").val(), firstID);
+		dp2.fadeIn("slow");
+	});
+//给二级绑定事件，触发事件后填充三级的数据
+	jQuery(dp2).bind("change keyup", function () {
+		var subID = dp2.prop("value");
+		loadSupplyThereCate($("#supply_cat").val(), subID);
+		dp3.fadeIn("slow");
+	});
+//填充省的数据
+	loadAreasProvince($("#checkInfoArea").val(), 0);
+//给省绑定事件，触发事件后填充市的数据
+	jQuery(dpProvince).bind("change keyup", function () {
+		var provinceID = dpProvince.prop("value");
+		loadAreasCity($("#checkInfoArea").val(), provinceID);
+		dpCity.fadeIn("slow");
+	});
+//给市绑定事件，触发事件后填充区的数据
+	jQuery(dpCity).bind("change keyup", function () {
+		var cityID = dpCity.prop("value");
+		loadAreasDistrict($("#checkInfoArea").val(), cityID);
+		dpArea.fadeIn("slow");
+	});*/
 //vip分类获取接口
 function getVipList(checkInfo){
 	 var urlVip= HOST+'mobile.php?c=index&a=vip_category';
@@ -24,6 +61,111 @@ function getVipList(checkInfo){
 		   }
 		}); 
 }
+
+//获得省级
+	function loadAreasProvince(checkInfo, pid) {
+		var urlArea= HOST+'mobile.php?c=index&a=get_area';
+		jQuery.ajax({
+			type: "POST",
+			url: urlArea,
+			data: {checkInfo:checkInfo,pid:pid},
+			dataType:"json",
+			success: function(result){
+				currentAreaId = $("#dpArea").find("option:selected").val();//从数据库中查询出来的
+				if (currentAreaId==null){
+					//数据库不存在第三级地区 给定当前位置的localStorage.setItem("key","value");
+					nowPositionProvince=localStorage.setItem("nowPositionProvince");
+					var selectHtml='<option value="" selected="selected">'+nowPositionProvince+'</option>';
+				}else{
+					//存在进行比对
+
+				}
+				//有数据的时候去取值
+				$('#dpProvince').append(selectHtml);
+				$.each(result.data, function (index, obj) {
+					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+					$('#dpProvince').append(proviceHtml);
+				});
+			}
+		});
+	}
+//获得市级
+	function loadAreasCity(checkInfo, pid) {
+		var urlArea= HOST+'mobile.php?c=index&a=get_area';
+		jQuery.ajax({
+			type: "POST",
+			url: urlArea,
+			data: {checkInfo:checkInfo,pid:pid},
+			dataType:"json",
+			success: function(result){
+				// nowPositionCity=$.session.get("nowPositionCity");
+				// var selectHtml='<option value="" selected="selected">'+nowPositionCity+'</option>';
+				/* var pid = $("#province").find('option:selected').val();
+				 if(pid!='0'){
+
+				 }*/
+				$('#dpCity').append("<option value='' selected='selected'>请选择</option>");
+				$.each(result.data, function (index, obj) {
+					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+					$('#dpCity').append(proviceHtml);
+				});
+			}
+		});
+	}
+//获得区级
+	function loadAreasDistrict(checkInfo, pid) {
+		var urlArea= HOST+'mobile.php?c=index&a=get_area';
+		jQuery.ajax({
+			type: "POST",
+			url: urlArea,
+			data: {checkInfo:checkInfo,pid:pid},
+			dataType:"json",
+			success: function(result){
+				$('#dpArea').append("<option value='' selected='selected'>请选择</option>");
+				$.each(result.data, function (index, obj) {
+					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+					$('#dpArea').append(proviceHtml);
+				});
+			}
+		});
+	}
+//获取选中城市单个信息
+	function getSingelProvice(checkInfo,pid){
+		var urlArea= HOST+'mobile.php?c=index&a=get_area';
+		$.ajax({
+			type: "POST",
+			url: urlArea,
+			data: {checkInfo:checkInfo,pid:pid},
+			dataType:"json",
+			success: function(result){
+				$.each(result.data, function (index, obj) {
+					var proviceHtml=' <div class="picker-item"id="provice" code="'+obj.id+'">'+obj.name+'</div>';
+					$('.col-province').find(".picker-items-col-wrapper").append(proviceHtml);
+				});
+				return false;
+			}
+		});
+	}
+//获取默认收货地址详细 区级
+	function getAddressArea(checkInfo,userid){
+		var url =HOST+'mobile.php?c=index&a=my_address';
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:checkInfo,id:userid,dotype:'gain'},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				var tips=result.message;
+				if (result.statusCode=='0'){
+					$.toptip(tips,2000, 'error');
+				}else{
+					//数据取回成功
+					$("#address").append(result.address);
+				}
+			}
+		});
+	}
 //提取经营类别 一级
 function getPartnerType(checkInfo,pid){
 	var urlArea= HOST+'mobile.php?c=index&a=partner_cat';
@@ -634,6 +776,6 @@ if ('addEventListener' in document) {
 }, false);  
 }
 //如果你想使用jquery
-$(function() {  
+$(function() {
   FastClick.attach(document.body);  
 });

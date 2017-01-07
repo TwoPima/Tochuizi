@@ -193,12 +193,14 @@
 <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<input value="<?php echo md5(date('Ymd')."area_all"."tuchuinet");?>"	type="hidden" id="checkInfoAllArea"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/plugins/uploadImg/jquery.uploadifive.js" type="text/javascript"></script>
  <script src="../Public/js/fastclick.js"></script>
+ <script src="../Public/js/there-category.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
 
@@ -210,7 +212,7 @@ $(function(){
 	}
 	$("#userId").attr("value",sessionUserId);
 	//已经登陆
-	var dpProvince = $("#dpProvince"); 
+	/*var dpProvince = $("#dpProvince");
 	var dpCity = $("#dpCity"); 
 	var dpArea = $("#dpArea");  
 	 //填充省的数据 
@@ -218,8 +220,8 @@ $(function(){
 	//给省绑定事件，触发事件后填充市的数据 
 	jQuery(dpProvince).bind("change keyup", function () {
 		var provinceID = dpProvince.prop("value"); 
-		/*   $('#dpCity option:selected').prop("value","");
-		   $('#dpArea option:selected').prop("value","");*/
+		/!*   $('#dpCity option:selected').prop("value","");
+		   $('#dpArea option:selected').prop("value","");*!/
 		loadAreasCity($("#checkInfoArea").val(), provinceID); 
 		
 		dpCity.fadeIn("slow"); 
@@ -229,7 +231,7 @@ $(function(){
 		var cityID = dpCity.prop("value"); 
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
-		});  
+		});  */
  	 //文本框失去焦点后
     $('form :input').blur(function(){
         //验证手机
@@ -267,6 +269,7 @@ $(function(){
 						window.location.href='./Login/login.php';
 					}else{
 						$('#name').attr("value",result.data.name);
+
 						$('#zu').attr("value",result.data.zu);
 						$('#Resumeid').attr("value",result.data.id);
 						$('#mobile').attr("value",result.data.mobile);
@@ -307,11 +310,74 @@ $(function(){
 						if(eval('(' + result.data.job_type+ ')')!=null){
 							$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
 						}
-						
+						if(eval('(' + result.data.area+')')!=null){
+							//用三级id查询前面2级并显示出来
+							initialieSelectValue($("#checkInfoAllArea").val(),eval('(' + result.data.area+')'));
+
+						}
+
 					}
 				}
 			});
 
+	}
+	//初始化数据库的值 sonId三级id
+	function  initialieSelectValue(checkInfo,sonId){
+		$.ajax({
+			type: 'post',
+			url: HOST+'mobile.php?c=index&a=area_all',
+			data: {checkInfo:checkInfo},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode=='0'){
+					//当前位置定位信息发过去
+
+				}else{
+					//数据取回成功
+					//console.log(result.data);
+					$.each(result.data, function (index, obj) {
+						console.log(obj);
+						console.log(obj.name);
+						$.each(obj.sub, function (index, obj1) {
+							//console.log(obj1);
+							$.each(obj1.sub, function (index, obj2) {
+								//这是全部的数据 json
+								//console.log(obj2);
+							/*	for(var p in obj){
+									str = str+obj[p]+’,';
+									return str;
+								}
+								if (sonId==obj2.id){
+									console.log(obj2);
+								}*/
+							});
+						});
+					});
+						/*getParent(pid, obj);
+						function getParent(pid, elems) {
+							if (!elems) {
+								return;
+							}
+							for (var i = 0, len = elems.length; i < len; i++) {
+								var elem = elems[i];
+								if (elem.ID == pid) {
+									return elem;
+								} else {
+									return getParent(pid, elem.chrild);
+								}
+							}
+						}*/
+						/*if(obj.code==sonId){
+							console.log(obj.name);
+						}*/
+
+					/*  var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+					 $('#dpProvince').append(proviceHtml);
+					 $('#dpArea').append('<option value="'+result.data.area+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');*/
+				}
+			}
+		});
 	}
 	//点击input 转换成预览图
 	$('#image_url').change(function(event) {

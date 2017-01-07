@@ -349,7 +349,7 @@ $(function(){
 				if (result.statusCode==='0'){
 					getTips(message);return false;
 				}else{
-					window.location.href='editBusinessInfo.php?recruit_id='+result.data.id;
+					window.location.href='editBusinessInfo.php';
 				}
 			}
 		});

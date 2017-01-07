@@ -14,7 +14,7 @@
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height(); //浏览器当前窗口可视区域高度   
+		var height=$(window).height(); //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>
@@ -35,7 +35,7 @@
 		<div class="about-content clear zck">
 			<div class="height20px"></div>
 				<h2 class="text-center">土锤网网站用户使用协议</h2>
-				<article class="weui-article">
+				<article class="weui-article font14px">
 		        <section>
 		        <section>
 		            <p>
@@ -227,6 +227,8 @@
 		        </section>
 		    </section>
 		</article>
+			<div class="height20px"></div>
+			<div class="height20px"></div>
 		</div>
 	</div>
 </body>

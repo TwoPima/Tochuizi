@@ -25,7 +25,7 @@
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height(); //浏览器当前窗口可视区域高度   
+		var height=$(window).height(); //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>
@@ -46,7 +46,7 @@
 		<div class="about-content clear zck">
 				<div class="height20px"></div>
 				<h2 class="text-center">土锤网</h2>
-				<article class="weui-article">
+				<article class="weui-article font14px">
 		        <section >
 		            <p>
 在经济新常态、“互联网+”以及“一带一路”国家战略的大背景下，传统建设行业面临着重要的机遇和挑战。</p><p>
@@ -58,6 +58,8 @@
 		            </p>
 		        </section>
 		</article>
+			<div class="height20px"></div>
+			<div class="height20px"></div>
 		</div>
 		</div>
 </body>

@@ -19,6 +19,7 @@
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <input value="<?php echo md5(date('Ymd')."get_order_count_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_count_by_user_by_status"/>
+<input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="my_partner"/>
 <script>
 /* if(!window.sessionStorage.login){
     // go to login page
@@ -63,7 +64,12 @@ if(window.sessionStorage){
 					if (result.statusCode=='0'){
 						$.toptip(tips,2000, 'error');
 					}else{
-						//数据取回成功
+						//判断是否进入店铺中心
+						/*if(result.data.is_partner=='0'){
+							$("#BusinessCenter").hide();
+						}else{
+							$("#addBusiness").hide();
+						}*/
     					var mobile=$.session.get('mobileSession');
 						$("#mobile").html(mobile);
     					if(eval('(' + result.data.idtype+ ')')==null){
@@ -81,12 +87,7 @@ if(window.sessionStorage){
         				}else{
     						$("#vipType").html('认证用户');
         				}
-						//判断是否进入店铺中心
-						if(result.data.is_partner=='0'){
-    						$("#BusinessCenter").hide();
-        				}else{
-    						//$("#vipType").html('认证用户');
-        				}
+
         				$.session.set('isVip', is_vip); 
     					if(result.data.nickname==null){
     						$("#nickname").html('昵称');
@@ -223,7 +224,7 @@ if(window.sessionStorage){
 			</div> -->
 
 			<div class="weui-panel" id="addBusiness">
-				<a class="weui-cell weui-cell_access" href="../BusinessCenter/addBusiness.php">
+				<a class="weui-cell weui-cell_access">
 					<div class="weui-cell__hd"><img src="../Public/img/index/index_006.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
 					<div class="weui-cell__bd">
 						<p>加盟商入驻申请</p>
@@ -334,7 +335,23 @@ $(function(){
 							} 
 						});
 				}
-				
+			});
+	//查询商铺中心的状态 status1 待审核 2驳回 3审核通过
+			$("#addBusiness").click(function(){
+					 $.ajax({
+							type: 'post',
+							url: HOST+'mobile.php?c=index&a=my_partner',
+							data: {checkInfo:$("#my_partner").val(),id:sessionUserId,dotype:''},
+							dataType: 'json',
+							success: function (result) {
+								if(result.statusCode=="0"){
+									window.location.href='../BusinessCenter/addBusinessInfo.php';
+								}else{
+									window.location.href='../BusinessCenter/editBusinessInfo.php';
+								}
+							}
+						});
+
 			});
 			
 });

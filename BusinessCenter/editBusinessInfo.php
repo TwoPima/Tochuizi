@@ -15,7 +15,6 @@
 <input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
 	<input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
-	<input value="<?php echo $_GET['recruit_id'];?>"	type="hidden" id="recruit_id"/>
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -24,80 +23,82 @@
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
-sessionUserId=$.session.get('userId');
-if(sessionUserId==null){
-	//没有登陆
-	$.toptip('您还没有登陆！',2000, 'error');
-	window.location.href='../Login/login.php';
-}
-	//已经登陆
-  $.ajax({
-		type: 'post',
-		url: HOST+'mobile.php?c=index&a=login',
-		data: {checkInfo:$("#checkInfoLogin").val(),id:sessionUserId},
-		dataType: 'json',
-		success: function (result) {
-			var message=result.message;
-			if (result.statusCode==='0'){
-				$.toptip('登陆超时请重新登陆！',2000, 'warning');
-				window.location.href='../Login/login.php';
-			}
+		sessionUserId=$.session.get('userId');
+		if(sessionUserId==null){
+			//没有登陆
+			$.toptip('您还没有登陆！',2000, 'error');
+			window.location.href='../Login/login.php';
 		}
-	});
-selectBusinessInfo($("#checkInfo").val(),sessionUserId);
-//取出加盟商信息
-	function selectBusinessInfo(checkInfo,id){
-		var url =HOST+'mobile.php?c=index&a=my_partner';
+		//已经登陆
 		$.ajax({
 			type: 'post',
-			url: url,
-			data: {id:sessionUserId,checkInfo:checkInfo,dotype:''},
-			dataType:'json',
+			url: HOST+'mobile.php?c=index&a=login',
+			data: {checkInfo:$("#checkInfoLogin").val(),id:sessionUserId},
+			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-					//window.location.href='./Login/login.php';
-				}else{
-					$('#name').attr("value",result.data.name);
-					$('#zu').attr("value",result.data.zu);
-					$('#mobile').attr("value",result.data.mobile);
-					$('#address').attr("value",result.data.address);
-					$('#desc').html(result.data.desc);
-					$(result.data.img_url).each(function(index, obj) {
-						var html = '';
-						html += ' <li class="weui-uploader__file" id="fileshow">' +
-							'  <img class="deletePicture" data-mainkey="'+obj.id+'" data-userid="'+obj.partner_id+'"   src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.thumb+'" class="fileshow thumb-img" />'+
-							'</li>';
-						$("#uploaderFiles1").prepend(html);
-					});
-					var licence_thumb = '';
-					licence_thumb += ' <li class="weui-uploader__file" id="fileshow">' +
-						' <img src="'+HOST+result.data.licence_thumb+'" class="fileshow thumb-img" id="licence_thumb_url" />'+
-						'</li>';
-					$("#uploaderFiles").prepend(licence_thumb);
-					//图片浏览器
-					var licence_thumb_url=$("#licence_thumb_url").attr("src");
-					alert(licence_thumb_url);
-					var pb1 = $.photoBrowser({
-						items: [
-							"'+licence_thumb_url+'"
-						]
-					});
-					//下拉框
-
-					if(eval('(' + result.data.wage+ ')')!=null){
-						$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
-					}
-					if(eval('(' + result.data.job_type+ ')')!=null){
-						$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
-					}
-
+					$.toptip('登陆超时请重新登陆！',2000, 'warning');
+					window.location.href='../Login/login.php';
 				}
 			}
 		});
-	}
+		selectBusinessInfo($("#checkInfo").val(),sessionUserId);
+		function getTips(message){
+			$(".addbuin_title_info").html(message);
+			$("#topTips").fadeIn("slow");
+		}
+//取出加盟商信息
+		function selectBusinessInfo(checkInfo,id){
+			var url =HOST+'mobile.php?c=index&a=my_partner';
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: {id:sessionUserId,checkInfo:checkInfo,dotype:''},
+				dataType:'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+						//window.location.href='./Login/login.php';
+					}else{
+						$('#name').attr("value",result.data.name);
+						$('#zu').attr("value",result.data.zu);
+						$('#mobile').attr("value",result.data.mobile);
+						$('#address').attr("value",result.data.address);
+						$('#desc').html(result.data.desc);
+						if(eval('(' + result.data.status+ ')')=='1'){
+							//正在审核
+							getTips('您的资料正在审核中，大概2个工作日内回复！');
+							$("#btn-custom-theme").css("background-color","#696562").attr("data","1");
+						}else{
+							//驳回
+							getTips(result.data.bo_res);
+						}
+						$(result.data.img_url).each(function(index, obj) {
+							var html = '';
+							html += ' <li class="weui-uploader__file" id="fileshow">' +
+								'  <img class="deletePicture" data-mainkey="'+obj.id+'" data-userid="'+obj.partner_id+'"   src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.thumb+'" class="fileshow thumb-img" />'+
+								'</li>';
+							$("#uploaderFiles1").prepend(html);
+						});
+						var licence_thumb = '';
+						licence_thumb += ' <li class="weui-uploader__file" id="fileshow">' +
+							' <img src="'+HOST+result.data.licence_thumb+'" class="fileshow thumb-img" id="licence_thumb_url" />'+
+							'</li>';
+						$("#uploaderFiles").prepend(licence_thumb);
+						//下拉框
+						if(eval('(' + result.data.wage+ ')')!=null){
+							$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
+						}
+						if(eval('(' + result.data.job_type+ ')')!=null){
+							$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
+						}
 
+					}
+				}
+			});
+		}
 </script>
 </head>
 <body>
@@ -281,11 +282,10 @@ $(function(){
 			var imgURL = URL.createObjectURL(file);
 			var html = '';
 			html += ' <li class="weui-uploader__file" id="fileshow">' +
-				'  <img class="deletePicture"  data='1' src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+				'  <img class="deletePicture"  data="1"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
 				'</li>';
 			$("#uploaderFiles").prepend(html);
 		}
-
 	});
 	$('#thumb').change(function(event) {
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
@@ -326,7 +326,7 @@ $(function(){
 			});
 		}
 	});
-	/* 经营分类 */
+/*	/!* 经营分类 *!/
 	var partner_cate_first = $("#partner_cate_first");
 	var partner_cate_sub = $("#partner_cate_sub");
 	var partner_cate_there = $("#partner_cate_there");
@@ -347,7 +347,7 @@ $(function(){
 		$(".jobCategory-there-line").fadeIn("slow");
 	});
 
-	/* 城市区三级联动 */
+	/!* 城市区三级联动 *!/
 	var dp1 = $("#dpProvince");
 	var dp2 = $("#dpCity");
 	var dp3 = $("#dpArea");
@@ -364,42 +364,40 @@ $(function(){
 		var cityID = dp2.prop("value");
 		loadAreasDistrict($("#checkInfoArea").val(), cityID);
 		dp3.fadeIn("slow");
-	});
+	});*/
 
 	//提交，最终验证。
 	$("#btn-custom-theme").click(function() {
-		var url =HOST+'mobile.php?c=index&a=my_partner';
-		var formData = new FormData($( "#addBusinessForm" )[0]);
-		formData.append('checkInfo',$( "#checkInfo").val());
-		formData.append('id',sessionUserId);
-		$.showLoading('正在添加');
-		setTimeout(function() {
-			$.hideLoading();
-		}, 3000)
-		$.ajax({
-			type: 'post',
-			url: url,
-			data: formData,
-			async: false,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					//window.location.href='./tips.php';
+		if($(this).attr('data')=='1'){
+			return false;
+		}else {
+			var formData = new FormData($( "#addBusinessForm" )[0]);
+			formData.append('checkInfo',$( "#checkInfo").val());
+			formData.append('id',sessionUserId);
+			$.showLoading('正在添加');
+			setTimeout(function() {
+				$.hideLoading();
+			}, 3000)
+			$.ajax({
+				type: 'post',
+				url: HOST+'mobile.php?c=index&a=my_partner',
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode==='0'){
+						$.toptip(message,2000, 'error');
+					}else{
+						//window.location.href='./tips.php';
+					}
 				}
-			}
-		});
+			});
+		}
 	});
-	function getTips(message){
-		$(".addbuin_title_info").html(message);
-		$("#topTips").fadeIn("slow");
-	}
 	$(document).on("click", ".deletePicture", function() {
-		$(document).on("click", ".deletePicture", function() {
 			if($(this).attr('data')=='1'){
 				$(this).parent().remove();
 			}else {
@@ -429,8 +427,6 @@ $(function(){
 				});
 			}
 	});
-
 });
-
 </script>
 </html>

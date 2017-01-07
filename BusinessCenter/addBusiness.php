@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../Public/css/weui.css"/>
 	 <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	<link rel="stylesheet" href="../Public/css/common.css"/>
+	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/business.css"/>
 	<style>
 .zck p{
@@ -43,7 +44,7 @@
 		<div class="addbu_logo">
 			<img src="../Public/img/business/logo.png" >
 		</div>
-		<div class="addbu_text">
+		<div class="addbu_text font14px">
 			 <p>
 在经济新常态、“互联网+”以及“一带一路”国家战略的大背景下，传统建设行业面临着重要的机遇和挑战。</p><p>
 土锤网，是新丝绸之路云中心（新丝绸之路云科技有限公司）在建筑领域打造的数据平台，旨在整合建筑行业的多元化信息，包括建筑材料买卖、机械设备租赁、建筑工人招聘、建筑工程招标等建筑类信息。 
@@ -55,10 +56,11 @@
 		<div class="addbu_button">
 			<a href="addBusinessInfo.php" id="btn-custom-theme" class="weui-btn">下一步</a>
 		</div>
+		<div class="height20px"></div>
+		<div class="height20px"></div>
 	</div>
 </body>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-</script>
 </html>

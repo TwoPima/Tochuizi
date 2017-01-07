@@ -41,7 +41,7 @@ body{
     -webkit-box-align: center;
     -webkit-align-items: center;
     align-items: center;
-  height:60px;
+  height:37px;
 }
 #addbuin-main .addbuin_title_img{
 	   width: 20%;
@@ -50,8 +50,8 @@ body{
 	float:left;
 }
 #addbuin-main .addbuin_title_img img{
-    width: 60px;
-    height:60px;
+    width: 40px;
+    height:40px;
     margin-right: 8px;
 }
 #addbuin-main .addbuin_title_info {
@@ -60,7 +60,8 @@ body{
     -webkit-flex: 1;
     flex: 1;
 	float:left;
-	padding:16px 16px;
+	font-size: 12px;
+	color:#888;
 }
 
 #addbuin-main .weui-uploader__input-box_title{
@@ -172,7 +173,7 @@ body{
 	margin-top:5px;
 }
 #wait-fahuo .weui-media-box__title{
-	font-size:16px;
+	font-size:15px;
 }
 .thumb-img{
 	/* width:100px; height:100px; border-radius:50%; overflow:hidden; */
