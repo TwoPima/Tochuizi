@@ -61,7 +61,7 @@
 			<template v-for="item in demoData" ><!--三层  -->
         					<div class="weui_panel">
             					<div class="list-data" >
-            							<a v-on:click="jump_url(item.id,item.url)" >
+            							<a v-on:click="jump_url(item.id,item.url)" style="display: block;" >
                 							<div class="weui_media_box weui_media_text">
                 								<p class="weui_media_desc">{{item.title}}</p>
                 							

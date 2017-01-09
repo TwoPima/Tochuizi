@@ -143,14 +143,37 @@ $(function(){
 					<div class="height1px"></div>
 					<article class="weui-article"><section><p id="evaluate-content">{{item.desc}}</p>
 							</section><section>
-							<p id="description">描述评级：<span class="description-raty" data-score="{{item.miao_star}}"></span></p>
-							<p id="logistic">物流评级：<span class="logistic-raty" data-score="{{item.liu_star}}" ></span></p>
-							<p id="server">服务评级：<span class="server-raty" data-score="{{item.fuwu_star}}"></span></p> </section>
+							<p id="description">描述评级：
+								<span class="description-raty" data-score="{{item.miao_star}}">
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
+								</span>
+							</p>
+							<p id="logistic">物流评级：
+								<span class="logistic-raty" data-score="{{item.liu_star}}" >
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
+								</span>
+							</p>
+							<p id="server">服务评级：
+								<span class="server-raty" data-score="{{item.fuwu_star}}">
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
+									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
+								</span>
+							</p>
+						</section>
 						<section id="content-img" >
 							<p>
 								<template v-for="img_url in listData.img_url ">
-									<img src="../Public/img/test1.png" alt="">
-									<img src="../Public/img/test1.png" alt="">
 									<img src="{{Host+img_url.img_url}}" alt="">
 								</template>
 							</p>
