@@ -20,10 +20,13 @@
 	<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 	<script>
 		$(function(){
-			sessionUserId=$.session.get('userId');
+		
+		//	sessionUserId=sessionStorage.getItem('userId');
+			sessionUserId=<?php $_SESSION['userId'];?>;
+			alert(sessionUserId);
 			if(sessionUserId==null){
 				//没有登陆
-				$.toptip('您还没有登陆！',2000, 'error');
+				//$.toptip('您还没有登陆！',2000, 'error');
 				window.location.href='../Login/login.php';
 			}
 			//已经登陆
@@ -35,8 +38,7 @@
 					url:{
 						checkInfo:$("#checkInfo").val(),
 						user_id:sessionUserId,
-						order_status:'0',//订单状态0代付款 1待收货 2待评价 3退款
-
+						order_status:'0',// 默认：订单状态0代付款 1待收货 2待评价 3退款
 					}
 				},/*初始化，el控制区域，  */
 				ready: function() {
@@ -58,7 +60,7 @@
 					},
 					jump_url_to_delete: function (msg1,msg2){
 						//执行删除操作
-						var url =HOST+'mobile.php?c=index&a=my_resume';
+						var url =HOST+'index.php?c=index&a=order';
 						var checkInfoResume=$("#checkInfoResume").val();
 						$.ajax({
 							type: 'post',
@@ -83,23 +85,22 @@
 						$('.weui_navbar .weui_bar_item_on').removeClass('weui_bar_item_on');
 						var that = this;
 						that.$set('num', 0);
-						that.$set('url.start', 0);
 						switch(msg){
 							case '1':
-								that.$set('url.order_status', 1);
+								that.$set('url.order_status', '1');
 								$('.weui_navbar .two').addClass('weui_bar_item_on');
 								break;
 							case '2':
-								that.$set('url.order_status', 2);
+								that.$set('url.order_status', '2');
 								$('.weui_navbar .three').addClass('weui_bar_item_on');
 								break;
 							case '3':
-								that.$set('url.order_status', 3);
+								that.$set('url.order_status', '3');
 								$('.weui_navbar .four').addClass('weui_bar_item_on');
 								break;
 							default:
-								$('.weui_navbar .one').addClass('weui_bar_item_on');
 								that.$set('url.order_status', '0');
+								$('.weui_navbar .one').addClass('weui_bar_item_on');
 						}
 						that.$http.get(HOST+'index.php?c=order&a=get_order_by_user_by_status',that.url).then(function (response) {
 								var res = response.data; //取出的数据
@@ -135,7 +136,7 @@
 				    </div>
 				    <div  class="weui_navbar_item two" v-on:click="classdata('1')"> 待收货
 				    </div>
-				    <div class="weui_navbar_item there" v-on:click="classdata('2')"> 待评价
+				    <div class="weui_navbar_item three" v-on:click="classdata('2')"> 待评价
 				    </div>
 				    <div class="weui_navbar_item four" v-on:click="classdata('3')">  退款
 				    </div>
@@ -144,7 +145,7 @@
 			       <div class="weui_panel weui_panel_access">
 					  <div class="weui_panel_bd weui-article">
 					 <!--待付款-->
-						  <template v-if="order_status==0"><!--判断哪个订单状态-->
+						  <template v-if="order_status=='0'"><!--判断哪个订单状态-->
 							  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div  id="nopay-order" class="weui_tab_bd_item weui_tab_bd_item_active">
 												 <div class="order-title">
@@ -174,7 +175,7 @@
 												 </div>
 									</div><!--待付款结束-->
 							  </template>
-							  <template v-if="order_status==1"><!--判断哪个订单状态-->
+							  <template v-if="order_status=='1'"><!--判断哪个订单状态-->
 								  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div  id="noget-order" class="weui_tab_bd_item">
 										 <div class="order-title">
@@ -202,10 +203,9 @@
 										 </div>
 									 </div>
 									  </template>
-
-									  </template>
+								</template>
 									 <!-- 待评价 -->
-							  <template v-if="order_status==2"><!--判断哪个订单状态-->
+							  <template v-if="order_status=='2'"><!--判断哪个订单状态-->
 								  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div  id="noevaluation-order" class="weui_tab_bd_item">
 										 <div class="order-title">
@@ -234,7 +234,7 @@
 									  </template>
 								  </template>
 									 <!--退款-->
-							  <template v-if="order_status==3"><!--判断哪个订单状态-->
+							  <template v-if="order_status=='3'"><!--判断哪个订单状态-->
 								  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div id="drawback-order" class="weui_tab_bd_item">
 										 <div class="order-title">
@@ -257,7 +257,7 @@
 										 </a>
 										<div class="order-foot float-right">共<span>1</span>件产品，合计<span>23234</span>元（含运费<span>10.00</span>元）</div>
 										 <div class="button-sp-area float-right order-del clear">
-											 <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">取消订单</a>
+											 <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">取消订单1</a>
 											 <a href="pay.html" class="weui-btn weui-btn_mini weui-btn_default button-pay">&nbsp;付款&nbsp;</a>
 										 </div>
 										 </div>

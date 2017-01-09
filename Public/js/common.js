@@ -71,17 +71,24 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
-				currentAreaId = $("#dpArea").find("option:selected").val();//从数据库中查询出来的
-				if (currentAreaId==null){
-					//数据库不存在第三级地区 给定当前位置的localStorage.setItem("key","value");
-					nowPositionProvince=localStorage.setItem("nowPositionProvince");
-					var selectHtml='<option value="" selected="selected">'+nowPositionProvince+'</option>';
-				}else{
-					//存在进行比对
-
+				var currentAreaId = $("#dpArea").find("option:selected").val();//从数据库中查询出来的
+				if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
+					//定位
+					var data=JSON.parse(sessionStorage.getItem('key_area'));
+					if(data==null){
+						var cityHtml='<option  value="" selected="selected">请选择</option>';
+						var provinceHtml='<option  value="" selected="selected">请选择</option>';
+						
+					}else{
+						var cityHtml='<option value="'+data.city.id+'">'+data.city.name+'</option>';
+						var provinceHtml='<option value="'+data.province.id+'">'+data.provic.name+'</option>';
+					}
+					
+					$('#dpProvince').append(provinceHtml);
+					$('#dpCity').append(cityHtml);
 				}
 				//有数据的时候去取值
-				$('#dpProvince').append(selectHtml);
+				//$('#dpProvince').append(selectHtml);
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpProvince').append(proviceHtml);
@@ -98,13 +105,6 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
-				// nowPositionCity=$.session.get("nowPositionCity");
-				// var selectHtml='<option value="" selected="selected">'+nowPositionCity+'</option>';
-				/* var pid = $("#province").find('option:selected').val();
-				 if(pid!='0'){
-
-				 }*/
-				$('#dpCity').append("<option value='' selected='selected'>请选择</option>");
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpCity').append(proviceHtml);

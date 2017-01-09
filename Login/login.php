@@ -100,9 +100,17 @@
 					}else{
 						var userId = data.data.id;//将数据中用户信息的ID赋值给变量 
 						var mobileSession = data.data.mobile;//将数据中用户信息的ID赋值给变量 
-						$.session.set('userId', userId); 
-						$.session.set('mobileSession', mobileSession); 
-						$.toptip(tips,2000, 'success');
+					/* 	$.session.set('userId', userId); 
+						$.session.set('mobileSession', mobileSession);  */
+						//sessionStorage.setItem('userId', userId);
+						//sessionStorage.setItem('mobileSession', mobileSession);
+						 
+						 <?php 
+						 session_start();
+						 $_SESSION['userId']=userId;
+						 ?>
+								
+						//$.toptip(tips,2000, 'success');
 						window.location.href='../UCenter/index.php';
 					} 
 				}

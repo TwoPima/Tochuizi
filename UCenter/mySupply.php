@@ -58,22 +58,25 @@
 	</div>
 	<div id="wrapper">
 		<div id="scroller">
-			<template v-for="item in demoData"><!--三层  -->
-					<div class="weui_panel">
-					<div class="list-data" >
-						<a v-on:click="jump_url(item.id,item.url)">
-							<div class="weui_media_box weui_media_text">
-								<p class="weui_media_desc">{{item.title}}</p>
-								<ul class="weui_media_info">
-									<li class="weui_media_info_meta">{{item.mobile}}
-									</li>
-									<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
-								</ul>
-							</div>
-							<div style="line-height:67px;"class="del-btn"><a onClick="confirmDelete('+obj.id+');" >删除</a></div>
-						</a>
-						</div>
-					</div>
+			<template v-for="item in demoData" ><!--三层  -->
+        					<div class="weui_panel">
+            					<div class="list-data" >
+            							<a v-on:click="jump_url(item.id,item.url)" >
+                							<div class="weui_media_box weui_media_text">
+                								<p class="weui_media_desc">{{item.title}}</p>
+                							
+                								<ul class="weui_media_info">
+                									<li class="weui_media_info_meta">{{item.mobile}}</li>
+                									<li class="weui_media_info_meta weui_media_info_meta_extra">查阅次数:&nbsp;&nbsp;<span>{{item.hits}}</span></li>
+                								</ul>
+                							</div>
+                						</a>
+            							<!--<div style="line-height:67px;"class="del-btn">
+            							<span onClick="confirmDelete('+obj.id+');" >删除</span>
+            							</div> -->
+            					</div>
+        					</div>
+						
 			</template>
 		</div>
 		<div class="weui-loadmore">
@@ -81,7 +84,6 @@
 			<span class="weui-loadmore__tips">正在加载</span>
 		</div>
 	</div>
-</div>
 </div>
 <input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
 <input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
@@ -94,7 +96,7 @@
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
-		getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
+		getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计	
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {
@@ -137,7 +139,6 @@
 					});
 					//滚动监听
 					that.myScroll.on('scrollEnd',function(){
-						alert('123');
 					});//滚动监听,1000
 				})
 			}, 
@@ -146,7 +147,6 @@
 			});
 			/*再次加载  */
 			function scrollaction(){
-				alert('123');
 				if(1){
 					console.log(this.y);
 					if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {

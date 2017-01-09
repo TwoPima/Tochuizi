@@ -193,14 +193,13 @@
 <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
-<input value="<?php echo md5(date('Ymd')."area_all"."tuchuinet");?>"	type="hidden" id="checkInfoAllArea"/>
+<input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script src="../Public/plugins/uploadImg/jquery.uploadifive.js" type="text/javascript"></script>
  <script src="../Public/js/fastclick.js"></script>
- <script src="../Public/js/there-category.js"></script>
+<!--  <script src="../Public/js/there-category.js"></script> -->
 <script src="../Public/js/common.js"></script>
 <script>
 
@@ -212,7 +211,7 @@ $(function(){
 	}
 	$("#userId").attr("value",sessionUserId);
 	//已经登陆
-	/*var dpProvince = $("#dpProvince");
+	var dpProvince = $("#dpProvince");
 	var dpCity = $("#dpCity"); 
 	var dpArea = $("#dpArea");  
 	 //填充省的数据 
@@ -220,10 +219,9 @@ $(function(){
 	//给省绑定事件，触发事件后填充市的数据 
 	jQuery(dpProvince).bind("change keyup", function () {
 		var provinceID = dpProvince.prop("value"); 
-		/!*   $('#dpCity option:selected').prop("value","");
-		   $('#dpArea option:selected').prop("value","");*!/
+		/*   $('#dpCity option:selected').prop("value","");
+		   $('#dpArea option:selected').prop("value","");*/
 		loadAreasCity($("#checkInfoArea").val(), provinceID); 
-		
 		dpCity.fadeIn("slow"); 
 	}); 
 	//给市绑定事件，触发事件后填充区的数据 
@@ -231,7 +229,7 @@ $(function(){
 		var cityID = dpCity.prop("value"); 
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
-		});  */
+		}); 
  	 //文本框失去焦点后
     $('form :input').blur(function(){
         //验证手机
@@ -311,9 +309,10 @@ $(function(){
 							$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
 						}
 						if(eval('(' + result.data.area+')')!=null){
-							//用三级id查询前面2级并显示出来
-							initialieSelectValue($("#checkInfoAllArea").val(),eval('(' + result.data.area+')'));
-
+							//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+							initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
+							dpCity.fadeIn("slow");
+							dpArea.fadeIn("slow"); 
 						}
 
 					}
@@ -321,12 +320,12 @@ $(function(){
 			});
 
 	}
-	//初始化数据库的值 sonId三级id
-	function  initialieSelectValue(checkInfo,sonId){
+	//初始化数据库的值 cate_id三级id
+	function  initialieSelectValue(checkInfo,cate_id,moudle){
 		$.ajax({
 			type: 'post',
-			url: HOST+'mobile.php?c=index&a=area_all',
-			data: {checkInfo:checkInfo},
+			url: HOST+'mobile.php?c=allcategory&a=find_category',
+			data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
@@ -335,46 +334,13 @@ $(function(){
 
 				}else{
 					//数据取回成功
-					//console.log(result.data);
-					$.each(result.data, function (index, obj) {
-						console.log(obj);
-						console.log(obj.name);
-						$.each(obj.sub, function (index, obj1) {
-							//console.log(obj1);
-							$.each(obj1.sub, function (index, obj2) {
-								//这是全部的数据 json
-								//console.log(obj2);
-							/*	for(var p in obj){
-									str = str+obj[p]+’,';
-									return str;
-								}
-								if (sonId==obj2.id){
-									console.log(obj2);
-								}*/
-							});
-						});
-					});
-						/*getParent(pid, obj);
-						function getParent(pid, elems) {
-							if (!elems) {
-								return;
-							}
-							for (var i = 0, len = elems.length; i < len; i++) {
-								var elem = elems[i];
-								if (elem.ID == pid) {
-									return elem;
-								} else {
-									return getParent(pid, elem.chrild);
-								}
-							}
-						}*/
-						/*if(obj.code==sonId){
-							console.log(obj.name);
-						}*/
-
-					/*  var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+					dataJson=eval('(' + result.data+')');
+					var proviceHtml='<option value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+					var cityHtml='<option value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+					var areaHtml='<option value="'+dataJson.id+'">'+dataJson.name+'</option>';
 					 $('#dpProvince').append(proviceHtml);
-					 $('#dpArea').append('<option value="'+result.data.area+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');*/
+					$('#dpCity').append(cityHtml);
+					$('#dpArea').append(areaHtml);
 				}
 			}
 		});

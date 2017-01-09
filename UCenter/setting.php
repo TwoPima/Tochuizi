@@ -56,10 +56,18 @@
 		<div class="height20px"></div>
 		<div class="height20px"></div>
 		<div class="button-sp-area">
-		    <a href="../Login/login.php" class="weui-btn weui-btn_plain-primary" id="btn-custom-theme">退出登录</a>
+		    <a  onclick='deleteItem();' class="weui-btn weui-btn_plain-primary" id="btn-custom-theme">退出登录</a>
 		</div>
 		<div class="height20px"></div>
 	</div><!--main-->
 </div><!--app-->
 </body>
+<script>
+function deleteItem(){
+//  localStorage.removeItem('userinfo');
+  localStorage.clear();
+  sessionStorage.clear(); 
+ window.location.href="../Login/login.php";
+}
+</script>
 </html>

@@ -15,7 +15,6 @@
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <input value="<?php echo md5(date('Ymd')."get_order_count_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_count_by_user_by_status"/>
@@ -23,7 +22,6 @@
 <script>
 /* if(!window.sessionStorage.login){
     // go to login page
-
 }
  localStorage.setItem("key","value");//以“key”为名称存储一个值“value”
  localStorage.getItem("key");//获取名称为“key”的值
@@ -41,15 +39,14 @@ if(window.sessionStorage){
 }else{
 	alert("浏览器暂不支持sessionStorage");
 }*/
-	sessionUserId=$.session.get('userId');
-	mobile=$.session.get('mobileSession');
-	var userIp = returnCitySN["cip"];
-	//getNowPosition();
-
-	if(sessionUserId==null){
+	/* sessionUserId=$.session.get('userId');
+	mobile=$.session.get('mobileSession'); */
+	sessionUserId=sessionStorage.getItem('userId');
+	mobile=sessionStorage.getItem('mobileSession');
+/* 	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';
-	}
+	} */
 		//已经登陆 去服务器比对sessionid
 		var url =HOST+'mobile.php?c=index&a=login';
 		var checkInfo=$("#checkInfo").val();
@@ -141,28 +138,28 @@ if(window.sessionStorage){
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/nopay.png" >
 					<p>待付款</p>
-					<span id="wait_pay" class="icon_num  icon_num_float">0</span>
+					<span id="wait_pay" class="  icon_num_float"></span>
 				</div>
 				</a>
 				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/noget.png" >
 					<p>待收货</p>
-					<span  id="wait_get_goods" class="icon_num  icon_num_float">0</span>
+					<span  id="wait_get_goods" class="icon_num_float"></span>
 				</div>
 				</a>
 				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/pingjia.png" >
 					<p>待评价</p>
-					<span  id="wait_evaluate" class="icon_num  icon_num_float">0</span>
+					<span  id="wait_evaluate" class=" icon_num_float"></span>
 				</div>
 				</a>
 				<a href="myOrder.php">
 				<div class="weui-flex__item menu_4_box">
 					<img src="../Public/img/index/tuihuo.png" >
 					<p>退货</p>
-					<span  id="back_goods"  class="icon_num  icon_num_float">0</span>
+					<span  id="back_goods"  class="icon_num_float"></span>
 				</div>
 				</a>
 			</div>
@@ -266,10 +263,10 @@ if(window.sessionStorage){
 	<div class="height20px"></div>
 	<div class="height20px"></div>
 	<div class="bottom_menu">
-		<a class="home" id="home" href="../index.php">
+		<a class="home" id="home" href="../index.html">
 			  <i class="fa fa-home" aria-hidden="true"></i><span>首页</span>
 		</a>
-		<a class="cart" id="cart" href="../supply-demand.php">
+		<a class="cart" id="cart" href="../supply-demand.html">
 			<i class="fa fa-shopping-cart" aria-hidden="true"></i><span>供求</span>
 		</a>
 		<a class="center" id="center" style="color: #BF6E09" href="index.php">
@@ -297,16 +294,16 @@ $(function(){
 				}else{
 					//数据取回成功
 					if (order_status=='0'){
-						$("#wait_pay").html(result.order_count);
+						$("#wait_pay").addClass("icon_num").html(result.order_count);
 					}
 					if (order_status=='1'){
-						$("#wait_get_goods").html(result.order_count);
+						$("#wait_get_goods").addClass("icon_num").html(result.order_count);
 					}
 					if (order_status=='2'){
-						$("#wait_evaluate").html(result.order_count);
+						$("#wait_evaluate").addClass("icon_num").html(result.order_count);
 					}
 					if (order_status=='3'){
-						$("#back_goods").html(result.order_count);
+						$("#back_goods").addClass("icon_num").html(result.order_count);
 					}
 				}
 			}
