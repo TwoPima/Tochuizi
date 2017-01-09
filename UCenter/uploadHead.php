@@ -141,10 +141,10 @@ function uploadImage() {
 						 $.toast(message, "cancel");
 						window.location.href='./Login/login.php';
 					}else{
-						$("#avatar").attr("src",result.data.avatar);//头像
+						$("#img-thumb").attr("src",HOST+result.data.avatar);//头像
 						
 					}
-				},
+				}
 			});
 	 
  }

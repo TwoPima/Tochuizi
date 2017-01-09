@@ -16,6 +16,7 @@
 <!--do 添加：add，修改：edit，获取：gain -->
 	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>
     <input value="<?php echo $_GET['recruit_id'];?>"	type="hidden" id="recruit_id"/>
+    <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
     <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
     <script src="../Public/js/require.config.js"></script>
     <script src="../Public/js/jquery-2.1.4.js"></script>
@@ -34,12 +35,57 @@
     }
 
 $(function(){
+    var dpProvince = $("#dpProvince");
+    var dpCity = $("#dpCity");
+    var dpArea = $("#dpArea");
+    //填充省的数据
+    loadAreasProvince($("#checkInfoArea").val(), 0);
+    //给省绑定事件，触发事件后填充市的数据
+    jQuery(dpProvince).bind("change keyup", function () {
+        var provinceID = dpProvince.prop("value");
+        $("#dpArea").empty();
+        $("#dpCity").empty();
+        loadAreasCity($("#checkInfoArea").val(), provinceID);
+        dpCity.fadeIn("slow");
+    });
+    //给市绑定事件，触发事件后填充区的数据
+    jQuery(dpCity).bind("change keyup", function () {
+        var cityID = dpCity.prop("value");
+        loadAreasDistrict($("#checkInfoArea").val(), cityID);
+        dpArea.fadeIn("slow");
+    });
+
     selectMyRecuitInfo(recruit_id);//具体信息
     jobValueTime($("#checkInfoZidian").val());//有效期
     jobDayWages($("#checkInfoZidian").val());//薪资要求
     getBenefit($("#checkInfoZidian").val());//福利
     judgeJobType(memberType,1);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
     JobType($("#checkInfoJobType").val(),memberType);//提取具体类别信息
+    //初始化数据库的值 cate_id三级id
+    function  initialieSelectValue(checkInfo,cate_id,moudle){
+        $.ajax({
+            type: 'post',
+            url: HOST+'mobile.php?c=allcategory&a=find_category',
+            data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
+            dataType: 'json',
+            success: function (result) {
+                var message=result.message;
+                if (result.statusCode=='0'){
+                    //当前位置定位信息发过去
+
+                }else{
+                    //数据取回成功
+                    dataJson=eval('(' + result.data+')');
+                    var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+                    var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+                    var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
+                    $('#dpProvince').append(proviceHtml);
+                    $('#dpCity').append(cityHtml);
+                    $('#dpArea').append(areaHtml);
+                }
+            }
+        });
+    }
     //文本框失去焦点后
    $('form :input').blur(function(){
         //验证手机
@@ -77,8 +123,6 @@ $(function(){
                     $('#title').attr("value",result.data.title);
                     $('#mobile').attr("value",result.data.mobile);
                     $('#desc').attr("value",result.data.bei);
-                  //  $('#desc').html(result.data.bei);
-                    $('#area').attr("value",result.data.area);
                     $('#email').attr("value",result.data.email);
                     //下拉框
                    /* if(eval('(' + result.data.job_year+ ')')!=null){
@@ -92,6 +136,12 @@ $(function(){
                     }
                     if(eval('(' + result.data.job_type+ ')')!=null){
                         $('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
+                    }
+                    if(eval('(' + result.data.area+')')!=null){
+                        //用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+                        initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
+                        dpCity.fadeIn("slow");
+                        dpArea.fadeIn("slow");
                     }
 
                 }
@@ -214,12 +264,15 @@ $(function(){
             </div>
 
             <div class="push_box push_daiyu">
-                <div class="weui-cell ">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">期望工作地:</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="area"  id="area"  type="text" >
+                <div class="weui_cell weui-cell_select weui-cell_select-after">
+                    <div class="weui_cell_hd"><label class="weui_label font14px">期望工作地</label></div>
+                    <div class="weui_cell_bd weui_cell_primary font14px">
+                        <select class="area" name="dpProvince" id="dpProvince">
+                        </select>
+                        <select class="area" name="dpCity" id="dpCity">
+                        </select>
+                        <select class="area" name="area" id="dpArea">
+                        </select>
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_select weui-cell_select-after">

@@ -16,20 +16,36 @@
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 	<script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/vue.2.1.0.js"></script>
 	<script type="text/javascript" src="../Public/js/vue.min.js"></script>
+
 	<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 	<script>
 		$(function(){
-		
-		//	sessionUserId=sessionStorage.getItem('userId');
-			sessionUserId=<?php $_SESSION['userId'];?>;
-			alert(sessionUserId);
+			sessionUserId=$.session.get('userId');
+			//sessionUserId=sessionStorage.getItem('userId');
 			if(sessionUserId==null){
 				//没有登陆
 				//$.toptip('您还没有登陆！',2000, 'error');
 				window.location.href='../Login/login.php';
 			}
 			//已经登陆
+			//扩展组件tab01
+			var tab01 = Vue.extend({
+				template: "#order_status_first",
+			});
+			//扩展组件tab02
+			var tab02 = Vue.extend({
+				template: "#order_status_second",
+			});
+			//扩展组件tab03
+			var tab03 = Vue.extend({
+				template: "#order_status_sub",
+			});
+			//扩展组件tab04
+			var tab03 = Vue.extend({
+				template: "#order_status_four",
+			});
 			var demoApp = new Vue({
 				el: '#body_box',
 				data: {
@@ -39,7 +55,9 @@
 						checkInfo:$("#checkInfo").val(),
 						user_id:sessionUserId,
 						order_status:'0',// 默认：订单状态0代付款 1待收货 2待评价 3退款
+
 					}
+					currentView: 'tab01', //默认选中的导航栏
 				},/*初始化，el控制区域，  */
 				ready: function() {
 					var that = this;
@@ -54,6 +72,12 @@
 							that.$set('message', '服务器维护，请稍后重试');
 						});
 				}, //created 结束
+				//局部注册组件
+				components: {
+					tab01: tab01,
+					tab02: tab02,
+					tab03: tab03,
+				},
 				methods: {
 					jump_url: function (msg1,msg2){
 						window.location.href='editMySupply.php?supply_id='+msg1;
@@ -80,6 +104,10 @@
 					},
 					jump_url_to_pay: function (msg1,msg2){
 						window.location.href='pay.php?supply_id='+msg1;
+					},
+					//绑定tab的切换事件
+					toggleTabs: function(tabText) {
+						this.currentView = tabText;
 					},
 					classdata: function (msg) {
 						$('.weui_navbar .weui_bar_item_on').removeClass('weui_bar_item_on');
@@ -145,7 +173,7 @@
 			       <div class="weui_panel weui_panel_access">
 					  <div class="weui_panel_bd weui-article">
 					 <!--待付款-->
-						  <template v-if="order_status=='0'"><!--判断哪个订单状态-->
+						   <template id="order_status_first"><!--判断哪个订单状态-->
 							  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div  id="nopay-order" class="weui_tab_bd_item weui_tab_bd_item_active">
 												 <div class="order-title">
@@ -175,7 +203,7 @@
 												 </div>
 									</div><!--待付款结束-->
 							  </template>
-							  <template v-if="order_status=='1'"><!--判断哪个订单状态-->
+							  <template  id="order_status_second"><!--判断哪个订单状态-->
 								  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div  id="noget-order" class="weui_tab_bd_item">
 										 <div class="order-title">
@@ -205,7 +233,7 @@
 									  </template>
 								</template>
 									 <!-- 待评价 -->
-							  <template v-if="order_status=='2'"><!--判断哪个订单状态-->
+							  <template id="order_status_there"><!--判断哪个订单状态-->
 								  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div  id="noevaluation-order" class="weui_tab_bd_item">
 										 <div class="order-title">
@@ -234,7 +262,7 @@
 									  </template>
 								  </template>
 									 <!--退款-->
-							  <template v-if="order_status=='3'"><!--判断哪个订单状态-->
+							  <template id="order_status_four"><!--判断哪个订单状态-->
 								  <template v-for="item in demoData"><!--具体的数据结构写入  -->
 									 <div id="drawback-order" class="weui_tab_bd_item">
 										 <div class="order-title">

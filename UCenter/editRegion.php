@@ -14,40 +14,90 @@
      <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
-<script src="../Public/js/city-picker.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
+
 <input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
-<input value="<?php echo $_GET['adr_id'];?>"	type="hidden" id="adr_id"/>  
+<input value="<?php echo $_GET['adr_id'];?>"	type="hidden" id="adr_id"/>
+	<input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
 <script>
 	$(function(){
 		var  checkInfo = $("#checkInfo").val();
 		var  adr_id = $("#adr_id").val();
-			var url =HOST+'mobile.php?c=index&a=my_address';
-			getAreaListProvice($("#checkInfoArea").val(),'0');//省级
 		 $.ajax({
 			type: 'post',
-			url: url,
-			data: {id:$.session.get('userId'),adr_id:adr_id,checkInfo:checkInfo,dotype:''},
+			url: HOST+'mobile.php?c=index&a=my_address',
+			data: {id:$.session.get('userId'),adr_id:adr_id,checkInfo:checkInfo,dotype:'gain'},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
 				if (result.statusCode==='0'){
 					$.toptip(message,2000, 'error');
 				}else{
-					var is_yes=$("input[name=is_yes]:checked").html();
-					var  checkInfo = $("#checkInfo").val();
-					var  name = $("#name").val();
-					var  adr_id = $("#adr_id").val();
-					var  mobile = $("#mobile").val();
-					var  area = $("#area").val();
-					var  address = $("#address").val();
-					var  code = $("#code").val();
+					$('#address').attr("value",result.data.address);
+					$('#name').attr("value",result.data.name);
+					$('#mobile').attr("value",result.data.mobile);
+					$('#code').attr("value",result.data.code);
+					//单选
+					if(result.data.is_yes=='1'){
+						$(":radio[name=is_yes][value=1]").prop("checked","true");//指定value的选项为选中项
+					}
+					//下拉框
+					if(eval('(' + result.data.area+')')!=null){
+						//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+						initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
+						dpCity.fadeIn("slow");
+						dpArea.fadeIn("slow");
+					}
 				}
 			}
 		});
+		var dpProvince = $("#dpProvince");
+		var dpCity = $("#dpCity");
+		var dpArea = $("#dpArea");
+		//填充省的数据
+		loadAreasProvince($("#checkInfoArea").val(), 0);
+		//给省绑定事件，触发事件后填充市的数据
+		jQuery(dpProvince).bind("change keyup", function () {
+			var provinceID = dpProvince.prop("value");
+			$("#dpArea").empty();
+			$("#dpCity").empty();
+			loadAreasCity($("#checkInfoArea").val(), provinceID);
+			dpCity.fadeIn("slow");
+		});
+		//给市绑定事件，触发事件后填充区的数据
+		jQuery(dpCity).bind("change keyup", function () {
+			var cityID = dpCity.prop("value");
+			loadAreasDistrict($("#checkInfoArea").val(), cityID);
+			dpArea.fadeIn("slow");
+		});
+		//初始化数据库的值 cate_id三级id
+		function  initialieSelectValue(checkInfo,cate_id,moudle){
+			$.ajax({
+				type: 'post',
+				url: HOST+'mobile.php?c=allcategory&a=find_category',
+				data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
+				dataType: 'json',
+				success: function (result) {
+					var message=result.message;
+					if (result.statusCode=='0'){
+						//当前位置定位信息发过去
+
+					}else{
+						//数据取回成功
+						dataJson=eval('(' + result.data+')');
+						var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+						var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+						var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
+						$('#dpProvince').append(proviceHtml);
+						$('#dpCity').append(cityHtml);
+						$('#dpArea').append(areaHtml);
+					}
+				}
+			});
+		}
 			//提交，最终验证。
 		 $("#saveInfo").click(function() {
 				var is_yes=$("input[name=is_yes]:checked").val();
@@ -55,19 +105,22 @@
 				var  name = $("#name").val();
 				var  adr_id = $("#adr_id").val();
 				var  mobile = $("#mobile").val();
-				var  area = $("#area").val();
+			    var area=$('#dpArea option:selected').val();
 				var  address = $("#address").val();
 				var  code = $("#code").val();
 		       	var url =HOST+'mobile.php?c=index&a=my_address';
 				 $.ajax({
 					type: 'post',
 					url: url,
-					data: {id:$.session.get('userId'),adr_id:adr_id,name:name,address:address,area:area,mobile:mobile,code:code,is_yes:is_yes,checkInfo:checkInfo,dotype:'edit'},
+					data: {
+						id:$.session.get('userId'),adr_id:adr_id,name:name,
+						address:address,area:area,
+						mobile:mobile,code:code,is_yes:is_yes,checkInfo:checkInfo,dotype:'edit'},
 					dataType: 'json',
 					success: function (result) {
 						var message=result.message;
 						if (result.statusCode==='0'){
-							$.toptip(message,2000, 'error');
+							$.toast(message);
 						}else{
 							$.toast(message);
 							 setTimeout(window.location.href='region.php',8000)
@@ -100,9 +153,7 @@
 			        <div class="weui-cell__bd">
 			            <input class="weui-input" type="text" name="name" id="name" placeholder=""/>
 			        </div>
-<!-- 			        <div class="weui_cell weui_cell_warn">
-						</div>
- -->			    </div>
+ 			    </div>
 			    <div class="weui-cell">
 			        <div class="weui-cell__hd">
 			            <label class="weui-label">手机号码：</label>
@@ -119,68 +170,32 @@
 			            <input class="weui-input" type="text"  name="code" id="code" placeholder="请输入邮政编码">
 			        </div>
 			    </div>
-			    <div class="weui-cell">
-			        <div class="weui-cell__hd">
-			            <label class="weui-label">所在地区：</label>
-			        </div>
-			        <div class="weui-cell__bd">
-			          <input class="weui-input" type="text" name="area" id='area' value="宁夏回族自治区 银川市 金凤区" >
-			        </div>
-			    </div>
-				     <div class="weui-cell">
-			        <div class="weui-cell__hd"><label class="weui-label">详细地址：</label></div>
-			        <div class="weui-cell__bd">
-			            <input class="weui-input" type="text" name="address" id="address" placeholder="输入详细地址"/>
-			        </div>
-			    </div>
-			     <div class="weui-cell weui-cells_radio">
-                       <div class="weui-cell__hd"><label class="weui-label">默认</label></div>
-                           <div class="weui-cell__bd sex">
-                               	<p class="float-left"><span>否</span>&nbsp;&nbsp;&nbsp;<input type="radio"  value="0" name="is_yes" id="is_yes"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                               	<p class=""><span>是</span>&nbsp;&nbsp;&nbsp;<input type="radio" name="is_yes" value="1" id="is_yes" checked='checked' ></p>
-                           </div>
-                   </div>
+				<div class="weui_cell weui-cell_select weui-cell_select-after">
+					<div class="weui_cell_hd"><label class="weui_label font14px">收货地区</label></div>
+					<div class="weui_cell_bd weui_cell_primary font14px">
+						<select class="area" name="dpProvince" id="dpProvince">
+						</select>
+						<select class="area" name="dpCity" id="dpCity">
+						</select>
+						<select class="area" name="area" id="dpArea">
+						</select>
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><label class="weui-label ">详细地址：</label></div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" type="text" name="address" id="address" placeholder="输入详细地址"/>
+					</div>
+				</div>
+				<div class="weui-cell weui-cells_radio">
+					<div class="weui-cell__hd"><label class="weui-label font14px">默认</label></div>
+					<div class="weui-cell__bd sex">
+						<p class="float-left font14px "><span>否</span>&nbsp;&nbsp;&nbsp;<input type="radio" checked='checked'  value="0" name="is_yes" id="is_yes"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+						<p class="font14px"><span>是</span>&nbsp;&nbsp;&nbsp;<input type="radio" name="is_yes" value="1" id="is_yes"  ></p>
+					</div>
+				</div>
 			</div>
-			</div>
-			<!-- 12 -->
-			<div class="weui-picker-container">
-				<div class="weui-picker-modal picker-columns city-picker weui-picker-modal-visible">
-				<div class="toolbar">
-			          <div class="toolbar-inner">          
-			          	 <a href="javascript:;" class="picker-button close-picker">完成</a> 
-			             <h1 class="title">请选择收货地址</h1> 
-			          </div> 
-				     </div>
-				     <div class="picker-modal-inner picker-items">
-				    	 <div class="picker-items-col  col-province">
-				    	 <div class="picker-items-col-wrapper">
-    				    	 <div class="picker-item" data-picker-value="640105">西夏区</div>
-				     	</div>
-				     	</div>
-				     	<div class="picker-items-col  col-city">
-    				     	<div class="picker-items-col-wrapper" style="transform: translate3d(0px, 92px, 0px); transition-duration: 0ms;">
-    				     	<div class="picker-item picker-selected" data-picker-value="640100">银川市</div>
-    				     	<div class="picker-item" data-picker-value="640200">石嘴山市</div>
-    				     	</div>
-				     	</div>
-				     	<div class="picker-items-col  col-district">
-    				     	<div class="picker-items-col-wrapper" style="transform: translate3d(0px, 28px, 0px); transition-duration: 0ms;">
-    				     	<div class="picker-item" data-picker-value="640104">兴庆区</div>
-    				     	<div class="picker-item" data-picker-value="640105">西夏区</div>
-    				     	<div class="picker-item picker-selected" data-picker-value="640106">金凤区</div>
-    				     	<div class="picker-item" data-picker-value="640121">永宁县</div>
-    				     	<div class="picker-item" data-picker-value="640122">贺兰县</div>
-    				     	<div class="picker-item" data-picker-value="640181">灵武市</div>
-    				     	</div>
-				     	</div>
-			<!-- 12 -->
 	</div><!--main-->
 </div><!--app-->
 </body>
-<script>
-
-	$("#adr_id").click(function(){
-		$(".weui-picker-container").show();			
-		});
-</script>
 </html>

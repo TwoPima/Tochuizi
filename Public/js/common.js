@@ -3,43 +3,6 @@
  * author:马晓成@亿次元科技
  * email:857773627@qq.com
  * ******/
-
-	/*var dp1 = $("#firstMenu");
-	var dp2 = $("#subMenu");
-	var dp3 = $("#thereMenu");
-	var dpProvince = $("#dpProvince");
-	var dpCity = $("#dpCity");
-	var dpArea = $("#dpArea");
-	imgPathArr=[];
-//填充一级数据
-	loadSupplyFirstCate($("#supply_cat").val(), 0);
-//给一级绑定事件，触发事件后填充二级的数据
-	jQuery(dp1).bind("change keyup", function () {
-		var firstID = dp1.prop("value"); //$("input").attr("value","");
-		dp2.prop("value","");dp3.prop("value","");
-		loadSupplySubCate($("#supply_cat").val(), firstID);
-		dp2.fadeIn("slow");
-	});
-//给二级绑定事件，触发事件后填充三级的数据
-	jQuery(dp2).bind("change keyup", function () {
-		var subID = dp2.prop("value");
-		loadSupplyThereCate($("#supply_cat").val(), subID);
-		dp3.fadeIn("slow");
-	});
-//填充省的数据
-	loadAreasProvince($("#checkInfoArea").val(), 0);
-//给省绑定事件，触发事件后填充市的数据
-	jQuery(dpProvince).bind("change keyup", function () {
-		var provinceID = dpProvince.prop("value");
-		loadAreasCity($("#checkInfoArea").val(), provinceID);
-		dpCity.fadeIn("slow");
-	});
-//给市绑定事件，触发事件后填充区的数据
-	jQuery(dpCity).bind("change keyup", function () {
-		var cityID = dpCity.prop("value");
-		loadAreasDistrict($("#checkInfoArea").val(), cityID);
-		dpArea.fadeIn("slow");
-	});*/
 //vip分类获取接口
 function getVipList(checkInfo){
 	 var urlVip= HOST+'mobile.php?c=index&a=vip_category';
@@ -80,15 +43,14 @@ function getVipList(checkInfo){
 						var provinceHtml='<option  value="" selected="selected">请选择</option>';
 						
 					}else{
-						var cityHtml='<option value="'+data.city.id+'">'+data.city.name+'</option>';
-						var provinceHtml='<option value="'+data.province.id+'">'+data.provic.name+'</option>';
+						var cityHtml='<option selected="selected" value="'+data.city.id+'">'+data.city.name+'</option>';
+						var provinceHtml='<option selected="selected" value="'+data.province.id+'">'+data.provic.name+'</option>';
 					}
 					
 					$('#dpProvince').append(provinceHtml);
 					$('#dpCity').append(cityHtml);
 				}
 				//有数据的时候去取值
-				//$('#dpProvince').append(selectHtml);
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpProvince').append(proviceHtml);
@@ -105,6 +67,7 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
+				$('#dpCity').append("<option value='' selected='selected'>请选择</option>");
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpCity').append(proviceHtml);
@@ -692,11 +655,15 @@ function loadSupplySubCate(checkInfo, pid) {
 		data: {checkInfo:checkInfo,pid:pid},
 		dataType:"json",
 		success: function(result){
-			$('#subMenu').append("<option value='' selected='selected'>请选择</option>");
-			$.each(result.data, function (index, obj) {
-				var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
-				$('#subMenu').append(proviceHtml);
-			});
+			if (result.statusCode=='0'){
+				var proviceHtml='<option value="">无分类</option>';
+			}else{
+				$('#subMenu').append("<option value='' selected='selected'>请选择</option>");
+				$.each(result.data, function (index, obj) {
+					var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
+					$('#subMenu').append(proviceHtml);
+				});
+			}
 		}
 	}); 
 } 
@@ -709,12 +676,17 @@ function loadSupplyThereCate(checkInfo, pid) {
 		data: {checkInfo:checkInfo,pid:pid},
 		dataType:"json",
 		success: function(result){
-			$('#thereMenu').append("<option value='' selected='selected'>请选择</option>");
-			$.each(result.data, function (index, obj) {
+			if (result.statusCode=='0'){
+				var proviceHtml='<option value="">无分类</option>';
+				$('#thereMenu').append(proviceHtml);
+			}else{
+				$('#thereMenu').append("<option value='' selected='selected'>请选择</option>");
+				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
 					$('#thereMenu').append(proviceHtml);
+				});
+			}
 
-			});
 		}
 	}); 
 }

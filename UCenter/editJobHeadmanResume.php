@@ -182,8 +182,8 @@
 <!--删除工作风采  -->
 <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
-<input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
-<!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
+<input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
+<input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -198,8 +198,26 @@ $(function(){
 		window.location.href='../Login/login.php';
 	}
 	//已经登陆
-	//写入基本信息
- 	 //文本框失去焦点后
+    var dpProvince = $("#dpProvince");
+    var dpCity = $("#dpCity");
+    var dpArea = $("#dpArea");
+    //填充省的数据
+    loadAreasProvince($("#checkInfoArea").val(), 0);
+    //给省绑定事件，触发事件后填充市的数据
+    jQuery(dpProvince).bind("change keyup", function () {
+        var provinceID = dpProvince.prop("value");
+        $("#dpArea").empty();
+        $("#dpCity").empty();
+        loadAreasCity($("#checkInfoArea").val(), provinceID);
+        dpCity.fadeIn("slow");
+    });
+    //给市绑定事件，触发事件后填充区的数据
+    jQuery(dpCity).bind("change keyup", function () {
+        var cityID = dpCity.prop("value");
+        loadAreasDistrict($("#checkInfoArea").val(), cityID);
+        dpArea.fadeIn("slow");
+    });
+    //文本框失去焦点后
     $('form :input').blur(function(){
         //验证手机
         if( $(this).is('#mobile') ){
@@ -278,11 +296,42 @@ function selectMyResumeInfo(id,checkInfo){	 //查询
                 if(eval('(' + result.data.job_type+ ')')!=null){
                     $('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
                 }
+                if(eval('(' + result.data.area+')')!=null){
+                    //用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+                    initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
+                    dpCity.fadeIn("slow");
+                    dpArea.fadeIn("slow");
+                }
 
             }
         }
     });
 
+}
+//初始化数据库的值 cate_id三级id
+function  initialieSelectValue(checkInfo,cate_id,moudle){
+    $.ajax({
+        type: 'post',
+        url: HOST+'mobile.php?c=allcategory&a=find_category',
+        data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
+        dataType: 'json',
+        success: function (result) {
+            var message=result.message;
+            if (result.statusCode=='0'){
+                //当前位置定位信息发过去
+
+            }else{
+                //数据取回成功
+                dataJson=eval('(' + result.data+')');
+                var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+                var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+                var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
+                $('#dpProvince').append(proviceHtml);
+                $('#dpCity').append(cityHtml);
+                $('#dpArea').append(areaHtml);
+            }
+        }
+    });
 }
 //点击input 转换成预览图
 $('#image_url').change(function(event) {
@@ -335,7 +384,6 @@ function uploadImage() {
 }
 $(document).on("click", ".deletePicture", function() {
     var url =HOST+'mobile.php?c=index&a=del_picture';
-    console.log();
     $.ajax({
         type: 'post',
         url: url,

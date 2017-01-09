@@ -50,11 +50,11 @@
           			  <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="supplyCate" name="firstMenu" id="firstMenu">
+					      <select class="supplyCate font14px" name="firstMenu" id="firstMenu">
 					      </select>
-					      <select class="supplyCate" name="subMenu" id="subMenu">
+					      <select class="supplyCate font14px" name="subMenu" id="subMenu">
 					      </select>
-					      <select class="supplyCate" name="cate_id" id="thereMenu">
+					      <select class="supplyCate font14px" name="cate_id" id="thereMenu">
 					      </select>
 					    </div>
 					  </div>
@@ -144,9 +144,10 @@ $(function(){
 	loadSupplyFirstCate($("#supply_cat").val(), 0); 
 	//给一级绑定事件，触发事件后填充二级的数据 
 	jQuery(dp1).bind("change keyup", function () { 
-		var firstID = dp1.prop("value"); //$("input").attr("value","");
-		dp2.prop("value","");dp3.prop("value","");
-		loadSupplySubCate($("#supply_cat").val(), firstID); 
+		var firstID = dp1.prop("value");
+        $("#subMenu").empty();
+        $("#thereMenu").empty();
+		loadSupplySubCate($("#supply_cat").val(), firstID);
 		dp2.fadeIn("slow"); 
 	}); 
 	//给二级绑定事件，触发事件后填充三级的数据 
@@ -154,21 +155,23 @@ $(function(){
 		var subID = dp2.prop("value"); 
 		loadSupplyThereCate($("#supply_cat").val(), subID); 
 		dp3.fadeIn("slow"); 
-	}); 
-	 //填充省的数据 
-	loadAreasProvince($("#checkInfoArea").val(), 0); 
-	//给省绑定事件，触发事件后填充市的数据 
-	jQuery(dpProvince).bind("change keyup", function () {
-		var provinceID = dpProvince.prop("value"); 
-		loadAreasCity($("#checkInfoArea").val(), provinceID); 
-		dpCity.fadeIn("slow"); 
-	}); 
-	//给市绑定事件，触发事件后填充区的数据 
-	jQuery(dpCity).bind("change keyup", function () { 
-		var cityID = dpCity.prop("value"); 
-		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
-		dpArea.fadeIn("slow"); 
 	});
+    //填充省的数据
+    loadAreasProvince($("#checkInfoArea").val(), 0);
+    //给省绑定事件，触发事件后填充市的数据
+    jQuery(dpProvince).bind("change keyup", function () {
+        var provinceID = dpProvince.prop("value");
+        $("#dpArea").empty();
+        $("#dpCity").empty();
+        loadAreasCity($("#checkInfoArea").val(), provinceID);
+        dpCity.fadeIn("slow");
+    });
+    //给市绑定事件，触发事件后填充区的数据
+    jQuery(dpCity).bind("change keyup", function () {
+        var cityID = dpCity.prop("value");
+        loadAreasDistrict($("#checkInfoArea").val(), cityID);
+        dpArea.fadeIn("slow");
+    });
     var image_url='';
         $('#image_url').change(function(event) {
                 var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象

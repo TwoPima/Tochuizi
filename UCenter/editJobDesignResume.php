@@ -138,9 +138,9 @@
                 	<div class="weui_cell weui-cell_select weui-cell_select-after">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="area" name="area" id="dpProvince">
+					      <select class="area" name="dpProvince" id="dpProvince">
 					      </select>
-					      <select class="area" name="area" id="dpCity">
+					      <select class="area" name="dpCity" id="dpCity">
 					      </select>
 					      <select class="area" name="area" id="dpArea">
 					      </select>
@@ -218,10 +218,10 @@ $(function(){
 	loadAreasProvince($("#checkInfoArea").val(), 0); 
 	//给省绑定事件，触发事件后填充市的数据 
 	jQuery(dpProvince).bind("change keyup", function () {
-		var provinceID = dpProvince.prop("value"); 
-		/*   $('#dpCity option:selected').prop("value","");
-		   $('#dpArea option:selected').prop("value","");*/
-		loadAreasCity($("#checkInfoArea").val(), provinceID); 
+		var provinceID = dpProvince.prop("value");
+		$("#dpArea").empty();
+		$("#dpCity").empty();
+		loadAreasCity($("#checkInfoArea").val(), provinceID);
 		dpCity.fadeIn("slow"); 
 	}); 
 	//给市绑定事件，触发事件后填充区的数据 
@@ -335,9 +335,9 @@ $(function(){
 				}else{
 					//数据取回成功
 					dataJson=eval('(' + result.data+')');
-					var proviceHtml='<option value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-					var cityHtml='<option value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-					var areaHtml='<option value="'+dataJson.id+'">'+dataJson.name+'</option>';
+					var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+					var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+					var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
 					 $('#dpProvince').append(proviceHtml);
 					$('#dpCity').append(cityHtml);
 					$('#dpArea').append(areaHtml);

@@ -66,7 +66,7 @@
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
 <script>
     $("#mobile").blur(function(){
     	var mobile = $("#mobile").val();
@@ -78,7 +78,6 @@
     	checkPhone(mobile);
     });
     $("#btn-custom-theme").bind("click keyup", function () { 
-		var userIp = returnCitySN["cip"];
 		var mobile = $("#mobile").val();
 		var password = $("#password").val();
 		var checkInfo=$("#checkInfo").val();
@@ -90,7 +89,7 @@
 			$.ajax({
 				type: 'post',
 				url: url,
-				data: {mobile:mobile,password:password,ip:userIp,checkInfo:checkInfo},
+				data: {mobile:mobile,password:password,checkInfo:checkInfo},
 				dataType: 'json',
 				success: function (data) {
 					var tips=data.message;
@@ -100,16 +99,10 @@
 					}else{
 						var userId = data.data.id;//将数据中用户信息的ID赋值给变量 
 						var mobileSession = data.data.mobile;//将数据中用户信息的ID赋值给变量 
-					/* 	$.session.set('userId', userId); 
-						$.session.set('mobileSession', mobileSession);  */
+						$.session.set('userId', userId);
+						$.session.set('mobileSession', mobileSession);
 						//sessionStorage.setItem('userId', userId);
 						//sessionStorage.setItem('mobileSession', mobileSession);
-						 
-						 <?php 
-						 session_start();
-						 $_SESSION['userId']=userId;
-						 ?>
-								
 						//$.toptip(tips,2000, 'success');
 						window.location.href='../UCenter/index.php';
 					} 

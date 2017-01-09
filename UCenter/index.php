@@ -12,9 +12,10 @@
 	<script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
+
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
 <input value="<?php echo md5(date('Ymd')."get_order_count_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_count_by_user_by_status"/>
@@ -39,14 +40,14 @@ if(window.sessionStorage){
 }else{
 	alert("浏览器暂不支持sessionStorage");
 }*/
-	/* sessionUserId=$.session.get('userId');
-	mobile=$.session.get('mobileSession'); */
-	sessionUserId=sessionStorage.getItem('userId');
-	mobile=sessionStorage.getItem('mobileSession');
-/* 	if(sessionUserId==null){
+	 sessionUserId=$.session.get('userId');
+	mobile=$.session.get('mobileSession');
+/*	sessionUserId=sessionStorage.getItem('userId');
+	mobile=sessionStorage.getItem('mobileSession');*/
+	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';
-	} */
+	}
 		//已经登陆 去服务器比对sessionid
 		var url =HOST+'mobile.php?c=index&a=login';
 		var checkInfo=$("#checkInfo").val();
@@ -290,7 +291,7 @@ $(function(){
 			dataType: 'json',
 			success: function (result) {
 				if (result.statusCode=='0'){
-					$.toptip(tips,2000, 'error');
+					//$.toptip(tips,2000, 'error');
 				}else{
 					//数据取回成功
 					if (order_status=='0'){
