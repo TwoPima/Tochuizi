@@ -621,10 +621,10 @@ function getRecruitCatThere(checkInfo, pid) {
 	   data: {checkInfo:checkInfo,pid:pid},
 	   dataType:"json",
 	   success: function(result){
-		   $('#dpArea').append("<option value='' selected='selected'>请选择</option>"); 
+		   $('#getRecruitCatThere').append("<option value='' selected='selected'>请选择</option>");
   		 $.each(result.data, function (index, obj) {
 			   var proviceHtml='<option value="'+obj.cate_id+'">'+obj.cate_name+'</option>';
-			   $('#dpArea').append(proviceHtml);
+			   $('#getRecruitCatThere').append(proviceHtml);
 		  	 });
 	   }
 	}); 
@@ -736,6 +736,7 @@ function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){
 				$.toast(message, "cancel");
 			}else{
 				$.toast("操作成功");
+				window.location.reload();//刷新当前页面.
 			}
 		}
 	});

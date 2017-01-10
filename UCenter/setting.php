@@ -13,6 +13,8 @@
         <script src="../Public/js/jquery-2.1.4.js"></script>
         <script src="../Public/js/jquery-weui.min.js"></script>
         <script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/fastclick.js"></script>
+	<script src="../Public/js/common.js"></script>
 </head>
 <body>
 <div id="app">

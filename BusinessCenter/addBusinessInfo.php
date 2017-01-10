@@ -88,18 +88,17 @@ var url =HOST+'mobile.php?c=index&a=login';
 								<input class="weui-input" type="text" name="address" id="address">
 							</div>
 						</div>
-
-						<div class="weui_cell">
-							<div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-							<div class="weui_cell_bd weui_cell_primary font14px">
-								<select class="area" name="areaProvince" id="dpProvince">
-								</select>
-								<select class="area" name="areaCity" id="dpCity">
-								</select>
-								<select class="area" name="area" id="dpArea">
-								</select>
+							<div class="weui_cell weui-cell_select weui-cell_select-after">
+								<div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
+								<div class="weui_cell_bd weui_cell_primary font14px">
+									<select class="area" name="dpProvince" id="dpProvince">
+									</select>
+									<select class="area" name="dpCity" id="dpCity">
+									</select>
+									<select class="area" name="area" id="dpArea">
+									</select>
+								</div>
 							</div>
-						</div>
 						<div class="weui-cell">
 							<div class="weui-cell__hd">
 								<label class="weui-label">电话</label>
@@ -186,6 +185,47 @@ var url =HOST+'mobile.php?c=index&a=login';
 </body>
 <script type="text/javascript">
 $(function(){
+	/* 经营分类 */
+	var partner_cate_first = $("#partner_cate_first");
+	var partner_cate_sub = $("#partner_cate_sub");
+	var partner_cate_there = $("#partner_cate_there");
+	//填充一级的数据
+	getPartnerType($("#checkInfoPartnerType").val(), 0);
+	//给二级绑定事件，触发事件后填充市的数据
+	$(partner_cate_first).bind("change keyup", function () {
+		var firstId = partner_cate_first.prop("value");
+		getPartnerTypeSub($("#checkInfoPartnerType").val(), firstId);
+		partner_cate_sub.fadeIn("slow");
+		$(".jobCategory-sub-line").fadeIn("slow");
+	});
+	//给三级绑定事件，触发事件后填充区的数据
+	$(partner_cate_sub).bind("change keyup", function () {
+		var subId = partner_cate_sub.prop("value");
+		getPartnerTypeThere($("#checkInfoPartnerType").val(), subId);
+		partner_cate_there.fadeIn("slow");
+		$(".jobCategory-there-line").fadeIn("slow");
+	});
+
+	/* 城市区三级联动 */
+	var dpProvince = $("#dpProvince");
+	var dpCity = $("#dpCity");
+	var dpArea = $("#dpArea");
+	//填充省的数据
+	loadAreasProvince($("#checkInfoArea").val(), 0);
+	//给省绑定事件，触发事件后填充市的数据
+	jQuery(dpProvince).bind("change keyup", function () {
+		var provinceID = dpProvince.prop("value");
+		$("#dpArea").empty();
+		$("#dpCity").empty();
+		loadAreasCity($("#checkInfoArea").val(), provinceID);
+		dpCity.fadeIn("slow");
+	});
+	//给市绑定事件，触发事件后填充区的数据
+	jQuery(dpCity).bind("change keyup", function () {
+		var cityID = dpCity.prop("value");
+		loadAreasDistrict($("#checkInfoArea").val(), cityID);
+		dpArea.fadeIn("slow");
+	});
 	 //文本框失去焦点后
 	   $('form :input').blur(function(){
 	        //验证手机
@@ -276,45 +316,6 @@ $(function(){
 				}
 			});
 		}
-	});
-	/* 经营分类 */
-	var partner_cate_first = $("#partner_cate_first");
-	var partner_cate_sub = $("#partner_cate_sub");
-	var partner_cate_there = $("#partner_cate_there");
-	//填充一级的数据
-	getPartnerType($("#checkInfoPartnerType").val(), 0);
-	//给二级绑定事件，触发事件后填充市的数据
-	$(partner_cate_first).bind("change keyup", function () {
-		var firstId = partner_cate_first.prop("value");
-		getPartnerTypeSub($("#checkInfoPartnerType").val(), firstId);
-		partner_cate_sub.fadeIn("slow");
-		$(".jobCategory-sub-line").fadeIn("slow");
-	});
-	//给三级绑定事件，触发事件后填充区的数据
-	$(partner_cate_sub).bind("change keyup", function () {
-		var subId = partner_cate_sub.prop("value");
-		getPartnerTypeThere($("#checkInfoPartnerType").val(), subId);
-		partner_cate_there.fadeIn("slow");
-		$(".jobCategory-there-line").fadeIn("slow");
-	});
-
-	/* 城市区三级联动 */
-	var dp1 = $("#dpProvince");
-	var dp2 = $("#dpCity");
-	var dp3 = $("#dpArea");
-	//填充省的数据
-	loadAreasProvince($("#checkInfoArea").val(), 0);
-	//给省绑定事件，触发事件后填充市的数据
-	jQuery(dp1).bind("change keyup", function () {
-		var provinceID = dp1.prop("value");
-		loadAreasCity($("#checkInfoArea").val(), provinceID);
-		dp2.fadeIn("slow");
-	});
-	//给市绑定事件，触发事件后填充区的数据
-	jQuery(dp2).bind("change keyup", function () {
-		var cityID = dp2.prop("value");
-		loadAreasDistrict($("#checkInfoArea").val(), cityID);
-		dp3.fadeIn("slow");
 	});
 /*	//图片浏览器
 	$("#licence_thumb").prop("src");

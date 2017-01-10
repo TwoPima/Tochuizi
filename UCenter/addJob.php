@@ -19,9 +19,10 @@
     <script src="../Public/js/require.config.js"></script>
     <script src="../Public/js/jquery-2.1.4.js"></script>
     <script src="../Public/js/jquery-session.js"></script>
+    <script src="../Public/js/jquery-weui.min.js"></script>
     <script src="../Public/js/fastclick.js"></script>
     <script src="../Public/js/common.js"></script>
-    <script src="../Public/js/jquery-weui.min.js"></script>
+
 <script>
     sessionUserId=$.session.get('userId');
     memberType=$.session.get('idType');
@@ -72,7 +73,6 @@ $(function(){
             console.log($(this).val());
             benefitArray.push($(this).val());
         });
-        console.log(benefitArray);
         if(mobile==""|| title==""){
             $.toptip('手机号标题均不能为空！', 200, 'warning');
             return false;
@@ -136,7 +136,7 @@ $(function(){
                             <label class="weui-label">邮箱</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input"  name="email"  id="email" type="email" >
+                            <input class="weui-input"  name="email"  id="email" type="email" />
                         </div>
                     </div>
                       <div class="weui-cell weui-cell_select weui-cell_select-after" id="skillCate">

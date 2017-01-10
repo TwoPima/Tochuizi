@@ -10,20 +10,20 @@
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
         <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
-         <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>  
-<input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
-<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>  
-<input value="<?php echo md5(date('Ymd')."last_comment"."tuchuinet");?>"	type="hidden" id="last_comment"/> <!-- 最新评价 -->
-<input value="<?php echo md5(date('Ymd')."get_order_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_by_user_by_status"/> <!-- 最新评价 -->
- <script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="../Public/js/vue.min.js"></script>
-<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
-<script src="../Public/js/fastclick.js"></script>
-<script src="../Public/js/common.js"></script>
+		 <script src="../Public/js/require.config.js"></script>
+		<script src="../Public/js/jquery-2.1.4.js"></script>
+		<script src="../Public/js/jquery-weui.min.js"></script>
+		<script src="../Public/js/jquery-session.js"></script>
+		<script type="text/javascript" src="../Public/js/vue.min.js"></script>
+		<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
+		<script src="../Public/js/fastclick.js"></script>
+		<script src="../Public/js/common.js"></script>
+		<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfoLogin"/>
+		<input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
+		<input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
+		<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>
+		<input value="<?php echo md5(date('Ymd')."last_comment"."tuchuinet");?>"	type="hidden" id="last_comment"/> <!-- 最新评价 -->
+		<input value="<?php echo md5(date('Ymd')."get_order_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_by_user_by_status"/> <!-- 最新评价 -->
 <script>
 sessionUserId=$.session.get('userId');
 if(sessionUserId==null){
@@ -54,10 +54,12 @@ $.ajax({
 	data: {checkInfo:$("#checkInfo").val(),id:sessionUserId,dotype:''},
 	dataType: 'json',
 	success: function (result) {
+		var shopId = result.data.id;//店铺id
+			$.session.set('partnerId',shopId);
 			$("#company_name").html(result.data.name);
 			$("#company_address").html(result.data.address);
 			$("#mobile").html(result.data.mobile);
-		$("#avatar").attr("src",HOST+result.data.avatar);//头像;
+			$("#avatar").attr("src",HOST+result.data.avatar);//头像;
 	}
 });
 	$(function(){
@@ -84,11 +86,15 @@ $.ajax({
 				nameSearch: function () {
 
 				}
+
 			}
 		})
+		Vue.filter('time', function (value) {
+			return goodTime(value);
+		});
 		//取出信息
 		new Vue({
-			el: '#app',
+			el: '#waitJudge',
 			data: {
 				listCommentData: {},
 				ToDataAuth:{
@@ -113,6 +119,62 @@ $.ajax({
 			}
 		});
 	});
+Vue.filter('yearMouthDay', function (value) {
+	//var format = 1403058804;
+	var value = value*1000;//转换为13位的
+	var newDate = new Date(value);
+	Date.prototype.format = function(format) {
+		var date = {
+			"M+": this.getMonth() + 1,
+			"d+": this.getDate(),
+			"h+": this.getHours(),
+			"m+": this.getMinutes(),
+			"s+": this.getSeconds(),
+			"q+": Math.floor((this.getMonth() + 3) / 3),
+			"S+": this.getMilliseconds()
+		};
+		if (/(y+)/i.test(format)) {
+			format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+		}
+		for (var k in date) {
+			if (new RegExp("(" + k + ")").test(format)) {
+				format = format.replace(RegExp.$1, RegExp.$1.length == 1
+					? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+			}
+		}
+		return format;
+	}
+	return newDate.format('yyyy-MM-dd');
+});
+/*时间处理*/
+function goodTime(str){
+	var now = Date.parse( new Date() ).toString();
+	now = now.substr(0,10);
+	var oldTime = str,
+		difference = now - oldTime,
+		result='',
+		minute = 1000 * 60,
+		hour = minute * 60,
+		day = hour * 24,
+		halfamonth = day * 15,
+		month = day * 30,
+		year = month * 12,
+
+		_year = difference/year,
+		_month =difference/month,
+		_week =difference/(7*day),
+		_day =difference/day,
+		_hour =difference/hour,
+		_min =difference/minute;
+	if(_year>=1) {result= "下单于 " + ~~(_year) + " 年前"}
+	else if(_month>=1) {result= "下单于 " + ~~(_month) + " 个月前"}
+	else if(_week>=1) {result= "下单于 " + ~~(_week) + " 周前"}
+	else if(_day>=1) {result= "下单于 " + ~~(_day) +" 天前"}
+	else if(_hour>=1) {result= "下单于 " + ~~(_hour) +" 个小时前"}
+	else if(_min>=1) {result= "下单于 " + ~~(_min) +" 分钟前"}
+	else result="刚刚下单";
+	return result;
+}
 </script>
     </head>
     <body id="app">
@@ -177,7 +239,7 @@ $.ajax({
 							<div class="weui-media-box weui-media-box_text">
 							  <h5 class="weui-media-box__title">订单号：{{item.order_sn}}</h5>
 								<p class="weui-media-box__desc">{{item.product_name}} <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
-								<p class="weui-media-box__desc order-time"><span>{{item.1order_create_time}}</span>小时前下单</p>
+								<p class="weui-media-box__desc order-time"><span>{{item.1order_create_time|time}}</span></p>
 							</div>
 						</div>
 					</template>
@@ -199,13 +261,14 @@ $.ajax({
 											<p id="ratyStar" data-score="4"></p>
 										</div>
 									</div>
-									<div class="weui-cell__ft time">2016-16-23</div>
+									<div class="weui-cell__ft time">{{itme.add_time|yearMouthDay}}</div>
 								</div>
 								<div class="weui-article">
 									<p>{{item.desc}}</p>
 									<p>
-										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg=="" alt="">
-										<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg=="" alt="">
+										<template v-for="img_url in listCommentData.img_url ">
+											<img src="{{Host+img_url.img_url}}" alt="">
+										</template>
 									</p>
 								</div>
 							</div>

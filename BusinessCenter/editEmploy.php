@@ -9,14 +9,16 @@
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
 	<link rel="stylesheet" href="../Public/css/common.css"/>
+	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/business.css"/>
-	<input value="<?php echo md5(date('Ymd')."recruit_job"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+	<input value="<?php echo md5(date('Ymd')."recruit_job"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
 <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
 <input value="<?php echo md5(date('Ymd')."recruit_cat"."tuchuinet");?>"	type="hidden" id="checkInfoRecruitCat"/>  
 <!--招聘分类接口 -->
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
+<input value="<?php echo $_GET['recruit_id'];?>"	type="hidden" id="recruit_id"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -30,7 +32,100 @@ $(function(){
 		//没有登陆
 		window.location.href='../Login/login.php';
 	}
-	//已经登陆
+	//查询信息
+	selectMyResumeInfo(sessionUserId,$("#checkInfo").val(),$("#recruit_id").val());//查询简历信息
+	function selectMyResumeInfo(id,checkInfo){	 //查询
+		var url =HOST+'mobile.php?c=index&a=my_resume';
+		$.ajax({
+			type: 'post',
+			url: url,
+			data: {id:sessionUserId,checkInfo:checkInfo,dotype:'gain'},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode==='0'){
+					$.toptip(message,2000, 'error');
+					window.location.href='./Login/login.php';
+				}else{
+					$('#name').attr("value",result.data.name);
+
+					$('#zu').attr("value",result.data.zu);
+					$('#Resumeid').attr("value",result.data.id);
+					$('#mobile').attr("value",result.data.mobile);
+					$('#desc').attr("value",result.data.desc);
+					$('#home').attr("value",result.data.home);
+					$('#birthday').attr("value",result.data.birthday);
+					$('#email').attr("value",result.data.email);
+					$(result.data.img_url).each(function(index, obj) {
+						var html = '';
+						html += ' <li class="weui-uploader__file" id="fileshow">' +
+							'  <img class="deletePicture" data="'+obj.image_id+'"  src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+obj.image_url+'" class="fileshow thumb-img" />'+
+							'</li>';
+						$("#uploaderFiles").prepend(html);
+					});
+					//单选
+					if(result.data.sex=='1'){
+						$(":radio[name=sex][value=1]").prop("checked","true");//指定value的选项为选中项
+					}
+					if(result.data.sex=='0'){
+						$(":radio[name=sex][value=0]").prop("checked","true");//指定value的选项为选中项
+					}
+					if(result.data.she_type=='1'){
+						$(":radio[name=she_type][value=1]").prop("checked","true");//指定value的选项为选中项
+					}
+					if(result.data.she_type=='0'){
+						$(":radio[name=she_type][value=0]").prop("checked","true");//指定value的选项为选中项
+					}
+					//下拉框
+					if(eval('(' + result.data.job_year+ ')')!=null){
+						$('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>');
+					}
+					if(eval('(' + result.data.education+ ')')!=null){
+						$('#education').append('<option value="'+eval('(' + result.data.education+ ')').id+'" selected="selected">'+eval('(' + result.data.education+ ')').name+'</option>');
+					}
+					if(eval('(' + result.data.wage+ ')')!=null){
+						$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
+					}
+					if(eval('(' + result.data.job_type+ ')')!=null){
+						$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
+					}
+					if(eval('(' + result.data.area+')')!=null){
+						//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+						initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
+						dpCity.fadeIn("slow");
+						dpArea.fadeIn("slow");
+					}
+
+				}
+			}
+		});
+
+	}
+	//初始化数据库的值 cate_id三级id
+	function  initialieSelectValue(checkInfo,cate_id,moudle){
+		$.ajax({
+			type: 'post',
+			url: HOST+'mobile.php?c=allcategory&a=find_category',
+			data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
+			dataType: 'json',
+			success: function (result) {
+				var message=result.message;
+				if (result.statusCode=='0'){
+					//当前位置定位信息发过去
+
+				}else{
+					//数据取回成功
+					dataJson=eval('(' + result.data+')');
+					var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+					var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+					var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
+					$('#dpProvince').append(proviceHtml);
+					$('#dpCity').append(cityHtml);
+					$('#dpArea').append(areaHtml);
+				}
+			}
+		});
+	}
 	//写入基本信息
 	$("#memberType").html($.session.get('typeMember'));
  	 //文本框失去焦点后
@@ -113,13 +208,11 @@ $(function(){
 					 <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label">职位类别</label></div>
 					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="jobCategory" name="getRecruitCat" id="getRecruitCat">
+					      <select class="jobCategory font14px" name="getRecruitCat" id="getRecruitCat">
 					      </select>
-					      <span class="jobCategory-sub-line">&nbsp;|</span>
-					      <select class=" jobCategory" name="getRecruitCatSub" id="getRecruitCatSub">
+					      <select class=" jobCategory font14px" name="getRecruitCatSub" id="getRecruitCatSub">
 					      </select>
-					      <span class="jobCategory-there-line">&nbsp;|</span>
-					      <select class=" jobCategory" name="getRecruitCatThere" id="getRecruitCatThere">
+					      <select class=" jobCategory font14px" name="cate_id" id="getRecruitCatThere">
 					      </select>
 					    </div>
 					  </div>
@@ -141,6 +234,15 @@ $(function(){
                         </select>
                     </div>
                 </div>
+						<div class="weui-cell weui-cell_select weui-cell_select-after">
+							<div class="weui-cell__hd">
+								<label for="" class="weui-label">有效时间:</label>
+							</div>
+							<div class="weui-cell__bd">
+								<select class="weui-select" name="valuetime" id="valuetime">
+								</select>
+							</div>
+						</div>
 					  <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label font14px">招聘人数</label>
@@ -172,29 +274,17 @@ $(function(){
 					     <div class="push_checkbox">
 					     <div class="weui_cell_hd"><label class="weui_label jobPosition">职位福利</label></div>
 		                    <div id="benefit">
-		                    <!-- <div class="daiyu_checkbox">
-		                        <label for="one">包食宿</label>
-		                        <input type="checkbox" name="benefit" id="one">
-		                    </div> 
-		                     <div class="daiyu_checkbox">
-		                        <label for="one">包食宿</label>
-		                        <input type="checkbox" name="benefit" id="one">
-		                    </div> 
-		                     <div class="daiyu_checkbox">
-		                        <label for="one">包食宿</label>
-		                        <input type="checkbox" name="benefit" id="one">
-		                    </div> -->
 		                    </div>
 		                </div>
 					</div>
 					   <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label">工作地区</label></div>
 					    <div class="weui_cell_bd weui_cell_primary">
-					      <select class="area" name="cate_id" id="dpProvince">
+					      <select class="area" name="dpProvince" id="dpProvince">
 					      </select>
-					      <select class="area" name="cate_id" id="dpCity">
+					      <select class="area" name="dpCity" id="dpCity">
 					      </select>
-					      <select class=" area" name="cate_id" id="dpArea">
+					      <select class=" area" name="area" id="dpArea">
 					      </select>
 					    </div>
 					  </div>
@@ -254,6 +344,7 @@ $(function(){
 	getRecruitCountPeople($("#checkInfoZidian").val(),24);//招聘人数分类
 	jobDayWages($("#checkInfoZidian").val());//薪资要求
 	getBenefit($("#checkInfoZidian").val()); //福利
+	jobValueTime($("#checkInfoZidian").val());//有效期
 	/* 城市区三级联动 */
 		 var dp1 = $("#dpProvince"); 
 		var dp2 = $("#dpCity"); 
