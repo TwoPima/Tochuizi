@@ -10,63 +10,53 @@
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/common.css"/>
-          <script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/fastclick.js"></script>
-<script src="../Public/js/common.js"></script>
-<script src="../Public/js/jquery-weui.min.js"></script>
-<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfoAddress"/>  
-<script>
+	<script src="../Public/js/require.config.js"></script>
+	<script src="../Public/js/jquery-2.1.4.js"></script>
+	<script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/jquery-weui.min.js"></script>
+	<script src="../Public/js/fastclick.js"></script>
+	<script src="../Public/js/common.js"></script>
+	<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
+	<input value="<?php echo md5(date('Ymd')."my_address"."tuchuinet");?>"	type="hidden" id="checkInfoAddress"/>
+	<script>
 	sessionUserId=$.session.get('userId');
 	mobile=$.session.get('mobileSession');
 	if(sessionUserId==null){
 		//没有登陆  
 		window.location.href='../Login/login.php';
 	}
-//已经登陆 去服务器比对sessionid
-var url =HOST+'mobile.php?c=index&a=my_address';
- $.ajax({
-		type: 'post',
-		url: url,
-		data: {checkInfo:$("#checkInfoAddress").val(),id:sessionUserId,dotype:''},
-		dataType: 'json',
-		success: function (result) {
-			var message=result.message;
-			var tips=result.message;
-			if (result.statusCode=='0'){
-				$.toptip(tips,2000, 'error');
-			}else{
-				//数据取回成功
+	//已经登陆 去服务器比对sessionid
+	var url =HOST+'mobile.php?c=index&a=my_address';
+	 $.ajax({
+			type: 'post',
+			url: url,
+			data: {checkInfo:$("#checkInfoAddress").val(),id:sessionUserId,dotype:''},
+			dataType: 'json',
+			success: function (result) {
+				var tips=result.message;
+				if (result.statusCode=='0'){
+					$("#dataNull").fadeIn("slow");
+				}else{
+					//数据取回成功
+					$("#dataNull").fadeOut("slow");
 				   $.each(result.data, function (index, obj) {
-				var addressHtml='<div class="weui-cell"><div class="weui-cell__bd region-main"><p class="region-title"><span id="name">'+obj.name+'</span> <span id="tel">'+obj.mobile+'</span></p><p class="region-content clear">'+obj.area+obj.address+'</p></div><div class="weui-cell__bd region-right-icon"><a href="editRegion.php?adr_id='+obj.id+'"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a></div><div style="line-height:67px;"class="del-btn"><a onClick="confirmDelete('+obj.id+');" >删除</a></div></div>';
-				 $(".weui-cells").append(addressHtml);
+					var addressHtml='<div class="weui-cell"><div class="weui-cell__bd region-main"><p class="region-title"><span id="name">'+obj.name+'</span> <span id="tel">'+obj.mobile+'</span></p><p class="region-content clear">'+obj.area+obj.address+'</p></div><div class="weui-cell__bd region-right-icon"><a href="editRegion.php?adr_id='+obj.id+'"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a></div><div style="line-height:67px;"class="del-btn"><a onClick="confirmDelete('+obj.id+');" >删除</a></div></div>';
+					 $(".weui-cells").append(addressHtml);
 				   });
-			} 
-		}
+				}
+			}
 	});
  function confirmDelete(id,name){
-	 alert(id);
 	 $.confirm({
 		  title: '确认删除',
 		  text: name,
 		  onOK: function () {
-		    //点击确认
-			    delData(id,$("#checkInfoAddress").val());
+			  delData(id,$("#checkInfoAddress").val());
 		  },
 		  onCancel: function () {
 			  return false;
 		  }
-		});/* 
-	  	$.Dialog.confirmBox('温馨提示','确认删除？',{rightCallback:function(){
-	  		$.Dialog.loading();
-	  		$.get(url,function(res){
-	  			  setTimeout(function(){
-	  				 location.reload();	
-	  			},1500);  	
-	  	    });
-		}}); */
+		});
 	  }
 	//删除
  function  delData(id,checkInfo){
@@ -108,7 +98,14 @@ var url =HOST+'mobile.php?c=index&a=my_address';
 		</div>
 		<div class="region">
 			<div class="weui-cells">
-			
+				<div id="dataNull" class="hidden">
+					<div class="nodata">
+						<img src="../Public/img/no-info.png">
+						<div class="height20px"></div>
+						<p>暂时还没有地址数据！</p>
+						<div class="height20px"></div>
+					</div>
+				</div>
 			</div>
 </div><!--app-->
 </body>

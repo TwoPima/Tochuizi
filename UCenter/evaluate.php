@@ -55,6 +55,7 @@ $(function(){
 		el: '#app',
 		data: {
 			listData: {},
+			dataNull:'',
 			url:{
 				checkInfo:$("#checkInfoComment").val(),
 				id:sessionUserId,
@@ -65,7 +66,15 @@ $(function(){
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=comment_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
-				that.$set('listData', res.data);  //把数据传给页面
+				//如果数据为空
+				if (res.statusCode==0){
+					that.$set('dataNull', 2);
+				}
+				//如果数据不为空
+				if(res.statusCode==1) {
+					that.$set('dataNull', 1);
+					that.$set('listData', res.data);  //把数据传给页面
+				}
 			});
 		},//created 结束
 		methods: {
@@ -133,7 +142,14 @@ $(function(){
 		</div>
     <div id="main">
         <div class="evaluate">
-
+			<template v-if="dataNull==2">
+				<div class="nodata">
+					<img src="../Public/img/no-info.png">
+					<div class="height20px"></div>
+					<p>暂时还没有订单评价数据！</p>
+				</div>
+			</template>
+			<template v-if="dataNull==1">
 				<template v-for="item in listData "><!--三层  -->
 					<div class="weui-panel">
 					<a class="weui-cell weui-cell_access clear"  v-on:click="jump_url(item.goods_id)">
@@ -182,6 +198,7 @@ $(function(){
 					</article>
 					</div>
 				</template>
+			</template>
 					<!--	<p id="description">描述评级：
 							<span class="description-raty" data-score="3">
 								<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;

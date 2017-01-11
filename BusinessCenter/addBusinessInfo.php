@@ -263,11 +263,6 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
-			if(file.size > 1024 * 1024 * 2) {
-				getTips('图片大小不能超过 2MB!');
-				return false;
-				return false;
-			}
 			var URL = window.URL || window.webkitURL;
 			var imgURL = URL.createObjectURL(file);
 			var html = '';

@@ -410,7 +410,7 @@ function jumlResumeType(id,type){
 	    	window.location.href='editJobHeadmanResume.php';//组长
 	        break;
 	    case ("4"):
-	    	window.location.href='editJobHeadmanResume.php';//管理人
+	    	window.location.href='editJobMenageResume.php';//管理人
 	        break;
 	    default:
 	    	window.location.href='editJobSkillResume.php';//技工

@@ -7,11 +7,11 @@
      <link rel="stylesheet" href="../Public/css/weui.min.css"/>
 	 <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
 	 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
-        <link rel="stylesheet" href="../Public/css/center.css"/>
+		<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/login.css"/>
-         <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
+
     </head>
     <body id="reg">
      <div class="body-back"><img class="back-img" alt="" src="../Public/img/login/reg-bc.png">
@@ -113,7 +113,8 @@ $(function(){
         	var code = $("#code").val();
         	var checkInfo = $("#checkInfo").val();
         	var url =HOST+'mobile.php?c=index&a=register';
-           if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
+           if(mobile==""|| password==""){
+			   //判断两个均不为空（其他判断规则在其输入时已经判断）
         		$.toptip('手机号密码均不能为空！', 2000, 'warning');
         	    return false; 
         	 } 
@@ -128,7 +129,6 @@ $(function(){
 				data: {mobile:mobile,password:password,code:code,checkInfo:checkInfo},
 				dataType: 'json',
 				success: function (result) {
-					var message=result.message;
 					var tips=result.message;
 					if (result.statusCode=='0'){
 						$.toptip(tips,2000, 'error');

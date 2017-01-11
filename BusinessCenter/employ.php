@@ -9,7 +9,7 @@
 	 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
-	<link rel="stylesheet" href="../Public/css/center.css"/>
+	     <link rel="stylesheet" href="../Public/css/center.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/css/business.css"/>
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-2.1.4.js"></script>
@@ -36,6 +36,7 @@
 				el: '#app',
 				data: {
 					listJob: {},
+					dataNull:'',
 					url:{
 						checkInfo:$("#recruit_job_list").val(),
 						id:sessionUserId,
@@ -46,7 +47,15 @@
 					var that = this;
 					that.$http.get(HOST+'mobile.php?c=index&a=recruit_job_list',that.url).then(function (response) {
 						var res = response.data; //取出的数据
-						that.$set('listJob', res.data);  //把数据传给页面
+						//如果数据为空
+						if (res.statusCode==0){
+							that.$set('dataNull', 2);
+						}
+						//如果数据不为空
+						if(res.statusCode==1) {
+							that.$set('dataNull', 1);
+							that.$set('listJob', res.data);  //把数据传给页面
+						}
 					});
 				},//created 结束
 				methods: {
@@ -107,17 +116,29 @@
                 </div>
 		</div>
 		<div class="employ">
-			<div class="weui-cells">
-				<template v-for="item in listJob "><!--三层  -->
-					<div class="weui-cell weui-cell_access"  >
-						<div v-on:click="jump_url(item.id)"  class="weui-cell__bd " style="color: #666;" >{{item.title}}</div>
-						<div class="weui-cell__ft font14px" >
-							<span style="vertical-align:middle; font-size: 13px;margin-right: 13px;">{{item.update_time|time}}</span>
-						</div>
-						<div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
+
+				<template v-if="dataNull==2">
+					<div class="nodata clear">
+						<img class="display:inline;" src="../Public/img/no-info.png">
+						<div class="height20px"></div>
+						<p>暂时还没有招聘信息！</p>
 					</div>
 				</template>
-			</div>
+
+				<template v-if="dataNull==1">
+					<div class="weui-cells">
+					<template v-for="item in listJob "><!--三层  -->
+						<div class="weui-cell weui-cell_access"  >
+							<div v-on:click="jump_url(item.id)"  class="weui-cell__bd " style="color: #666;" >{{item.title}}</div>
+							<div class="weui-cell__ft font14px" >
+								<span style="vertical-align:middle; font-size: 13px;margin-right: 13px;">{{item.update_time|time}}</span>
+							</div>
+							<div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
+						</div>
+					  </template>
+					</div>
+				</template>
+
 		</div>
 	</div>
 </body>

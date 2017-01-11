@@ -78,13 +78,13 @@ $(function(){
 					if(valtime!=null){
 						$('#valuetime').append('<option value="'+eval('(' +valtime.id+ ')')+'" selected="selected">'+valtime.name+'</option>');
 					}
-					//职位类别
+					/*//职位类别
 					if(result.data.cate_id!=null){
 						//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
 						initialieSelectValue($("#find_category").val(),result.data.cate_id,4);
 						getCatSub.fadeIn("slow");
 						getCatThere.fadeIn("slow");
-					}
+					}*/
 					//招聘人数
 					count=eval('(' + result.data.count+ ')');
 					if(count!=null){
@@ -178,11 +178,16 @@ $(function(){
 				 },
 				 success: function(result) {
 					 var message=result.message;
-				 if(result.statusCode=='0'){
+					 console.log(result);
+					 console.log(message);
+					 if(result.statusCode==0){
 						 $.toast(message, "cancel");
-					 }else{
+						 return false;
+					 }
+					 if(1){
 						 $.toast(message);
-						 window.location.href('employ.php');
+						 return false;
+						// window.location.href('employ.php');
 					 }
 
 				 }

@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <title>个人主页-发布求职</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.css"/>
+    <link rel="stylesheet" href="../Public/css/weui.min.css"/>
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
     <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/addJob.css"/>
-    <input value="<?php echo md5(date('Ymd')."my_recruit"."tuchuinet");?>"	type="hidden" id="checkInfo"/> <!--t添加信息-->
-    <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>  
-<!--do 添加：add，修改：edit，获取：gain -->
-	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>  
 	<!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
     <script src="../Public/js/require.config.js"></script>
     <script src="../Public/js/jquery-2.1.4.js"></script>
@@ -22,8 +18,11 @@
     <script src="../Public/js/jquery-weui.min.js"></script>
     <script src="../Public/js/fastclick.js"></script>
     <script src="../Public/js/common.js"></script>
-
-<script>
+    <input value="<?php echo md5(date('Ymd')."my_recruit"."tuchuinet");?>"	type="hidden" id="checkInfo"/> <!--t添加信息-->
+    <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
+    <!--do 添加：add，修改：edit，获取：gain -->
+    <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>
+    <script>
     sessionUserId=$.session.get('userId');
     memberType=$.session.get('idType');
     if(sessionUserId=='undefined'){
@@ -64,8 +63,7 @@ $(function(){
         var cate_id=$('#job_type option:selected').val();
         var valuetime=$('#valuetime option:selected').val();
         var wages=$('#wage option:selected').val();
-        //var area=$('#dpArea option:selected').val();
-        var area='1';
+        var area=$('#dpArea option:selected').val();
 
         var url =HOST+'mobile.php?c=index&a=my_recruit';
         var benefitArray =[];

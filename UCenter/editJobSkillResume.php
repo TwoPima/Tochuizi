@@ -232,31 +232,6 @@ $(function(){
 	jobDayWages($("#checkInfoZidian").val());//薪资
 	JobType($("#checkInfoJobType").val(),$.session.get('idType'));//工种类别
 });
-//初始化数据库的值 cate_id三级id
-function  initialieSelectValue(checkInfo,cate_id,moudle){
-    $.ajax({
-        type: 'post',
-        url: HOST+'mobile.php?c=allcategory&a=find_category',
-        data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
-        dataType: 'json',
-        success: function (result) {
-            var message=result.message;
-            if (result.statusCode=='0'){
-                //当前位置定位信息发过去
-
-            }else{
-                //数据取回成功
-                dataJson=eval('(' + result.data+')');
-                var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-                var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-                var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
-                $('#dpProvince').append(proviceHtml);
-                $('#dpCity').append(cityHtml);
-                $('#dpArea').append(areaHtml);
-            }
-        }
-    });
-}
 function selectMyResumeInfo(id,checkInfo){	 //查询
     var url =HOST+'mobile.php?c=index&a=my_resume';
     $.ajax({
@@ -322,10 +297,10 @@ $('#image_url').change(function(event) {
     var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
     if (files && files.length > 0) {
         file = files[0];// 获取目前上传的文件
-        if(file.size > 1024 * 1024 * 2) {
+      /*  if(file.size > 1024 * 1024 * 2) {
             alert('图片大小不能超过 2MB!');
             return false;
-        }
+        }*/
         var URL = window.URL || window.webkitURL;
         var imgURL = URL.createObjectURL(file);
         var html = '';
@@ -351,7 +326,6 @@ function uploadImage() {
         cache: false,
         contentType: false,
         processData: false,
-        //data:$('#myInfoForm').serialize(),
         async: false,
         error: function(request) {
             $.toast("上传失败，请检查网络后重试", "cancel");
@@ -360,7 +334,7 @@ function uploadImage() {
             if(result.statusCode=='0'){
                 $.toast("上传失败，请检查网络后重试", "cancel");
             }else{
-                window.location.reload();//刷新当前页面.
+               // window.location.reload();//刷新当前页面.
             }
 
         }
@@ -395,6 +369,7 @@ $(document).on("click", ".deletePicture", function() {
 		var mobile = $("#mobile").val();
 		var desc = $("#desc").val();
 		var home = $("#home").val();
+		var email = $("#email").val();
 		var birthday = $("#birthday").val();
 		var cate_id=$('#job_type option:selected').val();
 		var education=$('#education option:selected').val();
@@ -402,31 +377,31 @@ $(document).on("click", ".deletePicture", function() {
 		var checkInfo = $("#checkInfo").val();
        	var url =HOST+'mobile.php?c=index&a=my_resume';
         if(mobile==""|| name==""){
-       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
+            $.toast('手机号姓名均不能为空！', "cancel");
        	    return false; 
        	 }
+         //验证手机
+         if(!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))){
+             $.toast('手机号码有误，请重填！', "cancel");
+             return false;
+         }
+         //验证邮件
+         if( email=="" || ( this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(email) ) ){
+             $.toast('邮箱地址有误，请重填！', "cancel");
+             return false;
+         }
 		 $.ajax({
 			type: 'post',
 			url: url,
 			data: {mobile:mobile,cate_id:cate_id,zu:zu,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
 			dataType: 'json',
 			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toast(message, "cancel");
+				var tips=result.message;
+				if (result.statusCode=='0'){
+					$.toast(tips, "cancel");
 				}else{
-					//$.toast("操作成功");
+					$.toast("操作成功");
 					//window.location.href='myJob.php';
-					$("input[name='sex']:checked").html();
-					 $("#name").val();
-					$("#zu").val();
-					$("#mobile").val();
-					$("#desc").val();
-					$("#home").val();
-					$("#birthday").val();
-					$('#job_type option:selected').val();
-					$('#education option:selected').val();
-				$("#job_year").val();
 				}
 			},
 		});
