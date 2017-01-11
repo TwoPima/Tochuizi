@@ -290,8 +290,8 @@ function selectMyResumeInfo(id,checkInfo){	 //查询
                 if(eval('(' + result.data.education+ ')')!=null){
                     $('#education').append('<option value="'+eval('(' + result.data.education+ ')').id+'" selected="selected">'+eval('(' + result.data.education+ ')').name+'</option>');
                 }
-                if(eval('(' + result.data.wage+ ')')!=null){
-                    $('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
+                if(eval('(' + result.data.wages+ ')')!=null){
+                    $('#wages').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
                 }
                 if(eval('(' + result.data.job_type+ ')')!=null){
                     $('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');

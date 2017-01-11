@@ -51,7 +51,7 @@
 				},//created 结束
 				methods: {
 					jump_url: function (msg1){
-						window.location.href='editJob.php?recruit_id='+msg1;
+						window.location.href='editEmploy.php?recruit_id='+msg1;
 
 					}
 				}
@@ -62,7 +62,8 @@
 			/*时间处理*/
 			function goodTime(str){
 				var now = Date.parse( new Date() ).toString();
-				now = now.substr(0,10);
+				//now = now.substr(0,10);
+				now = now/1000;
 				var oldTime = str,
 					difference = now - oldTime,
 					result='',
@@ -109,10 +110,9 @@
 			<div class="weui-cells">
 				<template v-for="item in listJob "><!--三层  -->
 					<div class="weui-cell weui-cell_access"  >
-						<div v-on:click="jump_url(item.id)"  class="weui-cell__bd font14px">{{item.title}}</div>
+						<div v-on:click="jump_url(item.id)"  class="weui-cell__bd " style="color: #666;" >{{item.title}}</div>
 						<div class="weui-cell__ft font14px" >
-							<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
-							<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
+							<span style="vertical-align:middle; font-size: 13px;margin-right: 13px;">{{item.update_time|time}}</span>
 						</div>
 						<div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
 					</div>
@@ -121,4 +121,84 @@
 		</div>
 	</div>
 </body>
+<script>
+	/*
+	 * 描述：html5苹果手机向左滑动删除特效
+	 */
+	window.addEventListener('load',function(){
+		var initX;        //触摸位置
+		var moveX;        //滑动时的位置
+		var X = 0;        //移动距离
+		var objX = 0;    //目标对象位置
+		window.addEventListener('touchstart',function(event){
+			event.preventDefault();
+			var obj = event.target.parentNode;
+			console.log(obj.className);
+			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
+				initX = event.targetTouches[0].pageX;
+				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+			}
+			if( objX == 0){
+				window.addEventListener('touchmove',function(event) {
+					event.preventDefault();
+					var obj = event.target.parentNode;
+					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
+						moveX = event.targetTouches[0].pageX;
+						X = moveX - initX;
+						if (X >= 0) {
+							obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+						}
+						else if (X < 0) {
+							var l = Math.abs(X);
+							obj.style.WebkitTransform = "translateX(" + -l + "px)";
+							if(l>80){
+								l=80;
+								obj.style.WebkitTransform = "translateX(" + -l + "px)";
+							}
+						}
+					}
+				});
+			}
+			else if(objX<0){
+				window.addEventListener('touchmove',function(event) {
+					event.preventDefault();
+					var obj = event.target.parentNode;
+					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
+						moveX = event.targetTouches[0].pageX;
+						X = moveX - initX;
+						if (X >= 0) {
+							var r = -80 + Math.abs(X);
+							obj.style.WebkitTransform = "translateX(" + r + "px)";
+							if(r>0){
+								r=0;
+								obj.style.WebkitTransform = "translateX(" + r + "px)";
+							}
+						}
+						else {     //向左滑动
+							obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+						}
+					}
+				});
+			}
+
+		})
+		window.addEventListener('touchend',function(event){
+			event.preventDefault();
+			var obj = event.target.parentNode;
+			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
+				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+				if(objX>-40){
+					obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+					objX = 0;
+				}else{
+					obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+					objX = -80;
+				}
+			}
+		})
+	})
+	function confirmDelete(value){
+		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,value,'2');
+	}
+</script>
 </html>

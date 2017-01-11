@@ -148,62 +148,11 @@
 						}
 						if(result.data.cate_id.cate_id!=null){
 							//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
-							initialieSelectPartnerValue($("#find_category").val(),result.data.cate_id.cate_id,3);
+							initialieSelectValue($("#find_category").val(),result.data.cate_id.cate_id,3);
 							partner_cate_sub.fadeIn("slow");
 							partner_cate_there.fadeIn("slow");
 						}
 
-					}
-				}
-			});
-		}
-		//初始化数据库的值 cate_id三级id 地区
-		function  initialieSelectValue(checkInfo,cate_id,moudle){
-			$.ajax({
-				type: 'post',
-				url: HOST+'mobile.php?c=allcategory&a=find_category',
-				data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode=='0'){
-						//当前位置定位信息发过去
-
-					}else{
-						//数据取回成功
-						dataJson=eval('(' + result.data+')');
-						var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-						var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-						var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
-						$('#dpProvince').append(proviceHtml);
-						$('#dpCity').append(cityHtml);
-						$('#dpArea').append(areaHtml);
-					}
-				}
-			});
-		}
-		//初始化数据库加盟商分类的值
-		function  initialieSelectPartnerValue(checkInfo,cate_id,moudle){
-			$.ajax({
-				type: 'post',
-				url: HOST+'mobile.php?c=allcategory&a=find_category',
-				data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode=='0'){
-						//当前位置定位信息发过去
-
-					}else{
-						//数据取回成功
-						dataJson=eval('(' + result.data+')');
-						console.log(dataJson);
-						var proviceHtml='<option selected="selected" value="'+dataJson.top.cate_id+'">'+dataJson.top.cate_name+'</option>';
-						var cityHtml='<option selected="selected" value="'+dataJson.two.cate_id+'">'+dataJson.two.cate_name+'</option>';
-						var areaHtml='<option selected="selected" value="'+dataJson.cate_id+'">'+dataJson.cate_name+'</option>';
-						$('#partner_cate_first').append(proviceHtml);
-						$('#partner_cate_sub').append(cityHtml);
-						$('#partner_cate_there').append(areaHtml);
 					}
 				}
 			});

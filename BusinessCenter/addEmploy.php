@@ -125,7 +125,7 @@
 							<label for="" class="weui-label font14px">工资待遇</label>
 						</div>
 						<div class="weui-cell__bd">
-							<select class="weui-select" name="wage"  id="wage" >
+							<select class="weui-select" name="wages"  id="wages" >
 							</select>
 						</div>
 					</div>
@@ -237,7 +237,10 @@
 				$.toptip('手机号码有误，请重填！', 2000, 'warning');
 				return false;
 			}
-
+			benefit = $("input:checkbox[name='benefit']:checked").map(function(index,elem) {
+				return $(elem).val();
+			}).get().join(',');//复选框处理
+			formData.append('benefit',benefit);
 			$.showLoading('正在添加');
 			setTimeout(function() {
 				$.hideLoading();
@@ -259,7 +262,7 @@
 						$.toast(result.message, "cancel");
 					}else{
 						$.toast(result.message);
-						//window.location.href('employ.php');
+						window.location.href('employ.php');
 					}
 
 				}

@@ -122,7 +122,7 @@
                         <label for="" class="weui-label">薪资要求</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="wage"  id="wage" >
+                        <select class="weui-select" name="wages"  id="wages" >
                         </select>
                     </div>
                 </div>
@@ -302,8 +302,8 @@ $(function(){
 						if(eval('(' + result.data.education+ ')')!=null){
 							$('#education').append('<option value="'+eval('(' + result.data.education+ ')').id+'" selected="selected">'+eval('(' + result.data.education+ ')').name+'</option>');
 						}
-						if(eval('(' + result.data.wage+ ')')!=null){
-							$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>'); 
+						if(eval('(' + result.data.wages+ ')')!=null){
+							$('#wages').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
 						}
 						if(eval('(' + result.data.job_type+ ')')!=null){
 							$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
@@ -430,7 +430,7 @@ $(function(){
 			var cate_id=$('#job_type option:selected').val();
 			var job_year=$('#job_year option:selected').val();
 			var education=$('#education option:selected').val();
-			var wage=$('#wage option:selected').val();
+			var wages=$('#wages option:selected').val();
 			var area=$('#dpArea option:selected').val();
 			var checkInfo = $("#checkInfoResume").val();
 	       	var url =HOST+'mobile.php?c=index&a=my_resume';
@@ -444,7 +444,7 @@ $(function(){
 				data: {
 					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,
 					education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,
-					home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex,wage:wage,zu:zu
+					home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex,wages:wages,zu:zu
 					},
 				dataType: 'json',
 				success: function (result) {

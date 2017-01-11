@@ -336,13 +336,13 @@ body{
 	color:#888;
 }
 .myOrder .order-title .jinru i{
-	font-size: 30px;
+	font-size: 24px;
 	color:#666;
 	padding:0px;
 	margin:0px;
 	font-weight:100;
 	position:absolute;
-	top:-38%;
+	top:-28%;
 }
 .order-del{
 	height:60px;

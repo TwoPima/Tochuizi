@@ -30,6 +30,7 @@ if(sessionUserId==null){
 	//没有登陆
 	$.toptip('您还没有登陆！',2000, 'error');
 	window.location.href='../Login/login.php';
+
 }
 	//已经登陆
 var checkInfoLogin = $("#checkInfoLogin").val();
@@ -54,8 +55,6 @@ $.ajax({
 	data: {checkInfo:$("#checkInfo").val(),id:sessionUserId,dotype:''},
 	dataType: 'json',
 	success: function (result) {
-		var shopId = result.data.id;//店铺id
-			$.session.set('partnerId',shopId);
 			$("#company_name").html(result.data.name);
 			$("#company_address").html(result.data.address);
 			$("#mobile").html(result.data.mobile);
@@ -92,7 +91,7 @@ $.ajax({
 		Vue.filter('time', function (value) {
 			return goodTime(value);
 		});
-		//取出信息
+		//等等评价
 		new Vue({
 			el: '#waitJudge',
 			data: {
@@ -107,9 +106,11 @@ $.ajax({
 				var that = this;
 				that.$http.get(HOST+'mobile.php?c=index&a=last_comment',that.ToDataAuth).then(function (response) {
 					var res = response.data.data; //取出的数据
-					console.log(res);
-					//	window.location.href='noEvaluate.php';
-					that.$set('listData', res);  //把数据传给页面
+					if (res!==null){
+						that.$set('status', 1);
+						that.$set('listCommentData', res);  //把数据传给页面
+					}
+
 				});
 			},//created 结束
 			methods: {
@@ -246,18 +247,25 @@ function goodTime(str){
 				</div>
 			</section>
 			<!--第四部分  -->
+
 			<section id="waitJudge">
+
 				<div class="weui-panel weui-panel_access">
-					<div class="weui-panel__hd big-title"><img alt="" src="../Public/img/business/newjudge.png"><h3 class="title">最新评价</h3></div>
-						<template v-for="item in listCommentData "><!--三层  -->
+					<template  v-if="ToDataAuth.status=='1'">
+						<div class="weui-panel__hd big-title">
+							<img alt="" src="../Public/img/business/newjudge.png">
+							<h3 class="title">最新评价</h3>
+						</div>
+					</template>
+					<template v-for="item in listCommentData">
 							<div>
 								<div class="weui-cell">
 									<div class="weui-cell__hd">
 										<div class="thumb-img">
-											<img src="{{HOST+item.avatar}}" alt="" >
+											<img src="{{item.avatar}}" alt="" >
 										</div>
 										<div  class="description">
-											<p class="name">{{item.}}</p>
+											<p class="name">{{item.nickname}}</p>
 											<p id="ratyStar" data-score="4"></p>
 										</div>
 									</div>
@@ -267,12 +275,13 @@ function goodTime(str){
 									<p>{{item.desc}}</p>
 									<p>
 										<template v-for="img_url in listCommentData.img_url ">
-											<img src="{{Host+img_url.img_url}}" alt="">
+											<img src="{{HOST+img_url.img_url}}" alt="">
 										</template>
 									</p>
 								</div>
 							</div>
 					</template>
+				<!--
 					<div>
 						<div class="weui-cell">
 							<div class="weui-cell__hd">
@@ -293,9 +302,10 @@ function goodTime(str){
 								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg=="" alt="">
 							</p>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</section>
+
 			
     </body>
 <script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
@@ -303,11 +313,11 @@ function goodTime(str){
 <script>
 $(function() {
     $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-    $('#ratyStar').raty({ 
-    	  score: function() { 
-    	    return $(this).attr('data-score'); 
-    	  } 
-    	}); 
+    $('#ratyStar').raty({
+    	  score: function() {
+    	    return $(this).attr('data-score');
+    	  }
+    	});
 });
 </script>
 </html>

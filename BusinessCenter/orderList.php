@@ -33,21 +33,19 @@
 					num:'',
 					demoData:'',
 					url:{
-						checkInfo:$("#checkInfo").val(),
-						user_id:sessionUserId,
+						checkInfo:$("#my_bill").val(),
+						id:sessionUserId,
 						status:'2',// 默认：未发货：2	已发货：3
-						store_id:$.session.get('partnerId')
 					}
 				},
 				/*初始化，el控制区域，  */
 				ready: function() {
 					var that = this;
 					console.log(that.url);
-					that.$http.get(HOST+'index.php?c=order&a=my_bill',that.url).then(function (response) {
+					that.$http.get(HOST+'mobile.php?c=index&a=my_bill',that.url).then(function (response) {
 							var res = response.data; //取出的数据
-							that.$set('order_status', 0);//
-							that.$set('demoData', res.list);  //把数据传给页面
-							//console.log(res.list);
+							that.$set('status', 2);//
+							that.$set('demoData', res.data);  //把数据传给页面
 							//that.$set('url.start', listdata.length);
 						},
 						function (response) {
@@ -56,61 +54,26 @@
 				}, //created 结束
 				methods: {
 					jump_url: function (msg1,msg2){
-						window.location.href='editMySupply.php?supply_id='+msg1;
-					},
-					jump_url_to_delete: function (msg1,msg2){
-						//执行删除操作
-						var url =HOST+'index.php?c=index&a=order';
-						var checkInfoResume=$("#checkInfoResume").val();
-						$.ajax({
-							type: 'post',
-							url: url,
-							data: {checkInfo:$("#order_status").val(),id:sessionUserId,},
-							dataType: 'json',
-							success: function (result) {
-								var name=result.data.name;
-								if(name==null){
-									window.location.href='noMyJob.php';
-								}else{
-									window.location.href='myJob.php';
-								}
-							}
-						});
-
-					},
-					jump_url_to_pay: function (msg1,msg2){
-						window.location.href='pay.php?supply_id='+msg1;
+						//window.location.href='editMySupply.php?supply_id='+msg1;
 					},
 					classdata: function (msg) {
 						$('.weui_navbar .weui_bar_item_on').removeClass('weui_bar_item_on');
 						var that = this;
-						//console.log(that.url);
 						that.$set('num', 0);
 						switch(msg){
-							case '1':
-								that.$set('url.order_status', '1');
-								$('.weui_navbar .two').addClass('weui_bar_item_on');
-
-								break;
-							case '2':
-								that.$set('url.order_status', '2');
-								$('.weui_navbar .three').addClass('weui_bar_item_on');
-								break;
 							case '3':
-								that.$set('url.order_status', '3');
-								$('.weui_navbar .four').addClass('weui_bar_item_on');
+								that.$set('url.status', '3');
+								$('.weui_navbar .there').addClass('weui_bar_item_on');
 								break;
-							default:
-								that.$set('url.order_status', '0');
-								$('.weui_navbar .one').addClass('weui_bar_item_on');
+							default://2 未发货
+								that.$set('url.status', '2');
+								$('.weui_navbar .two').addClass('weui_bar_item_on');
 						}
-						console.log(that.url);
-						that.$http.get(HOST+'index.php?c=order&a=get_order_by_user_by_status',that.url).then(function (response) {
+						that.$http.get(HOST+'mobile.php?c=index&a=my_bill',that.url).then(function (response) {
+								console.log(that.url);
 								var res = response.data; //取出的数据
-								//console.log(that.url.order_status);
 								that.$set('num', that.url.limit);
-								that.$set('demoData', res.list);  //把数据传给页面
-								//that.$set('url.start', listdata.length);
+								that.$set('demoData', res.data);  //把数据传给页面
 							},
 							function (response) {
 								that.$set('message', '服务器维护，请稍后重试');
@@ -118,6 +81,38 @@
 					}//ajaxdata
 				}//method  结束
 			});
+			Vue.filter('time', function (value) {
+				return goodTime(value);
+			});
+			/*时间处理*/
+			function goodTime(str){
+				var now = Date.parse( new Date() ).toString();
+				now = now.substr(0,10);
+				var oldTime = str,
+					difference = now - oldTime,
+					result='',
+					minute = 1000 * 60,
+					hour = minute * 60,
+					day = hour * 24,
+					halfamonth = day * 15,
+					month = day * 30,
+					year = month * 12,
+
+					_year = difference/year,
+					_month =difference/month,
+					_week =difference/(7*day),
+					_day =difference/day,
+					_hour =difference/hour,
+					_min =difference/minute;
+				if(_year>=1) {result= "下单于 " + ~~(_year) + " 年前"}
+				else if(_month>=1) {result= "下单于 " + ~~(_month) + " 个月前"}
+				else if(_week>=1) {result= "下单于 " + ~~(_week) + " 周前"}
+				else if(_day>=1) {result= "下单于 " + ~~(_day) +" 天前"}
+				else if(_hour>=1) {result= "下单于 " + ~~(_hour) +" 个小时前"}
+				else if(_min>=1) {result= "下单于 " + ~~(_min) +" 分钟前"}
+				else result="刚刚下单";
+				return result;
+			}
 		});
 	</script>
 </head>
@@ -137,34 +132,46 @@
 		<div class="order-list clear">
 			<div class="weui_tab">
 					  <div class="weui_navbar">
-					    <a href="#tab1" class="weui_navbar_item weui_bar_item_on">
+					    <a class="weui_navbar_item two weui_bar_item_on"  v-on:click="classdata('2')">
 					       <p class="">未发货</p>
 					    </a>
-					    <a href="#tab2" class="weui_navbar_item">
+					    <a  class="weui_navbar_item there"  v-on:click="classdata('3')">
 					      <p class="">已发货</p>
 					    </a>
 					  </div>
 						  <div class="weui_tab_bd">
 						    <div class="weui_panel weui_panel_access">
-							  <div class="weui_panel_bd weui-article">
-							   <div id="tab1" class="weui_tab_bd_item weui_tab_bd_item_active">
-							   		<div class="tab-content">
-								        <div class="weui-media-box weui-media-box_text">
-								          <h5 class="weui-media-box__title">订单号：1232255555</h5>
-								            <p class="weui-media-box__desc">各种网站建设开发 <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
-								            <p class="weui-media-box__desc order-time"><span>1</span>小时前下单</p>
-								         </div>
-									</div>
-								</div>
-							    <div id="tab2" class="weui_tab_bd_item">
-							    	<div class="tab-content">
-								        <div class="weui-media-box weui-media-box_text">
-								          <h5 class="weui-media-box__title">订单号：1232sd5</h5>
-								            <p class="weui-media-box__desc">各种网站建设开发 <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
-								            <p class="weui-media-box__desc order-time"><span>1</span>小时前下单</p>
-								         </div>
-									</div>
-							</div>
+							  <div class="weui_panel_bd">
+								  <template   v-if="url.status=='2'"><!--判断哪个订单状态-->
+									  <template v-for="item in demoData"><!--具体的数据结构写入 -->
+										   <div id="tab1" class="">
+												<div class="tab-content">
+													<div class="weui-media-box weui-media-box_text">
+													  <h5 class="weui-media-box__title">订单号：{{item.order_sn}}</h5>
+														<p class="weui-media-box__desc">{{item.product_name}}
+															<span id="guige">规格套餐: <span>官方标配套餐</span></span>
+														</p>
+														<p class="weui-media-box__desc order-time"><span>{{item.pay_time|time}}</span></p>
+													 </div>
+												</div>
+											</div>
+										  </template>
+									  </template>
+								  <template   v-if="url.status=='3'"><!--判断哪个订单状态-->
+									  <template v-for="item in demoData"><!--具体的数据结构写入 -->
+											<div id="tab2" class="">
+												<div class="tab-content">
+													<div class="weui-media-box weui-media-box_text">
+														<h5 class="weui-media-box__title">订单号：{{item.order_sn}}</h5>
+														<p class="weui-media-box__desc">{{item.product_name}}
+															<span id="guige">规格套餐: <span>官方标配套餐</span></span>
+														</p>
+														<p class="weui-media-box__desc order-time"><span>{{item.pay_time|time}}</span></p>
+													</div>
+												</div>
+											</div>
+										  </template>
+								  </template>
 							</div>
 							</div>
 				    </div>

@@ -231,7 +231,7 @@ function getBenefit(checkInfoZidian){
 		dataType: 'json',
 		success: function (result) {
 			$.each(result.data, function (index,obj) {
-				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="banefit" id="'+obj.id+'" value="'+obj.id+'"></div>';
+				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="benefit" id="'+obj.id+'" value="'+obj.id+'"></div>';
 				$('#benefit').append(getBenefitHtml);
 			});
 			return false;
@@ -268,7 +268,7 @@ function jobDayWages(checkInfoZidian){
 		success: function (result) {
 			$.each(result.data, function (index, obj) {
 				var jobTimeHtml=' <option class="" value="'+obj.id+'">'+obj.name+'</option>';
-				$('#wage').append(jobTimeHtml);
+				$('#wages').append(jobTimeHtml);
 			});
 			return false;
 		}
@@ -720,7 +720,7 @@ function getSupplyCollectNumber(checkInfo,id){
 删除操作
  id： 用户id
  list_id：列表id
- model_id：供求信息：1 招聘信息：2 求职信息：3
+ model_id：供求信息：1  招聘信息：2   求职信息：3
  model:a的值
  */
 function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){
@@ -732,11 +732,52 @@ function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){
 		dataType: 'json',
 		success: function (result) {
 			var message=result.message;
-			if (result.statusCode==='0'){
-				$.toast(message, "cancel");
+			if (result.statusCode=='0'){
+				$.toast('删除出错，请重试', "cancel");
 			}else{
-				$.toast("操作成功");
+				$.toast('操作成功');
 				window.location.reload();//刷新当前页面.
+			}
+		}
+	});
+}
+//初始化数据库的值 cate_id三级id
+function  initialieSelectValue(checkInfo,cate_id,moudle){
+	$.ajax({
+		type: 'post',
+		url: HOST+'mobile.php?c=allcategory&a=find_category',
+		data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
+		dataType: 'json',
+		success: function (result) {
+			var message=result.message;
+			if (result.statusCode=='0'){
+				//当前位置定位信息发过去
+			}else{
+				dataJson=eval('(' + result.data+')');
+				var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+				var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+				var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
+				//地区
+				if (moudle=='7'){
+					$('#dpProvince').append(proviceHtml);
+					$('#dpCity').append(cityHtml);
+					$('#dpArea').append(areaHtml);
+				}
+				//招聘4
+				if (moudle=='4'){
+					$('#partner_cate_first').append(proviceHtml);
+					$('#partner_cate_sub').append(cityHtml);
+					$('#partner_cate_there').append(areaHtml);
+				}
+				//加盟商分类
+				if (moudle=='3') {
+					var proviceHtml1='<option selected="selected" value="'+dataJson.top.cate_id+'">'+dataJson.top.cate_name+'</option>';
+					var cityHtml1='<option selected="selected" value="'+dataJson.two.cate_id+'">'+dataJson.two.cate_name+'</option>';
+					var areaHtml1='<option selected="selected" value="'+dataJson.cate_id+'">'+dataJson.cate_name+'</option>';
+					$('#partner_cate_first').append(proviceHtml1);
+					$('#partner_cate_sub').append(cityHtml1);
+					$('#partner_cate_there').append(areaHtml1);
+				}
 			}
 		}
 	});
