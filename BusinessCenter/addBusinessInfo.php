@@ -232,6 +232,7 @@ $(function(){
 	        if( $(this).is('#mobile') ){
 	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
 	                getTips('手机号码有误，请重填！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -239,6 +240,7 @@ $(function(){
 	        if( $(this).is('#name') ){
 	       	 if(this==""||this.length<6){ 
 	       		 getTips('名称非法！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -247,6 +249,7 @@ $(function(){
 	       	 if(this==""){ 
 	                //$.toptip('手机号码有误，请重填！', 2000, 'warning');
 		       	  getTips('执照编号非法！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -254,6 +257,7 @@ $(function(){
 	        if( $(this).is('#address') ){
 	       	 if(this==""){ 
 		       	  getTips('地址非法！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -277,10 +281,10 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
-			if(file.size > 1024 * 1024 * 2) {
+			/*if(file.size > 1024 * 1024 * 2) {
 				getTips('图片大小不能超过 2MB!');
 				return false;
-			}
+			}*/
 			var url =HOST+'mobile.php?c=index&a=pic_partner';
 			var formData = new FormData($( "#addBusinessImageForm" )[0]);
 			formData.append('checkInfo',$( "#checkInfoAddImg").val());
@@ -300,8 +304,10 @@ $(function(){
 				success: function (result) {
 					var message=result.message;
 					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
-					}else{
+						getTips(message);
+						$(document).scrollTop(0);
+					}
+					if (result.statusCode=='1'){
 						var html = '';
 						html += ' <li class="weui-uploader__file" id="fileshow">' +
 							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
@@ -328,6 +334,11 @@ $(function(){
 		formData.append('dotype','add');
 		formData.append('checkInfo',$( "#checkInfo").val());
 		formData.append('id',sessionUserId);
+		if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+			getTips('手机号码有误，请重填！');
+			$(document).scrollTop(0);
+			return false;
+		}
 		$.showLoading('正在添加');
 		setTimeout(function() {
 			$.hideLoading();
@@ -342,10 +353,14 @@ $(function(){
 			processData: false,
 			success: function (result) {
 				var message=result.message;
-				if (result.statusCode==='0'){
-					getTips(message);return false;
-				}else{
-					window.location.href='editBusinessInfo.php';
+				if (result.statusCode=='0'){
+					getTips(message);$(document).scrollTop(0);return false;
+				}
+				if (result.statusCode=='1'){
+					setTimeout(function() {
+						$.showLoading('操作成功');
+						window.location.href='editBusinessInfo.php';
+					}, 3000)
 				}
 			}
 		});
@@ -363,21 +378,24 @@ $(function(){
 			dataType:'json',
 			success: function (result) {
 				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
+				if (result.statusCode=='0'){
+					$.toast("message", "cancel");
+				}
+				if (result.statusCode=='1'){
 					$(this).parent().remove();
-					//window.location.href='editBusinessInfo.php?recruit_id='+result.data.id;
 				}
 			}
 		});
 
 	});
-	//自定义提醒方式
-	function getTips(message){
-		$(".addbuin_title_info").html(message);
-		$("#topTips").fadeIn("slow");
-	}
 });
+//自定义提醒方式
+function getTips(message){
+	$(".addbuin_title_info").html(message);
+	$("#topTips").fadeIn("slow");
+	setTimeout(function () {
+		$("#topTips").fadeOut("slow");
+	}, 3000)
+}
 </script>
 </html>

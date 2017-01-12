@@ -58,6 +58,14 @@
 				 var area=$('#dpArea option:selected').val();
 				var  address = $("#address").val();
 				var  code = $("#code").val();
+				 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+					 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+					 return false;
+				 }
+			 $.showLoading('正在添加');
+			 setTimeout(function() {
+				 $.hideLoading();
+			 }, 3000)
 				 $.ajax({
 					type: 'post',
 					url: HOST+'mobile.php?c=index&a=my_address',
@@ -69,7 +77,8 @@
 						var message=result.message;
 						if (result.statusCode=='0'){
 							$.toast(message);
-						}else{
+						}
+						if (result.statusCode=='1'){
 							 setTimeout(window.location.href='region.php',8000)
 						}
 					}

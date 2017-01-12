@@ -23,7 +23,7 @@
 		<input value="<?php echo md5(date('Ymd')."partner_cat"."tuchuinet");?>"	type="hidden" id="checkInfoPartnerType"/>  <!--加盟商类别  -->
 		<input value="<?php echo md5(date('Ymd')."pic_partner"."tuchuinet");?>"	type="hidden" id="checkInfoHeadImg"/>
 		<input value="<?php echo md5(date('Ymd')."last_comment"."tuchuinet");?>"	type="hidden" id="last_comment"/> <!-- 最新评价 -->
-		<input value="<?php echo md5(date('Ymd')."get_order_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_by_user_by_status"/> <!-- 最新评价 -->
+		<input value="<?php echo md5(date('Ymd')."my_bill"."tuchuinet");?>"	type="hidden" id="my_bill"/> <!-- 最新评价 -->
 <script>
 sessionUserId=$.session.get('userId');
 if(sessionUserId==null){
@@ -70,21 +70,21 @@ $.ajax({
 				//传递数据
 				dataNull:'',
 				ToDataStatusAuth:{
-					checkInfo:$("#get_order_by_user_by_status").val(),
-					user_id:sessionUserId,
-					order_status:'1'//订单状态0代付款 1待收货 2待评价 3退款
+					checkInfo:$("#my_bill").val(),
+					id:sessionUserId,
+					status:'2'//订单状态0代付款 1待收货 2待评价 3退款
 				}
 			},
 			ready: function() {
 				var that = this;
-				that.$http.get(HOST+'index.php?c=order&a=get_order_by_user_by_status',that.ToDataStatusAuth).then(function (response) {
+				that.$http.get(HOST+'mobile.php?c=index&a=my_bill',that.ToDataStatusAuth).then(function (response) {
 					var res = response.data; //取出的数据
 					if (res.statusCode==0){
 						that.$set('dataNull', 2);
 					}
 					if (res.statusCode==1){
 						that.$set('dataNull', 1);
-						that.$set('goodsList', res.list);  //把数据传给页面
+						that.$set('goodsList', res.data);  //把数据传给页面
 					}
 
 				});
@@ -254,8 +254,8 @@ function goodTime(str){
 							<div class="weui-panel__bd clear">
 								<div class="weui-media-box weui-media-box_text">
 									<h5 class="weui-media-box__title">订单号：{{item.order_sn}}</h5>
-									<p class="weui-media-box__desc">{{item.product_name}} <span id="guige">规格套餐: <span>官方标配套餐</span></span></p>
-									<p class="weui-media-box__desc order-time"><span>{{item.1order_create_time|time}}</span></p>
+									<p class="weui-media-box__desc">{{item.product_name}} <span id="guige">规格套餐: <span>{{item.product_spec}}</span></span></p>
+									<p class="weui-media-box__desc order-time"><span>{{item.pay_time|time}}</span></p>
 								</div>
 							</div>
 						</template>

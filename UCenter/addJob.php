@@ -119,9 +119,8 @@ $(function(){
                 if (result.statusCode=='1'){
                   	 $.showLoading('添加成功');
           			setTimeout(function() {
-              				$.hideLoading();
+                        window.location.href='myJob.php';
               		}, 3000)
-              		window.location.href='myJob.php';
                 }
                   
             },

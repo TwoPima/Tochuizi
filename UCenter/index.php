@@ -17,8 +17,7 @@
 <script src="../Public/js/common.js"></script>
 
 <input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>  
-<input value="<?php echo md5(date('Ymd')."get_order_count_by_user_by_status"."tuchuinet");?>"	type="hidden" id="get_order_count_by_user_by_status"/>
+<input value="<?php echo md5(date('Ymd')."my_resume"."tuchuinet");?>"	type="hidden" id="checkInfoResume"/>
 <input value="<?php echo md5(date('Ymd')."my_partner"."tuchuinet");?>"	type="hidden" id="my_partner"/>
 <script>
 /* if(!window.sessionStorage.login){
@@ -63,11 +62,11 @@ if(window.sessionStorage){
 						$.toptip(tips,2000, 'error');
 					}else{
 						//判断是否进入店铺中心
-						/*if(result.data.is_partner=='0'){
+						if(result.data.is_partner=='0'){
 							$("#BusinessCenter").hide();
 						}else{
 							$("#addBusiness").hide();
-						}*/
+						}
     					var mobile=$.session.get('mobileSession');
 						$("#mobile").html(mobile);
     					if(eval('(' + result.data.idtype+ ')')==null){
@@ -97,6 +96,19 @@ if(window.sessionStorage){
     					}else{
     						$("#avatar").attr("src",HOST+result.data.avatar);//头像
     					}
+						//数据取回成功
+						if (result.data.count1!=='0'){
+							$("#wait_pay").addClass("icon_num").html(result.data.count1);
+						}
+						if (result.data.count3!=='0'){
+							$("#wait_get_goods").addClass("icon_num").html(result.data.count3);
+						}
+						if (result.data.count4!=='0'){
+							$("#wait_evaluate").addClass("icon_num").html(result.data.count4);
+						}
+						if (result.data.count5!=='0'){
+							$("#back_goods").addClass("icon_num").html(result.data.count5);
+						}
     					
 					} 
 				}
@@ -278,38 +290,6 @@ if(window.sessionStorage){
 </body>
 <script type="text/javascript">
 $(function(){
-	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),0);
-	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),1);
-	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),2);
-	get_user_by_status(sessionUserId,$("#get_order_count_by_user_by_status").val(),3);
-//每个用户下的订单状态的总数
-	function get_user_by_status(user_id,checkInfo,order_status){
-		$.ajax({
-			type: 'post',
-			url: HOST+'index.php?c=order&a=get_order_count_by_user_by_status',
-			data: {checkInfo:checkInfo,user_id:user_id,order_status:order_status},
-			dataType: 'json',
-			success: function (result) {
-				if (result.statusCode=='0'){
-					//$.toptip(tips,2000, 'error');
-				}else{
-					//数据取回成功
-					if (order_status=='0'){
-						$("#wait_pay").addClass("icon_num").html(result.order_count);
-					}
-					if (order_status=='1'){
-						$("#wait_get_goods").addClass("icon_num").html(result.order_count);
-					}
-					if (order_status=='2'){
-						$("#wait_evaluate").addClass("icon_num").html(result.order_count);
-					}
-					if (order_status=='3'){
-						$("#back_goods").addClass("icon_num").html(result.order_count);
-					}
-				}
-			}
-		});
-	}
 			//查询简历是否存在
 			$("#judgeJob").click(function(){
 				if($.session.get('idType')==null){
@@ -344,7 +324,8 @@ $(function(){
 							success: function (result) {
 								if(result.statusCode=="0"){
 									window.location.href='../BusinessCenter/addBusinessInfo.php';
-								}else{
+								}
+								if(result.statusCode=="1"){
 									window.location.href='../BusinessCenter/editBusinessInfo.php';
 								}
 							}

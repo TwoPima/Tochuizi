@@ -44,6 +44,7 @@
 				}
 			}
 		});
+		$(function(){
 		/* 经营分类 */
 		var partner_cate_first = $("#partner_cate_first");
 		var partner_cate_sub = $("#partner_cate_sub");
@@ -88,10 +89,6 @@
 			dpArea.fadeIn("slow");
 		});
 		selectBusinessInfo($("#checkInfo").val(),sessionUserId);
-		function getTips(message){
-			$(".addbuin_title_info").html(message);
-			$("#topTips").fadeIn("slow");
-		}
 //取出加盟商信息
 		function selectBusinessInfo(checkInfo,id){
 			var url =HOST+'mobile.php?c=index&a=my_partner';
@@ -115,9 +112,14 @@
 							//正在审核
 							getTips('您的资料正在审核中，大概2个工作日内回复！');
 							$("#btn-custom-theme").css("background-color","#696562").attr("data","1");
-						}else{
-							//驳回
+						}
+						if(eval('(' + result.data.status+ ')')=='2'){
+							//驳回 重新提交
 							getTips(result.data.bo_res);
+						}
+						if(eval('(' + result.data.status+ ')')=='3'){
+							//成功跳转
+							//window.location.href='../BusinessCenter/index.php';
 						}
 						$(result.data.img_url).each(function(index, obj) {
 							var html = '';
@@ -132,22 +134,19 @@
 							'</li>';
 						$("#uploaderFiles").prepend(licence_thumb);
 						//下拉框
-						if(eval('(' + result.data.wage+ ')')!=null){
-							$('#wage').append('<option value="'+eval('(' + result.data.wage+ ')').id+'" selected="selected">'+eval('(' + result.data.wage+ ')').name+'</option>');
-						}
-						if(eval('(' + result.data.job_type+ ')')!=null){
+						if(eval('(' + result.data.job_type+ ')')!==null){
 							$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
 						}
-						console.log(eval('(' + result.data.area+')'));
-						console.log(result.data.cate_id.cate_id);
-						if(eval('(' + result.data.area+')')!=null){
-							//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+						/*console.log(eval('(' + result.data.area+')'));
+						console.log(result.data.cate_id.cate_id);*/
+						if(eval('(' + result.data.area+')')!==null){
+							// 7地区
 							initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
 							dpCity.fadeIn("slow");
 							dpArea.fadeIn("slow");
 						}
-						if(result.data.cate_id.cate_id!=null){
-							//用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+						if(result.data.cate_id.cate_id!==null){
+							// 加盟商3
 							initialieSelectValue($("#find_category").val(),result.data.cate_id.cate_id,3);
 							partner_cate_sub.fadeIn("slow");
 							partner_cate_there.fadeIn("slow");
@@ -157,6 +156,8 @@
 				}
 			});
 		}
+
+		});
 </script>
 </head>
 <body>
@@ -257,8 +258,8 @@
 								</select>
 							</div>
 						</div>
-							<div class=" weui-cell-box">
-								<textarea class="weui-cell-textarea font14px" name="desc" id="desc" placeholder="备注..."></textarea>
+							<div class="weui_cell weui-cell-box">
+								<textarea class="weui-cell-textarea font14px"  name="desc" id="desc" placeholder="备注..."></textarea>
 							</div>
 							<p class="box-in"></p>
 						</form>
@@ -301,6 +302,7 @@ $(function(){
 	        if( $(this).is('#mobile') ){
 	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
 	                getTips('手机号码有误，请重填！');
+					 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -308,6 +310,7 @@ $(function(){
 	        if( $(this).is('#name') ){
 	       	 if(this==""||this.length<6){ 
 	       		 getTips('名称非法！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -316,6 +319,7 @@ $(function(){
 	       	 if(this==""){ 
 	                //$.toptip('手机号码有误，请重填！', 2000, 'warning');
 		       	  getTips('执照编号非法！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -323,6 +327,7 @@ $(function(){
 	        if( $(this).is('#address') ){
 	       	 if(this==""){ 
 		       	  getTips('地址非法！');
+				 $(document).scrollTop(0);
 	                return false; 
 	            } 
 	      	}
@@ -332,10 +337,10 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
-			if(file.size > 1024 * 1024 * 2) {
+			/*if(file.size > 1024 * 1024 * 2) {
 				alert('图片大小不能超过 2MB!');
 				return false;
-			}
+			}*/
 			var URL = window.URL || window.webkitURL;
 			var imgURL = URL.createObjectURL(file);
 			var html = '';
@@ -349,10 +354,10 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
-			if(file.size > 1024 * 1024 * 2) {
+			/*if(file.size > 1024 * 1024 * 2) {
 				getTips('图片大小不能超过 2MB!');
 				return false;
-			}
+			}*/
 			var url =HOST+'mobile.php?c=index&a=pic_partner';
 			var formData = new FormData($( "#addBusinessImageForm" )[0]);
 			formData.append('checkInfo',$( "#checkInfoAddImg").val());
@@ -371,9 +376,10 @@ $(function(){
 				processData: false,
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='0'){
+					if (result.statusCode=='0'){
 						$.toptip(message,2000, 'error');
-					}else{
+					}
+					if (result.statusCode=='1'){
 						var html = '';
 						html += ' <li class="weui-uploader__file" id="fileshow">' +
 							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
@@ -435,16 +441,25 @@ $(function(){
 					dataType: 'json',
 					success: function (result) {
 						var message = result.message;
-						if (result.statusCode === '0') {
-							$.toptip(message, 2000, 'error');
-						} else {
+						if (result.statusCode =='0') {
+							getTips(message);
+							$(document).scrollTop(0);
+						}
+						if (result.statusCode == '1'){
 							$(this).parent().remove();
-							window.location.href = 'editBusinessInfo.php?recruit_id=' + result.data.id;
+							//window.location.href = 'editBusinessInfo.php?recruit_id=' + result.data.id;
 						}
 					}
 				});
 			}
 	});
 });
+function getTips(message){
+	$(".addbuin_title_info").html(message);
+	$("#topTips").fadeIn("slow");
+	setTimeout(function () {
+		$("#topTips").fadeOut("slow");
+	}, 3000)
+}
 </script>
 </html>

@@ -393,15 +393,22 @@ $(document).on("click", ".deletePicture", function() {
 		 $.ajax({
 			type: 'post',
 			url: url,
-			data: {mobile:mobile,cate_id:cate_id,zu:zu,education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex},
+			data: {
+                mobile:mobile,cate_id:cate_id,zu:zu,education:education,job_year:job_year,
+                id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,
+                checkInfo:checkInfo,sex:sex,email:email
+            },
 			dataType: 'json',
 			success: function (result) {
 				var tips=result.message;
 				if (result.statusCode=='0'){
 					$.toast(tips, "cancel");
-				}else{
-					$.toast("操作成功");
-					//window.location.href='myJob.php';
+				}
+                if (result.statusCode=='1'){
+                    setTimeout(function() {
+                        $.toast("操作成功");
+                        window.location.href='myJob.php';
+                    }, 3000)
 				}
 			},
 		});

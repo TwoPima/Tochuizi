@@ -73,31 +73,6 @@
 			loadAreasDistrict($("#checkInfoArea").val(), cityID);
 			dpArea.fadeIn("slow");
 		});
-		//初始化数据库的值 cate_id三级id
-		function  initialieSelectValue(checkInfo,cate_id,moudle){
-			$.ajax({
-				type: 'post',
-				url: HOST+'mobile.php?c=allcategory&a=find_category',
-				data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
-				dataType: 'json',
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode=='0'){
-						//当前位置定位信息发过去
-
-					}else{
-						//数据取回成功
-						dataJson=eval('(' + result.data+')');
-						var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-						var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-						var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
-						$('#dpProvince').append(proviceHtml);
-						$('#dpCity').append(cityHtml);
-						$('#dpArea').append(areaHtml);
-					}
-				}
-			});
-		}
 			//提交，最终验证。
 		 $("#saveInfo").click(function() {
 				var is_yes=$("input[name=is_yes]:checked").val();
@@ -108,6 +83,10 @@
 			    var area=$('#dpArea option:selected').val();
 				var  address = $("#address").val();
 				var  code = $("#code").val();
+				 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+					 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+					 return false;
+				 }
 		       	var url =HOST+'mobile.php?c=index&a=my_address';
 				 $.ajax({
 					type: 'post',
@@ -119,12 +98,11 @@
 					dataType: 'json',
 					success: function (result) {
 						var message=result.message;
-						if (result.statusCode==='0'){
+						if (result.statusCode=='0'){
 							$.toast(message);
-						}else{
-							$.toast(message);
-							 setTimeout(window.location.href='region.php',8000)
-							//window.location.href='addJobResume.php';
+						}
+						if (result.statusCode=='1'){
+							setTimeout(window.location.href='region.php',8000)
 						}
 					}
 				});

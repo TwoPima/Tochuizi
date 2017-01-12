@@ -211,10 +211,14 @@ $(function(){
                 processData: false,
                 success: function (result) {
                     var message=result.message;
-                    if (result.statusCode==='0'){
-                        $.toast(message, "cancel");
-                    }else{
-                        window.location.href='mySupply.php';
+                    if (result.statusCode=='0'){
+                        $.toptip(message,2000, 'error');
+                    }
+                    if (result.statusCode=='1') {
+                        $.showLoading('添加成功');
+                        setTimeout(function () {
+                            window.location.href = 'mySupply.php';
+                        }, 3000)
                     }
                 }
             });

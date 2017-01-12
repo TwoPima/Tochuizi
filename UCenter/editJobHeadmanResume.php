@@ -397,21 +397,33 @@ $(document).on("click", ".deletePicture", function() {
        		$.toptip('手机号姓名均不能为空！', 200, 'warning');
        	    return false; 
        	 }
+         if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+             $.toptip('手机号码有误，请重填！', 2000, 'warning');
+             return false;
+         }
+         if( $("#email").val()=="" || ($("#email").val()!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test($("#email").val()) ) ){
+             $.toptip('邮箱地址有误，请重填！', 2000, 'warning');
+             return false;
+         }
 		 $.ajax({
 			type: 'post',
 			url: url,
 			data: {
 				mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,
 				dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
-				sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type},
+				sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type,email: $("#email").val()
+            },
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
-				if (result.statusCode==='0'){
+				if (result.statusCode=='0'){
 					$.toast(message, "cancel");
-				}else{
-					$.toast("操作成功");
-					window.location.href='myJob.php';
+				}
+                if (result.statusCode=='1'){
+                    setTimeout(function() {
+                        $.toast("操作成功");
+                        window.location.href='myJob.php';
+                    }, 3000)
 				}
 			}
 		});

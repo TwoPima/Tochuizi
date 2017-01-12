@@ -82,7 +82,7 @@ body{
     padding:10px 0;
     outline: none;
     font-family: "Microsoft YaHei UI";
-    height:120px;
+    height:48px;
     color: #000;
     border-top:1px solid #E6E6E6;
 }
@@ -304,7 +304,6 @@ body{
     height: 1.41176471em;
     line-height: 1.41176471;
 }
-#dpCity,#dpArea{ display:none; position:relative;} 
 /*我的招聘结束*/
 /*提现开始  */
 .cash .weui_cell_primary{

@@ -433,11 +433,14 @@ $(function(){
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='0'){
+					if (result.statusCode=='0'){
 						$.toast(message, "cancel");
-					}else{
-						$.toast("操作成功！");
-						window.location.href='myJob.php';
+					}
+					if (result.statusCode=='1'){
+						setTimeout(function() {
+							$.toast("操作成功");
+							window.location.href='myJob.php';
+						}, 3000)
 					}
 				}
 			});

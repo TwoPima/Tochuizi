@@ -759,19 +759,23 @@ function  initialieSelectValue(checkInfo,cate_id,moudle){
 			var message=result.message;
 			if (result.statusCode=='0'){
 				//当前位置定位信息发过去
-			}else{
+			}
+			if (result.statusCode=='1'){
 				dataJson=eval('(' + result.data+')');
-				var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-				var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-				var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
 				//地区
 				if (moudle=='7'){
+					var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+					var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+					var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
 					$('#dpProvince').append(proviceHtml);
 					$('#dpCity').append(cityHtml);
 					$('#dpArea').append(areaHtml);
 				}
 				//招聘4
 				if (moudle=='4'){
+					var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
+					var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
+					var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
 					$('#partner_cate_first').append(proviceHtml);
 					$('#partner_cate_sub').append(cityHtml);
 					$('#partner_cate_there').append(areaHtml);
