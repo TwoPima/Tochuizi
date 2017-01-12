@@ -56,58 +56,66 @@
 			</div>
 		</div>
 	</div>
-	<div id="wrapper">
-		<div id="scroller">
-			<template v-for="item in demoData" ><!--三层  -->
-        					<div class="weui_panel">
-            					<div class="list-data" >
-            							<a v-on:click="jump_url(item.id,item.url)" style="display: block;" >
-                							<div class="weui_media_box weui_media_text">
-                								<p class="weui_media_desc">{{item.title}}</p>
-                							
-                								<ul class="weui_media_info">
-													<li class="weui_media_info_meta">{{item.update_time|time}}
-													</li>
-                									<li class="weui_media_info_meta weui_media_info_meta_extra">
-														查阅次数:&nbsp;&nbsp;
-														<span>{{item.hits}}</span>
-													</li>
-                								</ul>
-                							</div>
-                						</a>
-            							<!--<div style="line-height:67px;"class="del-btn">
-            							<span onClick="confirmDelete('+obj.id+');" >删除</span>
-            							</div> -->
-            					</div>
-        					</div>
-						
-			</template>
+	<template v-if="is_nodata == '1'">
+		<div id="wrapper">
+			<div id="scroller">
+				<template v-for="item in demoData" >
+					<div class="weui_panel">
+						<div class="list-data">
+							<a v-on:click="jump_url(item.id,item.url)" style="display: block;" >
+								<div class="weui_media_box weui_media_text">
+									<p class="weui_media_desc">{{item.title}}</p>
+									<ul class="weui_media_info">
+										<li class="weui_media_info_meta">
+											{{item.update_time|time}}
+										</li>
+										<li class="weui_media_info_meta weui_media_info_meta_extra">
+											查阅次数:&nbsp;&nbsp;
+											<span>{{item.hits}}</span>
+										</li>
+									</ul>
+								</div>
+							</a>
+							<img class="jiantou" src="../Public/img/supply/jiantou.png" >
+							<!--<div style="line-height:67px;"class="del-btn">
+							<span onClick="confirmDelete('+obj.id+');" >删除</span>
+							</div> -->
+						</div>
+					</div>
+				</template>
+			</div>
+			<div class="weui-loadmore upload" style="display: none">
+				<i class="weui-loading"></i>
+				<span class="weui-loadmore__tips">正在加载</span>
+			</div>
 		</div>
-		<div class="weui-loadmore">
-			<i class="weui-loading"></i>
-			<span class="weui-loadmore__tips">正在加载</span>
-		</div>
-	</div>
+	</template>
+	<template v-else>
+		<p style="text-align: center;color: red;height: 30px;line-height: 30px;z-index: 5000;">{{message}}</p>
+	</template>
 </div>
 <input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
 <input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
 <script type="text/javascript" src="../Public/js/vue.min.js"></script>
 <script type="text/javascript" src="../Public/js/vue-resource.js"></script>
-<script src="../Public/js/iscroll.js"></script>
+<!--<script src="../Public/js/iscroll.js"></script>-->
+<script src="../Public/js/iscroll-probe.js"></script>
 <script>
 	var checkInfo=$('#supply_list').val();
 	var sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
-		getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计	
+	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {
-			num:'',
+
 			demoData:'',
-			total_tie:'',
-			total_hits:'',
+			is_refresh:'0',
+			is_scroll:1,
+			is_nodata:'1',
+			message:'',
 			url:{
 				checkInfo:checkInfo,
 				id:sessionUserId,
@@ -115,70 +123,91 @@
 				start:0,
 				limit:10
 			}
-		},/*初始化，el控制区域，  */
+		},
 		ready: function() { 
 			var that = this;
+			that.$set('is_refresh', '0');
+			that.$set('is_scroll', '1');
 			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
-				var listdata=[];
-				for(x  in res.data){
-					/*console.log(x);
-					console.log(res.data[x]);*/
-					if (typeof (res.data[x]) == 'object'){
-						listdata[x]=res.data[x];
-					}
+				if(res.statusCode==1){
+					that.$set('is_nodata', '1');
+					var listdata=res.data;
+					that.$set('demoData', listdata);  //把数据传给页面
+					that.$set('url.start', listdata.length);
+					Vue.nextTick(function () {
+						//初始化滚动插件
+						that.myScroll = new IScroll('#wrapper', {
+							mouseWheel: true,
+							wheelAction: 'zoom',
+							click: true,
+							scrollX: false,
+							scrollY: true,
+							probeType: 3,
+						});
+						//滚动监听
+						that.myScroll.on('scroll',is_upload);
+						that.myScroll.on('scrollEnd',scrollaction);
+					})
+				}else{
+					that.$set('is_nodata', '0');
+					that.$set('message', '暂无数据');
 				}
-				that.$set('demoData', listdata);  //把数据传给页面
-				that.$set('url.start', listdata.length);
-
-				Vue.nextTick(function () {
-					//初始化滚动插件
-					that.myScroll = new IScroll('#wrapper', {
-						mouseWheel: true,
-						wheelAction: 'zoom',
-						click: true,
-						scrollX: false,
-						scrollY: true,
-						probeType: 3,
-					});
-					//滚动监听
-					that.myScroll.on('scrollEnd',function(){
-					});//滚动监听,1000
-				})
-			}, 
+			},
 			function (response) {
-				that.$set('message', '服务器维护，请稍后重试');
+				that.$set('is_nodata', '0');
+				that.$set('message', '网络繁忙，请稍后重试');
 			});
-			/*再次加载  */
+			function is_upload(){
+				if (this.y>50){
+					$('.upload').css('display','block');
+					that.$set('is_refresh', '1');
+				}else{
+					$('.upload').css('display','none');
+				}
+			}
 			function scrollaction(){
-				if(1){
-					console.log(this.y);
-					if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
-						console.log(that.url);
-						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+					if (that.is_refresh=='1'  || -(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+						console.log('上拉加载');
+						console.log(that.is_refresh);
+						console.log(that.is_scroll);
+						if( that.is_refresh == 1){
+							that.$set('demoData', '');
+							that.$set('url.start',0);
+							that.$set('is_scroll',1);
+						}
+						if (that.is_scroll=='1'){
+							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data;
-							var listdata=[];
-							for(x  in res.data){
-								console.log(typeof (res.data[x]));
-								if (typeof (res.data[x]) == 'object'){
-									listdata[x]=res.data[x];
+							console.log(res);
+							var listdata=res.data;
+							console.log(listdata);
+							if (that.is_refresh == 1){
+								that.$set('demoData', listdata);  //把数据传给页面
+								that.$set('url.start', listdata.length);
+								Vue.nextTick(function () {
+									that.$set('is_refresh', '0');
+									that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+								});
+							}else{
+								if(res.statusCode=='1'){
+									that.url.start+=listdata.length;
+									//这个for循环是更新vue渲染列表的数据
+									for (var i = 0; i < listdata.length; i++) {
+										that.demoData.push(listdata[i]);
+									}
+									Vue.nextTick(function () {
+										that.$set('is_refresh', '0');
+										that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+									});
+								}else{
+									that.$set('is_scroll', '0');
 								}
 							}
-							this.url.start+=listdata.length;
-							//这个for循环是更新vue渲染列表的数据
-							for (var i = 0; i < listdata.length; i++) {
-								that.demoData.push(listdata[i]);
-							}
-							console.log(that.demoData);
-							Vue.nextTick(function () {
-								that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
-							});
 						}, function (response) {
-							//取消加载效果
-							that.$set('message', '服务器维护，请稍后重试');
+							that.$set('is_scroll', '0');
 						});
 					}
-
 				}
 			}
 		}, //created 结束
@@ -188,86 +217,107 @@
 			},
 			classdata: function (msg) {
 				$('.sipply_nav .action').removeClass('action');
-				var that = this;
-				that.$set('num', 0);
-				that.$set('url.start', 0);
-				that.$set('total_tie',0);
-				that.$set('total_hits', 0);
+				var _self = this;
+				_self.$set('url.start', 0);
+				_self.$set('demoData', '');
 				switch(msg){
 					case '':
-						that.$set('url.is_true', '');
+						_self.$set('url.is_true', '');
 						$('.sipply_nav .one').addClass('action');
 					break;
 					case '0':
-						that.$set('url.is_true', 0);
+						_self.$set('url.is_true', 0);
 						$('.sipply_nav .two').addClass('action');
 					break;
 					case '1':
-						that.$set('url.is_true', 1);
+						_self.$set('url.is_true', 1);
 						$('.sipply_nav .three').addClass('action');
 					break;
 					default:
 						$('.sipply_nav .one').addClass('action');
-						that.$set('url.is_true', '');
+						_self.$set('url.is_true', '');
 				}
-				that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+				_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
+						_self.myScroll.destroy(); //把滑动注销掉
 						var res = response.data; //取出的数据
-						var listdata=[];
-						for(x  in res.data){
-							if (typeof (res.data[x]) == 'object'){
-								listdata[x]=res.data[x];
-							}
-							if (x == 'total_tie'){
-								that.$set('total_tie', res.data['total_tie']);
-							}
-							if (x == 'total_hits'){
-								that.$set('total_hits', res.data['total_hits']);
-							}
+						console.log(res);
+						if(res.statusCode==1){
+							_self.$set('is_nodata', '1');
+							var listdata=res.data;
+							_self.$set('demoData', listdata);  //把数据传给页面
+							_self.$set('url.start', listdata.length);
+							Vue.nextTick(function () {
+								//初始化滚动插件
+								_self.myScroll = new IScroll('#wrapper', {
+									mouseWheel: true,
+									wheelAction: 'zoom',
+									click: true,
+									scrollX: false,
+									scrollY: true,
+									probeType: 3,
+								});
+								//滚动监听
+								_self.myScroll.on('scroll',is_upload2);
+								_self.myScroll.on('scrollEnd',scrollaction2);
+							})
+						}else{
+							_self.$set('is_nodata', '0');
+							_self.$set('message', '暂无数据');
 						}
-						that.$set('num', that.url.limit);
-						that.$set('demoData', listdata);  //把数据传给页面
-						that.$set('url.start', listdata.length);
-						Vue.nextTick(function () {
-							//初始化滚动插件
-							that.myScroll = new IScroll('#wrapper', {
-								mouseWheel: true,
-								wheelAction: 'zoom',
-								click: true,
-								scrollX: false,
-								scrollY: true,
-							});
-							//滚动监听
-							that.myScroll.on('scrollEnd',scrollaction1);//滚动监听,1000
-						})
 					},
 					function (response) {
-						that.$set('message', '服务器维护，请稍后重试');
+						_self.$set('is_nodata', '0');
+						_self.$set('message', '网络繁忙，请稍后重试');
 					});
-				/*再次加载  */
-				function scrollaction1(){
-					if( that.url.start >=  that.num ){
-						if (-(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
-							console.log(that.url);
-							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+				function is_upload2(){
+					if (this.y>50){
+						console.log('开始下拉刷新');
+						$('.upload').css('display','block');
+						_self.$set('is_refresh', '1');
+					}else{
+						$('.upload').css('display','none');
+					}
+				}
+				function scrollaction2(){
+					if (_self.is_refresh=='1'  || -(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
+						if( _self.is_refresh == 1){
+							_self.$set('demoData', '');
+							_self.$set('url.start',0);
+							_self.$set('is_scroll',1);
+						}
+						if (_self.is_scroll=='1'){
+							_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
 								var res = response.data;
-								var listdata=[];
-								for(x  in res.data){
-									if (typeof (res.data[x]) == 'object'){
-										listdata[x]=res.data[x];
+								console.log(res);
+								if(res.statusCode=='1'){
+									var listdata=res.data;
+									if (_self.is_refresh == 1){
+										_self.$set('demoData', listdata);  //把数据传给页面
+										_self.$set('url.start', listdata.length);
+										Vue.nextTick(function () {
+											_self.$set('is_refresh', '0');
+											_self.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+										});
+									}else{
+										if(res.statusCode=='1'){
+											_self.url.start+=listdata.length;
+											//这个for循环是更新vue渲染列表的数据
+											for (var i = 0; i < listdata.length; i++) {
+												_self.demoData.push(listdata[i]);
+											}
+											Vue.nextTick(function () {
+												_self.$set('is_refresh', '0');
+												_self.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
+											});
+										}else{
+											_self.$set('is_scroll', '0');
+										}
 									}
+								}else{
+									_self.$set('is_scroll', '0');
 								}
-								this.url.start+=listdata.length;
-								//这个for循环是更新vue渲染列表的数据
-								for (var i = 0; i < listdata.length; i++) {
-									that.demoData.push(listdata[i]);
-								}
-								console.log(that.demoData);
-								Vue.nextTick(function () {
-									that.myScroll.refresh();// 用iScroll自带的方法更新一下myScroll实例更新一下scroller的高度
-								});
 							}, function (response) {
-								//取消加载效果
-								that.$set('message', '服务器维护，请稍后重试');
+								_self.$set('is_scroll', '0');
 							});
 						}
 					}
@@ -298,19 +348,12 @@
 			_day =difference/day,
 			_hour =difference/hour,
 			_min =difference/minute;
-		/*console.log(now);
-		console.log(oldTime);
-		console.log(_year);
-		console.log(_month);
-		console.log(_week);
-		console.log(_hour);
-		console.log(_min);*/
-		if(_year>=1) {result= "发表于 " + ~~(_year) + " 年前"}
-		else if(_month>=1) {result= "发表于 " + ~~(_month) + " 个月前"}
-		else if(_week>=1) {result= "发表于 " + ~~(_week) + " 周前"}
-		else if(_day>=1) {result= "发表于 " + ~~(_day) +" 天前"}
-		else if(_hour>=1) {result= "发表于 " + ~~(_hour) +" 个小时前"}
-		else if(_min>=1) {result= "发表于 " + ~~(_min) +" 分钟前"}
+		if(_year>=1) {result=  ~~(_year) + " 年前"}
+		else if(_month>=1) {result=  ~~(_month) + " 个月前"}
+		else if(_week>=1) {result=  ~~(_week) + " 周前"}
+		else if(_day>=1) {result=  ~~(_day) +" 天前"}
+		else if(_hour>=1) {result=  ~~(_hour) +" 个小时前"}
+		else if(_min>=1) {result=  ~~(_min) +" 分钟前"}
 		else result="刚刚";
 		return result;
 	}

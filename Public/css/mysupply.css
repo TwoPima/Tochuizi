@@ -1,6 +1,7 @@
 /* 我的供求开始*/
 html,body{
     height: 100%;
+    font-family:  'Microsoft YaHei', 'Helvetica Neue', Helvetica, Roboto, STHeiTi, Arial, sans-serif ;
 }
 #main{
     margin-top: 0 !important;
@@ -117,3 +118,34 @@ html,body{
     font-size:20px;
 }
 /* 我的供求结束*/
+#wrapper .weui_media_box{
+    color: #666666;
+    font-size: 16px;
+    padding:15px 0;
+}
+#wrapper .weui_media_box .weui_media_desc{
+    color: #000;
+    font-size: 16px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+#wrapper .weui_panel{
+    padding:0 15px;
+    margin-top:0;
+}
+#wrapper .weui_media_box.weui_media_text .weui_media_info_meta{
+    color: #949494;
+}
+.weui_media_box.weui_media_text .weui_media_info_meta.weui_media_info_meta_extra{
+    border-left:none;
+}
+#wrapper .list-data .jiantou{
+    position: absolute;
+    right:0;
+    top:0;
+    height:100%;
+}
