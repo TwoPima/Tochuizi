@@ -197,6 +197,10 @@ $(function(){
             formData.append('checkInfo',$( "#checkInfo").val());
             formData.append('id',sessionUserId);
             formData.append('dotype','add');
+			 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+				 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+				 return false;
+			 }
             $.ajax({
                 type: 'post',
                 url:HOST+'mobile.php?c=index&a=my_supply',

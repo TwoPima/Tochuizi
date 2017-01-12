@@ -278,10 +278,14 @@ $(function(){
             formData.append('supply_id',$( "#supply_id").val());
             formData.append('id',sessionUserId);
             formData.append('dotype','edit');
-         /*   $.showLoading('正在添加');
+    		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+    			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+    			 return false;
+    		 }
+            $.showLoading('正在添加');
             setTimeout(function() {
                 $.hideLoading();
-            }, 3000)*/
+            }, 3000)
             $.ajax({
                 type: 'post',
                 url:HOST+'mobile.php?c=index&a=my_supply',
@@ -295,7 +299,7 @@ $(function(){
                     if (result.statusCode==='0'){
                         $.toptip(message,2000, 'error');
                     }else{
-                        //window.location.href='./tips.php';
+                        window.location.href='mySupply.php';
                     }
                 }
             });
@@ -304,12 +308,10 @@ $(function(){
         if($(this).attr('data')=='1'){
             $(this).parent().remove();
         }else{
-            /*  alert($(this).attr("data-mainkey"));
-             alert($(this).attr("data-userid"));*/
-            // $.showLoading('正在删除');
-            /*  setTimeout(function() {
+             $.showLoading('正在删除');
+              setTimeout(function() {
              $.hideLoading();
-             }, 3000)*/
+             }, 3000)
             $.ajax({
                 type: 'post',
                 url: HOST+'mobile.php?c=index&a=del_picture',

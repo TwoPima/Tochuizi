@@ -22,6 +22,7 @@
     <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
     <!--do 添加：add，修改：edit，获取：gain -->
     <input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>
+   <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
     <script>
     sessionUserId=$.session.get('userId');
     memberType=$.session.get('idType');
@@ -32,13 +33,33 @@
     }
 
 $(function(){
+	 var dpProvince = $("#dpProvince");
+	    var dpCity = $("#dpCity");
+	    var dpArea = $("#dpArea");
+	    //填充省的数据
+	    loadAreasProvince($("#checkInfoArea").val(), 0);
+	    //给省绑定事件，触发事件后填充市的数据
+	    jQuery(dpProvince).bind("change keyup", function () {
+	        var provinceID = dpProvince.prop("value");
+	        $("#dpArea").empty();
+	        $("#dpCity").empty();
+	        loadAreasCity($("#checkInfoArea").val(), provinceID);
+	        dpCity.fadeIn("slow");
+	    });
+	    //给市绑定事件，触发事件后填充区的数据
+	    jQuery(dpCity).bind("change keyup", function () {
+	        var cityID = dpCity.prop("value");
+	        loadAreasDistrict($("#checkInfoArea").val(), cityID);
+	        dpArea.fadeIn("slow");
+	    });
+		
     jobValueTime($("#checkInfoZidian").val());//有效期
     jobDayWages($("#checkInfoZidian").val());//薪资要求
     getBenefit($("#checkInfoZidian").val());//福利
     judgeJobType(memberType,1);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
     JobType($("#checkInfoJobType").val(),memberType);//提取具体类别信息
     //文本框失去焦点后
-   /* $('form :input').blur(function(){
+   $('form :input').blur(function(){
         //验证手机
         if( $(this).is('#mobile') ){
             if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){
@@ -53,7 +74,7 @@ $(function(){
                 return false;
             }
         }
-    });*/
+    });
     //提交，最终验证。
     $("#btn-custom-theme").click(function() {
         var mobile = $("#mobile").val();
@@ -62,36 +83,47 @@ $(function(){
         var email = $("#email").val();
         var cate_id=$('#job_type option:selected').val();
         var valuetime=$('#valuetime option:selected').val();
-        var wages=$('#wage option:selected').val();
+        var wages=$('#wages option:selected').val();
         var area=$('#dpArea option:selected').val();
 
         var url =HOST+'mobile.php?c=index&a=my_recruit';
-        var benefitArray =[];
-        $('input[name="benefit"]:checked').each(function(){
-            console.log($(this).val());
-            benefitArray.push($(this).val());
-        });
-        if(mobile==""|| title==""){
-            $.toptip('手机号标题均不能为空！', 200, 'warning');
-            return false;
-        }
+        var benefit = $("input:checkbox[name='benefit']:checked").map(function(index,elem) {
+			 return $(elem).val();
+		 }).get().join(',');//复选框处理
+		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+			 return false;
+		 }
+		 if( $("#email").val()=="" || ($("#email").val()!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test($("#email").val()) ) ){
+           $.toptip('邮箱地址有误，请重填！', 2000, 'warning');
+           return false;
+         }
+		 $.showLoading('正在添加');
+			setTimeout(function() {
+				$.hideLoading();
+		}, 3000)
         $.ajax({
             type: 'post',
             url: url,
             data: {
                 mobile:mobile,id:sessionUserId,checkInfo:$("#checkInfo").val(),cate_id:cate_id,
-                dotype:'add',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefitArray,
+                dotype:'add',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefit,
                 bei:bei
             },
             dataType: 'json',
             success: function (result) {
                 var message=result.message;
-                if (result.statusCode==='0'){
+                if (result.statusCode=='0'){
                     $.toptip(message,2000, 'error');
-                }else{
-                    $.toptip(message,2000, 'success');
-                  //  window.location.href='myJob.php';
                 }
+                if (result.statusCode=='1'){
+                  	 $.showLoading('添加成功');
+          			setTimeout(function() {
+              				$.hideLoading();
+              		}, 3000)
+              		window.location.href='myJob.php';
+                }
+                  
             },
         });
     });
@@ -168,12 +200,15 @@ $(function(){
             </div>
 
             <div class="push_box push_daiyu">
-                <div class="weui-cell ">
-                    <div class="weui-cell__hd">
-                        <label class="weui-label">期望工作地:</label>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="area"  id="area"  type="text" >
+                <div class="weui_cell weui-cell_select weui-cell_select-after">
+                    <div class="weui_cell_hd"><label class="weui_label font14px">期望工作地</label></div>
+                    <div class="weui_cell_bd weui_cell_primary font14px">
+                        <select class="area" name="dpProvince" id="dpProvince">
+                        </select>
+                        <select class="area" name="dpCity" id="dpCity">
+                        </select>
+                        <select class="area" name="area" id="dpArea">
+                        </select>
                     </div>
                 </div>
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -181,7 +216,7 @@ $(function(){
                         <label for="" class="weui-label">薪资要求:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="wage"  id="wage" >
+                        <select class="weui-select" name="wages"  id="wages" >
                         </select>
                     </div>
                 </div>

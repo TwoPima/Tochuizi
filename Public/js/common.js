@@ -34,27 +34,34 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
-				var currentAreaId = $("#dpArea").find("option:selected").val();//从数据库中查询出来的
-				if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
-					//定位
-					var data=JSON.parse(sessionStorage.getItem('key_area'));
-					if(data==null){
-						var cityHtml='<option  value="" selected="selected">请选择</option>';
-						var provinceHtml='<option  value="" selected="selected">请选择</option>';
-						
-					}else{
-						var cityHtml='<option selected="selected" value="'+data.city.id+'">'+data.city.name+'</option>';
-						var provinceHtml='<option selected="selected" value="'+data.province.id+'">'+data.provic.name+'</option>';
-					}
-					
+				if(result.statusCode==0){
+					var provinceHtml='<option  value="" selected="selected">无数据</option>';
 					$('#dpProvince').append(provinceHtml);
-					$('#dpCity').append(cityHtml);
 				}
-				//有数据的时候去取值
-				$.each(result.data, function (index, obj) {
-					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-					$('#dpProvince').append(proviceHtml);
-				});
+				if(result.statusCode==1){
+					var currentAreaId = $("#dpArea").find("option:selected").val();//从数据库中查询出来的
+					if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
+						//定位
+						var data=JSON.parse(sessionStorage.getItem('key_area'));
+						if(data==null){
+							var cityHtml='<option  value="" selected="selected">请选择</option>';
+							var provinceHtml='<option  value="" selected="selected">请选择</option>';
+							
+						}else{
+							var cityHtml='<option selected="selected" value="'+data.city.id+'">'+data.city.name+'</option>';
+							var provinceHtml='<option selected="selected" value="'+data.province.id+'">'+data.provic.name+'</option>';
+						}
+						
+						$('#dpProvince').append(provinceHtml);
+						$('#dpCity').append(cityHtml);
+					}
+					//有数据的时候去取值
+					$.each(result.data, function (index, obj) {
+						var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+						$('#dpProvince').append(proviceHtml);
+					});
+				}
+				
 			}
 		});
 	}

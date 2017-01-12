@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>个人主页-编辑求职</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.css"/>
+    <link rel="stylesheet" href="../Public/css/weui.min.css"/>
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
     <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -17,6 +17,7 @@
 	<input value="<?php echo md5(date('Ymd')."job_type"."tuchuinet");?>"	type="hidden" id="checkInfoJobType"/>
     <input value="<?php echo $_GET['recruit_id'];?>"	type="hidden" id="recruit_id"/>
     <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
+    <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
     <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
     <script src="../Public/js/require.config.js"></script>
     <script src="../Public/js/jquery-2.1.4.js"></script>
@@ -61,31 +62,6 @@ $(function(){
     getBenefit($("#checkInfoZidian").val());//福利
     judgeJobType(memberType,1);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
     JobType($("#checkInfoJobType").val(),memberType);//提取具体类别信息
-    //初始化数据库的值 cate_id三级id
-    function  initialieSelectValue(checkInfo,cate_id,moudle){
-        $.ajax({
-            type: 'post',
-            url: HOST+'mobile.php?c=allcategory&a=find_category',
-            data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
-            dataType: 'json',
-            success: function (result) {
-                var message=result.message;
-                if (result.statusCode=='0'){
-                    //当前位置定位信息发过去
-
-                }else{
-                    //数据取回成功
-                    dataJson=eval('(' + result.data+')');
-                    var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-                    var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-                    var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
-                    $('#dpProvince').append(proviceHtml);
-                    $('#dpCity').append(cityHtml);
-                    $('#dpArea').append(areaHtml);
-                }
-            }
-        });
-    }
     //文本框失去焦点后
    $('form :input').blur(function(){
         //验证手机
@@ -131,6 +107,38 @@ $(function(){
                     if(eval('(' + result.data.valuetime+ ')')!=null){
                         $('#education').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
                     }
+                    
+                    var benefit=eval('(' + result.data.benefit+ ')');
+                     $.each(benefit, function (index, obj) {
+                       	 console.log(obj.id);
+                       	 console.log(obj.name);
+                        	if(obj.id==$('#'+obj.id).val()){
+                       		 console.log($('#'+obj.id).val());
+                        		$('#'+obj.id).checked=true;
+                        	}else{
+                       		 console.log($('#'+obj.id).val());
+                        	}
+					}); 
+                   /*  var s=benefit.split(',');
+                    alert(s);
+                    for(var i = 0;i<s.length;i++){
+                  	   	 console.log(s[i]);
+                    	//SS.insertAdjacentHTML("afterEnd",s[i]+'<INPUT type=radio name="radio"><br>');
+                    } */
+                     /*    var val = benefit.split(",");
+                        var boxes = document.getElementsByName("benefit");
+                       
+                        console.log(boxes);
+                        for(i=0;i<boxes.length;i++){
+                            for(j=0;j<val.length;j++){
+                           	 console.log(val);
+                                if(boxes[i].value == val[j]){
+                                    boxes[i].checked = true;
+                                    break;
+                                }
+                            }
+                        } */
+                        //if(){xx.selected}else{}
                     if(eval('(' + result.data.wages+ ')')!=null){
                         $('#wage').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
                     }
@@ -150,45 +158,58 @@ $(function(){
     }
     //提交，最终验证。
     $("#btn-custom-theme").click(function() {
-        var mobile = $("#mobile").val();
+        
         var title = $("#title").val();
         var bei = $("#desc").val();
         var email = $("#email").val();
         var cate_id=$('#job_type option:selected').val();
         var valuetime=$('#valuetime option:selected').val();
-        var wages=$('#wage option:selected').val();
-        //var area=$('#dpArea option:selected').val();
-        var area='1';
-
+        var wages=$('#wages option:selected').val();
+        var area=$('#dpArea option:selected').val();
         var url =HOST+'mobile.php?c=index&a=my_recruit';
-        var benefitArray =[];
-        $('input[name="benefit"]:checked').each(function(){
-            console.log($(this).val());
-            benefitArray.push($(this).val());
-        });
-        console.log(benefitArray);
-        if(mobile==""|| title==""){
+        if($("#mobile").val()==""|| title==""){
             $.toptip('手机号标题均不能为空！', 200, 'warning');
             return false;
         }
+        benefit = $("input:checkbox[name='benefit']:checked").map(function(index,elem) {
+			 return $(elem).val();
+		 }).get().join(',');//复选框处理
+		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+			 return false;
+		 }
+		 if( $("#email").val()=="" || ($("#email").val()!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test($("#email").val()) ) ){
+             $.toptip('邮箱地址有误，请重填！', 2000, 'warning');
+             return false;
+         }
+		 $.showLoading('正在提交');
+			setTimeout(function() {
+				$.hideLoading();
+		}, 3000)
         $.ajax({
             type: 'post',
             url: url,
             data: {
-                mobile:mobile,id:sessionUserId,recruit_id:recruit_id,checkInfo:$("#checkInfo").val(),cate_id:cate_id,
-                dotype:'edit',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefitArray,
+                mobile:$("#mobile").val(),id:sessionUserId,recruit_id:recruit_id,checkInfo:$("#checkInfo").val(),
+                cate_id:cate_id,
+                dotype:'edit',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefit,
                 bei:bei
             },
             dataType: 'json',
             success: function (result) {
-                var message=result.message;
-                if (result.statusCode==='0'){
-                    $.toptip(message,2000, 'error');
-                }else{
-                    $.toptip(message,2000, 'success');
-                    window.location.href='myJob.php';
-                }
-            },
+               	 var message=result.message;
+                 if (result.statusCode=='0'){
+                     $.toptip(message,2000, 'error');
+                 }
+                 if (result.statusCode=='1'){
+                   	 $.showLoading('编辑成功');
+           			setTimeout(function() {
+               				$.hideLoading();
+               				//window.location.href='myJob.php';
+               		}, 3000)
+               		
+                 }
+            }
         });
     });
 });
@@ -280,7 +301,7 @@ $(function(){
                         <label for="" class="weui-label">薪资要求:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="wage"  id="wage" >
+                        <select class="weui-select" name="wages"  id="wages" >
                         </select>
                     </div>
                 </div>
