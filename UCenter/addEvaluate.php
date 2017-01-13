@@ -26,7 +26,10 @@
 	 $.ajax({
 			type: 'post',
 			url: url,
-			data: {checkInfo:checkInfoAddComment,goods_id:goods_id,id:sessionUserId,desc:desc,miao_star:miao_star,liu_star:liu_star,fuwu_star:fuwu_star,image_url:image_url},
+			data: {
+				checkInfo:checkInfoAddComment,goods_id:goods_id,id:sessionUserId,desc:desc,miao_star:miao_star,
+				liu_star:liu_star,fuwu_star:fuwu_star,image_url:image_url
+			},
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
@@ -54,6 +57,7 @@
 		</div>
     <div id="main">
         <div class="addEvaluate">
+			<form>
 	            <div class="weui-cells">
 	                <a class="weui-cell weui-cell_access" href="javascript:;">
 	                    <div class="weui-cell__bd">
@@ -64,7 +68,7 @@
 	                <div class="weui-cells weui-cells_form">
 	                    <div class="weui-cell">
 	                        <div class="weui-cell__bd">
-	                            <textarea class="weui-textarea" name="desc" placeholder="评论描述" rows="3"></textarea>
+	                            <textarea class="weui-textarea" name="desc" id="desc" placeholder="评论描述" rows="3"></textarea>
 	                           <!-- <div class="weui-textarea-counter"><span>0</span>/200</div>-->
 	                        </div>
 	                    </div>
@@ -122,8 +126,9 @@
             </div>
             <div class="height20px"></div>
             <div class="button-sp-area">
-                <a href="javascript:;" class="weui-btn weui-btn_plain-default "id="btn-custom-theme">按钮</a>
+                <a  class="weui-btn weui-btn_plain-default "id="btn-custom-theme">按钮</a>
             </div>
+			</form>
           </div>
     </div><!--main-->
 </div><!--app-->
