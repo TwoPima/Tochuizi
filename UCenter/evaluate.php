@@ -66,6 +66,7 @@ $(function(){
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=comment_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
+				console.log(res);
 				//如果数据为空
 				if (res.statusCode==0){
 					that.$set('dataNull', 2);
@@ -73,7 +74,15 @@ $(function(){
 				//如果数据不为空
 				if(res.statusCode==1) {
 					that.$set('dataNull', 1);
-					that.$set('listData', res.data);  //把数据传给页面
+					for(var x in res.data){
+						res.data[x]['fuwu_star_none']= 5-parseInt(res.data[x]['fuwu_star']);
+						res.data[x]['liu_star_none']= 5-parseInt(res.data[x]['liu_star']);
+						res.data[x]['miao_star_none']= 5-parseInt(res.data[x]['miao_star']);
+						res.data[x]['miao_star']=parseInt(res.data[x]['miao_star']);
+						res.data[x]['liu_star']=parseInt(res.data[x]['liu_star']);
+						res.data[x]['fuwu_star']=parseInt(res.data[x]['fuwu_star']) ;
+					}
+					that.$set('listData', res.data);  
 				}
 			});
 		},//created 结束
@@ -160,30 +169,33 @@ $(function(){
 					<article class="weui-article"><section><p id="evaluate-content">{{item.desc}}</p>
 							</section><section>
 							<p id="description">描述评级：
-								<span class="description-raty" data-score="{{item.miao_star}}">
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
+								<span class="description-raty"><!-- data-score="{{item.miao_star}}"-->
+									<template v-for = "n in item.miao_star">
+										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
+									</template>
+									<template v-for = "n in item.miao_star_none">
+										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="1" title="poor">&nbsp;</span>
+									</template>
 								</span>
 							</p>
 							<p id="logistic">物流评级：
-								<span class="logistic-raty" data-score="{{item.liu_star}}" >
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
+								<span class="logistic-raty" >
+									<template v-for = "n in item.liu_star">
+										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
+									</template>
+									<template v-for = "n in item.liu_star_none">
+										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="1" title="poor">&nbsp;</span>
+									</template>
 								</span>
 							</p>
 							<p id="server">服务评级：
-								<span class="server-raty" data-score="{{item.fuwu_star}}">
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
-									<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
+								<span class="server-raty" >
+									<template v-for = "n in item.fuwu_star">
+										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
+									</template>
+									<template v-for = "n in item.fuwu_star_none">
+										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="1" title="poor">&nbsp;</span>
+									</template>
 								</span>
 							</p>
 						</section>

@@ -92,7 +92,10 @@
 		</div>
 	</template>
 	<template v-else>
-		<p style="text-align: center;color: red;height: 30px;line-height: 30px;z-index: 5000;">{{message}}</p>
+		<div class="nodata">
+			<img src="../Public/img/no-info.png">
+			<p>收藏夹空空如也</p>
+		</div>
 	</template>
 </div>
 <input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
