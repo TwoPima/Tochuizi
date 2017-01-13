@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
     <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
-    	<link rel="stylesheet" type="text/css" href="../Public/font/Font-Awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../Public/font/Font-Awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
@@ -39,7 +39,19 @@
                 <ul class="weui-uploader__files" id="uploaderFiles">
                 </ul>
                 <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" >
+                    <input class="weui-uploader__input file" name="image_url1" id="image_url"  type="file" accept="image/*" >
+                </div>
+                <div class="weui-uploader__input-box">
+                    <input class="weui-uploader__input file" name="image_url2" id="image_url" type="file" accept="image/*" >
+                </div>
+                <div class="weui-uploader__input-box">
+                    <input class="weui-uploader__input file" name="image_url3" id="image_url" type="file" accept="image/*" >
+                </div>
+                <div class="weui-uploader__input-box">
+                    <input class="weui-uploader__input file" name="image_url4" id="image_url"  type="file" accept="image/*" >
+                </div>
+                <div class="weui-uploader__input-box">
+                    <input class="weui-uploader__input file" name="image_url5" id="image_url"  type="file" accept="image/*" >
                 </div>
             </div>
         </div>
@@ -168,7 +180,7 @@ $(function(){
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
 	});
-        $('#image_url').change(function(event) {
+        $('.file').change(function(event) {
     		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
     		if (files && files.length > 0) {
     			file = files[0];// 获取目前上传的文件

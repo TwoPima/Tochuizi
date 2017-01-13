@@ -44,6 +44,7 @@ $(function(){
 		el: '#app',
 		data: {
 			listJob: {},
+			dataNull:'',
 			url:{
 				checkInfo:$("#checkInfoRecruit").val(),
 				id:sessionUserId,
@@ -55,9 +56,17 @@ $(function(){
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=recruit_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
-				that.$set('listJob', res.data);  //把数据传给页面
-				 Vue.nextTick(function () {
-				 })
+				//如果数据为空
+				if (res.statusCode==0){
+					that.$set('dataNull', 2);
+				}
+				//如果数据不为空
+				if(res.statusCode==1) {
+					that.$set('dataNull', 1);
+					that.$set('listJob', res.data);  //把数据传给页面
+					Vue.nextTick(function () {
+					})
+				}
 			});
 		},//created 结束
 		methods: {
@@ -159,16 +168,24 @@ $(function() {
             <div class="box_bg"></div>
 
         <div class="weui-cells">
-			<template v-for="item in listJob "><!--三层  -->
-	           	  <div class="weui-cell weui-cell_access" v-on:click="jump_url(item.id)"  >
-								<div  class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
-								<div class="weui-cell__ft" style="font-size: 0">
-									<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
-									<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
-								</div>
-					  <div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
-              		  </div>
-
+			<template v-if="dataNull==1">
+					<template v-for="item in listJob "><!--三层  -->
+						  <div class="weui-cell weui-cell_access" v-on:click="jump_url(item.id)"  >
+										<div  class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
+										<div class="weui-cell__ft" style="font-size: 0">
+											<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
+											<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
+										</div>
+							  <div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
+							  </div>
+					</template>
+			</template>
+			<template v-if="dataNull==2">
+				<div class="nodata">
+					<img src="../Public/img/no-info.png">
+					<div class="height20px"></div>
+					<p>暂时还没有职位信息！</p>
+				</div>
 			</template>
         </div>
     </div><!--main-->

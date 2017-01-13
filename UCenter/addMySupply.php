@@ -29,88 +29,100 @@
     </div>
     <div id="main">
         <form action="" method="post"  id="supplyForm" enctype="multipart/form-data">
-        <div class="main_box">
-            <div class="weui-cells">
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name='title' id="title" placeholder="这里是标题...">
+            <div class="main_box">
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="text" name='title' id="title" placeholder="这里是标题...">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="weui-uploader__bd margin_fix">
-                <ul class="weui-uploader__files" id="uploaderFiles">
-                </ul>
-                <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url" id="image_url" type="file" accept="image/*" >
-                </div>
-            </div>
-        </div>
-        <div class="main_box">
-          			  <div class="weui_cell">
-					    <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
-					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="supplyCate font14px" name="firstMenu" id="firstMenu">
-					      </select>
-					      <select class="supplyCate font14px" name="subMenu" id="subMenu">
-					      </select>
-					      <select class="supplyCate font14px" name="cate_id" id="thereMenu">
-					      </select>
-					    </div>
-					  </div>
-				<div class="weui_cell">
-					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-					    <div class="weui_cell_bd weui_cell_primary font14px">
-					      <select class="area" name="dpProvince" id="dpProvince">
-					      </select>
-					      <select class="area" name="dpCity" id="dpCity">
-					      </select>
-					      <select class="area" name="area" id="dpArea">
-					      </select>
-					    </div>
-					  </div> 
-            <div class="weui-cells weui-cells_form">
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
+                <div class="weui-uploader__bd margin_fix">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                    </ul>
+                    <div class="weui-uploader__input-box">
+                        <input class="weui-uploader__input file" name="image_url1" id="image_url"  type="file" accept="image/*" >
+                    </div>
+                    <div class="weui-uploader__input-box">
+                        <input class="weui-uploader__input file" name="image_url2" id="image_url" type="file" accept="image/*" >
+                    </div>
+                    <div class="weui-uploader__input-box">
+                        <input class="weui-uploader__input file" name="image_url3" id="image_url" type="file" accept="image/*" >
+                    </div>
+                    <div class="weui-uploader__input-box">
+                        <input class="weui-uploader__input file" name="image_url4" id="image_url"  type="file" accept="image/*" >
+                    </div>
+                    <div class="weui-uploader__input-box">
+                        <input class="weui-uploader__input file" name="image_url5" id="image_url"  type="file" accept="image/*" >
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="main_box jiage">
-            <div class="weui-cells">
-                <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label">供应类型:</label></div>
-                    <div class="weui-cell__bd">
-                        <label for="gongying">
-                            供应<input id="gongying" type="radio" value="0" checked name="is_true" >
-                        </label>
-                        <label for="qiugou">
-                            求购<input id="qiugou" type="radio" value="1" name="is_true" >
-                        </label>
+            <div class="main_box">
+                          <div class="weui_cell">
+                            <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
+                            <div class="weui_cell_bd weui_cell_primary font14px">
+                              <select class="supplyCate font14px" name="firstMenu" id="firstMenu">
+                              </select>
+                              <select class="supplyCate font14px" name="subMenu" id="subMenu">
+                              </select>
+                              <select class="supplyCate font14px" name="cate_id" id="thereMenu">
+                              </select>
+                            </div>
+                          </div>
+                    <div class="weui_cell">
+                            <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
+                            <div class="weui_cell_bd weui_cell_primary font14px">
+                              <select class="area" name="dpProvince" id="dpProvince">
+                              </select>
+                              <select class="area" name="dpCity" id="dpCity">
+                              </select>
+                              <select class="area" name="area" id="dpArea">
+                              </select>
+                            </div>
+                          </div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="weui-cells">
-                <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label">价<span style="visibility:hidden;">价格</span>格:</label></div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" type="text"  id="price"  name="price" placeholder="价格面议">
+            <div class="main_box jiage">
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">供应类型:</label></div>
+                        <div class="weui-cell__bd">
+                            <label for="gongying">
+                                供应<input id="gongying" type="radio" value="0" checked name="is_true" >
+                            </label>
+                            <label for="qiugou">
+                                求购<input id="qiugou" type="radio" value="1" name="is_true" >
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">价<span style="visibility:hidden;">价格</span>格:</label></div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" type="text"  id="price"  name="price" placeholder="价格面议">
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">联系电话:</label></div>
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" name="mobile"  id="mobile" type="text">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="weui-cells">
-                <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label">联系电话:</label></div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="mobile"  id="mobile" type="text">
-                    </div>
-                </div>
+            <div style="margin-top: 20px;">
+                <a  class="weui-btn weui-btn_plain-default" id="btn-custom-theme">确认发布</a>
             </div>
-        </div>
-        <div style="margin-top: 20px;">
-            <a  class="weui-btn weui-btn_plain-default" id="btn-custom-theme">确认发布</a>
-        </div>
         </form>
         </div>
     </div>
@@ -169,22 +181,17 @@ $(function(){
         loadAreasDistrict($("#checkInfoArea").val(), cityID);
         dpArea.fadeIn("slow");
     });
-    var image_url='';
-        $('#image_url').change(function(event) {
+        $('.file').change(function(event) {
                 var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
                 if (files && files.length > 0) {
                     file = files[0];// 获取目前上传的文件
-                   /* if(file.size > 1024 * 1024 * 2) {
-                        alert('图片大小不能超过 2MB!');
-                        return false;
-                    }*/
                     var URL = window.URL || window.webkitURL;
                     var imgURL = URL.createObjectURL(file);
                     var html = '';
                     html += ' <li class="weui-uploader__file" id="fileshow">' +
                         '  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
                         '</li>';
-                    $("#uploaderFiles").prepend(html);
+                    $("#uploaderFiles").prepend(html);$(this).parent().remove();
                 }
 
     	});
@@ -199,6 +206,10 @@ $(function(){
 				 $(document).scrollTop(0);
 				 return false;
 			 }
+            $.showLoading('正在添加');
+            setTimeout(function() {
+                $.hideLoading();
+            }, 3000)
             $.ajax({
                 type: 'post',
                 url:HOST+'mobile.php?c=index&a=my_supply',
@@ -208,19 +219,14 @@ $(function(){
                 contentType: false,
                 processData: false,
                 success: function (result) {
-                    console.log(result);
-                    console.log(result.data);
-                    console.log(result.data.id);
-                    console.log(result.message);
-                    var message=result.message;
-                    if (result.data.id==null){	
+                    var message=eval('(' + result+ ')').message;
+                    if (eval('(' + result+ ')').statusCode=='0'){
                         $.toptip(message,2000, 'error');
                         $(document).scrollTop(0);
-                    }else {
-                       /*  $.showLoading('添加成功');
-                        setTimeout(function () {
-                            window.location.href = 'mySupply.php';
-                        }, 3000) */
+                    }
+                    if (eval('(' + result+ ')').statusCode=='1'){
+                        $.toast("操作成功");
+                        window.location.href = 'mySupply.php';
                     }
                 }
             });

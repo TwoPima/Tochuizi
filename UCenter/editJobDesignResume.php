@@ -435,16 +435,14 @@ $(function(){
 					},
 				dataType: 'json',
 				success: function (result) {
-					var message=result.message;
-					if (result.statusCode=='0'){
+					var message=eval('(' + result+ ')').message;
+					if (eval('(' + result+ ')').statusCode=='0'){
 						$.toast(message, "cancel");
 						$(document).scrollTop(0);
 					}
-					if (result.statusCode=='1'){
-						setTimeout(function() {
-							$.toast("操作成功");
-							window.location.href='myJob.php';
-						}, 3000)
+					if (eval('(' + result+ ')').statusCode=='1'){
+						$.toast("操作成功");
+						window.location.href='myJob.php';
 					}
 				}
 			});
