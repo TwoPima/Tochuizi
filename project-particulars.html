@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>设计详情</title>
+    <link rel="stylesheet" href="css/project-particulars.css"/>
+    <link rel="stylesheet" href="css/boot.css"/>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="supply-header">
+        <div class="passion">
+            <a href="project.html">
+                <img src="images/project-particulars/triangle.png" alt=""/>
+            </a>
+            <span>设计</span>
+            <div class="supply-issue">
+                <a href="#"><img class="supply-share" src="images/project-particulars/share.png" alt=""/></a>
+            </div>
+        </div>
+    </div>
+    <div class="personal-information">
+        <img class="head-portrait" src="images/project-particulars/head-portrait.png" alt=""/>
+        <div class="personal-nickname">妥成龙</div>
+        <div class="plum">
+            <span class="plane">3D设计 | PS平面设计</span>
+                <span class="site">
+                    <img src="images/project/location.png" alt=""/>银川 | 兴庆区
+                </span>
+        </div>
+    </div>
+    <div class="project-introduce">
+        <div class="project-content">
+            设计师100字的概要是Corel公司出品的矢量图形制作工具软件
+            ，CorelDRAW X8给设计师提供了矢量动画、页面设计、网
+            站制作、位图编辑和网页动画等多种功能，无论你是一个有
+            抱负的艺术家或有经验的设计师，CORELDRAW X6是您值
+            得信赖的图形设计软件解决方案
+        </div>
+    </div>
+    <div class="production-show">
+        <div class="show">
+            <span class="reveal">作品展示</span>
+            <span class="relation">联系电话</span></div>
+    </div>
+    <div class="production">
+        <img src="images/project-particulars/production.jpg" alt=""/>
+    </div>
+    <div class="issue-location">
+        发布位置：宁夏兴庆区万达广场
+    </div>
+    <div class="map">
+        <img src="images/supply-demand-particulars/map.jpg" alt=""/>
+    </div>
+    <div class="issue">
+        发布其他商品
+    </div>
+    <div class="second-ring">
+        <div class="water-storage">
+            <div class="loop">银川市东二环昆仑钢材市场</div>
+            <div class="install">机械家用储水式免费安装</div>
+            <div class="second-orientation">
+                <img src="images/supply-demand/coordinate.png" alt=""/>
+                <span class="second-district">宁夏银川金凤区</span>
+                <span class="second-meter">< 100米</span>
+            </div>
+        </div>
+    </div>
+    <!-------2----->
+    <div class="second-machine">
+        <div class="machine-storage">
+            <div class="loop">银川市东二环昆仑钢材市场</div>
+            <div class="install">机械家用储水式免费安装</div>
+            <div class="second-orientation">
+                <img src="images/supply-demand/coordinate.png" alt=""/>
+                <span class="second-district">宁夏银川金凤区</span>
+                <span class="second-meter">< 100米</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    $ (function ()
+    {
+        $ ('.relation ').click (function ()
+        {
+            $ ('.reveal').css ("border-bottom","none");
+            $('.relation').css ("border-bottom","5px solid #FF5100");
+            $ ('.issue-location,.map,.issue,.second-ring,.second-machine').show ();
+            $ ('.production').hide ();
+        })
+    })
+//    ***********
+    $ (function ()
+    {
+        $ ('.reveal ').click (function ()
+        {
+            $ ('.relation').css ("border-bottom","none");
+            $ ('.reveal').css ("border-bottom","5px solid #FF5100");
+            $ ('.issue-location,.map,.issue,.second-ring,.second-machine').hide ();
+            $ ('.production').show ();
+        })
+    })
+</script>
+</html>

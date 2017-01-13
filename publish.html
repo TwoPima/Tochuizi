@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>发布供求</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="css/publish.css"/>
+    <link rel="stylesheet" href="css/boot.css"/>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="publish-header">
+            <div class="passion">
+                <a href="supply-demand.html">
+                    <img src="images/publish/triangle.png" alt=""/>
+                </a>
+                <span>发布供求</span>
+            </div>
+        </div>
+        <div class="publish-headline">
+            <form action="#">
+                <input type="text" class="sear" name="sear" placeholder="这里是标题..."/>
+            </form>
+        </div>
+        <div class="photograph">
+            <div class="uploading">
+                <img src="images/publish/xiaotu_03.png" alt=""/>
+                <a href="#">+</a>
+            </div>
+        </div>
+        <div class="select">
+            <div class="select-classify">
+                <span>选择分类</span>
+                <img src="images/publish/triangle1.png" alt=""/>
+            </div>
+        </div>
+        <div style="position:relative" class="remark">
+            <textarea class="textarea" onfocus="document.getElementById('note').style.display='none'" noblur="if(value==)document.getElementById('note').style.display='block'" rows="6" cols="40" name="miaoshu" style=" width: 90%; height: 200px;" ></textarea>
+            <div id="note" class="note">
+                <font>描述备注...</font>
+            </div>
+        </div>
+        <div class="publish-price">
+            <span><i>价格：</i>价格面议</span>
+            <a href="#">(可选)</a>
+        </div>
+        <div class="relation-phone">
+            <span><i>联系电话：</i>18195099882</span>
+        </div>
+        <div class="second-examine">
+            <a href="#">确定发布</a>
+        </div>
+        <div class="base-person">
+            <a href="#" class="block-up">×</a>
+            <img src="images/publish/base-person.png" alt=""/>
+            <div class="perfect">亲!请完善你的个人资料吧,</div>
+            <div class="easy">这样大家更容易找到你哦!</div>
+            <a href="#" class="leave-for">马上前往</a>
+        </div>
+    </div>
+    <div class="masking"></div>
+</body>
+</html>
+    <script type="text/javascript">
+        $ (function ()
+        {
+            $ ('.second-examine a').click (function ()
+            {
+                $ ('.masking').show ();
+                $('.base-person').show ();
+            })
+        })
+        $ (function ()
+        {
+            $ ('.block-up').click (function ()
+            {
+                $ ('.masking').hide ();
+                $('.base-person').hide ();
+            })
+        })
+    </script>
+
+

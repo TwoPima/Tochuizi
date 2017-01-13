@@ -13,7 +13,6 @@
         <script src="../Public/js/jquery-2.1.4.js"></script>
         <script src="../Public/js/jquery-weui.min.js"></script>
         <script src="../Public/js/jquery-session.js"></script>
-	<script src="../Public/js/fastclick.js"></script>
 	<script src="../Public/js/common.js"></script>
 </head>
 <body>
@@ -30,21 +29,21 @@
 		</div>
 	<div id="main" class="setting">
 		<div class="weui-cells">
-		    <div class="weui-cell">
+		    <div class="weui-cell"  id="password">
 		         <a href="password.php" >
 		         <div class="weui-cell__bd">
 		           <p>更改密码</p>
 		        </div>
 		        </a>
 		    </div>
-		    <div class="weui-cell">
+		    <div class="weui-cell" id="about">
 		     <a href="about.php">
 		        <div class="weui-cell__bd">
 		            <p>关于土锤</p>
 		        </div>
 		        </a>
 		    </div>
-		    <div class="weui-cell">
+		    <div class="weui-cell" id="feedback">
 		     <a href="feedback.php">
 		        <div class="weui-cell__bd">
 		            <p>意见反馈</p>
@@ -65,11 +64,24 @@
 </div><!--app-->
 </body>
 <script>
+	$(function(){
+		$("#password").click(function(){
+			window.location.href="password.php";
+		});
+		$("#about").click(function(){
+			window.location.href="about.php";
+		});
+		$("#feedback").click(function(){
+			window.location.href="feedback.php";
+		});
+	});
 function deleteItem(){
 //  localStorage.removeItem('userinfo');
-  localStorage.clear();
-  sessionStorage.clear(); 
- window.location.href="../Login/login.php";
+	 $.session.clear();
+	 //   $.session.remove('key');
+  	localStorage.clear();
+  	sessionStorage.clear(); 
+ 	window.location.href="../Login/login.php";
 }
 </script>
 </html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="css/order-form.css"/>
+    <link rel="stylesheet" href="css/boot.css"/>
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <title>提交订单</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="order-form-header">
+        <div class="passion">
+            <a href="particulars.html">
+                <img src="images/payment/triangle.png" alt=""/>
+            </a>
+            <span>提交订单</span>
+        </div>
+    </div>
+    <div class="Bosch">
+        <span class="electric-drill">博世（BOSCH）TBM 3500 手电钻</span>
+        <span class="unit-price">￥78</span>
+    </div>
+    <div class="quantity">
+        <span class="quantity1">数量:</span>
+        <div class="price-subtract">
+        <button class="subtract" onclick="cal(this)">-</button>
+        <span>1</span>
+        <button class="price" onclick="cal(this)">+</button>
+        </div>
+    </div>
+    <!--<div class="ntegral">-->
+        <!--<span class=" product">积分顶扣:</span>-->
+        <!--<span class="minute">(20000分)</span>-->
+        <!--<div class="MultipleChoice">-->
+       <!--<span>-20元</span>-->
+        <!--<input id="rType" type="radio" name="count" value="-20元" onclick="chkRadio(this)">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="favorable">-->
+        <!--<span>优惠券:</span>-->
+        <!--<div class="not-have">-->
+            <!--<input type="text" class="" name="sear" placeholder="无"maxlength="10"/>-->
+            <!--<button>∨</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="logistics">
+        <span class="cost">物流费用:</span>
+        <span class="dd-money">+15元</span>
+    </div>
+    <div class="total">
+        <span class="combine">合计支付:</span>
+        <span class="branch">￥93</span>
+    </div>
+    <div class="select-payment">
+        <img src="images/payment/money.png" alt=""/>
+        <span>选择支付方式</span>
+    </div>
+    <div class="order-kind">
+        <div class="alipay">
+            <!-- 支付宝-->
+            <div class="treasure">
+                <img class="payment-map" src="images/payment/alipay.png" alt=""/>
+                <span>支付宝</span>
+                <img class="select-map" src="images/payment/select.png" alt=""/>
+            </div>
+            <!--微信 -->
+            <div class="WeChat">
+                <img class="WeChat-map" src="images/payment/WeChat.png" alt=""/>
+                <span>微信支付</span>
+                <img class="WeChat-select-map" src="images/payment/select.png" alt=""/>
+            </div>
+            <!--银联支付 -->
+            <div class="UnionPay">
+                <img class="UnionPay-map" src="images/payment/Unionpay.png" alt=""/>
+                <span>银联支付</span>
+                <img class="UnionPay-select-map" src="images/payment/select.png" alt=""/>
+            </div>
+        </div>
+    </div>
+    <div class="second-examine">
+        <a href="#">确认支付 ￥50元</a>
+    </div>
+</div>
+</body>
+<script src="js/tool.js"></script>
+<script src="Public/js/require.config.js"></script>
+<script src="js/order-form.js"></script>
+<script src="js/jquery.md5.js"></script>
+<script>
+    $ (function ()
+    {
+        $ ('.treasure').click (function ()
+        {
+            $ ('.select-map').show ();
+            $('.WeChat-select-map').hide();
+            $('.UnionPay-select-map').hide();
+        })
+    })
+    $ (function ()
+    {
+        $ ('.WeChat').click (function ()
+        {
+            $ ('.select-map').hide ();
+            $('.WeChat-select-map').show ();
+            $('.UnionPay-select-map').hide();
+        })
+    })
+    $ (function ()
+    {
+        $ ('.UnionPay').click (function ()
+        {
+            $ ('.select-map').hide ();
+            $ ('.WeChat-select-map').hide ();
+            $('.UnionPay-select-map').show ();
+        })
+    })
+//    **************
+    var flag = true;
+    function chkRadio(id) {
+        id.checked = flag;
+        flag = !flag;
+    }
+//********************************　
+    function cal(btn){
+        var c = btn.textContent;
+        if(c == "+"){
+            var span = btn.previousElementSibling;
+            var spanValue = parseInt(span.textContent);
+            spanValue += 1;
+            span.textContent=spanValue;
+            var price = btn.parentNode.previousElementSibling;
+            var priceValue = parseInt(price.textContent);
+        }else {
+            var span = btn.nextElementSibling;
+            var spanValue = parseInt(span.textContent);
+            if (spanValue > 1) {
+                spanValue -= 1;
+                span.textContent = spanValue;
+                var price = btn.parentNode.previousElementSibling;
+                var priceValue = parseInt(price.textContent);
+            }
+        }
+    }
+</script>
+</html>

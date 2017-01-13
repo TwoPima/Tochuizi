@@ -425,7 +425,7 @@ $(function(){
 			if($(this).attr('data')=='1'){
 				$(this).parent().remove();
 			}else {
-				var url = HOST + 'mobile.php?c=index&a=my_partner';
+				var url = HOST + 'mobile.php?c=index&a=del_picture';
 				$.showLoading('正在删除');
 				setTimeout(function () {
 					$.hideLoading();
@@ -435,8 +435,9 @@ $(function(){
 					url: url,
 					data: {
 						checkInfo: $("#checkInfoDelImg").val(),
-						id: $(this).attr("data-mainkey"),
-						partner_id: $(this).attr("data-userid")
+						image_id: $(this).attr("data-mainkey"),
+						id: sessionUserId,
+						model_id:'2'
 					},
 					dataType: 'json',
 					success: function (result) {

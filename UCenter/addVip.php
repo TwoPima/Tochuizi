@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<title>个人主页-成为VIP</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../Public/css/weui.css"/>
-        <link rel="stylesheet" href="../Public/css/center.css"/>
+        <link rel="stylesheet" href="../Public/css/weui.min.css"/>
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
           <link rel="stylesheet" href="../Public/css/common.css"/>
+            <link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/addvip.css"/>
 	<input value="<?php echo md5(date('Ymd')."vip_category"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
 <input value="<?php echo md5(date('Ymd')."vip_recharge"."tuchuinet");?>"	type="hidden" id="checkInfoRecharge"/>  
@@ -147,7 +147,7 @@
 		</div>
 	</div>
 	<div class="vip_button">
-		<a  class="weui-btn weui-btn_warn" id="btn-custom-theme">下一步</a>
+		<a  class="weui-btn" id="btn-custom-theme">下一步</a>
 	</div>
 </div>
 </body>
@@ -169,9 +169,16 @@
     	$("#btn-custom-theme").click(function() {
     			var method=$("#selectMethod").children(".vip_money").attr("value");//支付方式
     			var class_id=$("#selectClassId").children(".vip_money").attr("value");//套餐类别
-    			//alert(method);
-    			//alert(class_id);
     			var checkInfoRecharge = $("#checkInfoRecharge").val();
+			/*	if ($("#price-count").val()&&$("#price-count").val()){
+					$.toast("自定义支付和选择套餐只能选择一个！", "cancel");
+				}
+				if($("#price-count").val()!==null){
+					price=$("#price-count").val();
+				}
+				if($("#price-count").val()!==null){
+					price=$("#price-count").val();
+				}*/
     			var price = $("#price-count").val();
     			var vip_count = $("#price-count").val();//充值次数
     			var url =HOST+'mobile.php?c=index&a=vip_recharge';

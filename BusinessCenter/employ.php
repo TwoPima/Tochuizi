@@ -61,7 +61,6 @@
 				methods: {
 					jump_url: function (msg1){
 						window.location.href='editEmploy.php?recruit_id='+msg1;
-
 					}
 				}
 			});
@@ -221,5 +220,14 @@
 	function confirmDelete(value){
 		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,value,'2');
 	}
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+	//如果你想使用jquery
+	$(function() {
+		FastClick.attach(document.body);
+	});
 </script>
 </html>

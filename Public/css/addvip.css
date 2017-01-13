@@ -131,14 +131,9 @@ body{
 #vip-app .vip_button{
     padding:40px 0;
 }
-#vip-app .vip_button .weui-btn_warn{
-    background: #D04C02;
-}
-
 .weui-flex__item{
     position: relative;
 }
-
 .vip_action{
     position: absolute;
     right:5px ;

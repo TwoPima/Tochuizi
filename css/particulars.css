@@ -1,0 +1,507 @@
+@import "common.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+}
+a{
+    color:#fff;
+    text-decoration:none;
+}
+a,button,input{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+    font-family: "微软雅黑";
+    background-color: #f5f5f5;
+}
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+}
+.main {
+	width: 100%;
+    margin: 0 auto;
+	/*margin-top: 60px;*/
+}
+.nav {
+    position:relative;
+    height:60px;
+    background-color:#BD6E1E;
+    top: 0;
+    width: 100%;
+    position:fixed;
+    z-index: 999;
+    /*color:#bf6e09;*/
+zoom:1 /*触发IE下块级元素*/
+filter:alpha(opacity=90);
+-moz-opacity:0.9;
+opacity:0.9;
+}
+img{
+    width: 100%;
+}
+
+/*******banner*********/
+.banner{
+    position: relative;
+}
+.banner .banner-max{
+    width: 640px;
+    height: 356px;
+    vertical-align:middle;
+}
+.equipment{
+    position: absolute;
+    left:17px;
+    top:16px;
+}
+.equipment a{
+    float: left;
+    display: inline-block;
+    width: 20px;
+    height: 41px;
+}
+.equipment a img{
+    float: left;
+    width: 20px;
+    height: 41px;
+    position: relative;
+    left:0px;
+    top:0px;
+}
+.equipment span{
+    text-align: center;
+    height: 41px;
+    line-height: 40px;
+    font-size: 18px;
+    padding-left: 10px;
+    color:#fff;
+    position: relative;
+    left:0px;
+    top:0px;
+}
+.share a{
+    float: right;
+    width: 35px;
+    height: 41px;
+    position: absolute;
+    right: 7px;
+    top:20px;
+}
+.share a img{
+    width: 35px;
+    height: 41px;
+}
+.bosch{
+    width: 100%;
+}
+.model{
+    width: 98%;
+    height:40px;
+    line-height: 40px;
+    padding-left: 3%;
+    font-size:24px;
+    color:#3A3B3B;
+    background:#fff;
+}
+.introduce{
+    width: 98%;
+    height:40px;
+    line-height: 40px;
+    padding-left:3%;
+    font-size:20px;
+    color:#807D78;
+    background:#fff;
+}
+.element{
+    width: 98%;
+    height: 80px;
+    padding-left:2%;
+    color:#F92C00;
+    font-size: 24px;
+    line-height: 80px;
+    background: #fff;
+    margin-top: 1px;
+}
+.kind{
+    width: 98%;
+    height: 80px;
+    padding-left:2%;
+    color:#706965;
+    font-size: 24px;
+    line-height: 80px;
+    background: #fff;
+    margin-top: 5px;
+    position: relative;
+}
+.kind img{
+    float: right;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right:20px;
+    top:30px;
+}
+.product{
+    width:100%;
+    height:80px;
+    margin-top: 5px;
+    background:#fff;
+}
+.product ul li{
+    float: left;
+    width: 33.3%;
+    height: 36px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 15px;
+}
+.product ul li{
+    float: left;
+    text-align:center;
+    color: #434343;
+    line-height: 36px;
+    font-size: 15px;
+}
+.commodity{
+    border-bottom: 5px solid #bf6e09;
+}
+.brand{
+    height:187px;
+}
+.brand img{
+    background: #fff;
+    width: 89%;
+    vertical-align: middle;
+    padding: 12px 5% 0 5%;
+}
+.choose{
+    width:100%;
+    height: 80px;
+    font-size: 24px;
+    text-align:center;
+    position: absolute;position: fixed;
+    bottom: -30px;
+    z-index: 999;
+}
+.choose ul{
+    float: left;
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    position: fixed;
+    /*left:0;*/
+    bottom: 0px;
+}
+.choose ul li{
+    float:left;
+}
+.choose ul li a{
+    color:#86837E;
+    height: 80px;
+}
+.choose .shop{
+    width:25%;
+    background: #F7F7F6;
+    position: relative;
+}
+.choose .shop a{
+    width: 100%;
+    height: 80px;
+    float: left;
+    line-height: 120px;
+}
+.choose .shop img{
+    position: absolute;
+    left:auto;
+    top:10px;
+}
+.choose .attention{
+    width: 25%;
+    background: #F7F7F6;
+    position: relative;
+}
+.choose .attention a{
+    width: 100%;
+    height: 80px;
+    float: left;
+    line-height: 120px;
+}
+.choose .attention img{
+    position: absolute;
+    left:auto;
+    top:10px;
+}
+.choose .purchase{
+    width: 50%;
+    line-height: 80px;
+    background: #FF8000;
+}
+.choose .purchase a{
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+/******短信*******/
+.standard{
+    width: 100%;
+    height: 240px;
+    background:#fff;
+    position: absolute;
+    position: fixed;
+    bottom:60px;
+    z-index: 900;
+    display: none;
+}
+.standard a img{
+    float: left;
+    width: 43px;
+    height: 38px;
+    position: relative;
+    top:30px;
+    left: 10px;
+}
+.standard ul{
+    float: left;
+    margin: 10px 0 0 20px;
+}
+.system{
+    font-size: 16px;
+    height: 25px;
+}
+.unit{
+    font-size: 16px;
+    color:#eb311c;
+    height: 25px;
+}
+.serial-number{
+    font-size: 16px;
+    height: 30px;
+    color:#9a9a9a;
+}
+.choice{
+    float: left;
+    width: 92%;
+    border-top: 1px solid #f5f5f5;
+    margin: 0 4% 0 4%;
+}
+.choice p{
+    padding:10px 5px 5px  0 ;
+}
+.ruler{
+    float: left;
+    border: 1px solid #d4d4d4;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius:6px;
+    background: #e74f0c;
+    color: #fff;
+}
+.small{
+    float: left;
+    border: 1px solid #d4d4d4;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius:6px;
+    /*background: #e74f0c;*/
+    color: #5a5a5a;
+    margin-left: 20px;
+}
+.masking {
+    width: 100%;
+    height: 598px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgb(101, 99, 95);
+    z-index: 100;
+    opacity: 0.5;
+    display: none;
+}
+.foot {
+    float: left;
+    background: #fff;
+    width: 100%;
+    display: none;
+}
+/*.comment{*/
+    /*float: left;*/
+    /*width:93%;*/
+    /*height:54px;*/
+    /*border-bottom: 1px solid #E7E4E1;*/
+    /*margin-left:25px;*/
+/*}*/
+/*.comment a{*/
+    /*float: left;*/
+    /*color: #3A3B3B;*/
+    /*height: 60px;*/
+    /*line-height: 60px;*/
+/*}*/
+/*.comment a span{*/
+    /*position: relative;*/
+    /*font-size:24px;*/
+    /*left:10px;*/
+    /*top:-4px;*/
+/*}*/
+/*.comment img{*/
+    /*width: 40px;*/
+    /*height: 40px;*/
+    /*position: relative;*/
+    /*left:0px;*/
+    /*top:6px;*/
+/*}*/
+.client_comment{
+    height: 190px;
+    background: #fff;
+}
+.message{
+    width:100%;
+    float: left;
+}
+.message img{
+    float:left;
+    width:70px;
+    height:70px;
+    padding: 10px 20px;
+}
+.message span{
+    float: left;
+    color:#6C6A65;
+}
+.remark{
+    float: left;
+    color:#6C6A65;
+    width: 90%;
+    margin: 0 5% 0px 5%;
+    padding-bottom: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #f5f5f5;
+
+}
+.nickname{
+    font-size: 18px;
+    position: relative;
+    top:16px;
+    left:5px;;
+}
+.time{
+    position: relative;
+    font-size: 18px;
+    top:26px;
+    left:-77px;
+}
+/*******商品介绍*********/
+.issue-location{
+    float: left;
+    width: 97%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    background: #fff;
+    color:#434340;
+    padding-left:3%;
+    display: none;
+}
+.map{
+    width: 100%;
+    height: 223px;
+    background: #fff;
+    display: none;
+}
+.map img{
+    float: left;
+    width: 94%;
+    margin: 0 3%;
+}
+/********************/
+.issue{
+    float: left;
+    width: 97%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    background: #fff;
+    color:#434340;
+    padding-left:3%;
+    display: none;
+}
+/*************/
+.second-ring{
+    float: left;
+    width: 100%;
+    height:100px;
+    background: #fff;
+    display: none;
+}
+.water-storage{
+    width: 94%;
+    height: 70px;
+    padding:10px 3% 10px 3%;
+    border-top:1px solid #F8F7F6;
+    border-bottom:1px solid #F8F7F6;
+}
+.water-storage .loop{
+    margin-left: 20px;
+    font-size: 14px;
+    color:#3B3C3B;
+}
+.water-storage .install{
+    margin-left: 20px;
+    font-size: 14px;
+    color:#8B8985;
+}
+/*******/
+.second-orientation{
+    float: left;
+    position: relative;
+    margin-top: 5px;
+}
+.second-orientation span{
+    float: left;
+    font-size: 14px;
+    color:#61605B;
+    /*margin-left: 30px;*/
+}
+.second-meter{
+    margin-left: 10px;
+}
+.second-district{
+    margin-left:40px;
+}
+.second-orientation img{
+    float: left;
+    width: 25px;
+    height:25px;
+    position: absolute;
+    bottom:-6px;
+    left:15px;
+}
+/*******/
+.second-machine{
+    float: left;
+    width: 100%;
+    height:90px;
+    background: #fff;
+    display: none;
+}
+.machine-storage{
+    width: 94%;
+    height: 140px;
+    padding:0px 3% 0px 3%;
+}
+.machine-storage .loop{
+    margin-left: 20px;
+    font-size: 14px;
+    color:#3B3C3B;
+}
+.machine-storage .install{
+    margin-left: 20px;
+    font-size: 14px;
+    color:#8B8985;
+}
+/************/

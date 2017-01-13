@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>供求</title>
+    <link rel="stylesheet" href="Public/css/weui.css">
+    <link rel="stylesheet" href="Public/css/weui.min.0.4.3.css">
+    <link rel="stylesheet" href="Public/css/jquery-weui.min.css">
+    <link rel="stylesheet" type="text/css" href="Public/font/Font-Awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/supply-demand.css"/>
+    <link rel="stylesheet" href="./Public/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="Public/font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="./Public/font/Font-Awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Public/css/center.css">
+    <link rel="stylesheet" href="./Public/css/addmysupply.css">
+    <link rel="stylesheet" href="css/boot.css"/>
+    <link rel="stylesheet" href="css/css/jiazai.css"/>
+</head>
+<body>
+    <div class="wrap">
+        <div class="supply-header">
+           <!-- 图标-->
+            <div class="plus-sign">
+                <!--<a href="UCenter/addMySupply.php"><img src="images/supply-demand/addEmploy.png" alt=""/></a>-->
+            </div>
+            <div class="demand">供求</div>
+            <div class="magnifying-glass">
+                <a href="UCenter/addMySupply.php">
+                    <img src="images/supply-demand/addEmploy.png" alt=""/>
+                </a>
+            </div>
+        </div>
+        <div class="headline">
+            <div class="supply">
+                <a href="#">供应</a>
+            </div>
+            <div class="ask-buy">
+                <a href="#">求购</a>
+            </div>
+        </div>
+        <div class="condition">
+            <div class="all">
+                <a href="#" class="classify">全部分类
+                    <a href="#" class="angle">
+                        <img src="images/supply-demand/corner.png" alt=""/>
+                    </a>
+                </a>
+                <ul class="project-classify">
+                    <li><a href="#">全部</a></li>
+                </ul>
+                <!-- -***********-->
+                <ul class="equipment-material">
+                    <li><a href="#">全部</a></li>
+                </ul>
+                <!-- ***********-->
+                <ul class="equipment-machine">
+                    <li><a href="#">全部</a></li>
+                </ul>
+            </div>
+            <div class="city">
+                <a href="#" class="downtown">所有城市
+                    <a href="#" class="corner">
+                        <img src="images/supply-demand/corner.png" alt=""/>
+                    </a>
+                </a>
+                <ul class="project-downtown">
+                    <li><a href="#">全部</a></li>
+                    <li class="home-decoration"><a href="#">兴庆区</a></li>
+                    <li><a href="#">金凤区</a></li>
+                    <li><a href="#">西夏区</a></li>
+                    <li><a href="#">贺兰县</a></li>
+                    <li><a href="#">永宁县</a></li>
+                    <li><a href="#">灵武市</a></li>
+                </ul>
+            </div>
+        </div>
+        <!---1- mountains-->
+        <div class="mountains">
+            <!--<div class="supply-demand-rolled-steel">-->
+                <!--<a href="supply-demand-particulars.html">-->
+                <!--<div class="supply-demand-rolled">-->
+                    <!--<img src="images/supply-demand/stir.jpg" alt=""/>-->
+                    <!--<ul>-->
+                        <!--<li class="second-ring">银川市东二环昆仑钢材市场</li>-->
+                        <!--<li class="water-storage">机械家用储水式免费安装</li>-->
+                        <!--<li class="star">-->
+                            <!--<img src="images/supply-demand/five-stars.png" alt=""/>-->
+                        <!--</li>-->
+                        <!--<li class="limited-company">宁夏宏达设备租赁有限公司</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <!--<div class="orientation">-->
+                    <!--<img src="images/supply-demand/coordinate.png" alt=""/>-->
+                    <!--<span class=" district">宁夏银川金凤区</span>-->
+                    <!--<span class="meter">< 100米</span>-->
+                <!--</div>-->
+                <!--</a>-->
+            <!--</div>-->
+        </div>
+        <div class="mountains1"></div>
+
+        <!------------->
+
+        <div class="bottom_menu">
+            <a class="home" href="index.html">
+                 <i class="fa fa-home" aria-hidden="true"></i>
+                <span style="display:block;height: 25px;line-height: 30px">首页</span></a>
+            <!--<a class="cart" href="supply-demand.html" style="color:#BF6E09">-->
+                <!--<i class="icon iconfont">&#xe610;</i><span>供求</span></a>-->
+            <a class="cart" href="supply-demand.html" style="color: #BF6E09">
+                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span style="display:block;height: 25px;line-height: 30px">供求</span></a>
+            <a class="center" href="./UCenter/index.php">
+                 <i class="fa fa-user" aria-hidden="true"></i>
+                <span style="display:block;height: 25px;line-height: 30px">我</span></a>
+        </div><!--bottom_menu  -->
+    </div>
+    <!-- 蒙版----------->
+    <div class="weui-loadmore">
+        <img src="images/ja.gif" alt=""/>
+        <span class="weui-loadmore__tips">正在加载</span>
+    </div>
+    <div class="masking"></div>
+    <div class="bai"></div>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/tool.js"></script>
+<script src="Public/js/require.config.js"></script>
+<script src="js/supply-demand.js"></script>
+<script src="js/jquery.md5.js"></script>
+<script>
+    $ (function ()
+    {
+        $ ('.ask-buy a').click (function ()
+        {
+            $ ('.supply a').css ("border-bottom","none");
+            $('.ask-buy a').css ("border-bottom","5px solid #E27100");
+            $ ('.mountains').hide ();
+            $ ('.wood').hide ();
+            $ ('.type-of-work').show ();
+        });
+        $ ('.supply a').click (function ()
+        {
+            $ ('.ask-buy a').css ("border-bottom","none");
+            $('.supply a').css ("border-bottom","5px solid #E27100");
+            $ ('.mountains').show();
+            $ ('.mountains1').hide();
+            $ ('.wood').show ();
+        })
+    })
+
+    var urlstr = location.href;
+//alert((urlstr + '/').indexOf($(this).attr('href')));
+var urlstatus=false;
+$(".bottom_menu a").each(function () {
+if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+  $(this).addClass('current'); urlstatus = true;
+} else {
+  $(this).removeClass('current');
+}
+});
+if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); }
+
+//    ****************
+
+
+</script>
+</html>

@@ -1,0 +1,410 @@
+@import "common.css";
+
+.main {
+	width: 100%;
+    margin: 0 auto;
+}
+#topback-header {
+    position:relative;
+    background-color:#BD6E1E;
+    top: 0;
+    width: 100%;
+    position:fixed;
+    z-index: 999;
+	zoom:1 /*触发IE下块级元素*/
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	opacity:0.5;
+}
+.banner-max{
+    max-width: 100%;
+    max-height: 300px;
+    vertical-align:middle;
+}
+.equipment{
+    position: absolute;
+    left:17px;
+    top:16px;
+}
+.equipment a{
+    float: left;
+    display: inline-block;
+    width: 20px;
+    height: 41px;
+}
+.equipment a img{
+    float: left;
+    width: 20px;
+    height: 41px;
+    position: relative;
+    left:0px;
+    top:0px;
+}
+.equipment span{
+    text-align: center;
+    height: 41px;
+    line-height: 40px;
+    font-size: 18px;
+    padding-left: 10px;
+    color:#fff;
+    position: relative;
+    left:0px;
+    top:0px;
+}
+.share a{
+    float: right;
+    width: 35px;
+    height: 41px;
+    position: absolute;
+    right: 7px;
+    top:20px;
+}
+.share a img{
+    width: 35px;
+    height: 41px;
+}
+.line {
+	width: 100%;
+	height: 1px;
+	background: #aaa;
+}
+
+/*tab 选中边框  */
+/*.weui_navbar_item.weui_bar_item_on {
+    background-color: #ffffff;
+	border-bottom:4px solid #E54E1F;
+}*/
+.good-detail {
+	margin-bottom: 50px;
+}
+
+.weui_navbar .weui_navbar_item{
+	 background: #ffffff;
+    display: inline;
+	position: static;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 15px;
+    -webkit-tap-highlight-color: transparent;
+}
+.weui_navbar_item:active{
+	  background-color: #ffffff;
+}
+.weui_navbar_item:after{
+	content: "";
+}
+.weui_tab{
+	margin-top:15px;
+}
+.weui_tab_bd {
+	padding-top: 25px;
+	padding-bottom: 5px;
+}
+
+.good-names {
+    padding: 10px 10px 10px 10px;
+    padding-bottom: 5px;
+    background:#fff;
+}
+.good-name {
+    line-height: 30px;
+    font-size:18px;
+    color:#3A3B3B;
+}
+.good-subname {
+    line-height: 30px;
+    font-size:14px;
+    color:#807D78;
+}
+.price {
+	height: 30px;
+    padding: 5px;
+    background:#fff;
+}
+
+.kind {
+    padding: 5px;
+    color:#706965;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    background: #fff;
+    position: relative;
+}
+
+.kind img{
+    float: right;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right:20px;
+    top:7px;
+}
+
+#good-detail-evaluate {
+	position: relative;
+}
+.good-evaluate {
+	background: #fff;
+}
+
+.userinfo{
+    width:100%;
+    float: left;
+}
+.userinfo .nickname{
+	color: #666;
+    position: relative;
+    top:16px;
+    left:5px;
+    padding-bottom: 10px;
+}
+.userinfo img{
+    float:left;
+    width:60px;
+    height:60px;
+    padding: 10px;
+    -moz-border-radius:40px;
+    -ms-border-radius:40px;
+    -o-border-radius:40px;
+    -webkit-border-radius:40px;
+    border-radius:40px;
+}
+
+.userinfo .datetime{
+    float: left;
+    left:5px;
+    position: relative;
+    color:#999;
+}
+.good-evaluate .message {
+	padding: 10px;
+	font-size: 14px;
+	color: #999;
+}
+
+.brand {
+	padding: 10px;
+	max-width: 100%;
+	font-size: 16px;
+	color: #666;
+}
+
+.brand img{
+    max-width: 100%;
+    max-height: 300px;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+.brand-img img{
+    width: 100%;
+    max-height: 300px;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+
+.weui-article {
+	padding: 10px 10px;
+}
+.weui-article_fix {
+	padding-bottom: 0px;
+}
+
+.weui-panel__bd img {
+	padding: 10px;
+}
+
+.weui-panel__bd_fix {
+	padding: 0px 10px 5px;
+}
+.good-cell-categray {
+	font-size: 12px;
+	color: #999;
+	padding-top: 5px;
+}
+.good-cell-categray img{
+    float: left;
+    width:18px;
+    height: 16px;
+    /*position: absolute;*/
+    left:0px;
+    top:-1px;
+    padding: 0px;
+}
+
+.tab-nav {
+    width:100%;
+    height: 60px;
+    font-size: 15px;
+    text-align:center;
+    position: fixed;
+    bottom: 0px;
+    background: #F7F7F7;
+    z-index: 999;
+}
+.tab-nav ul{
+    float: left;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    bottom: 0px;
+    list-style:none;
+}
+.tab-nav ul li{
+    float:left;
+}
+.tab-nav a{
+    color:#999;
+}
+
+
+.tab-nav .shop{
+    width:25%;
+    height: 100%;
+    text-align: center;
+    /*position: relative;*/
+}
+.tab-nav .attention{
+    width: 25%;
+    height: 100%;
+    text-align: center;
+    /*position: relative;*/
+}
+.tab-nav img{
+    position: absolute;
+    width: 28px;
+    height: 25px;
+    top:8px;
+}
+
+/*.tab-nav .attention img{
+    position: absolute;
+    left:auto;
+    top:10px;
+}*/
+.tab-nav .purchase {
+    width: 50%;
+    height: 100%;
+    	text-align: center;
+    background: #FA8B24;
+}
+.tab-nav span {
+	height: 50px;
+	line-height: 100px;
+	color: #666;
+}
+
+.purchase span {
+	height: 60px;
+	line-height:60px;
+	color: #FFF;
+}
+
+///////////////////////////////////////////////////////
+
+
+/******短信*******/
+.standard{
+    width: 100%;
+    height: 240px;
+    background:#fff;
+    position: absolute;
+    position: fixed;
+    bottom:60px;
+    z-index: 900;
+    display: none;
+}
+.standard a img{
+    float: left;
+    width: 43px;
+    height: 38px;
+    position: relative;
+    top:30px;
+    left: 10px;
+}
+.standard ul{
+    float: left;
+    margin: 10px 0 0 20px;
+}
+.system{
+    font-size: 16px;
+    height: 25px;
+}
+.unit{
+    font-size: 16px;
+    color:#eb311c;
+    height: 25px;
+}
+.serial-number{
+    font-size: 16px;
+    height: 30px;
+    color:#9a9a9a;
+}
+.choice{
+    float: left;
+    width: 92%;
+    border-top: 1px solid #f5f5f5;
+    margin: 0 4% 0 4%;
+}
+.choice p{
+    padding:10px 5px 5px  0 ;
+}
+.ruler{
+    float: left;
+    border: 1px solid #d4d4d4;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius:6px;
+    background: #e74f0c;
+    color: #fff;
+}
+.small{
+    float: left;
+    border: 1px solid #d4d4d4;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius:6px;
+    /*background: #e74f0c;*/
+    color: #5a5a5a;
+    margin-left: 20px;
+}
+.masking {
+    width: 100%;
+    height: 598px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgb(101, 99, 95);
+    z-index: 100;
+    opacity: 0.5;
+    display: none;
+}
+.foot {
+    float: left;
+    background: #fff;
+    width: 100%;
+    display: none;
+}
+
+.remark{
+    float: left;
+    color:#6C6A65;
+    width: 90%;
+    margin: 0 5% 0px 5%;
+    padding-bottom: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #f5f5f5;
+
+}
+
+.time{
+    position: relative;
+    font-size: 18px;
+    top:26px;
+    left:-77px;
+}

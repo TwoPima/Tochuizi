@@ -1,0 +1,30 @@
+.weui-loadmore {
+    position: absolute;
+    width: 100%;
+    top:120px;
+    z-index: 1000;
+}
+.weui-loading {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-animation: weuiLoading 1s steps(12, end) infinite;
+    animation: weuiLoading 1s steps(12, end) infinite;
+    background: transparent url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iciIgd2lkdGg9JzEyMHB4JyBoZWlnaHQ9J…JvdGF0ZSgzMzAgNTAgNTApIHRyYW5zbGF0ZSgwIC0zMCknPgogICAgPC9yZWN0Pgo8L3N2Zz4=) no-repeat;
+    background-size: 100%;
+}
+.weui-loadmore__tips {
+    display: inline-block;
+    position: relative;
+    top:-46px;
+    left: -38px;
+}
+.weui-loadmore img{
+    width:100px;
+    height: 100px;
+}
+.ja{
+    width:100px;
+    height: 100px;
+}

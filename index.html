@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./Public/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="./Public/font/iconfont.css"/>
+    <link rel="stylesheet" href="Public/css/weui.min.css"/>
+	<link rel="stylesheet" href="Public/css/weui.min.0.4.3.css"/>
+	<link rel="stylesheet" href="Public/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="./css/index.css"/>
+    <link rel="stylesheet" href="./css/boot.css"/>
+    <link rel="stylesheet" href="./Public/font/Font-Awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="./css/css/giriui.css"/>
+    <link rel="stylesheet" href="./css/css/loader.css"/>
+    <title>首页</title>
+</head>
+<body>
+<!-- 栏目1.导航-->
+    <div class="nav">
+        <div class="logo">
+            <a href="#"><img src="images/home page/logo.png" alt=""/></a>
+        </div>
+        <div class="search">
+            <form action="#">
+               <input type="text" class="sear" name="sear" placeholder=""maxlength="10"/>
+                <a href="#" class="camera">
+                    <!--<img src="images/home page/camera.png" alt=""/>-->
+                </a>
+            </form>
+            <img class=" sweep" src="images/home page/10.png" alt=""/>
+            <div class="classes1"><a href="#">商品</a>
+                <img class="triangle" src="images/home%20page/triangle2.png">
+            </div>
+            <div class="classes2"><a href="#">店铺</a></div>
+        </div>
+        <div class="location1">
+            <a href="#">
+                <img src="images/home%20page/location.png" alt=""/>
+                <span id="location"style="width:46px;display: inline-block">
+                </span>
+            </a>
+        </div>
+        <div class="location2">
+             <a href="#">石嘴山</a>
+             <a href="#">吴忠</a>
+             <a href="#">固原</a>
+             <a href="#">中卫</a>
+        </div>
+        <div class="login">
+            <a href="#"></a>
+        </div>
+    </div>
+<div class="main">
+<div class="wrap">
+    <div class="banner">
+<!--栏目2.轮播图开始-->
+        <div class="inner">
+            <ul>
+                <li v-for="addItem in addList">
+                    <a v-bind:href="addItem.link">
+                        <img v-bind:src="imgHost+addItem.img_url" v-bind:data-lazy="imgHost+addItem.img_url" v-bind:alt="addItem.title"/>
+                    </a>
+                </li>
+                <!--<li>
+                    <a href="#">
+                        <img src="" alt="" data-lazy="images/home page/banner2.jpg"/>
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+        <!--.ctrl>ul>li*4-->
+        <div class="ctrl">
+            <ul>
+                <li v-for="addItem in addList"></li>
+            </ul>
+        </div>
+    </div>
+<!--栏目3 8图-->
+    <div class="nav8">
+    		<a href="equipment.html">
+        		<div class="one">
+            		<div class="up"><img src="images/home page/equipment.png" alt=""/></div>
+            		<div class="down"><span>设备材料</span></div>
+        		</div>
+    		</a>
+    		<a href="apply-for-a-post.html">
+        <div class="one">
+            <div class="up"><img src="images/home page/resource.png" alt=""/></div>
+            <div class="down"><span>人力资源</span></div>
+        </div>
+       </a>
+       <a href="project.html">
+        <div class="one">
+            <div class="up"><img src="images/home page/project.png" alt=""/></div>
+            <div class="down"><span>设计</span></div>
+        </div>
+       </a>
+       <a href="aptitude-inquire.html">
+        <div class="one">
+            <div class="up"><img src="images/home page/inquire.png" alt=""/></div>
+            <div class="down"><span>资质查询</span></div>
+        </div>
+       </a>
+       <a href="invitation.html">
+        <div class="one">
+            <div class="up"><img src="images/home page/bid.png" alt=""/></div>
+            <div class="down"><span>招投标</span></div>
+        </div>
+       </a>
+    </div>
+    <!-- 推荐-->
+    <div class="recommend">
+    		<a href="#">
+        		<div>
+                <img src="images/home%20page/recommend.png" alt=""/>&nbsp; <span>推荐</span>
+            </div>
+        </a>
+    </div>
+	<div class="goods">
+		<div class="loader-inner ball-pulse" style="text-align: center;"><div></div><div></div><div></div></div>
+		<div id='goodList' class="weui-panel__bd display-none">
+            <a  v-for="goodItem in goodList" v-bind:href="'goods-details.html?title='+goodItem.goods_name+'&good_id='+goodItem.goods_id" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" v-bind:src="imgHost + goodItem.img_url" alt="商品 logo"/>
+                </div>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title">{{ goodItem.goods_name }}</h4>
+                    <p class="weui-media-box__desc">{{ goodItem.goods_names }}</p>
+                    <div class="money">{{ goodItem.price }}元</div>
+                    <div class="good-cell-categray">
+                        出售 > 机械租赁
+                        <span class="district">
+            					<img class="location" src="images/home%20page/supply.png" alt="定位"/>
+            					{{ goodItem.area_id }}
+                        </span>
+                    	</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+    <!-- ***************-->
+    <div class="bottom_menu" style="z-index: 900">
+        <a class="home" href="index.html"style="color: #BF6E09;">
+            <i class="fa fa-home" aria-hidden="true" ></i>
+            <span style="display:block;height: 25px;line-height: 30px">首页</span>
+        </a>
+        <a class="cart" href="supply-demand.html">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <span style="display:block;height: 25px;line-height: 30px">供求</span>
+        </a>
+        <!-- 这只是个注释-->
+        <a class="center" href="./UCenter/index.php">
+           <i class="fa fa-user" aria-hidden="true"></i>
+            <span style="display:block;height: 25px; line-height: 30px">我</span>
+        </a>
+    </div><!--bottom_menu  -->
+	<div id="allmap"></div>
+<!--wrap的结束-->
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/jquery.md5.js"></script>
+<script src="js/tool.js"></script>
+<script src="js/effects.js"></script>
+<script src="Public/js/require.config.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA&v=1.0"></script>
+<script src="js/orientation.js"></script>
+<script src="js/location.js"></script>
+<script src="js/vue/vue.js"></script>
+<script src="js/index.js"></script>
+</html>

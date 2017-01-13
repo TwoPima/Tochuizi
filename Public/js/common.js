@@ -789,13 +789,23 @@ function  initialieSelectValue(checkInfo,cate_id,moudle){
 					$('#partner_cate_sub').append(cityHtml1);
 					$('#partner_cate_there').append(areaHtml1);
 				}
+				//供求分类
+				if (moudle=='6') {
+					var proviceHtml1='<option selected="selected" value="'+dataJson.top.cate_id+'">'+dataJson.top.cate_name+'</option>';
+					var cityHtml1='<option selected="selected" value="'+dataJson.two.cate_id+'">'+dataJson.two.cate_name+'</option>';
+					var areaHtml1='<option selected="selected" value="'+dataJson.cate_id+'">'+dataJson.cate_name+'</option>';
+					$("#firstMenu").append(proviceHtml1);
+					$("#subMenu").append(cityHtml1);
+					$("#thereMenu").append(areaHtml1);
+				}
 			}
 		}
 	});
 }
 /*******手机端a链接点击无反应问题解决-fastclick.js******/
 //如果你使用原生js开发则进行如下声明即可。
-if ('addEventListener' in document) {      
+/*
+if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function() {  
   FastClick.attach(document.body);  
 }, false);  
@@ -804,3 +814,4 @@ if ('addEventListener' in document) {
 $(function() {
   FastClick.attach(document.body);  
 });
+*/

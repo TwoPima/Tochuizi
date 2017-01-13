@@ -15,7 +15,6 @@
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-session.js"></script>
-	<script src="../Public/js/fastclick.js"></script>
 	<script src="../Public/js/common.js"></script>
 </head>
 <body id="body_box" >
@@ -62,8 +61,8 @@
 				<template v-for="item in demoData" >
 					<div class="weui_panel">
 						<div class="list-data">
-							<a v-on:click="jump_url(item.id,item.url)" style="display: block;" >
 								<div class="weui_media_box weui_media_text">
+									<a v-on:click="jump_url(item.id)" style="display: block;">
 									<p class="weui_media_desc">{{item.title}}</p>
 									<ul class="weui_media_info">
 										<li class="weui_media_info_meta">
@@ -74,9 +73,11 @@
 											<span>{{item.hits}}</span>
 										</li>
 									</ul>
+									</a>
 								</div>
-							</a>
-							<img class="jiantou" src="../Public/img/supply/jiantou.png" >
+								<img class="jiantou" src="../Public/img/supply/jiantou.png" >
+
+
 							<!--<div style="line-height:67px;"class="del-btn">
 							<span onClick="confirmDelete('+obj.id+');" >删除</span>
 							</div> -->
@@ -212,7 +213,7 @@
 			}
 		}, //created 结束
 		methods: {
-			jump_url: function (msg1,msg2){
+			jump_url: function (msg1){
 				window.location.href='editMySupply.php?supply_id='+msg1;
 			},
 			classdata: function (msg) {
@@ -240,7 +241,6 @@
 				_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
 						_self.myScroll.destroy(); //把滑动注销掉
 						var res = response.data; //取出的数据
-						console.log(res);
 						if(res.statusCode==1){
 							_self.$set('is_nodata', '1');
 							var listdata=res.data;
@@ -271,7 +271,6 @@
 					});
 				function is_upload2(){
 					if (this.y>50){
-						console.log('开始下拉刷新');
 						$('.upload').css('display','block');
 						_self.$set('is_refresh', '1');
 					}else{

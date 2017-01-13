@@ -1,0 +1,372 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+}
+a{
+    color:#fff;
+    text-decoration:none;
+}
+a,button,input{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+    font-family: "微软雅黑";
+    background-color: #f5f5f5;
+}
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+/**************/
+.publish-header{
+    width:100%;
+    height:48px;
+    background:#bf6e09;
+}
+.passion a{
+    line-height: 70px;
+    margin-left: 20px;
+}
+.passion img{
+    width: 20px;
+    height: 35px;
+}
+.passion span{
+    color:#fff;
+    position: relative;
+    font-size: 18px;
+    left: 0px;
+    top:-10px;
+}
+/***********/
+/******.headline*******/
+.headline{
+    float: left;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+}
+.supply span{
+    float: left;
+    width: 49.5%;
+    height: 55px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 24px;
+    color:#575652;
+    border-bottom: 5px solid #E27100;
+}
+.ask-buy span{
+    float: left;
+    width: 50%;
+    height: 55px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 24px;
+    color:#575652;
+    /*border-bottom: 5px solid #E27100;*/
+}
+/****condition*****/
+.condition{
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 60px;
+    background: #fff;
+    margin-top: 1px;
+    position: relative;
+    z-index: 999;
+}
+.all{
+    width: 50%;
+    float:left;
+}
+.all .classify{
+    float: left;
+    width: 85%;
+    height: 60px;
+    line-height: 60px;
+    padding-left:20%;
+    font-size: 24px;
+    color:#575652;
+    border-right:1px solid #EBEAE7 ;
+}
+.city{
+    width: 50%;
+    float: left;
+}
+.city .downtown{
+    float: left;
+    width:80%;
+    height: 60px;
+    padding-left:20%;
+    line-height: 60px;
+    font-size: 24px;
+    color:#575652;
+    /*border-bottom: 5px solid #E27100;*/
+}
+.angle{
+    position: relative;
+}
+.all .angle img{
+    width: 36px;
+    height:20px;
+    position: absolute;
+    top:20px;
+    right:90px;
+}
+.corner{
+    position: relative;
+}
+.city .corner img{
+    width: 36px;
+    height:20px;
+    position:absolute;
+    top:20px;
+    right:90px;
+}
+/*****/
+ .project-classify{
+    position: absolute;
+    top:40px;
+    background: #fff;
+    width: 27%;
+    /*height: 450px;*/
+    z-index: 999;
+    display: none;
+}
+ .project-classify li{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 5px;
+    color:#4C4B48;
+
+}
+ .project-classify li a{
+    float: left;
+    width: 95%;
+    height: 40px;
+    line-height: 40px;
+    color:#4C4B48;
+    border-top:1px solid #F3F3F2 ;
+    /*padding-left: 25px;*/
+    text-align: center;
+}
+
+.project-classify .home-decoration a{
+    float: left;
+    height:37px;
+    /*border-bottom: 3px solid #D16814;*/
+    /*color:#D16814;*/
+}
+.zuping a{
+    float: left;
+}
+/*材料*/
+.equipment-material{
+     width:36%;
+    padding: 0 2%;
+     /*height: 450px;*/
+     background: #fff;
+     position: absolute;
+     left:27%;
+     top:40px;
+    display: none;
+
+ }
+.equipment-material li{
+    height: 40px;
+
+}
+.equipment-material a{
+    float: left;
+    width: 95%;
+    height:40px;
+    line-height: 40px;
+    /*padding-left: 14px;*/
+    text-align: center;
+    color:#4C4B48;
+    border-top:1px solid #F3F3F2 ;
+}
+.equipment-decorate{
+    /*border-bottom:3px solid  #D16814;*/
+}
+.equipment-decorate a{
+    float: left;
+    /*color:#D16814;*/
+    height: 37px;
+    /*border-bottom:3px solid  #D16814;*/
+}
+/*机器*/
+.equipment-machine{
+    width:33%;
+    padding:0 2%;
+    /*height: 450px;*/
+    background: #fff;
+    position: absolute;
+    left:63%;
+    top:40px;
+    display: none;
+
+}
+.equipment-machine li{
+    height: 40px;
+}
+.equipment-machine a{
+    float: left;
+    width: 95%;
+    line-height: 40px;
+    height:40px;
+    /*padding-left: 14px;*/
+    text-align: center;
+    color:#4C4B48;
+    border-top:1px solid #F3F3F2 ;
+}
+.equipment-splice a{
+    float: left;
+    height: 37px;
+    /*border-bottom:3px solid  #D16814;*/
+    /*color:#D16814;*/
+}
+/***********/
+.project-downtown{
+    position: absolute;
+    top:40px;
+    right:0px;
+    background: #fff;
+    width: 47.5%;
+    z-index: 999;
+    display: none;
+}
+.project-downtown li{
+    height: 40px;
+    line-height: 40px;
+    /*padding-left: 30px;*/
+    color:#4C4B48;
+
+}
+.project-downtown li a{
+    float: left;
+    width: 96%;
+    height: 40px;
+    margin: 0 2%;
+    line-height: 40px;
+    text-align: center;
+    color:#4C4B48;
+    border-top:1px solid #F3F3F2 ;
+}
+.project-downtown .home-decoration a{
+    /*border-bottom: 3px solid #D16814;*/
+}
+.project-downtown .home-decoration a{
+    /*color:#D16814;*/
+    height: 37px;
+}
+/************/
+#goodList li{
+    height: 90px;
+    background: #fff;
+    display:-webkit-inline-box ;
+    /*margin-top:2px;*/
+    margin-bottom: 5px;
+    padding:10px 10px 10px 10px;
+    /*padding-top: 5px;
+    padding-bottom: 5px;*/
+}
+#goodList li .good-logo{
+    float: left;
+    width:110px;
+    height:90px;
+    top: 10px;
+    /*position: relative;*/
+    /*left: 10px;*/
+}
+#goodList  .weui-cell__bd{
+    line-height:2.6;
+}
+#goodList  .weui-media-box__title{
+    font-size: 15px;
+}
+#goodList  .weui-media-box__desc{
+    font-size: 12px;
+    line-height:2;
+    margin:0px;
+    padding:0px;
+}
+
+.excavator {
+    color:#000000;
+    font-size: 12px;
+    float: left;
+    margin-left: 10px;
+    /*padding-right: 10px;*/
+    /*margin-right: 10px;*/
+    overflow:hidden;
+    /*left: 10px;*/
+    top: 5px;
+    bottom: 5px;
+    width: 60%;
+}
+.text-overflow {
+    display:block;/*内联对象需加*/
+    width:31em;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+.money{
+    color:#F04F3D;
+    font-size: 14px;
+}
+.weui-media-box__hd_xiuzheng {
+    width: 100px;
+    height: 80px;
+}
+
+.excavator .sell{
+    float: left;
+    color:#84817C;
+}
+.excavator .district{
+    float: right;
+    height: 23px;
+    position: relative;
+}
+.excavator .district img{
+    float: left;
+    width:18px;
+    height: 16px;
+    position: absolute;
+    left:-20px;
+    top:-1px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.masking{
+    width: 100%;
+    height: 630px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: rgb(101, 99, 95);
+    z-index: 10;
+    opacity: 0.5;
+    margin-top: 90px;
+    display: none;
+}

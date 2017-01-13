@@ -139,7 +139,7 @@
             <div class="weui-cells weui-cells_form" style="margin-top:0px;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="5"></textarea>
+                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="3"></textarea>
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@ $(function(){
         }
 	});
 	$("#birthday").calendar();//日历
-    selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
+    selectMyResumeInfo(sessionUserId,$("#checkInfo").val());//查询简历信息
 	getEduction($("#checkInfoZidian").val());//学历
 	getJobYear($("#checkInfoZidian").val());//工作年限
 	getTroopsAptitude($("#checkInfoZidian").val());//队伍资质
@@ -350,7 +350,7 @@ function uploadImage() {
             if(result.statusCode=='0'){
                // $.toast("上传失败，请检查网络后重试", "cancel");
             }else{
-                window.location.reload();//刷新当前页面.
+               // window.location.reload();//刷新当前页面.
             }
 
         }
@@ -389,26 +389,31 @@ $(document).on("click", ".deletePicture", function() {
 		var education=$('#education option:selected').val();
 		var job_year=$('#job_year option:selected').val();
 		var dui_type=$('#dui_type option:selected').val();
+		var area=$('#dpArea option:selected').val();
 		var zhuan_type=$('#zhuan_type option:selected').val();
 		var peo_count=$('#peo_count option:selected').val();
 		var checkInfo = $("#checkInfo").val();
        	var url =HOST+'mobile.php?c=index&a=my_resume';
         if(mobile==""|| name==""){
-       		$.toptip('手机号姓名均不能为空！', 200, 'warning');
+       		$.toptip('手机号姓名均不能为空！', 2000, 'warning');
+       		$(document).scrollTop(0);
        	    return false; 
        	 }
          if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
              $.toptip('手机号码有误，请重填！', 2000, 'warning');
+             $(document).scrollTop(0);
              return false;
          }
          if( $("#email").val()=="" || ($("#email").val()!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test($("#email").val()) ) ){
              $.toptip('邮箱地址有误，请重填！', 2000, 'warning');
+             $(document).scrollTop(0);
              return false;
          }
 		 $.ajax({
 			type: 'post',
 			url: url,
 			data: {
+				area:area,
 				mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,
 				dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
 				sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type,email:$("#email").val()},
@@ -417,6 +422,7 @@ $(document).on("click", ".deletePicture", function() {
 				var message=result.message;
 				if (result.statusCode=='0'){
 					$.toast(message, "cancel");
+					$(document).scrollTop(0);
 				}
                 if (result.statusCode=='0'){
                     setTimeout(function() {

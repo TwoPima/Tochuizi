@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>个人主页-我的求职</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../Public/css/weui.css">
+	<link rel="stylesheet" href="../Public/css/weui.min.css">
 	<link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -100,6 +100,15 @@ $(function(){
 		return result;
 	}
 });
+if ('addEventListener' in document) {
+	document.addEventListener('DOMContentLoaded', function() {
+		FastClick.attach(document.body);
+	}, false);
+}
+//如果你想使用jquery
+$(function() {
+	FastClick.attach(document.body);
+});
  function selectMyResumeInfo(id,checkInfo){
 		 //查询
 		var url =HOST+'mobile.php?c=index&a=my_resume';
@@ -151,8 +160,8 @@ $(function(){
 
         <div class="weui-cells">
 			<template v-for="item in listJob "><!--三层  -->
-	           	  <div class="weui-cell weui-cell_access"  >
-								<div v-on:click="jump_url(item.id)"  class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
+	           	  <div class="weui-cell weui-cell_access" v-on:click="jump_url(item.id)"  >
+								<div  class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
 								<div class="weui-cell__ft" style="font-size: 0">
 									<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
 									<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
@@ -244,5 +253,6 @@ $(function(){
 	function confirmDelete(value){
 		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,value,'3');
 	}
+	
 </script>
 </html>

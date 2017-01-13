@@ -149,7 +149,7 @@
             <div class="weui-cells weui-cells_form" style="margin-top:0px;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="5"></textarea>
+                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="3"></textarea>
                     </div>
                 </div>
             </div>
@@ -247,7 +247,7 @@ $(function(){
            }
         }
 	});
-	selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
+	selectMyResumeInfo(sessionUserId,$("#checkInfo").val());//查询简历信息
 	$("#birthday").calendar();//日历
 	getEduction($("#checkInfoZidian").val());//学历
 	getJobYear($("#checkInfoZidian").val());//工作年限
@@ -410,16 +410,19 @@ $(function(){
 	       	var url =HOST+'mobile.php?c=index&a=my_resume';
 			 if(mobile==""|| name==""){
 				 $.toast('手机号姓名均不能为空！', "cancel");
+				 $(document).scrollTop(0);
 				 return false;
 			 }
 			 //验证手机
 			 if(!(/^1(3|4|5|7|8)\d{9}$/.test(mobile))){
 				 $.toast('手机号码有误，请重填！', "cancel");
+				 $(document).scrollTop(0);
 				 return false;
 			 }
 			 //验证邮件
 			 if( email=="" || ( this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(email) ) ){
 				 $.toast('邮箱地址有误，请重填！', "cancel");
+				 $(document).scrollTop(0);
 				 return false;
 			 }
 			 $.ajax({
@@ -435,6 +438,7 @@ $(function(){
 					var message=result.message;
 					if (result.statusCode=='0'){
 						$.toast(message, "cancel");
+						$(document).scrollTop(0);
 					}
 					if (result.statusCode=='1'){
 						setTimeout(function() {

@@ -7,25 +7,16 @@
 	   <link rel="stylesheet" type="text/css"  href="../Public/css/weui.min.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/common.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/center.css"/>
-        <link rel="stylesheet" type="text/css" href="../Public/css/weui.css"/>
         <link rel="stylesheet" type="text/css" href="../Public/css/login.css"/>
          <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
          <style>
-.zck p{
-	text-indent:2em;
-}
-.zck{
-        position: fixed;
-	     width:100%;
-	padding-bottom:20px;
-	min-height:550px;overflow-y:auto;
-    }
+
 </style>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height(); //浏览器当前窗口可视区域高度
+		var height=$(window).height()*60/100; //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>
@@ -57,9 +48,9 @@
 </p><p>土锤网将在线上借助核心互联网理念与技术，线下依托传统建筑业的深厚资源，专注于帮助建筑业内的采供双方创造高效的交易环境，建立可持续发展的新型交易模式。
 		            </p>
 		        </section>
+		        <div class="height20px"></div>
+			<div class="height20px"></div>
 		</article>
-			<div class="height20px"></div>
-			<div class="height20px"></div>
 		</div>
 		</div>
 </body>

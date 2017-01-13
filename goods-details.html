@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="Public/css/weui.min.css"/>
+         <link rel="stylesheet" href="Public/css/weui.min.0.4.3.css"/>
+         <link rel="stylesheet" href="Public/css/jquery-weui.min.css">
+        <link rel="stylesheet" type="text/css" href="Public/font/iconfont.css">
+        <link rel="stylesheet" href="css/goods-detail.css"/>
+        <title id="partic">商品详情</title>
+    </head>
+    <body>
+        <div class="main">
+            <div id="topback-header">
+                 <div id="header-left">
+                    <a href="javascript:history.go(-1);" >
+                      <i class="icon iconfont icon-xiangzuo"></i>
+                              <span class="title">设备材料</span>
+                        </a>
+                 </div>
+                <div id="header-right">
+                        <a href="#">
+                            <img src="images/particulars/share.png" alt=""/>
+                        </a>
+                </div>
+            </div>
+            <div class="good-detail">
+                <a href="#">
+                    <div class="sub-element-center banner-max">
+                        <img class="banner-max" :src="imgHost+goodsDetail.img_url" alt=""/>
+                    </div>
+
+                </a>
+                <div class="good-names tuchui-col-divider-1px">
+                    <div class="good-name">{{ goodsDetail.goods_name }}</div>
+                    <div class="good-subname">{{ goodsDetail.goods_names }}</div>
+                </div>
+                    <!--<div class="line"></div>-->
+                <div class="price tuchui-col-divider-normer" v-on:click="selectSizeShow()">
+                		<div class="fontcolor-red font-20px">￥{{ goodsDetail.price }}</div>
+                </div>
+                <div class="kind tuchui-col-divider-normer">
+                    <span>请选择规格类型</span>
+                    <a href="#">
+                            <img src="images/particulars/three-point%20.png" alt=""/>
+                        </a>
+                    </div>
+                    <div id="good-detail-evaluate" class="navbar js_show">
+                        <div class="weui_tab_bd">
+                        <div class="weui_navbar">
+                         	<div class="weui_navbar_item one weui_bar_item_on" v-on:click="switchdata($event,1)">商品详情</div>
+                            <div  class="weui_navbar_item two" v-on:click="switchdata($event,2)">评价</div>
+                            <div class="weui_navbar_item there" v-on:click="switchdata($event,3)">商家介绍</div>
+                      	</div>
+                        <div class="weui_panel weui_panel_access">
+                            <template v-if="gooddetailStatus==1">
+                                <div class="brand">
+                                        <!--<img src="images/particulars/series.png" alt=""/>-->
+                                        {{{ goodsDetail.description }}}
+                                        <div class="brand-img" v-for="imgSrc in goodsDetail.imgaes_url">
+                                        		<img v-bind:src="imgHost+imgSrc.image_url"/>
+                                        </div>
+                                </div>
+                            </template>
+                            <template v-if="gooddetailStatus==2">
+                                <div class="good-evaluate" v-for="evaluate in goodsDetail.comment_list">
+                                    <div class="userinfo">
+                                        <img v-bind:src="imgHost+evaluate.avatar" alt=""/>
+                                        <div class="nickname"> {{evaluate.user_name}} </div>
+                                        <div class="datetime">2016-10-11</div>
+                                    </div>
+                                    <div class="message">{{ evaluate.desc }}</div>
+                                </div>
+                            </template>
+                            <template v-if="gooddetailStatus==3">
+                            		<div id="weui-panel__bd">
+                            			<div class="weui-article weui-article_fix">
+                						<p class="weui-media-box__desc">{{ goodsDetail.goods_name }}</p>
+                						<div class="weui-media-box__hd">
+                    						<img src="images/supply-demand-particulars/map.jpg" alt=""/>
+                    						<!--<div id="allmap" style="width: 320px; height: 200px;"></div>-->
+                						</div>
+									</div>
+									<div class="weui-panel__hd weui-panel__bd_fix">
+										<p class="weui-media-box__desc">发布其他商品</p>
+									</div>
+                            		</div>
+                    					<a id="other-goodlist" class="weui-media-box weui-media-box_appmsg" v-for="sameGoodItem in goodsDetail.same_goods_list">
+                							<div class="weui-media-box__bd">
+                    							<h4 class="weui-media-box__title">{{ sameGoodItem.goods_name }}</h4>
+                    							<p class="weui-media-box__desc">{{ sameGoodItem.goods_names }}</p>
+                    							<div class="good-cell-categray">
+            										<img src="images/home%20page/supply.png" alt="定位"/>&nbsp;
+            										{{ sameGoodItem.area }}
+                    							</div>
+                							</div>
+            							</a>
+                            </template>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <div class="tab-nav">
+        			<ul>
+        				<a href="shop2.html">
+            				<li class="shop">
+                				<img src="images/particulars/shop.png" alt=""/><span>商铺</span>
+            				</li>
+            			</a>
+            			<a href="#">
+            				<li class="attention">
+                				<img src="images/particulars/attention.png" alt=""/><span>收藏</span>
+            				</li>
+            			</a>
+            			<a v-on:click="selectSizeShow()">
+            				<li class="purchase"><span>
+            					立即购买
+            				</span></li>
+            			</a>
+        			</ul>
+            </div>
+            <div class="standard display-none">
+        			<a href="#">
+            			<img src="images/particulars/note.png" alt=""/>
+        			</a>
+        			<ul>
+            			<li class="system">该条短信在您业务系统内的ID</li>
+            			<li class="unit">￥78</li>
+            			<li class="serial-number">商品编号：203546444</li>
+        			</ul>
+        			<div class="choice">
+            			<p>选择规格：</p>
+            			<span class="ruler">4G 5.5寸</span>
+            			<span class="small">4G 5.5寸</span>
+        			</div>
+    			</div>
+        </div>
+    </body>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery.md5.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/util.js"></script>
+	<script src="js/effects.js"></script>
+	<script src="Public/js/require.config.js"></script>
+	<script src="js/vue/vue.js"></script>
+    <script src="js/goods-detail.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA&v=1.0"></script>
+<!--<script>
+	$(function function_name () {
+		var mp = new BMap.Map('map');
+  		mp.centerAndZoom(new BMap.Point(121.491, 31.233), 11);
+	});
+</script>-->
+</html>

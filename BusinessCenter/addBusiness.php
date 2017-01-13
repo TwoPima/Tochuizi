@@ -9,21 +9,11 @@
 	<link rel="stylesheet" href="../Public/css/common.css"/>
 	<link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/business.css"/>
-	<style>
-.zck p{
-	text-indent:2em;
-}
-.zck{
-    position: fixed;
-	min-height:479px;overflow-y:auto;
-    }
-
-</style>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height()*80/100; //浏览器当前窗口可视区域高度
+		var height=$(window).height()*60/100; //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>
@@ -44,7 +34,8 @@
 		<div class="addbu_logo">
 			<img src="../Public/img/business/logo.png" >
 		</div>
-		<div class="addbu_text font14px">
+		<article class="weui-article font14px">
+		        <section >
 			 <p>
 在经济新常态、“互联网+”以及“一带一路”国家战略的大背景下，传统建设行业面临着重要的机遇和挑战。</p><p>
 土锤网，是新丝绸之路云中心（新丝绸之路云科技有限公司）在建筑领域打造的数据平台，旨在整合建筑行业的多元化信息，包括建筑材料买卖、机械设备租赁、建筑工人招聘、建筑工程招标等建筑类信息。 
@@ -52,12 +43,14 @@
 <p>建筑行业是最需要被互联网变革的行业，因为它是最大的大数据行业，却也是当前最缺少数据的行业，“互联网+建筑”能真正开启行业的新蓝海，也能重构整个建筑行业的生态圈，从而产生一个不可估量的市场空间。 </p><p>
 土锤网，意在将其打造成一个建筑行业的信息平台，整合建筑领域的市场信息，包括建筑材料买卖、机械设备租赁、建筑工人招聘、建筑工程招标等，为项目开发商、建筑商和自建房客户提供标准的采购信息。开发商可以通过土锤网查询了解价格行情，省去线下寻找供应商与竞价的环节，降低采购成本；建筑商可以在土锤网上开店发布产品信息，提升知名度与销量。 
 </p><p>土锤网将在线上借助核心互联网理念与技术，线下依托传统建筑业的深厚资源，专注于帮助建筑业内的采供双方创造高效的交易环境，建立可持续发展的新型交易模式。
-		</div>
+		 </section>
 		<div class="addbu_button">
 			<a href="addBusinessInfo.php" id="btn-custom-theme" class="weui-btn">下一步</a>
 		</div>
 		<div class="height20px"></div>
+		<div class="height20px"></div>	<div class="height20px"></div>
 		<div class="height20px"></div>
+			</article>
 	</div>
 </body>
  <script src="../Public/js/require.config.js"></script>

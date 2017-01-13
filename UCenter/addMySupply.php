@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>个人主页-我的供求</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.css"/>
+    <link rel="stylesheet" href="../Public/css/weui.min.css"/>
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
     <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -72,7 +72,7 @@
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="5"></textarea>
+                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
                     </div>
                 </div>
             </div>
@@ -120,11 +120,8 @@
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
+ <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA&v=1.0"></script>
-<!-- <script src="../Public/js/location.js"></script>
-<script src="../Public/js/there-category.js"></script> -->
 <script src="../Public/js/fastclick.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
@@ -199,6 +196,7 @@ $(function(){
             formData.append('dotype','add');
 			 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
 				 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+				 $(document).scrollTop(0);
 				 return false;
 			 }
             $.ajax({
@@ -210,15 +208,19 @@ $(function(){
                 contentType: false,
                 processData: false,
                 success: function (result) {
+                    console.log(result);
+                    console.log(result.data);
+                    console.log(result.data.id);
+                    console.log(result.message);
                     var message=result.message;
-                    if (result.statusCode=='0'){
+                    if (result.data.id==null){	
                         $.toptip(message,2000, 'error');
-                    }
-                    if (result.statusCode=='1') {
-                        $.showLoading('添加成功');
+                        $(document).scrollTop(0);
+                    }else {
+                       /*  $.showLoading('添加成功');
                         setTimeout(function () {
                             window.location.href = 'mySupply.php';
-                        }, 3000)
+                        }, 3000) */
                     }
                 }
             });

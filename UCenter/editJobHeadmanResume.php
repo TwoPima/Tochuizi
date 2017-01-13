@@ -139,7 +139,7 @@
             <div class="weui-cells weui-cells_form" style="margin-top:0px;">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="5"></textarea>
+                        <textarea class="weui-textarea" id="desc" name="desc" placeholder="求职宣言..." rows="3"></textarea>
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@ $(function(){
         }
 	});
 	$("#birthday").calendar();//日历
-    selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
+    selectMyResumeInfo(sessionUserId,$("#checkInfo").val());//查询简历信息
 	getEduction($("#checkInfoZidian").val());//学历
 	getJobYear($("#checkInfoZidian").val());//工作年限
 	getTroopsAptitude($("#checkInfoZidian").val());//队伍资质

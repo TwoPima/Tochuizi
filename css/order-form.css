@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+}
+a{
+    color:#fff;
+    text-decoration:none;
+}
+a,button,input{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+    font-family: "微软雅黑";
+    background-color: #f5f5f5;
+}
+.wrap {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/********************/
+.order-form-header{
+    width:100%;
+    height: 48px;
+    background:#bf6e09;
+}
+.passion a{
+    line-height: 70px;
+    margin-left: 20px;
+}
+.passion img{
+    width: 15px;
+    height: 20px;
+    position:relative;
+    top:-5px;
+}
+.passion span{
+    color:#fff;
+    position: relative;
+    font-size: 18px;
+    left: 10px;
+    top:-10px;
+}
+/***********************/
+.Bosch{
+    width: 100%;
+    height: 50px;
+    background:#fff;
+    margin-top: 5px;
+}
+.electric-drill{
+    font-size: 16px;
+    line-height: 50px;
+    margin-left: 10px;
+    color:#3A3B3B;
+}
+.unit-price{
+    float: right;
+    font-size: 16px;
+    line-height: 50px;
+    margin-right: 20px;
+    color:#78716B;
+}
+/******************/
+.quantity{
+    width: 100%;
+    height: 50px;
+    background:#fff;
+    margin-top: 1px;
+}
+.quantity1{
+    font-size: 15px;
+    line-height: 50px;
+    margin-left: 10px;
+    color:#3A3B3B;
+}
+.price-subtract{
+    float: right;
+    font-size: 15px;
+    line-height: 50px;
+    margin-right: 20px;
+    color:#3A3B3B;
+}
+.subtract{
+    width:30px;
+    font-size:18px;
+}
+.price{
+    width:30px;
+    font-size:18px;
+}
+/*****************/
+.ntegral{
+    width: 100%;
+    height: 50px;
+    background:#fff;
+    margin-top: 1px;
+}
+.product{
+    font-size: 16px;
+    line-height: 50px;
+    margin-left: 10px;
+    color:#3A3B3B;
+}
+.minute{
+    font-size: 16px;
+    line-height: 50px;
+    margin-left: 10px;
+    color:#87847F;
+}
+.MultipleChoice{
+    float: right;
+    font-size: 16px;
+    line-height: 50px;
+    margin-right: 20px;
+    color:#3A3B3B;
+}
+.MultipleChoice input{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+   position: relative;
+    top:5px;
+}
+/**************/
+.favorable{
+    width: 100%;
+    height: 50px;
+    background:#fff;
+    margin-top: 1px;
+}
+.favorable span{
+    font-size: 16px;
+    line-height: 50px;
+    margin-left: 10px;
+    color:#3A3B3B;
+}
+.not-have{
+    float: right;
+    font-size: 16px;
+    line-height: 50px;
+    margin-right: 20px;
+    color:#3A3B3B;
+}
+.not-have input{
+    width: 50px;
+    height: 20px;
+    border: 1px solid #E8E6E3;
+    text-align: center;
+}
+.not-have button{
+    width: 25px;
+    height: 22px;
+    position: relative;
+    left:-6px;
+}
+/*******************/
+.logistics{
+    width: 100%;
+    height: 50px;
+    background:#fff;
+    margin-top: 1px;
+}
+.cost{
+    font-size: 16px;
+    line-height: 50px;
+    margin-left: 10px;
+    color:#3A3B3B;
+}
+.dd-money{
+    float: right;
+    font-size: 15px;
+    line-height: 50px;
+    margin-right: 20px;
+    color:#3A3B3B;
+}
+/************/
+.total{
+    width: 100%;
+    height: 50px;
+    background:#fff;
+    margin-top: 1px;
+}
+.combine{
+    font-size: 16px;
+    line-height:50px;
+    margin-left: 10px;
+    color:#3A3B3B;
+}
+.branch{
+    float: right;
+    font-size: 18px;
+    line-height: 50px;
+    margin-right: 20px;
+    color:#F12800;
+}
+/**************/
+.select-payment{
+    width:100%;
+    height: 48px;
+    background: #fff;
+    margin-top: 5px;
+}
+.select-payment img{
+    float: left;
+    width: 20px;
+    height: 20px;
+    position:relative;
+    top:14px;
+    left:10px;
+}
+.select-payment span{
+    position:relative;
+    font-size: 15px;
+    top:12px;
+    left:20px;
+}
+/******支付宝***/
+.order-kind{
+    margin-top: 1px;
+    width: 100%;
+    height: 200px;
+    background: #fff;
+}
+.alipay{
+    width: 90%;
+    height: 160px;
+    padding: 20px 5%;
+}
+.treasure {
+    float: left;
+    color: #86837E;
+    width: 48%;
+    height: 50px;
+    border:1px solid #F2F1EF;
+    border-radius: 3px;
+}
+.payment-map{
+    width: 20px;
+    height:20px;
+    position:relative;
+    top:15px;
+    left:15px;
+}
+.select-map{
+    float: right;
+    width: 30px;
+    height:30px;
+    position:relative;
+    bottom:-20px;
+
+}
+.treasure span{
+    position:relative;
+    bottom:-10px;
+    right:-21px;
+}
+/*******微信*****/
+.WeChat {
+    float: left;
+    width: 44%;
+    height: 50px;
+    color: #86837E;
+    border:1px solid #F2F1EF;
+    border-radius: 5px;
+    margin-left:5% ;
+}
+.WeChat-map{
+    width: 20px;
+    height:20px;
+    position:relative;
+    top:15px;
+    left:15px;
+}
+.WeChat-select-map{
+    float: right;
+    width: 30px;
+    height:30px;
+    position:relative;
+    bottom:-20px;
+    display: none;
+
+}
+.WeChat span{
+    position:relative;
+    font-size: 16px;
+    bottom:-10px;
+    right:-21px;
+}
+/*******银联*****/
+.UnionPay {
+    float: left;
+    width: 48%;
+    height: 50px;
+    color: #86837E;
+    border:1px solid #F2F1EF;
+    border-radius: 5px;
+    margin-top:5% ;
+}
+.UnionPay-map{
+    width: 20px;
+    height:20px;
+    position:relative;
+    top:15px;
+    left:15px;
+}
+.UnionPay-select-map{
+    float: right;
+    width: 30px;
+    height:30px;
+    position:relative;
+    bottom:-20px;
+    display: none;
+
+}
+.UnionPay span{
+    position:relative;
+    bottom:-10px;
+    right:-21px;
+    font-size: 16px;
+}
+/*******/
+.second-examine{
+    float: left;
+    width: 100%;
+    height: 60px;
+}
+.second-examine a {
+    float: left;
+    width: 60%;
+    height: 33px;
+    background: #FE7E00;
+    line-height: 33px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px 20% 10px 20%;
+}

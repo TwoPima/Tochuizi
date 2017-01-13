@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>个人主页-我的供求</title>
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../Public/css/weui.css"/>
+    <link rel="stylesheet" href="../Public/css/weui.min.css"/>
     <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
     <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
     <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -19,7 +19,7 @@
         <div id="header-left">
              <a href="javascript:history.go(-1);" >
                   <i class="icon iconfont icon-xiangzuo"></i>
-                    <span class="title">发布供求</span>
+                    <span class="title">编辑供求</span>
              </a>
         </div>
         <div id="header-right"></div>
@@ -69,7 +69,7 @@
             <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="5"></textarea>
+                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
                     </div>
                 </div>
             </div>
@@ -121,11 +121,7 @@
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA&v=1.0"></script>
-<script src="../Public/js/fastclick.js"></script>
-<script src="../Public/js/location.js"></script>
-<script src="../Public/js/there-category.js"></script>
+ <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/common.js"></script>
 <script>
 $(function(){
@@ -144,7 +140,9 @@ $(function(){
 	loadSupplyFirstCate($("#supply_cat").val(), 0); 
 	//给一级绑定事件，触发事件后填充二级的数据 
 	jQuery(dp1).bind("change keyup", function () { 
-		var firstID = dp1.prop("value"); //$("input").attr("value","");
+		var firstID = dp1.prop("value");
+        $("#subMenu").empty();
+        $("#thereMenu").empty();
 		loadSupplySubCate($("#supply_cat").val(), firstID);
 		dp2.fadeIn("slow");
 	}); 
@@ -241,36 +239,18 @@ $(function(){
                         dpCity.fadeIn("slow");
                         dpArea.fadeIn("slow");
                     }
+                    //供求分类
+                    if(eval('(' + result.data.cate_id.cate_id+')')!=null){
+                        //用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
+                        initialieSelectValue($("#find_category").val(),eval('(' + result.data.cate_id.cate_id+')'),6);
+                        $("#subMenu").fadeIn("slow");
+                        $("#thereMenu").fadeIn("slow");
+                    } 
 
                 }
             },
          });
       }
-    //初始化数据库的值 cate_id三级id
-    function  initialieSelectValue(checkInfo,cate_id,moudle){
-        $.ajax({
-            type: 'post',
-            url: HOST+'mobile.php?c=allcategory&a=find_category',
-            data: {checkInfo:checkInfo,moudle:moudle,cate_id:cate_id},
-            dataType: 'json',
-            success: function (result) {
-                var message=result.message;
-                if (result.statusCode=='0'){
-                    //当前位置定位信息发过去
-
-                }else{
-                    //数据取回成功
-                    dataJson=eval('(' + result.data+')');
-                    var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
-                    var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
-                    var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';
-                    $('#dpProvince').append(proviceHtml);
-                    $('#dpCity').append(cityHtml);
-                    $('#dpArea').append(areaHtml);
-                }
-            }
-        });
-    }
         //提交，最终验证。btn-custom-theme
         $("#btn-custom-theme").click(function() {
             var formData = new FormData($( "#supplyForm" )[0]);
@@ -280,6 +260,7 @@ $(function(){
             formData.append('dotype','edit');
     		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
     			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+    			 $(document).scrollTop(0);
     			 return false;
     		 }
             $.showLoading('正在添加');
@@ -296,9 +277,10 @@ $(function(){
                 processData: false,
                 success: function (result) {
                     var message=result.message;
-                    if (result.statusCode==='0'){
+                    if (result.statusCode=='0'){
                         $.toptip(message,2000, 'error');
-                    }else{
+                    }
+                    if (result.statusCode=='1'){
                         window.location.href='mySupply.php';
                     }
                 }
@@ -323,6 +305,7 @@ $(function(){
                     var message=result.message;
                     if (result.statusCode==='0'){
                         $.toptip(message,2000, 'error');
+                        $(document).scrollTop(0);
                     }else{
                         window.location.reload();
                         //window.location.href='editBusinessInfo.php?recruit_id='+result.data.id;

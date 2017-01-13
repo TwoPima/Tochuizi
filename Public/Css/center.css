@@ -33,6 +33,16 @@ body{
 	   font-size:14px;
 	color:#666;
    }
+   /* 关于我们  注册协议 申请入驻文章样式处理 */
+.zck p{
+	text-indent:2em;
+}
+ .zck{
+        position: fixed;
+	     width:100%;
+	padding-bottom:20px;
+	min-height:480px;overflow-y:auto;
+}
 /* 无信息显示 */
 .noinfo {
     margin-top: 50px;
@@ -289,9 +299,6 @@ body{
 }
 .region-form{
 	color:#5C5C5C;
-}
-.region .weui-cell__bd{
-	margin-bottom:10px;
 }
 .region-content{
 	white-space:nowrap;

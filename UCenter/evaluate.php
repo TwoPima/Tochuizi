@@ -79,7 +79,7 @@ $(function(){
 		},//created 结束
 		methods: {
 			jump_url: function (msg1){
-				window.location.href='../index.php?goods_id='+msg1;
+				window.location.href='../goods-details.html?goods_id='+msg1;
 			}
 		}
 	});

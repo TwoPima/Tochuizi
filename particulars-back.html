@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="css/particulars.css"/>
+    <link rel="stylesheet" href="css/boot.css"/>
+    <link rel="stylesheet" href="css/css/giriui.css">
+    <link rel="stylesheet" href="css/css/loader.css">
+    <title id="partic">商品详情</title>
+</head>
+<body>
+	<div class="main">
+		<div class="loader-inner ball-pulse" style="text-align: center;">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+		<div id="goodDetail" class="wrap display-none">
+    		<div class="banner">
+        <a href="#">
+            <img class="banner-max" v-bind:src="'http://121.42.207.20'+value.img_url" alt=""/>
+        </a>
+        <div class="nav">
+        		<div class="equipment">
+            <a href="javascript:history.go(-1);" >
+                <img src="images/particulars/triangle.png" />
+            </a>
+            <span>设备材料</span>
+        		</div>
+        		<div class="share">
+        			<a href="#">
+            			<img src="images/particulars/share.png" alt=""/>
+        			</a>
+        		</div>
+        </div>
+    </div>
+    <div class="bosch">
+        <div class="model">{{ value.goods_name }}</div>
+        <div class="introduce">{{ value.goods_names }}</div>
+    </div>
+    <div class="element">￥{{ value.price }}</div>
+    <div class="kind">
+        <a href="#">
+            <img src="images/particulars/three-point%20.png" alt=""/>
+        </a>已选：黑色  1.5Kw </div>
+    <div class="product">
+        <ul>
+            <li class="commodity">商品详情</li>
+            <li class="evaluate">评价</li>
+            <li class="merchant">商家介绍</li>
+        </ul>
+    </div>
+    <div class="brand">
+        <!--<img src="images/particulars/series.png" alt=""/>-->
+        {{{ value.description }}}
+    </div>
+    <div class="standard">
+        <a href="#">
+            <img src="images/particulars/note.png" alt=""/>
+        </a>
+        <ul>
+            <li class="system">该条短信在您业务系统内的ID</li>
+            <li class="unit">￥78</li>
+            <li class="serial-number">商品编号：203546444</li>
+        </ul>
+        <div class="choice">
+            <p>选择规格：</p>
+            <span class="ruler">4G 5.5寸</span>
+            <span class="small">4G 5.5寸</span>
+        </div>
+    </div>
+    <div class="choose">
+        <ul>
+            <li class="shop">
+                <a href="shop2.html"><img src="images/particulars/shop.png" alt=""/>商铺</a>
+            </li>
+            <li class="attention">
+                <a href="#"> <img src="images/particulars/attention.png" alt=""/>收藏</a>
+            </li>
+            <li class="purchase">
+                <a href="order-form.html">立即购买</a>
+            </li>
+        </ul>
+    </div>
+    <div class="foot">
+        <!--<div class="comment">-->
+    <!--<a href="#">-->
+    <!--<img src="images/shop/evaluate.png" alt=""/>-->
+    <!--<span>评论</span>-->
+    <!--</a>-->
+    <!--</div>-->
+        <div class="client_comment">
+            <div class="message">
+                <img src="images/shop/Warm-Heart.png" alt=""/>
+                    <span class="nickname">暖心MIYA</span>
+                <br/>
+                    <span class="time">2016-10-11</span>
+            </div>
+            <div class="remark">老顾客了，口味还是一如既往的好，服务也没有因为是团购有
+            所区别，以后还会继续光顾的！团购比实际价格真的是省了很
+            多的钱呢，无论是家庭聚餐还是盆友聚会，这里都是很不错的
+            选择呢，强烈推荐各路吃客们过来感受！</div>
+        </div>
+    </div>
+    <!-- -----评价-------->
+        <div class="foot">
+        <!--<div class="comment">-->
+        <!--<a href="#">-->
+        <!--<img src="images/shop/evaluate.png" alt=""/>-->
+        <!--<span>评论</span>-->
+        <!--</a>-->
+        <!--</div>-->
+        <div class="client_comment">
+            <div class="message">
+                <img src="images/shop/Warm-Heart.png" alt=""/>
+                <span class="nickname">暖心MIYA</span>
+                <br/>
+                <span class="time">2016-10-11</span>
+            </div>
+            <div class="remark">老顾客了，口味还是一如既往的好，服务也没有因为是团购有
+                所区别，以后还会继续光顾的！团购比实际价格真的是省了很
+                多的钱呢，无论是家庭聚餐还是盆友聚会，这里都是很不错的
+                选择呢，强烈推荐各路吃客们过来感受！</div>
+        </div>
+            <div style="height: 68px"></div>
+    </div>
+    <!-- -------商家介绍------------->
+    <div class="issue-location">
+        发布位置：宁夏兴庆区万达广场
+    </div>
+    <div class="map">
+        <img src="images/supply-demand-particulars/map.jpg" alt=""/>
+    </div>
+    <div class="issue">
+        发布其他商品
+    </div>
+    <div class="second-ring">
+        <div class="water-storage">
+            <div class="loop">银川市东二环昆仑钢材市场</div>
+            <div class="install">机械家用储水式免费安装</div>
+            <div class="second-orientation">
+                <img src="images/supply-demand/coordinate.png" alt=""/>
+                <span class="second-district">宁夏银川金凤区</span>
+                <span class="second-meter">< 100米</span>
+            </div>
+        </div>
+    </div>
+    <!-------2----->
+    <div class="second-machine">
+        <div class="machine-storage">
+            <div class="loop">银川市东二环昆仑钢材市场</div>
+            <div class="install">机械家用储水式免费安装</div>
+            <div class="second-orientation">
+                <img src="images/supply-demand/coordinate.png" alt=""/>
+                <span class="second-district">宁夏银川金凤区</span>
+                <span class="second-meter">< 100米</span>
+            </div>
+        </div>
+    </div>
+    <div class="masking"></div>
+</div>
+</div>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/jquery.md5.js"></script>
+<script src="js/tool.js"></script>
+<script src="js/util.js"></script>
+<script src="js/effects.js"></script>
+<script src="Public/js/require.config.js"></script>
+<script src="js/vue/vue.js"></script>
+<script src="js/particulars.js"></script>
+
+</html>

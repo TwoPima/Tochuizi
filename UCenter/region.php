@@ -40,8 +40,13 @@
 					//数据取回成功
 					$("#dataNull").fadeOut("slow");
 				   $.each(result.data, function (index, obj) {
-					var addressHtml='<div class="weui-cell"><div class="weui-cell__bd region-main"><p class="region-title"><span id="name">'+obj.name+'</span> <span id="tel">'+obj.mobile+'</span></p><p class="region-content clear">'+obj.area+obj.address+'</p></div><div class="weui-cell__bd region-right-icon"><a href="editRegion.php?adr_id='+obj.id+'"><p class="region-right"><img alt="" src="../Public/img/edit.png"></p></a></div><div style="line-height:67px;"class="del-btn"><a onClick="confirmDelete('+obj.id+');" >删除</a></div></div>';
-					 $(".weui-cells").append(addressHtml);
+					   var addressHtml = '';
+					   addressHtml += ' <div class="weui-cell"><div class="weui-cell__bd region-main"><p class="region-title"><span id="name">'+obj.name+'</span> ' +
+						   ' <span id="tel">'+obj.mobile+'</span></p><p class="region-content clear">'+obj.area+obj.address+'</p></div>'+
+						   '<div class="weui-cell__bd"><a style="width:100px;float: right;background:url(about:blank) *;" href="editRegion.php?adr_id='+obj.id+'"><p  style="width:100px;float: right;"class="region-right">'+
+						   '<img alt="" src="../Public/img/edit.png"></p></a></div><div style="line-height:58px;"class="del-btn">'+
+						   '<a onClick="confirmDelete('+obj.id+');" >删除</a></div></div>';
+					 	$(".weui-cells").append(addressHtml);
 				   });
 				}
 			}
@@ -185,5 +190,14 @@ window.addEventListener('load',function(){
          }
       })
  })
+if ('addEventListener' in document) {
+  document.addEventListener('DOMContentLoaded', function() {  
+  FastClick.attach(document.body);  
+}, false);  
+}
+//如果你想使用jquery
+$(function() {
+  FastClick.attach(document.body);  
+});
 </script>
 </html>

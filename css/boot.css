@@ -1,0 +1,1211 @@
+
+@media (/*min-width: 640px*/) {
+    .wrap {
+        /*width: 640px;*/
+    }
+    .nav {
+        /*width: 640px;*/
+    }
+    .nav .search .sweep{
+        width: 80%;
+    }
+    .banner .inner img{
+        width:90px;
+    }
+    .choose ul{
+        width:30px;
+    }
+}
+@media (max-width: 640px) {
+    /*****mountains*******/
+    .mountains{
+        height:100%;
+    }
+    .supply-demand-rolled-steel{
+        height:130px;
+    }
+    .supply-demand-rolled img{
+        width: 160px;
+        height:120px;
+    }
+    .supply-demand-rolled .second-ring{
+        font-size: 18px;
+        /*height: 25px;*/
+    }
+    .supply-demand-rolled .water-storage{
+        font-size: 16px;
+    }
+    .supply-demand-rolled .star{
+        height: 50px;
+    }
+    .supply-demand-rolled .star img{
+        width: 90px;
+        height: 15px;
+        padding: 10px 16px 10px 0
+    }
+    .supply-demand-rolled .district{
+        font-size: 16px;
+        height:25px;
+    }
+    .supply-demand-rolled .limited-company{
+        font-size: 16px;
+    }
+    /******2******/
+    .steel-tube{
+        height:165px;
+    }
+    .steel-tube-rolled-steel{
+        height:165px;
+    }
+    .steel-tube-rolled img{
+        width: 160px;
+        height:120px;
+    }
+    .steel-tube-rolled .steel-tube-second-ring{
+        font-size: 18px;
+        height: 25px;
+    }
+    .steel-tube-rolled .steel-tube-water-storage{
+        font-size: 16px;
+        height: 30px;
+    }
+    .steel-tube-rolled .steel-tube-star{
+        height: 20px;
+    }
+    .steel-tube-rolled .steel-tube-star img{
+        width: 90px;
+        height: 15px;
+    }
+    .steel-tube-element{
+        font-size: 18px;
+        height: 25px;
+    }
+    .steel-tube-rolled .steel-tube-district{
+        font-size: 16px;
+        height:25px;
+    }
+    .steel-tube-rolled .steel-tube-limited-company{
+        font-size: 16px;
+    }
+/**********3**********/
+    .wood{
+        height:300px;
+    }
+    .wood-steel{
+        height:165px;
+    }
+    .wood-rolled img{
+        width: 160px;
+        height:120px;
+    }
+    .wood-rolled .wood-second-ring{
+        font-size: 18px;
+        height: 25px;
+    }
+    .wood-rolled .wood-water-storage{
+        font-size: 16px;
+        height: 30px;
+    }
+    .wood-rolled .wood-star{
+        height: 40px;
+    }
+    .wood-rolled .wood-star img{
+        width: 90px;
+        height: 15px;
+    }
+    .wood-element{
+        font-size: 18px;
+        height: 25px;
+    }
+    .wood-rolled .wood-district{
+        font-size: 16px;
+        height:25px;
+    }
+    .wood-rolled .wood-limited-company{
+        font-size: 16px;
+    }
+}
+@media (min-width: 550px) {
+    .shop_banner .market{
+        width: 100%;
+        height: 100%;
+    }
+    .return{
+        width: 20px;
+        height: 41px;
+    }
+    .nav .search .sweep {
+        width: 98%;
+    }
+    .banner .banner-max{
+        width: 100%;
+    }
+    .banner .inner img {
+        width: 100%;
+        height: 100%;
+    }
+    .search .camera {
+        left:2px;
+        top: 15px;
+    }
+}
+@media (max-width: 550px) {
+    .orientation{
+        top:-16px;
+        left:-2px;
+    }
+    .all .angle img{
+        right: 60px;
+    }
+    .city .corner img {
+        right:60px;
+    }
+    /*********/
+    .orientation1{
+        top:-22px;
+    }
+    /********mountains********/
+    .mountains{
+        height:100%;
+    }
+    .supply-demand-rolled-steel{
+        height:130px;
+    }
+    .supply-demand-rolled img{
+        width: 90px;
+        height:60px;
+        padding: 15px 16px 10px 0;
+    }
+    .supply-demand-rolled .second-ring{
+        font-size: 16px;
+        /*height: 16px;*/
+    }
+    .supply-demand-rolled .water-storage{
+        font-size: 14px;
+    }
+    .supply-demand-rolled .star{
+        height: 22px;
+    }
+    .supply-demand-rolled .star img{
+        width: 70px;
+        height: 10px;
+        padding: 2px 16px 2px 0;
+    }
+    .supply-demand-rolled .district{
+        font-size: 14px;
+        height:15px;
+    }
+    .supply-demand-rolled .limited-company{
+        font-size: 14px;
+    }
+    /********steel-tube********/
+    .steel-tube{
+        height:100px;
+    }
+    .steel-tube-rolled-steel{
+        height:104px;
+    }
+    .steel-tube-rolled img{
+        width: 90px;
+        height:60px;
+        padding: 15px 16px 10px 0;
+    }
+    .steel-tube-rolled .steel-tube-second-ring{
+        font-size: 16px;
+        height: 16px;
+    }
+    .steel-tube-rolled .steel-tube-water-storage{
+        font-size: 14px;
+        height: 16px;
+    }
+    .steel-tube-rolled .steel-tube-star{
+        height: 12px;
+    }
+    .steel-tube-rolled .steel-tube-star img{
+        width: 70px;
+        height: 10px;
+        padding: 2px 16px 0px 0;
+    }
+    .steel-tube-element{
+        font-size: 14px;
+        height:14px;
+    }
+    .steel-tube-rolled .steel-tube-district{
+        font-size: 14px;
+        height:14px;
+    }
+    .steel-tube-rolled .steel-tube-limited-company{
+        font-size: 14px;
+        height: 14px;
+    }
+    .steel-tube-rolled-steel span{
+        font-size: 12px;
+        bottom: 5px;
+    }
+    /******wood******/
+    .wood-steel{
+        height:104px;
+    }
+    .wood-rolled img{
+        width: 90px;
+        height:60px;
+        padding: 15px 16px 10px 0;
+    }
+    .wood-rolled .wood-second-ring{
+        font-size: 16px;
+        height: 16px;
+    }
+    .wood-rolled .wood-water-storage{
+        font-size: 14px;
+        height: 16px;
+    }
+    .wood-rolled .wood-star{
+        height:22px;
+    }
+    .wood-rolled .wood-star img{
+        width: 70px;
+        height: 10px;
+        padding: 2px 16px 0px 0;
+    }
+    .wood-element{
+        font-size: 14px;
+        height:14px;
+    }
+    .wood-rolled .wood-district{
+        font-size: 14px;
+        height:14px;
+    }
+    .wood-rolled .wood-limited-company{
+        font-size: 14px;
+        height: 14px;
+    }
+    .wood-steel span{
+        font-size: 12px;
+        bottom: 5px;
+    }
+    /***************/
+    .shop_banner li{
+        font-size: 18px;
+    }
+    .shop_banner li img{
+        width: 90px;
+    }
+    .shop_banner .market{
+        width: 100%;
+        height: 100%;
+    }
+    .banner .inner img {
+        width: 100%;
+        height: 100%;
+    }
+    .model{
+        font-size:20px;
+        height: 34px;
+        line-height:34px;
+    }
+    .introduce{
+        height: 34px;
+        line-height:34px;
+    }
+    .search .camera {
+        left: -20px;
+        top:-25px;
+    }
+    .banner .banner-max{
+        width: 100%;
+        height: 100%;
+    }
+}
+@media (max-width: 450px){
+    .orientation{
+        top:-10px;
+        left:-12px;
+    }
+    .orientation span {
+       font-size:  12px;
+        left:120px;
+        bottom:-5px;
+    }
+    .orientation img{
+        left:100px;
+        bottom:-10px;
+    }
+    /*****************/
+    .orientation1{
+        left:-12px;
+    }
+    .orientation1 span{
+        font-size: 12px;
+        left:120px;
+        bottom:0px;
+    }
+    .orientation1 img{
+        left:100px;
+        bottom:-5px;
+    }
+    /********mountains********/
+    .mountains{
+        height:100%;
+    }
+    .supply-demand-rolled-steel{
+        height:130px;
+        margin-left: 1%;
+        width: 99%;
+    }
+    .supply-demand-rolled img{
+        width: 70px;
+        height:54px;
+        padding: 35px 2px 10px 10px;
+    }
+    .supply-demand-rolled .second-ring{
+        font-size: 14px;
+        /*height: 16px;*/
+    }
+    .supply-demand-rolled .water-storage{
+        font-size: 12px;
+    }
+    .supply-demand-rolled .star{
+        height: 20px;
+    }
+    .supply-demand-rolled .star img{
+        width: 70px;
+        height: 10px;
+        padding: 2px 16px 2px 0;
+    }
+    .supply-demand-rolled .district{
+        font-size: 12px;
+        height:15px;
+    }
+    .supply-demand-rolled .limited-company{
+        font-size: 12px;
+    }
+    /********wood-steel********/
+    .wood-steel{
+        height:108px;
+        margin-left: 1%;
+        width: 99%;
+    }
+    .wood-rolled img{
+        width: 70px;
+        height:54px;
+        padding: 20px 2px 10px 10px;
+    }
+    .wood-rolled .wood-second-ring{
+        font-size: 14px;
+        height: 16px;
+    }
+    .wood-rolled .wood-water-storage{
+        font-size: 12px;
+        height: 14px;
+    }
+    .wood-rolled .wood-star{
+        height: 20px;
+    }
+    .wood-rolled ul{
+        padding: 12px 10px;
+    }
+    .wood-rolled .wood-star img{
+        width: 70px;
+        height: 10px;
+        padding: 2px 16px 2px 0;
+    }
+    .wood-rolled .wood-district{
+        font-size: 12px;
+        height:15px;
+    }
+    .wood-rolled .wood-limited-company{
+        font-size: 12px;
+    }
+    .wood-steel span{
+        font-size: 12px;
+        bottom: 8px;
+        left: 8px;
+    }
+    /********steel-tube-rolled-steel********/
+    .steel-tube-rolled-steel{
+        height:102px;
+        margin-left: 1%;
+        width: 99%;
+    }
+    .steel-tube-rolled img{
+        width: 70px;
+        height:54px;
+        padding: 20px 2px 10px 0;
+    }
+    .steel-tube-rolled .steel-tube-second-ring{
+        font-size: 14px;
+        height: 16px;
+    }
+    .steel-tube-rolled .steel-tube-water-storage{
+        font-size: 12px;
+        height: 14px;
+    }
+    .steel-tube-rolled .steel-tube-star{
+        height: 14px;
+    }
+    .steel-tube-rolled ul{
+        padding: 8px 3px;
+
+    }
+    .steel-tube-rolled .steel-tube-star img{
+        width: 70px;
+        height: 10px;
+        padding: 2px 16px 2px 0;
+    }
+    .steel-tube-element{
+        font-size: 14px;
+    }
+    .steel-tube-rolled .steel-tube-district{
+        font-size: 12px;
+        height:15px;
+    }
+    .steel-tube-rolled .steel-tube-limited-company{
+        font-size: 12px;
+    }
+    .steel-tube-rolled-steel span{
+        font-size: 12px;
+        bottom: 8px;
+        left: 8px;
+    }
+    /*********************/
+    .headline{
+        height:45px;
+    }
+    .supply a{
+        height: 40px;
+        line-height: 40px;
+        font-size:16px;
+    }
+    .ask-buy a{
+        height: 40px;
+        line-height: 40px;
+        font-size:16px;
+    }
+    /**/
+    .condition{
+        height: 40px;
+    }
+    .all .classify{
+        height: 40px;
+        line-height: 40px;
+        font-size:18px;
+        padding-left: 18%;
+    }
+    .city .downtown{
+        height: 40px;
+        line-height: 40px;
+        font-size:18px;
+        padding-left: 18%;
+    }
+    .all .angle img{
+        width: 30px;
+        height: 14px;
+        position: absolute;
+        top: 15px;
+        right: 60px;
+    }
+    .city .corner img {
+        width: 30px;
+        height: 14px;
+        position: absolute;
+        top: 15px;
+        right: 60px;
+    }
+    /**/
+
+    .quit{
+        height: 30px;
+    }
+    /**/
+    .share-attention{
+        height: 30px;
+    }
+    /**/
+    .comment{
+        width: 90%;
+        height:30px;
+    }
+    .comment img{
+        width: 20px;
+        height: 20px;
+    }
+    .comment a{
+        height: 30px;
+        line-height: 18px;
+    }
+    .comment a span{
+        font-size: 18px;
+        top:4px;
+    }
+    /**/
+    .remark{
+        font-size: 16px;
+    }
+    .nickname{
+        font-size: 16px;
+    }
+    .time{
+        font-size: 16px;
+        top: 16px;
+        left: 4px;
+    }
+    .message{
+    margin-left: 10px;
+    }
+    .message img {
+        float: left;
+        width: 50px;
+        height: 50px;
+        padding: 10px 10px;
+    }
+    /**/
+    .geographic_position{
+        height: 40px;
+    }
+    .geographic_position .location{
+        line-height: 40px;
+    }
+    .phone img{
+        width: 15px;
+        height: 20px;
+        top:9px;
+    }
+    /**/
+    .shop_material {
+        height: 80px;
+    }
+    .shop_rolled img{
+        width: 90px;
+        height: 60px;
+    }
+    .shop_rolled .steel_type{
+        height: 25px;
+        font-size: 18px;
+    }
+    .ton_element{
+        height: 25px;
+        font-size: 18px;
+    }
+    .shop_steel a{
+        width: 60px;
+    }
+    /**/
+    .shop_material_aluminium {
+        height: 80px;
+    }
+    .shop_material_aluminium img{
+        width: 90px;
+        height: 60px;
+    }
+    .shop_aluminium .steel_type{
+        height: 25px;
+        font-size: 18px;
+    }
+    .shop_aluminium .ton_element{
+        height: 25px;
+        font-size: 18px;
+    }
+    .shop_product a{
+        width: 60px;
+    }
+    /**/
+    .shop_material_steel {
+        height: 80px;
+    }
+    .shop_rolled_tunnage img{
+        width: 90px;
+        height: 60px;
+    }
+    .shop_rolled_tunnage .steel_type{
+        height: 25px;
+        font-size: 18px;
+    }
+    .shop_rolled_tunnage .ton_element{
+        height: 25px;
+        font-size: 18px;
+    }
+    .shop_steel_tunnage a{
+        width: 60px;
+    }
+    /**/
+    .location img{
+        width: 13px;
+        height: 20px;
+
+    }
+    .location span{
+        font-size: 14px;
+    }
+    .shop_banner li{
+        font-size: 16px;
+        top:45px;
+        left: 25px;
+    }
+    .shop_banner li img{
+        width: 80px;
+        height: 20px;
+        top:20px;
+    }
+     .share a img{
+         width: 55%;
+         height: 51%;
+     }
+    .equipment span{
+        top:-7px;
+    }
+    .equipment a img{
+        width: 60%;
+        height: 60%;
+    }
+    .choose {
+        height: 45px;
+        font-size: 18px;
+    }
+    .choose ul{
+        height: 48px;
+        line-height: 40px;
+    }
+    .choose ul li a{
+       font-size: 16px;
+    }
+    .choose .shop a{
+        line-height:70px ;
+        font-size: 12px;
+    }
+    .choose .shop img{
+        width:18px;
+        height: 18px;
+        top:8px;
+        left:39%;
+    }
+    .choose .attention  a{
+        line-height:70px ;
+        font-size: 12px;
+    }
+    .choose .attention  img{
+        width:18px;
+        height: 18px;
+        top:8px;
+        left:40%;
+    }
+    .choose .purchase a{
+        line-height: 48px;
+    }
+    .kind{
+        height: 40px;
+        line-height:40px;
+        font-size:13px;
+    }
+    .kind img{
+        top:6px;
+    }
+    .product{
+        height: 40px;
+        line-height: 40px;
+    }
+    .product ul li {
+        height:35px;
+        font-size: 15px;
+        line-height: 40px;
+
+    }
+    .element{
+        height:40px ;
+        line-height:40px;
+        font-size: 20px;
+    }
+    .model{
+        font-size:16px;
+        height: 30px;
+        line-height:30px;
+    }
+    .introduce{
+        font-size:14px;
+        height: 30px;
+        line-height:30px;
+    }
+    .nav .search .sweep{
+        width: 96%;
+    }
+    .banner .inner img {
+        width: 100%;
+        height: 100%;
+    }
+    .search .camera {
+        left: 0px;
+        top: -24px;
+    }
+    .excavator1 img {
+        float: left;
+        width: 100px;
+        height: 70px;
+    }
+    .excavator2 img {
+        float: left;
+        width: 100px;
+        height: 70px;
+    }
+    .excavator3 img {
+        float: left;
+        width: 100px;
+        height: 70px;
+    }
+    .excavator_1{
+        width:250px;
+        height:100px;
+        line-height:18px;
+    }
+    .excavator_2{
+        width:250px;
+        height:100px;
+        line-height:18px;
+    }
+    .excavator_3{
+        width:250px;
+        height:100px;
+        line-height:18px;
+    }
+}
+@media (max-width: 430px) {
+    .standard{
+        bottom:5px;
+    }
+    .supply  span{
+        height: 40px;
+        line-height: 40px;
+        font-size:16px;
+    }
+    .ask-buy span{
+        height: 40px;
+        line-height: 40px;
+        font-size:16px;
+    }
+    /**/
+    .condition{
+        height: 40px;
+    }
+    .all .classify{
+        height: 40px;
+        line-height: 40px;
+        font-size:16px;
+        padding-left: 20%;
+    }
+    .city .downtown{
+        height: 40px;
+        line-height: 40px;
+        font-size:16px;
+        padding-left: 14%;
+    }
+    .all .angle img{
+        width: 18px;
+        height: 10px;
+        position: absolute;
+        top: 15px;
+        right: 22px;
+    }
+    .city .corner img {
+        width: 18px;
+        height: 10px;
+        position: absolute;
+        top: 15px;
+        right: 22px;
+    }
+}
+@media (max-width: 400px){
+    .magnifying-glass a{
+        position: relative;
+    }
+    /*.magnifying-glass a img{*/
+        /*position: relative;*/
+        /*top:-58px;*/
+    }
+@media (max-width: 370px){
+    .stylist .stylist-head-portrait{
+        width:70px;
+        height:70px;
+    }
+    .fine{
+        font-size:12px;
+    }
+    .plum{
+        font-size:12px;
+    }
+    .plum span img{
+        width:18px;
+        height:16px;
+    }
+    .plum .site{
+        margin-left: 14px;
+    }
+    /***************/
+    .electric-drill{
+        font-size: 15px;
+    }
+    /*************/
+    .supply-message .apple{
+        font-size: 16px;
+    }
+    .supply-message .location{
+        font-size: 14px;
+    }
+    .supply-message .machinery{
+        font-size: 12px;
+    }
+    .supply-message .element-hour{
+        font-size: 12px;
+    }
+    /**********/
+    .uploading img{
+        width: 60px;
+        height: 60px;
+        top:35px;
+    }
+    .uploading a{
+        width: 60px;
+        height: 60px;
+        font-size: 50px;
+        line-height: 56px;
+        top:35px;
+    }
+    /**/
+    .shop_material {
+        height: 70px;
+    }
+    .shop_rolled img{
+        width: 70px;
+        height: 50px;
+    }
+    .shop_rolled .steel_type{
+        height: 20px;
+        font-size: 14px;
+    }
+    .ton_element{
+        height:20px;
+        font-size: 15px;
+    }
+    .shop_steel a{
+        width: 45px;
+        top:18px;
+        font-size: 12px;
+    }
+    /**/
+    .shop_material_aluminium {
+        height: 70px;
+    }
+    .shop_material_aluminium img{
+        width: 70px;
+        height: 50px;
+    }
+    .shop_aluminium .steel_type{
+        height: 20px;
+        font-size: 14px;
+    }
+    .shop_aluminium .ton_element{
+        height:20px;
+        font-size: 15px;
+    }
+    .shop_product a{
+        width: 45px;
+        top:18px;
+        font-size: 12px;
+    }
+    /**/
+    .shop_material_steel {
+        height: 70px;
+    }
+    .shop_rolled_tunnage img{
+        width: 70px;
+        height: 50px;;
+    }
+    .shop_rolled_tunnage .steel_type{
+        height: 20px;
+        font-size: 14px;
+    }
+    .shop_rolled_tunnage .ton_element{
+        height:20px;
+        font-size: 15px;
+    }
+    .shop_steel_tunnage a{
+        width: 45px;
+        top:18px;
+        font-size: 12px;
+    }
+    /**/
+    .shop_banner li{
+        font-size: 16px;
+        top:40px;
+        left: 25px;
+    }
+    .equipment a img{
+        width: 50%;
+        height: 50%;
+    }
+    .model{
+        font-size:14px;
+    }
+    .introduce{
+        font-size:12px;
+        height: 24px;
+        line-height:20px;
+    }
+    .equipment a{
+        top:14px;
+    }
+    .equipment span{
+
+        top:-10px;
+    }
+    .share a{
+        top:14px;
+    }
+    .nav .search input {
+        width: 190px;
+    }
+    .search .camera{
+        left:4px;
+        top:-24px;
+    }
+    .excavator1 img {
+        float: left;
+        width: 90px;
+        height: 60px;
+    }
+    .excavator2 img {
+        float: left;
+        width: 90px;
+        height: 60px;
+    }
+    .excavator3 img {
+        float: left;
+        width: 90px;
+        height: 60px;
+    }
+    .excavator_1{
+        width:235px;
+        height:90px;
+        line-height:16px;
+    }
+    .excavator_2{
+        width:240px;
+        height:90px;
+        line-height:16px;
+    }
+    .excavator_3{
+
+        width:240px;
+        height:90px;
+        line-height:16px;
+    }
+}
+@media (max-width: 350px) {
+    .shop_banner li{
+        font-size: 14px;
+        top:40px;
+        left: 20px;
+    }
+    .shop_banner li img{
+        width: 70px;
+        height: 10px;
+        top:10px;
+    }
+    .introduce{
+        height: 24px;
+        line-height:16px;
+    }
+    .equipment a{
+        top:-12px;
+    }
+    .equipment span{
+        top:-12px;
+    }
+    .share a{
+        top:12px;
+    }
+    .nav .search input {
+        width: 100px;
+    }
+    .nav .search .sweep{
+        width:180px;
+    }
+    .banner .inner img{
+        width:100%;
+        height: 100%;
+    }
+    .search .camera{
+        left:-14px;
+        top:16px;
+    }
+    .excavator1 img {
+        float: left;
+        width: 80px;
+        height: 50px;
+    }
+    .excavator2 img {
+        float: left;
+        width: 80px;
+        height: 50px;
+    }
+    .excavator3 img {
+        float: left;
+        width: 80px;
+        height: 50px;
+    }
+    .excavator_1{
+        width:230px;
+        height:80px;
+        line-height:14px;
+    }
+    .excavator_2{
+        width:230px;
+        height:80px;
+        line-height:14px;
+    }
+    .excavator_3{
+        width:230px;
+        height:160px;
+        line-height:14px;
+    }
+    .excavator1{
+        height: 100px;
+    }
+    .excavator2{
+        height: 70px;
+    }
+    .excavator3{
+        height: 90px;
+    }
+}
+@media (max-width: 330px) {
+    .equipment a{
+        top:-12px;
+    }
+    .equipment span{
+    top:-12px;
+    }
+    .equipment a img{
+        top:-1px;
+    }
+    .share a{
+        top:12px;
+    }
+    .nav .search input {
+        width: 100px;
+    }
+    .nav .search i img {
+        width: 180px;
+    }
+    .banner .inner img {
+        width: 100%;
+        height: 100%;
+    }
+    .search .camera{
+        left:1px;
+        top:-24px;
+    }
+    .excavator1 img {
+        float: left;
+        width: 80px;
+        height: 65px;
+    }
+    .excavator2 img {
+        float: left;
+        width: 80px;
+        height: 65px;
+    }
+    .excavator3 img {
+        float: left;
+        width: 80px;
+        height: 65px;
+    }
+    .excavator_1{
+        width:220px;
+        height:70px;
+        line-height:14px;
+    }
+    .excavator_2{
+        width:220px;
+        height:70px;
+        line-height:14px;
+    }
+    .excavator_3{
+        width:220px;
+        height:70px;
+        line-height:14px;
+    }
+    .excavator1{
+        height: 100px;
+    }
+    .excavator2{
+        height: 74px;
+    }
+    .excavator3{
+        height:160px;
+    }
+    .excavator_1 .district i{
+        top:-5px;
+    }
+    .excavator_2 .district i{
+        top:-5px;
+    }
+    .excavator_3 .district i{
+        top:-5px;
+    }
+}
+@media (max-width: 300px) {
+    .nav .search input {
+        width: 60px;
+    }
+    .nav .search .sweep {
+        width: 150px;
+    }
+    .banner .inner img {
+        height: 100%;
+        width: 100%;
+    }
+    .excavator1 img {
+        float: left;
+        width: 60px;
+        height: 30px;
+    }
+    .excavator2 img {
+        float: left;
+        width: 60px;
+        height: 30px;
+    }
+    .excavator3 img {
+        float: left;
+        width: 60px;
+        height: 30px;
+    }
+    .excavator_1{
+        width:210px;
+        height:60px;
+        line-height:14px;
+    }
+    .excavator_2{
+        width:210px;
+        height:60px;
+        line-height:14px;
+    }
+    .excavator_3{
+        width:210px;
+        height:60px;
+        line-height:14px;
+    }
+}
+@media (max-width: 250px) {
+    .nav .search input {
+        width: 150px;
+    }
+    .search .camera{
+        left:35px;
+        top:-30px;
+    }
+    .nav .search .sweep {
+        width: 160px;
+    }
+    .banner .inner img {
+        width: 100%;
+        height: 100%;
+    }
+}

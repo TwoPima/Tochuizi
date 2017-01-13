@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>设备材料</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="./Public/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="./Public/font/iconfont.css">
+    <link rel="stylesheet" href="css/equipment.css"/>
+    <link rel="stylesheet" href="css/boot.css"/>
+    <link rel="stylesheet" href="Public/font/Font-Awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/css/giriui.css">
+    <link rel="stylesheet" href="css/css/loader.css">
+    <link rel="stylesheet" href="Public/css/weui.min.css"/>
+    <link rel="stylesheet" href="Public/css/weui.min.0.4.3.css"/>
+    <link rel="stylesheet" href="Public/css/jquery-weui.min.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="publish-header">
+        <div class="passion">
+            <a href="index.html">
+                <i class="icon iconfont" style="position: relative;top:-10px;font-size: 22px">&#xe61c;</i>
+                <!--<img src="images/equipment/triangle.png" alt=""/>-->
+            </a>
+            <span>设备材料</span>
+        </div>
+    </div>
+    <div class="condition">
+        <div class="all">
+            <a href="#" class="classify">全部分类
+                <a href="#" class="angle">
+                    <img src="images/equipment/corner.png" alt=""/>
+                </a>
+            </a>
+            <ul class="project-classify">
+                <li><a href="#">全部</a></li>
+                <li class="home-decoration">
+                    <a href="#">出售</a>
+                </li>
+                <li class="zuping"><a href="#">租赁</a></li>
+            </ul>
+            <!-- -***********-->
+            <ul class="equipment-material">
+                <li><a href="#">全部</a></li>
+            </ul>
+            <!-- ***********-->
+            <ul class="equipment-machine">
+                <li><a href="#">全部</a></li>
+            </ul>
+        </div>
+        <div class="city">
+            <a href="#" class="downtown">所有市区
+                <a href="#" class="corner">
+                    <img src="images/equipment/corner.png" alt=""/>
+                </a>
+            </a>
+            <ul class="project-downtown">
+                <li><a href="#">全部</a></li>
+                <li class="home-decoration"><a href="#">兴庆区</a></li>
+                <li><a href="#">金凤区</a></li>
+                <li><a href="#">西夏区</a></li>
+                <li><a href="#">贺兰县</a></li>
+                <li><a href="#">永宁县</a></li>
+                <li><a href="#">灵武市</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="goods">
+        <div class="loader-inner ball-pulse" style="text-align: center;"><div></div><div></div><div></div></div>
+        <ul>
+            <div id="goodList" class="display-none">
+                <li v-for="goodItem in goodList">
+                    <a class="good-item" v-bind:href="'particulars.html?title='+goodItem.goods_name+'&good_id='+goodItem.goods_id">
+                        <!--<div class="excavator">-->
+                        <img class="good-logo" v-bind:src="'http://121.42.207.20'+ goodItem.img_url" alt="商品 logo"/>
+                        <div class="excavator">
+                            <h4 class="text-overflow">{{ goodItem.goods_name }}</h4>
+                            <span class="text-overflow">{{ goodItem.goods_names }}</span>
+                            <div class="money">{{ goodItem.price }}元</div>
+                            <div class="sell">出售 > 机械租赁</div>
+            					<span class="district">
+            						<img src="images/home%20page/supply.png" alt="定位"/> {{ goodItem.area_id }}</span>
+                        </div>
+                        <!--</div>-->
+                    </a>
+                </li>
+
+                <a class="bottom-more" href="javascript:;" v-if="hasNext" v-on:click="loadMore">{{ isLoading ? "加载中..." : "加载更多" }}</a>
+                <span class="bottom-more" href="javascript:;" v-else >没有更多商品</span>
+            </div>
+        </ul>
+    </div>
+    </div>
+    <!-- 蒙版----------->
+    <div class="masking"></div>
+</div>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/jquery.md5.js"></script>
+<script src="js/tool.js"></script>
+<script src="js/effects.js"></script>
+<script src="Public/js/require.config.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=b0wyxkltQUcbOQ8SK3piyFElZiyhOLPA&v=1.0"></script>
+<script src="js/location.js"></script>
+<script src="js/orientation.js"></script>
+<script src="js/vue/vue.js"></script>
+<script src="js/equipment.js"></script>
+
+</html>

@@ -69,7 +69,6 @@ var url =HOST+'mobile.php?c=index&a=login';
     			<div class="addbuin_title_info"></div>
     		</div>		
 		<div class="addbuin_form clear" >
-
 				<div class="addbuin_form_jichu">
 					<div class="weui-cells weui-cells_form">
 						<form action=""  method="post"  id="addBusinessForm" enctype="multipart/form-data">
@@ -366,7 +365,7 @@ $(function(){
 		});
 	});
 	$(document).on("click", ".deletePicture", function() {
-		var url =HOST+'mobile.php?c=index&a=my_partner';
+		var url =HOST+'mobile.php?c=index&a=del_picture';
 		$.showLoading('正在删除');
 		setTimeout(function() {
 			$.hideLoading();

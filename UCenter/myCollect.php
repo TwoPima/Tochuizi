@@ -5,7 +5,7 @@
 <title>个人主页-我的收藏</title>
 <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
 <!--jquery WEUI  -->
-<link rel="stylesheet" href="../Public/css/weui.css">
+<link rel="stylesheet" href="../Public/css/weui.min.css">
 <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
 <link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
 <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -143,15 +143,15 @@
 		<div class="weui_tab">
 			<div class="sipply_nav">
 					<div class="weui-flex">
-						<div class="weui-flex__item one action"  v-on:click="classdata('')" >
+						<div class="weui-flex__item one action"  v-on:click="classdata('0')" >
 							<div class="placeholder">
 								店铺
 							</div>
 						</div>
-						<div class="weui-flex__item two"  v-on:click="classdata('0')">
+						<div class="weui-flex__item two"  v-on:click="classdata('1')">
 							<div class="placeholder">商品</div>
 						</div>
-						<div class="weui-flex__item three"  v-on:click="classdata('1')">
+						<div class="weui-flex__item three"  v-on:click="classdata('2')">
 							<div class="placeholder">供求</div>
 						</div>
 					</div>
@@ -182,7 +182,7 @@
 					</div>
 				</div>
 			</template>
-			<template v-if="showtype == 0">
+			<template v-if="is_nodata == 0">
 				<div class="nodata">
 					<img src="../Public/img/no-info.png">
 					<p>收藏夹空空如也</p>
@@ -190,10 +190,8 @@
 			</template>
 		</div>
 	</div>
-
-<!--<input value="--><?php //echo md5(date('Ymd')."favorite_list"."tuchuinet");?><!--"	type="hidden" id="checkInfo"/>-->
-<input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
-<input value="<?php echo md5(date('Ymd')."dd_favorite"."tuchuinet");?>"	type="hidden" id="checkInfoAddFavorite"/>
+<input value="<?php echo md5(date('Ymd')."favorite_list"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
+<input value="<?php echo md5(date('Ymd')."add_favorite"."tuchuinet");?>"	type="hidden" id="checkInfoAddFavorite"/>
 <input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
 <script type="text/javascript" src="../Public/js/vue.min.js"></script>
 <script type="text/javascript" src="../Public/js/vue-resource.js"></script>
@@ -207,13 +205,11 @@
 	}
     //已经登陆 去服务器比对sessionid
 	 getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
-//	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	var checkInfo=$("#checkInfo").val();
 
 	var demoApp = new Vue({
 		el: '#app',
-		data: {//checkInfo:checkInfo,id:sessionUserId,limit:limit,start:start,type:type
-
+		data: {
 			demoData:'',
 			is_refresh:'0',
 			is_scroll:1,
@@ -222,8 +218,7 @@
 			url:{
 				checkInfo:checkInfo,
 				id:sessionUserId,
-//				type:2, //type 1:商品，2：供求,0：店铺
-				is_ture:2, //type 1:商品，2：供求,0：店铺
+				type:0, //type 1:商品，2：供求,0：店铺
 				start:0,
 				limit:10
 			},
@@ -232,8 +227,7 @@
 			var that = this;
 			that.$set('is_refresh', '0');
 			that.$set('is_scroll', '1');
-//			that.$http.get(HOST+'mobile.php?c=index&a=favorite_list',that.url).then(function (response) {
-			that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+			that.$http.get(HOST+'mobile.php?c=index&a=favorite_list',that.url).then(function (response) {
 					var res = response.data; //取出的数据
 					if(res.statusCode==1){
 						that.$set('is_nodata', '1');
@@ -274,20 +268,15 @@
 			}
 			function scrollaction(){
 				if (that.is_refresh=='1'  || -(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
-					console.log('上拉加载');
-					console.log(that.is_refresh);
-					console.log(that.is_scroll);
 					if( that.is_refresh == 1){
 						that.$set('demoData', '');
 						that.$set('url.start',0);
 						that.$set('is_scroll',1);
 					}
 					if (that.is_scroll=='1'){
-						that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
+						that.$http.get(HOST+'mobile.php?c=index&a=favorite_list',that.url).then(function (response) {
 							var res = response.data;
-							console.log(res);
 							var listdata=res.data;
-							console.log(listdata);
 							if (that.is_refresh == 1){
 								that.$set('demoData', listdata);  //把数据传给页面
 								that.$set('url.start', listdata.length);
@@ -320,7 +309,7 @@
 		//created 结束
 		methods: {
 			jump_url: function (msg1,msg2){
-				window.location.href='editMySupply.php';
+				//window.location.href='editMySupply.php';
 			},
 			classdata: function (msg) {
 				$('.sipply_nav .action').removeClass('action');
@@ -328,26 +317,21 @@
 				_self.$set('url.start', 0);
 				_self.$set('demoData', '');
 				switch(msg){
-					case '':
-						_self.$set('url.is_ture', '');
-						$('.sipply_nav .one').addClass('action');
-						break;
-					case '0':
-						_self.$set('url.is_ture', 0);
+					case '1':
+						_self.$set('url.type', '1');
 						$('.sipply_nav .two').addClass('action');
 						break;
-					case '1':
-						_self.$set('url.is_ture', 1);
+					case '2':
+						_self.$set('url.type', '2');
 						$('.sipply_nav .three').addClass('action');
 						break;
 					default:
 						$('.sipply_nav .one').addClass('action');
-						_self.$set('url.is_true', '');
+						_self.$set('url.is_true', '0');
 				}
-				_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
+				_self.$http.get(HOST+'mobile.php?c=index&a=favorite_list',_self.url).then(function (response) {
 						_self.myScroll.destroy(); //把滑动注销掉
 						var res = response.data; //取出的数据
-						console.log(res);
 						if(res.statusCode==1){
 							_self.$set('is_nodata', '1');
 							var listdata=res.data;
@@ -378,7 +362,6 @@
 					});
 				function is_upload2(){
 					if (this.y>50){
-						console.log('开始下拉刷新');
 						$('.upload').css('display','block');
 						_self.$set('is_refresh', '1');
 					}else{
@@ -393,9 +376,8 @@
 							_self.$set('is_scroll',1);
 						}
 						if (_self.is_scroll=='1'){
-							_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
+							_self.$http.get(HOST+'mobile.php?c=index&a=favorite_list',_self.url).then(function (response) {
 								var res = response.data;
-								console.log(res);
 								if(res.statusCode=='1'){
 									var listdata=res.data;
 									if (_self.is_refresh == 1){
