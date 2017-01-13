@@ -43,7 +43,7 @@ function getVipList(checkInfo){
 					if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
 						//定位
 						var data=JSON.parse(sessionStorage.getItem('key_area'));
-						if(data==null){
+						if(data==null||data==undefined){
 							var cityHtml='<option  value="" selected="selected">请选择</option>';
 							var provinceHtml='<option  value="" selected="selected">请选择</option>';
 							
@@ -238,7 +238,7 @@ function getBenefit(checkInfoZidian){
 		dataType: 'json',
 		success: function (result) {
 			$.each(result.data, function (index,obj) {
-				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="benefit" id="'+obj.id+'" value="'+obj.id+'"></div>';
+				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="benefit" id="benefit'+obj.id+'" value="'+obj.id+'"></div>';
 				$('#benefit').append(getBenefitHtml);
 			});
 			return false;

@@ -55,6 +55,7 @@
 				if(res.statusCode==1) {
 					that.$set('dataNull', 1);
 					that.$set('listData', res.data);  //把数据传给页面
+
 				}
 			});
 		},//created 结束
@@ -152,7 +153,7 @@
 							</div>
 							<div class="weui-cell__bd">
 								<a>
-									<p  style="width:100px;float: right;"class="region-right">
+									<p class="region-right">
 										<img alt="" src="../Public/img/edit.png">
 									</p>
 								</a>

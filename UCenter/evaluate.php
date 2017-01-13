@@ -27,29 +27,6 @@ $(function(){
 		window.location.href='../Login/login.php';
 	}
 	//已经登陆
-	//alert(isNaN($('#id').val()));
-
-/*	$().raty({
-		score: function() {
-			return $(this).attr('data-score');
-		}
-	});*/
-
-		    /* $('.description-raty').raty({
-	    	  score: function() {
-	    	    return $(this).attr('data-score');
-	    	  }
-	    	});
-	    $('.logistic-raty').raty({
-	    	  score: function() {
-	    	    return $(this).attr('data-score');
-	    	  }
-	    	});
-	    $('.server-raty').raty({
-	    	  score: function() {
-	    	    return $(this).attr('data-score');
-	    	  }
-	    	});*/
 	//取出信息
 	new Vue({
 		el: '#app',
@@ -94,7 +71,11 @@ $(function(){
 	});
 	/*截取字符串*/
 	Vue.filter('replaceString', function (value) {
-		var text=value.substring(0,14)+"...";
+		if(value==null){
+			text='';
+		}else{
+			var text=value.substring(0,14)+"...";
+		}
 		return text;
 	});
 	Vue.filter('miao_star', function (value) {

@@ -42,6 +42,7 @@ $(function(){
 	var dp3 = $("#dpArea");
 	//查询信息
 	selectMyResumeInfo(sessionUserId,$("#checkInfo").val(),$("#recruit_id").val());//查询简历信息
+
 	function selectMyResumeInfo(id,checkInfo,recruit_id){	 //查询
 		var url =HOST+'mobile.php?c=index&a=recruit_job';
 		$.ajax({
@@ -70,9 +71,21 @@ $(function(){
 					if(eval('(' + result.data.wages+ ')')!=null){
 						$('#wages').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
 					}
-					/*if(eval('(' + result.data.job_type+ ')')!=null){
-						$('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
-					}*/
+					var benefit=eval('(' + result.data.benefit+ ')');
+					$.each(benefit, function (index, obj) {
+						/*console.log(obj.id);
+						console.log(obj.name);*/
+						$('#'+obj.id).checked=true;
+						console.log($('#benefit'+obj.id).val());
+						/*if(obj.id==$('#'+obj.id).val()){
+							console.log('11');
+							console.log($('#'+obj.id).val());
+							$('#'+obj.id).checked=true;
+						}else{
+							console.log('22');
+							console.log($('#'+obj.id).val());
+						}*/
+					});
 					//有效期
 					valtime=eval('(' + result.data.valuetime+ ')');
 					if(valtime!=null){

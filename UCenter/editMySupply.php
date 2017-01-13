@@ -78,13 +78,11 @@
 					      </select>
 					    </div>
 					  </div> 
-            <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="main_box jiage">
             <div class="weui-cells">

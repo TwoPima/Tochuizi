@@ -15,9 +15,6 @@ html,body{
 .sipply_nav .weui-flex__item{
     padding:13px 0;
 }
-.action{
-    border-bottom:3px solid red;
-}
 #wrapper {
     position: fixed;
     width:100%;

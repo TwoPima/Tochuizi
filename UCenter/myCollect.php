@@ -21,21 +21,6 @@
 		.sipply_nav .weui-flex__item{
 			padding:13px 0;
 		}
-		.action{
-			border-bottom:3px solid red;
-		}
-		.nodata img{
-			width:20%;
-			display: block;
-			padding-top:50px;
-			padding-bottom:10px;
-			margin : 0 auto;
-		}
-		.nodata p{
-			color: #676566;
-			font-size: 14px;
-			text-align: center;
-		}
 		#wrapper {
 			position: fixed;
 			width:100%;

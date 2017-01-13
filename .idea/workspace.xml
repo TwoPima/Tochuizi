@@ -21,58 +21,7 @@
     <favorites_list name="Tochuizi" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="addMySupply.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UCenter/addMySupply.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5">
-              <caret line="183" column="0" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="editMySupply.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/UCenter/editMySupply.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2259887">
-              <caret line="179" column="27" selection-start-line="179" selection-start-column="27" selection-end-line="179" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="myJob.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UCenter/myJob.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="evaluate.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UCenter/evaluate.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8333335">
-              <caret line="67" column="48" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Public/js/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="768" column="101" selection-start-line="768" selection-start-column="88" selection-end-line="768" selection-end-column="101" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -87,7 +36,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Public/plugins/uploadImg/jquery.uploadify.js" />
         <option value="$PROJECT_DIR$/UCenter/uploadMultImg.php" />
         <option value="$PROJECT_DIR$/Public/css/addmysupply.css" />
         <option value="$PROJECT_DIR$/UCenter/myInfo.php" />
@@ -103,41 +51,42 @@
         <option value="$PROJECT_DIR$/Public/js/moment.js" />
         <option value="$PROJECT_DIR$/Public/js/moment-with-locales.js" />
         <option value="$PROJECT_DIR$/BusinessCenter/addEmploy.php" />
-        <option value="$PROJECT_DIR$/BusinessCenter/editEmploy.php" />
         <option value="$PROJECT_DIR$/UCenter/myOrder.php" />
         <option value="$PROJECT_DIR$/BusinessCenter/orderList.php" />
         <option value="$PROJECT_DIR$/UCenter/uploadHead.php" />
         <option value="$PROJECT_DIR$/Login/reg.php" />
-        <option value="$PROJECT_DIR$/UCenter/evaluate.php" />
         <option value="$PROJECT_DIR$/Login/forgetPassword.php" />
         <option value="$PROJECT_DIR$/UCenter/addJob.php" />
-        <option value="$PROJECT_DIR$/BusinessCenter/index.php" />
         <option value="$PROJECT_DIR$/UCenter/addRegion.php" />
         <option value="$PROJECT_DIR$/UCenter/editRegion.php" />
         <option value="$PROJECT_DIR$/UCenter/editJobSkillResume.php" />
         <option value="$PROJECT_DIR$/UCenter/editJobMenageResume.php" />
         <option value="$PROJECT_DIR$/UCenter/editJobHeadmanResume.php" />
-        <option value="$PROJECT_DIR$/Public/css/business.css" />
         <option value="$PROJECT_DIR$/BusinessCenter/addBusinessInfo.php" />
         <option value="$PROJECT_DIR$/BusinessCenter/editBusinessInfo.php" />
         <option value="$PROJECT_DIR$/../yinHongCompany/App/Common/Conf/config.php" />
-        <option value="$PROJECT_DIR$/Public/js/common.js" />
         <option value="$PROJECT_DIR$/UCenter/mySupply.php" />
         <option value="$PROJECT_DIR$/UCenter/editJob.php" />
-        <option value="$PROJECT_DIR$/Public/css/center.css" />
-        <option value="$PROJECT_DIR$/UCenter/myCollect.php" />
         <option value="$PROJECT_DIR$/BusinessCenter/employ.php" />
         <option value="$PROJECT_DIR$/UCenter/addVip.php" />
         <option value="$PROJECT_DIR$/UCenter/setting.php" />
         <option value="$PROJECT_DIR$/UCenter/about.php" />
         <option value="$PROJECT_DIR$/Public/css/login.css" />
         <option value="$PROJECT_DIR$/UCenter/index.php" />
-        <option value="$PROJECT_DIR$/UCenter/myJob.php" />
-        <option value="$PROJECT_DIR$/UCenter/region.php" />
         <option value="$PROJECT_DIR$/UCenter/editJobDesignResume.php" />
         <option value="$PROJECT_DIR$/UCenter/addEvaluate.php" />
         <option value="$PROJECT_DIR$/UCenter/addMySupply.php" />
+        <option value="$PROJECT_DIR$/UCenter/evaluate.php" />
+        <option value="$PROJECT_DIR$/Public/css/business.css" />
+        <option value="$PROJECT_DIR$/BusinessCenter/index.php" />
+        <option value="$PROJECT_DIR$/UCenter/region.php" />
+        <option value="$PROJECT_DIR$/BusinessCenter/editEmploy.php" />
         <option value="$PROJECT_DIR$/UCenter/editMySupply.php" />
+        <option value="$PROJECT_DIR$/Public/css/mysupply.css" />
+        <option value="$PROJECT_DIR$/UCenter/myCollect.php" />
+        <option value="$PROJECT_DIR$/Public/js/common.js" />
+        <option value="$PROJECT_DIR$/Public/css/center.css" />
+        <option value="$PROJECT_DIR$/UCenter/myJob.php" />
       </list>
     </option>
   </component>
@@ -410,9 +359,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13802083" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13802083" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -451,13 +400,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Public/js/vue.2.1.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Public/js/vue-resource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -580,39 +522,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/editJobSkillResume.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.0">
-          <caret line="411" column="17" selection-start-line="411" selection-start-column="17" selection-end-line="411" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UCenter/editJobMenageResume.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-21.166666">
           <caret line="424" column="28" selection-start-line="424" selection-start-column="28" selection-end-line="424" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/editJobHeadmanResume.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3502825">
-          <caret line="399" column="6" selection-start-line="399" selection-start-column="6" selection-end-line="406" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BusinessCenter/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46892655">
-          <caret line="257" column="100" selection-start-line="257" selection-start-column="100" selection-end-line="257" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Public/css/business.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3329453">
-          <caret line="306" column="0" selection-start-line="306" selection-start-column="0" selection-end-line="306" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -693,45 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Public/css/center.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.75">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/editJob.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.28248587">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/myCollect.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73099416">
-          <caret line="223" column="14" selection-start-line="223" selection-start-column="14" selection-end-line="223" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BusinessCenter/employ.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.416667">
-          <caret line="230" column="7" selection-start-line="230" selection-start-column="7" selection-end-line="230" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BusinessCenter/editEmploy.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0">
-          <caret line="72" column="59" selection-start-line="72" selection-start-column="59" selection-end-line="72" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UCenter/addVip.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47368422">
@@ -771,49 +646,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/evaluate.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8333335">
-          <caret line="67" column="48" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/myJob.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Public/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="768" column="101" selection-start-line="768" selection-start-column="88" selection-end-line="768" selection-end-column="101" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/region.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2982456">
-          <caret line="71" column="73" selection-start-line="71" selection-start-column="73" selection-end-line="71" selection-end-column="73" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#a#0;n#div#1;n#div#0;n#template#0;n#template#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#template#0;n#template#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UCenter/editJobDesignResume.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64912283">
-          <caret line="445" column="21" selection-start-line="445" selection-start-column="20" selection-end-line="445" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UCenter/addEvaluate.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6779661">
@@ -830,10 +662,130 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/evaluate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.0833335">
+          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="60" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/css/business.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15832363">
+          <caret line="189" column="12" selection-start-line="189" selection-start-column="12" selection-end-line="189" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BusinessCenter/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5614035">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/editJobDesignResume.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.3728814">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/editJobHeadmanResume.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.7966104">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/editJobSkillResume.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.9661016">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/editJob.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36723164">
+          <caret line="109" column="18" selection-start-line="109" selection-start-column="18" selection-end-line="119" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BusinessCenter/editEmploy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.25">
+          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UCenter/editMySupply.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2259887">
-          <caret line="179" column="27" selection-start-line="179" selection-start-column="27" selection-end-line="179" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.5084746">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/css/mysupply.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4519774">
+          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/myCollect.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.19774011">
+          <caret line="59" column="24" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5016873">
+          <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/css/center.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6344994">
+          <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/region.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9717514">
+          <caret line="217" column="40" selection-start-line="217" selection-start-column="40" selection-end-line="217" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BusinessCenter/employ.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8983052">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UCenter/myJob.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15204678">
+          <caret line="184" column="4" selection-start-line="184" selection-start-column="4" selection-end-line="192" selection-end-column="7" />
           <folding />
         </state>
       </provider>

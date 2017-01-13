@@ -72,7 +72,6 @@ $(function(){
 		methods: {
 			jump_url: function (msg1){
 				window.location.href='editJob.php?recruit_id='+msg1;
-
 			}
 		}
 	});
@@ -108,15 +107,6 @@ $(function(){
 		else result="刚刚发表";
 		return result;
 	}
-});
-if ('addEventListener' in document) {
-	document.addEventListener('DOMContentLoaded', function() {
-		FastClick.attach(document.body);
-	}, false);
-}
-//如果你想使用jquery
-$(function() {
-	FastClick.attach(document.body);
 });
  function selectMyResumeInfo(id,checkInfo){
 		 //查询
@@ -192,6 +182,15 @@ $(function() {
 </div><!--app-->
 </body>
 <script>
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+	//如果你想使用jquery
+	$(function() {
+		FastClick.attach(document.body);
+	});
 	/*
 	 * 描述：html5苹果手机向左滑动删除特效
 	 */
