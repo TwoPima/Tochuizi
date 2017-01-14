@@ -150,7 +150,7 @@
 		var X = 0;        //移动距离
 		var objX = 0;    //目标对象位置
 		window.addEventListener('touchstart',function(event){
-			event.preventDefault();
+			//event.preventDefault();
 			var obj = event.target.parentNode;
 			console.log(obj.className);
 
@@ -168,7 +168,7 @@
 			}
 			if( objX == 0){
 				window.addEventListener('touchmove',function(event) {
-					event.preventDefault();
+					//event.preventDefault();
 					var obj = event.target.parentNode;
 					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
 						moveX = event.targetTouches[0].pageX;
@@ -189,7 +189,7 @@
 			}
 			else if(objX<0){
 				window.addEventListener('touchmove',function(event) {
-					event.preventDefault();
+					//event.preventDefault();
 					var obj = event.target.parentNode;
 					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
 						moveX = event.targetTouches[0].pageX;
@@ -211,7 +211,7 @@
 
 		})
 		window.addEventListener('touchend',function(event){
-			event.preventDefault();
+			//event.preventDefault();
 			var obj = event.target.parentNode;
 			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
 				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;

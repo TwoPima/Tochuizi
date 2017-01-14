@@ -185,16 +185,16 @@ window.addEventListener('load',function(){
      var X = 0;        //移动距离
     var objX = 0;    //目标对象位置
     window.addEventListener('touchstart',function(event){
-         event.preventDefault();
+         //event.preventDefault();
         var obj = event.target.parentNode;
-        //alert(obj.className);
+        console.log(obj.className);
          if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
             initX = event.targetTouches[0].pageX;
              objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
          }
        if( objX == 0){
             window.addEventListener('touchmove',function(event) {
-                 event.preventDefault();
+                 //event.preventDefault();
                 var obj = event.target.parentNode;
                 if (obj.className == "weui-cell"||obj.className == "weui-cell__bd") {
                     moveX = event.targetTouches[0].pageX;
@@ -215,7 +215,7 @@ window.addEventListener('load',function(){
         }
         else if(objX<0){
           window.addEventListener('touchmove',function(event) {
-                 event.preventDefault();
+                // event.preventDefault();
                 var obj = event.target.parentNode;
                  if (obj.className == "weui-cell"||obj.className == "weui-cell__bd") {
                      moveX = event.targetTouches[0].pageX;
@@ -237,7 +237,7 @@ window.addEventListener('load',function(){
 
     })
      window.addEventListener('touchend',function(event){
-        event.preventDefault();
+        //event.preventDefault(); 阻止点击事件
         var obj = event.target.parentNode;
         if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
              objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;

@@ -194,6 +194,7 @@
 <!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
+<input value="<?php if(empty($_GET['id_type'])){ echo '';}else{ $_GET['id_type'];}?> "	type="hidden" id="id_type"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -202,7 +203,6 @@
 <!--  <script src="../Public/js/there-category.js"></script> -->
 <script src="../Public/js/common.js"></script>
 <script>
-
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -271,7 +271,7 @@ $(function(){
 						$('#zu').attr("value",result.data.zu);
 						$('#Resumeid').attr("value",result.data.id);
 						$('#mobile').attr("value",result.data.mobile);
-						$('#desc').attr("value",result.data.desc);
+						$('#desc').html(result.data.desc);
 						$('#home').attr("value",result.data.home);
 						$('#birthday').attr("value",result.data.birthday);
 						$('#email').attr("value",result.data.email);
@@ -413,6 +413,10 @@ $(function(){
 			var name = $("#name").val();
 			var email = $("#email").val();
 			var zu = $("#zu").val();
+			var id_type = $("#id_type").val();
+			 if (id_type==null){
+				 id_type='';
+			 }
 			var mobile = $("#mobile").val();
 			var desc = $("#desc").val();
 			var home = $("#home").val();
@@ -445,23 +449,22 @@ $(function(){
 				type: 'post',
 				url: url,
 				data: {
-					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,
+					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,id_type:id_type,
 					education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,
 					home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex,wages:wages,zu:zu
 					},
 				dataType: 'json',
 				success: function (result) {
-					var message=eval('(' + result+ ')').message;
-					if (eval('(' + result+ ')').statusCode=='0'){
+					var message=result.message;
+					if (result.statusCode=='0'){
 						$.toast(message, "cancel");
 						$(document).scrollTop(0);
 					}
-					if (eval('(' + result+ ')').statusCode=='1'){
-						$.toast("操作成功");
-						setTimeout(function() {
-							window.location.href='myJob.php';
-						}, 3000)
-
+					if (result.statusCode=='1'){
+							$.toast("操作成功！");
+							setTimeout(function() {
+								window.location.href='myJob.php';
+							}, 3000)
 					}
 				}
 			});
