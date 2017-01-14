@@ -17,7 +17,6 @@
 	<script src="../Public/js/jquery-session.js"></script>
 	<script type="text/javascript" src="../Public/js/vue.min.js"></script>
 	<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
-	<script src="../Public/js/fastclick.js"></script>
 	<script src="../Public/js/common.js"></script>
 	<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfologin"/>
 	<input value="<?php echo md5(date('Ymd')."recruit_job_list"."tuchuinet");?>"	type="hidden" id="recruit_job_list"/>
@@ -111,7 +110,7 @@
 	               	 </a>
  				</div>
                 <div id="header-right">
-                	<a href="addEmploy.php"><img alt="" src="../Public/img/business/addEmploy.png"></a>
+                	<a href="addEmploy.php" id="addEmploy"><img alt="" src="../Public/img/business/addEmploy.png"></a>
                 </div>
 		</div>
 		<div class="employ">
@@ -154,6 +153,15 @@
 			event.preventDefault();
 			var obj = event.target.parentNode;
 			console.log(obj.className);
+
+			var href=document.getElementsByTagName('a');
+			for(var i=0;i<href.length;i++){
+				href[i].ontouchend=function(){
+					window.location.href=this.getAttribute("href");
+				}
+			};
+
+
 			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
 				initX = event.targetTouches[0].pageX;
 				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
@@ -220,14 +228,6 @@
 	function confirmDelete(value){
 		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,value,'2');
 	}
-	if ('addEventListener' in document) {
-		document.addEventListener('DOMContentLoaded', function() {
-			FastClick.attach(document.body);
-		}, false);
-	}
-	//如果你想使用jquery
-	$(function() {
-		FastClick.attach(document.body);
-	});
+
 </script>
 </html>

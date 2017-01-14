@@ -172,9 +172,6 @@
 			}
 			function scrollaction(){
 					if (that.is_refresh=='1'  || -(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
-						console.log('上拉加载');
-						console.log(that.is_refresh);
-						console.log(that.is_scroll);
 						if( that.is_refresh == 1){
 							that.$set('demoData', '');
 							that.$set('url.start',0);
@@ -183,7 +180,6 @@
 						if (that.is_scroll=='1'){
 							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data;
-							console.log(res);
 							var listdata=res.data;
 							console.log(listdata);
 							if (that.is_refresh == 1){
@@ -242,7 +238,9 @@
 						_self.$set('url.is_true', '');
 				}
 				_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
-						_self.myScroll.destroy(); //把滑动注销掉
+						if(_self.myScroll){
+							_self.myScroll.destroy(); //把滑动注销掉
+						}
 						var res = response.data; //取出的数据
 						if(res.statusCode==1){
 							_self.$set('is_nodata', '1');

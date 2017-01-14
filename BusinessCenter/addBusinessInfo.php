@@ -163,7 +163,7 @@ var url =HOST+'mobile.php?c=index&a=login';
 
 										</ul>
 										<div class="weui-uploader__input-box">
-											<input id="thumb" class="weui-uploader__input" name="thumb" type="file" accept="image/*"/>
+											<input id="thumb" class="weui-uploader__input" name="thumb[]" multiple type="file" accept="image/*"/>
 										</div>
 									</div>
 								</div>
@@ -278,41 +278,61 @@ $(function(){
 	});
 	$('#thumb').change(function(event) {
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
+		imgPathArr=[];
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
-			/*if(file.size > 1024 * 1024 * 2) {
-				getTips('图片大小不能超过 2MB!');
-				return false;
-			}*/
-			var url =HOST+'mobile.php?c=index&a=pic_partner';
-			var formData = new FormData($( "#addBusinessImageForm" )[0]);
-			formData.append('checkInfo',$( "#checkInfoAddImg").val());
-			formData.append('id',sessionUserId);
-			$.showLoading('正在添加');
-			setTimeout(function() {
-				$.hideLoading();
-			}, 3000)
-			$.ajax({
-				type: 'post',
-				url: url,
-				data: formData,
-				async: false,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function (result) {
-					var message=result.message;
-					if (result.statusCode==='0'){
-						getTips(message);
-						$(document).scrollTop(0);
-					}
-					if (result.statusCode=='1'){
-						var html = '';
-						html += ' <li class="weui-uploader__file" id="fileshow">' +
-							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
-							'</li>';
-						$("#uploaderFiles1").prepend(html);
-					}
+			$(files).each(function(index, obj) {
+				var count_li = $("#uploaderFiles1").children().length;
+				if(count_li >= '5'){
+					$("#uploaderInput").css('display','none');
+					$.toast("不能超过五张图片！", "cancel");
+					return false;
+				}else{
+					imgPathArr.push(obj);
+					// 通过这个 file 对象生成一个可用的图像 URL
+					// 获取 window 的 URL 工具
+					var URL = window.URL || window.webkitURL;
+					// 通过 file 生成目标 url
+					var imgURL = URL.createObjectURL(obj);
+					// 用这个 URL 产生一个 <img> 将其显示出来
+					var html = '';
+					html += ' <li class="weui-uploader__file" id="fileshow">' +
+						'  <img class="deletePicture" data="1"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+						'</li>';
+					$("#uploaderFiles1").prepend(html);
+					// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
+					// URL.revokeObjectURL(imgURL);
+					var url =HOST+'mobile.php?c=index&a=pic_partner';
+					var formData = new FormData($( "#addBusinessImageForm" )[0]);
+					formData.append('checkInfo',$( "#checkInfoAddImg").val());
+					formData.append('id',sessionUserId);
+					$.showLoading('正在添加');
+					setTimeout(function() {
+						$.hideLoading();
+					}, 3000)
+					$.ajax({
+						type: 'post',
+						url: url,
+						data: formData,
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						success: function (result) {
+							var message=eval('(' + result+ ')').message;
+							if (eval('(' + result+ ')').statusCode=='0'){
+								$.toast(message, "cancel");
+								$(document).scrollTop(0);
+							}
+							if (eval('(' + result+ ')').statusCode=='1'){
+								var html = '';
+								html += ' <li class="weui-uploader__file" id="fileshow">' +
+									'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
+									'</li>';
+								$("#uploaderFiles1").prepend(html);
+							}
+						}
+					});
 				}
 			});
 		}
@@ -351,13 +371,14 @@ $(function(){
 			contentType: false,
 			processData: false,
 			success: function (result) {
-				var message=result.message;
-				if (result.statusCode=='0'){
-					getTips(message);$(document).scrollTop(0);return false;
+				var message=eval('(' + result+ ')').message;
+				if (eval('(' + result+ ')').statusCode=='0'){
+					getTips(message);
+					$(document).scrollTop(0);
 				}
-				if (result.statusCode=='1'){
+				if (eval('(' + result+ ')').statusCode=='1'){
 					setTimeout(function() {
-						$.showLoading('操作成功');
+						$.toast("操作成功");
 						window.location.href='editBusinessInfo.php';
 					}, 3000)
 				}

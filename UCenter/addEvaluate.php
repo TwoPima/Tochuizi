@@ -28,14 +28,33 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
-			var URL = window.URL || window.webkitURL;
-			var imgURL = URL.createObjectURL(file);
-			var html = '';
-			html += ' <li class="weui-uploader__file" id="fileshow">' +
-				'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
-				'</li>';
-			$("#uploaderFiles").prepend(html);
-			$(this).parent().remove();
+			$(files).each(function(index, obj) {
+				var count_li = $("#uploaderFiles").children().length;
+				if (count_li >= '5') {
+					$("#uploaderInput").css('display', 'none');
+					$.toast("不能超过五张图片！", "cancel");
+					var file = $("#image_url") ;
+					file.after(file.clone().val(""));
+					file.remove();
+					$(this).parent().remove();
+					return false;
+				} else {
+					imgPathArr.push(obj);
+					// 通过这个 file 对象生成一个可用的图像 URL
+					// 获取 window 的 URL 工具
+					var URL = window.URL || window.webkitURL;
+					// 通过 file 生成目标 url
+					var imgURL = URL.createObjectURL(obj);
+					// 用这个 URL 产生一个 <img> 将其显示出来
+					var html = '';
+					html += ' <li class="weui-uploader__file" id="fileshow">' +
+						'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="' + imgURL + '" class="fileshow thumb-img" />' +
+						'</li>';
+					$("#uploaderFiles").prepend(html);
+					uploadImage();
+				}
+
+			});
 		}
 	});
 

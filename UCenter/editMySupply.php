@@ -39,19 +39,7 @@
                 <ul class="weui-uploader__files" id="uploaderFiles">
                 </ul>
                 <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url1" id="image_url"  type="file" accept="image/*" >
-                </div>
-                <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url2" id="image_url" type="file" accept="image/*" >
-                </div>
-                <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url3" id="image_url" type="file" accept="image/*" >
-                </div>
-                <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url4" id="image_url"  type="file" accept="image/*" >
-                </div>
-                <div class="weui-uploader__input-box">
-                    <input class="weui-uploader__input file" name="image_url5" id="image_url"  type="file" accept="image/*" >
+                    <input class="weui-uploader__input file" name="image_url[]" id="image_url" multiple type="file" accept="image/*" >
                 </div>
             </div>
         </div>
@@ -178,7 +166,7 @@ $(function(){
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
 	});
-        $('.file').change(function(event) {
+        $('#image_url').change(function(event) {
     		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
     		if (files && files.length > 0) {
     			file = files[0];// 获取目前上传的文件
@@ -191,8 +179,12 @@ $(function(){
 	                if(count_li >= '5'){
 	                    $("#uploaderInput").css('display','none');
 	                  	 $.toast("不能超过五张图片！", "cancel");
+                        var file = $("#img_url") ;
+                        file.after(file.clone().val(""));
+                        file.remove();
+                        $(this).parent().remove();
 	                  	 return false;
-	                }
+	                }else{
 	                imgPathArr.push(obj);
 	    			// 通过这个 file 对象生成一个可用的图像 URL
 	    			// 获取 window 的 URL 工具
@@ -207,6 +199,7 @@ $(function(){
 	    	              $("#uploaderFiles").prepend(html);
 	    			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
 	    			// URL.revokeObjectURL(imgURL);
+                    }
 		      	});
     		}
     	});
@@ -286,13 +279,18 @@ $(function(){
                 contentType: false,
                 processData: false,
                 success: function (result) {
-                    var message=result.message;
-                    if (result.statusCode=='0'){
-                        $.toptip(message,2000, 'error');
+                    var message=eval('(' + result+ ')').message;
+                    if (eval('(' + result+ ')').statusCode=='0'){
+                        $.toast(message, "cancel");
+                        $(document).scrollTop(0);
                     }
-                    if (result.statusCode=='1'){
-                        window.location.href='mySupply.php';
+                    if (eval('(' + result+ ')').statusCode=='1'){
+                        $.toast(message);
+                        setTimeout(function() {
+                            window.location.href = 'mySupply.php';
+                        }, 3000)
                     }
+
                 }
             });
        });

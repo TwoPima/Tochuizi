@@ -189,19 +189,14 @@ $(function(){
 					 $.toast("添加失败，请检查网络后重试", "cancel");
 				 },
 				 success: function(result) {
-					 var tips=result.message;
-					 console.log(result[1]);
-					 console.log(tips);
-					 if(result.statusCode==0){
-						 $.toast(tips, "cancel");
-						 return false;
+					 var message=eval('(' + result+ ')').message;
+					 if (eval('(' + result+ ')').statusCode=='0'){
+						 $.toast(message, "cancel");
+						 $(document).scrollTop(0);
 					 }
-					 if(result.statusCode==1){
-						 $.toast(tips);
-						 return false;
-						// window.location.href('employ.php');
+					 if (eval('(' + result+ ')').statusCode=='1'){
+						 $.toast(result.message);
 					 }
-
 				 }
 			 });
 		 });

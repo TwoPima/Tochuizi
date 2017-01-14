@@ -148,7 +148,7 @@
                                 <ul class="weui-uploader__files" id="uploaderFiles">
                                 </ul>
                                 <div class="weui-uploader__input-box">
-                                    <input class="weui-uploader__input file"  name="image_url" id="image_url" type="file" accept="image/*" >
+                                    <input class="weui-uploader__input file"  name="image_url[]" multiple id="image_url" type="file" accept="image/*" >
                                     <input  name="checkInfo" value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
                                     <input  name="id" id="userId" type="hidden"  >
                                 </div>
@@ -297,48 +297,67 @@ $('#image_url').change(function(event) {
     var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
     if (files && files.length > 0) {
         file = files[0];// 获取目前上传的文件
-      /*  if(file.size > 1024 * 1024 * 2) {
-            alert('图片大小不能超过 2MB!');
-            return false;
-        }*/
-        var URL = window.URL || window.webkitURL;
-        var imgURL = URL.createObjectURL(file);
-        var html = '';
-        html += ' <li class="weui-uploader__file" id="fileshow">' +
-            '  <img class="deletePicture" src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
-            '</li>';
-        $("#uploaderFiles").prepend(html);
-        uploadImage();
+        $(files).each(function(index, obj) {
+            var count_li = $("#uploaderFiles").children().length;
+            if (count_li >= '5') {
+                $("#uploaderInput").css('display', 'none');
+                $.toast("不能超过五张图片！", "cancel");
+                var file = $("#image_url") ;
+                file.after(file.clone().val(""));
+                file.remove();
+                $(this).parent().remove();
+                return false;
+            } else {
+                imgPathArr.push(obj);
+                // 通过这个 file 对象生成一个可用的图像 URL
+                // 获取 window 的 URL 工具
+                var URL = window.URL || window.webkitURL;
+                // 通过 file 生成目标 url
+                var imgURL = URL.createObjectURL(obj);
+                // 用这个 URL 产生一个 <img> 将其显示出来
+                var html = '';
+                html += ' <li class="weui-uploader__file" id="fileshow">' +
+                    '  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="' + imgURL + '" class="fileshow thumb-img" />' +
+                    '</li>';
+                $("#uploaderFiles").prepend(html);
+            }
+        });
+        uploadImage(count_li);
     }
 });
-function uploadImage() {
-    var url =HOST+'mobile.php?c=index&a=add_picture';
-    var formData = new FormData($( "#uploadForm" )[0]);
-    $.showLoading('正在上传');
-    setTimeout(function() {
-        $.hideLoading();
-    }, 3000)
-    $.ajax({
-        type: "POST",
-        url:url,
-        data: formData,
-        async: false,
-        cache: false,
-        contentType: false,
-        processData: false,
-        async: false,
-        error: function(request) {
-            $.toast("上传失败，请检查网络后重试", "cancel");
-        },
-        success: function(result) {
-            if(result.statusCode=='0'){
-                $.toast("上传失败，请检查网络后重试", "cancel");
-            }else{
-               // window.location.reload();//刷新当前页面.
-            }
+function uploadImage(count_li) {
+    if (count_li>= '5'){
 
-        }
-    });
+    }else {
+        var url = HOST + 'mobile.php?c=index&a=add_picture';
+        var formData = new FormData($("#uploadForm")[0]);
+        $.showLoading('正在上传');
+        setTimeout(function () {
+            $.hideLoading();
+        }, 3000)
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            async: false,
+            error: function (request) {
+                $.toast("上传失败，请检查网络后重试", "cancel");
+            },
+            success: function (result) {
+                if (eval('(' + result + ')').statusCode == '0') {
+                    $.toast("上传失败，请检查网络后重试", "cancel");
+                    $(document).scrollTop(0);
+                }
+                if (eval('(' + result + ')').statusCode == '1') {
+                    $.toast(result.message);
+                }
+            }
+        });
+    }
 }
 $(document).on("click", ".deletePicture", function() {
     var url =HOST+'mobile.php?c=index&a=del_picture';
@@ -351,12 +370,13 @@ $(document).on("click", ".deletePicture", function() {
         dataType: 'json',
         success: function (result) {
             var message=result.message;
-            if (result.statusCode==='0'){
+            if (result.statusCode=='0'){
                 $.toast(message, "cancel");
             }else{
                 $.toast("操作成功！");
-                window.location.reload();//刷新当前页面.
-                //window.location.href='myJob.php';
+                setTimeout(function() {
+                    window.location.reload();//刷新当前页面.
+                }, 3000)
             }
         }
     });
@@ -400,15 +420,15 @@ $(document).on("click", ".deletePicture", function() {
             },
 			dataType: 'json',
 			success: function (result) {
-				var tips=result.message;
+				var message=result.message;
 				if (result.statusCode=='0'){
 					$.toast(tips, "cancel");
 				}
                 if (result.statusCode=='1'){
-                    setTimeout(function() {
                         $.toast("操作成功");
-                        window.location.href='myJob.php';
-                    }, 3000)
+                        setTimeout(function() {
+                            window.location.href='myJob.php';
+                        }, 3000)
 				}
 			},
 		});

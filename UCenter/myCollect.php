@@ -312,10 +312,12 @@
 						break;
 					default:
 						$('.sipply_nav .one').addClass('action');
-						_self.$set('url.is_true', '0');
+						_self.$set('url.type', '0');
 				}
 				_self.$http.get(HOST+'mobile.php?c=index&a=favorite_list',_self.url).then(function (response) {
-						_self.myScroll.destroy(); //把滑动注销掉
+						if(_self.myScroll){
+							_self.myScroll.destroy(); //把滑动注销掉
+						}
 						var res = response.data; //取出的数据
 						if(res.statusCode==1){
 							_self.$set('is_nodata', '1');
@@ -401,34 +403,9 @@
 	});
 </script>
 <script type="text/javascript">
-$(function() {
-    $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-    $('#shop-ratyStar').raty({
-    	  score: function() {
-    	    return $(this).attr('data-score');
-    	  }
-    	});
-    $('#product-ratyStar').raty({
-    	  score: function() {
-    	    return $(this).attr('data-score');
-    	  }
-    	});
-    $('#supply-ratyStar').raty({
-    	  score: function() {
-    	    return $(this).attr('data-score');
-    	  }
-    	});
-});
 var checkInfoAddFavorite=$("#checkInfoAddFavorite").val();
-$("#shop-ratyStar").click(function(){
-	var read_id=$("#img-thumb").attr(data-id);
-	addCollect(sessionUserId,checkInfoAddFavorite,type,read_id);
-});
-$("#product-ratyStar").click(function(){
-});
 //添加收藏
 function addCollect(id,checkInfo,type,read_id){
-
 }
 </script>
 </body>
