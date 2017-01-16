@@ -67,7 +67,7 @@
 					</div>
 					<div class="weui_cell">
 						<div class="weui_cell_hd"><label class="weui_label">职位类别</label></div>
-						<div class="weui_cell_bd weui_cell_primary">
+						<div class="weui_cell_bd weui_cell_primary custom-select">
 							<select class="jobCategory font14px" name="getRecruitCat" id="getRecruitCat">
 							</select>
 							<select class=" jobCategory font14px" name="getRecruitCatSub" id="getRecruitCatSub">
@@ -139,7 +139,7 @@
 					</div>
 					<div class="weui_cell">
 						<div class="weui_cell_hd"><label class="weui_label">工作地区</label></div>
-						<div class="weui_cell_bd weui_cell_primary">
+						<div class="weui_cell_bd weui_cell_primary custom-select">
 							<select class="area" name="dpProvince" id="dpProvince">
 							</select>
 							<select class="area" name="dpCity" id="dpCity">
