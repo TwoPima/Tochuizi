@@ -131,7 +131,6 @@ $(function(){
  	var dpProvince = $("#dpProvince"); 
 	var dpCity = $("#dpCity"); 
 	var dpArea = $("#dpArea");
-    imgPathArr=[];//上次图片预览必须得
 	//填充一级数据
 	loadSupplyFirstCate($("#supply_cat").val(), 0); 
 	//给一级绑定事件，触发事件后填充二级的数据 
@@ -166,20 +165,20 @@ $(function(){
         dpArea.fadeIn("slow");
     });
         $('.file').change(function(event) {
+     		   imgPathArr=[];//上次图片预览必须得
                 var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
                 if (files && files.length > 0) {
+                    var count_li = $("#uploaderFiles").children().length;
+                    if(count_li >= '5'){
+                        $("#uploaderInput").css('display','none');
+                        $.toast("不能超过五张图片！", "cancel");
+                        var file = $("#image_url") ;
+                        file.after(file.clone().val(""));
+                        file.remove();
+                        $(this).parent().remove();
+                        return false;
+                    }
                     $(files).each(function(index, obj) {
-                        var count_li = $("#uploaderFiles").children().length;
-                        if(count_li >= '5'){
-                            $("#uploaderInput").css('display','none');
-                            $.toast("不能超过五张图片！", "cancel");
-
-                            var file = $("#image_url") ;
-                            file.after(file.clone().val(""));
-                            file.remove();
-                            $(this).parent().remove();
-                            return false;
-                        }else{
                         imgPathArr.push(obj);
                         // 通过这个 file 对象生成一个可用的图像 URL
                         // 获取 window 的 URL 工具
@@ -194,10 +193,8 @@ $(function(){
                         $("#uploaderFiles").prepend(html);
                         // 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
                         // URL.revokeObjectURL(imgURL);
-                        }
                     });
                 }
-
     	});
         //提交，最终验证。btn-custom-theme
         $("#btn-custom-theme").click(function() {
@@ -210,10 +207,10 @@ $(function(){
 				 $(document).scrollTop(0);
 				 return false;
 			 }
-            $.showLoading('正在添加');
-            setTimeout(function() {
-                $.hideLoading();
-            }, 3000)
+			 $.showLoading('正在编辑');
+	         setTimeout(function() {
+	             $.hideLoading();
+	         }, 3000)
             $.ajax({
                 type: 'post',
                 url:HOST+'mobile.php?c=index&a=my_supply',
@@ -225,11 +222,11 @@ $(function(){
                 success: function (result) {
                     var message=eval('(' + result+ ')').message;
                     if (eval('(' + result+ ')').statusCode=='0'){
-                        $.toptip(message,2000, 'error');
+                        $.toast(message, "cancel");
                         $(document).scrollTop(0);
                     }
                     if (eval('(' + result+ ')').statusCode=='1'){
-                        $.toast("操作成功");
+                        $.toast(message);
                         setTimeout(function() {
                             window.location.href = 'mySupply.php';
                         }, 3000)

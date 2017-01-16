@@ -108,38 +108,14 @@ $(function(){
                     if(eval('(' + result.data.valuetime+ ')')!=null){
                         $('#education').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
                     }
-                    
-                    var benefit=eval('(' + result.data.benefit+ ')');
+                    var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox 的值
                      $.each(benefit, function (index, obj) {
-                       	 console.log(obj.id);
-                       	 console.log(obj.name);
-                        	if(obj.id==$('#'+obj.id).val()){
-                       		 console.log($('#'+obj.id).val());
-                        		$('#'+obj.id).checked=true;
-                        	}else{
-                       		 console.log($('#'+obj.id).val());
-                        	}
+                    	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
+                    		 if(obj.id==obj1.value){
+                        		 $("#"+obj1.id).prop('checked','true');
+							}
+                    	 });
 					}); 
-                   /*  var s=benefit.split(',');
-                    alert(s);
-                    for(var i = 0;i<s.length;i++){
-                  	   	 console.log(s[i]);
-                    	//SS.insertAdjacentHTML("afterEnd",s[i]+'<INPUT type=radio name="radio"><br>');
-                    } */
-                     /*    var val = benefit.split(",");
-                        var boxes = document.getElementsByName("benefit");
-                       
-                        console.log(boxes);
-                        for(i=0;i<boxes.length;i++){
-                            for(j=0;j<val.length;j++){
-                           	 console.log(val);
-                                if(boxes[i].value == val[j]){
-                                    boxes[i].checked = true;
-                                    break;
-                                }
-                            }
-                        } */
-                        //if(){xx.selected}else{}
                     if(eval('(' + result.data.wages+ ')')!=null){
                         $('#wage').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
                     }

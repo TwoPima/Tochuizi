@@ -179,7 +179,6 @@
                                 <div class="weui-uploader__input-box">
                                     <input class="weui-uploader__input file"  name="image_url[]" multiple id="image_url" type="file" accept="image/*" >
                                     <input  name="checkInfo" value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
-                                    <input  name="id" id="userId" type="hidden"  >
                                 </div>
                             </div>
                         </div>
@@ -335,17 +334,17 @@ $(function(){
         imgPathArr=[];
         if (files && files.length > 0) {
             file = files[0];// 获取目前上传的文件
+            var count_li = $("#uploaderFiles").children().length;
+            if (count_li >= '5') {
+                $("#uploaderInput").css('display', 'none');
+                $.toast("不能超过五张图片！", "cancel");
+                var file = $("#image_url") ;
+                file.after(file.clone().val(""));
+                file.remove();
+                $(this).parent().remove();
+                return false;
+            }
             $(files).each(function(index, obj) {
-                var count_li = $("#uploaderFiles").children().length;
-                if (count_li >= '5') {
-                    $("#uploaderInput").css('display', 'none');
-                    $.toast("不能超过五张图片！", "cancel");
-                    var file = $("#image_url") ;
-                    file.after(file.clone().val(""));
-                    file.remove();
-                    $(this).parent().remove();
-                    return false;
-                } else {
                     imgPathArr.push(obj);
                     // 通过这个 file 对象生成一个可用的图像 URL
                     // 获取 window 的 URL 工具
@@ -358,19 +357,18 @@ $(function(){
                         '  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="' + imgURL + '" class="fileshow thumb-img" />' +
                         '</li>';
                     $("#uploaderFiles").prepend(html);
-                    uploadImage();
-                }
-
             });
+            uploadImage();
         }
     });
     function uploadImage() {
         var url =HOST+'mobile.php?c=index&a=add_picture';
         var formData = new FormData($( "#uploadForm" )[0]);
-        $.showLoading('正在上传');
+        formData.append('id',sessionUserId);
+      /*   $.showLoading('正在上传');
         setTimeout(function() {
             $.hideLoading();
-        }, 3000)
+        }, 3000) */
         $.ajax({
             type: "POST",
             url:url,
@@ -382,17 +380,20 @@ $(function(){
             //data:$('#myInfoForm').serialize(),
             async: false,
             success: function(result) {
-                if (eval('(' + result+ ')').statusCode=='0'){
-                    $.toast("上传失败，请检查网络后重试", "cancel");
+                result=eval('(' + result+ ')');
+                if (result.statusCode=='0'){
+                    $.toast(result.message, "cancel");
                     $(document).scrollTop(0);
                 }
-                if (eval('(' + result+ ')').statusCode=='1'){
+                if (result.statusCode=='1'){
                     $.toast(result.message);
+                    setTimeout(function() {
+                        $.hideLoading();
+                    }, 3000) 
                 }
             }
         });
     }
-
     $(document).on("click", ".deletePicture", function() {
         var url =HOST+'mobile.php?c=index&a=del_picture';
         $.ajax({

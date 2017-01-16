@@ -69,6 +69,9 @@ $(function(){
 			}
 		}
 	});
+	Vue.filter('addUrl', function (value) {
+		return HOST+value;
+	});
 	/*截取字符串*/
 	Vue.filter('replaceString', function (value) {
 		if(value==null){
@@ -77,10 +80,6 @@ $(function(){
 			var text=value.substring(0,14)+"...";
 		}
 		return text;
-	});
-	Vue.filter('miao_star', function (value) {
-		//$.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-		//$(this).raty({ readOnly: true, score: value });
 	});
 	Vue.filter('yearMouthDay', function (value) {
 		//var format = 1403058804;
@@ -176,8 +175,8 @@ $(function(){
 						</section>
 						<section id="content-img" >
 							<p>
-								<template v-for="img_url in listData.img_url ">
-									<img src="{{Host+img_url.img_url}}" alt="">
+								<template v-for="img_url in item.img_url">
+									<img src="{{img_url.image_url|addUrl}}" alt="">
 								</template>
 							</p>
 						</section>

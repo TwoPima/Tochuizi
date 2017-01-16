@@ -89,7 +89,7 @@ var url =HOST+'mobile.php?c=index&a=login';
 						</div>
 							<div class="weui_cell weui-cell_select weui-cell_select-after">
 								<div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-								<div class="weui_cell_bd weui_cell_primary font14px">
+								<div class="weui_cell_bd weui_cell_primary font14px custom-select">
 									<select class="area" name="dpProvince" id="dpProvince">
 									</select>
 									<select class="area" name="dpCity" id="dpCity">
@@ -137,7 +137,7 @@ var url =HOST+'mobile.php?c=index&a=login';
 
 						<div class="weui_cell">
 							<div class="weui_cell_hd"><label class="weui_label font14px">经营类别</label></div>
-							<div class="weui_cell_bd weui_cell_primary font14px">
+							<div class="weui_cell_bd weui_cell_primary font14px custom-select">
 								<select class="area" name="cate_id_first" id="partner_cate_first">
 								</select>
 								<select class="area" name="cate_id_sub" id="partner_cate_sub">
@@ -178,7 +178,6 @@ var url =HOST+'mobile.php?c=index&a=login';
 			<div class="addbuin_form_button">
 				<a id="btn-custom-theme" class="weui-btn">申请加盟</a>
 			</div>
-
 		</div>
 	</div>
 </body>
@@ -281,13 +280,13 @@ $(function(){
 		imgPathArr=[];
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
+			var count_li = $("#uploaderFiles1").children().length;
+			if(count_li >= '5'){
+				$("#uploaderInput").css('display','none');
+				$.toast("不能超过五张图片！", "cancel");
+				return false;
+			}
 			$(files).each(function(index, obj) {
-				var count_li = $("#uploaderFiles1").children().length;
-				if(count_li >= '5'){
-					$("#uploaderInput").css('display','none');
-					$.toast("不能超过五张图片！", "cancel");
-					return false;
-				}else{
 					imgPathArr.push(obj);
 					// 通过这个 file 对象生成一个可用的图像 URL
 					// 获取 window 的 URL 工具
@@ -302,37 +301,36 @@ $(function(){
 					$("#uploaderFiles1").prepend(html);
 					// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
 					// URL.revokeObjectURL(imgURL);
-					var url =HOST+'mobile.php?c=index&a=pic_partner';
-					var formData = new FormData($( "#addBusinessImageForm" )[0]);
-					formData.append('checkInfo',$( "#checkInfoAddImg").val());
-					formData.append('id',sessionUserId);
-					$.showLoading('正在添加');
-					setTimeout(function() {
-						$.hideLoading();
-					}, 3000)
-					$.ajax({
-						type: 'post',
-						url: url,
-						data: formData,
-						async: false,
-						cache: false,
-						contentType: false,
-						processData: false,
-						success: function (result) {
-							var message=eval('(' + result+ ')').message;
-							if (eval('(' + result+ ')').statusCode=='0'){
-								$.toast(message, "cancel");
-								$(document).scrollTop(0);
-							}
-							if (eval('(' + result+ ')').statusCode=='1'){
-								var html = '';
-								html += ' <li class="weui-uploader__file" id="fileshow">' +
-									'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
-									'</li>';
-								$("#uploaderFiles1").prepend(html);
-							}
-						}
-					});
+			});
+			var url =HOST+'mobile.php?c=index&a=pic_partner';
+			var formData = new FormData($( "#addBusinessImageForm" )[0]);
+			formData.append('checkInfo',$( "#checkInfoAddImg").val());
+			formData.append('id',sessionUserId);
+			$.showLoading('正在添加');
+			setTimeout(function() {
+				$.hideLoading();
+			}, 3000)
+			$.ajax({
+				type: 'post',
+				url: url,
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (result) {
+					var message=eval('(' + result+ ')').message;
+					if (eval('(' + result+ ')').statusCode=='0'){
+						$.toast(message, "cancel");
+						$(document).scrollTop(0);
+					}
+					if (eval('(' + result+ ')').statusCode=='1'){
+						var html = '';
+						html += ' <li class="weui-uploader__file" id="fileshow">' +
+							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
+							'</li>';
+						$("#uploaderFiles1").prepend(html);
+					}
 				}
 			});
 		}

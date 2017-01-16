@@ -136,7 +136,6 @@ $(function(){
  	var dpProvince = $("#dpProvince"); 
 	var dpCity = $("#dpCity"); 
 	var dpArea = $("#dpArea");  
-	imgPathArr=[];
 	//填充一级数据 
 	loadSupplyFirstCate($("#supply_cat").val(), 0); 
 	//给一级绑定事件，触发事件后填充二级的数据 
@@ -169,43 +168,39 @@ $(function(){
 		loadAreasDistrict($("#checkInfoArea").val(), cityID); 
 		dpArea.fadeIn("slow"); 
 	});
-        $('#image_url').change(function(event) {
-    		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象	
-    		if (files && files.length > 0) {
-    			file = files[0];// 获取目前上传的文件
-    			/*if(file.size > 1024 * 1024 * 2) {
-    				alert('图片大小不能超过 2MB!');
-    				return false;
-    			}*/
- 			   $(files).each(function(index, obj) {
-  				  var count_li = $("#uploaderFiles").children().length;
-	                if(count_li >= '5'){
-	                    $("#uploaderInput").css('display','none');
-	                  	 $.toast("不能超过五张图片！", "cancel");
-                        var file = $("#img_url") ;
-                        file.after(file.clone().val(""));
-                        file.remove();
-                        $(this).parent().remove();
-	                  	 return false;
-	                }else{
-	                imgPathArr.push(obj);
-	    			// 通过这个 file 对象生成一个可用的图像 URL
-	    			// 获取 window 的 URL 工具
-	    			var URL = window.URL || window.webkitURL;
-	    			// 通过 file 生成目标 url
-	    			var imgURL = URL.createObjectURL(obj);
-	    			// 用这个 URL 产生一个 <img> 将其显示出来
-	                  var html = '';
-	    				 html += ' <li class="weui-uploader__file" id="fileshow">' +
-	    	             '  <img class="deletePicture" data="1"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
-	    	             '</li>';
-	    	              $("#uploaderFiles").prepend(html);
-	    			// 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
-	    			// URL.revokeObjectURL(imgURL);
-                    }
-		      	});
-    		}
-    	});
+    $('.file').change(function(event) {
+		   imgPathArr=[];//上次图片预览必须得
+      var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
+      if (files && files.length > 0) {
+          var count_li = $("#uploaderFiles").children().length;
+          if(count_li >= '5'){
+              $("#uploaderInput").css('display','none');
+              $.toast("不能超过五张图片！", "cancel");
+              var file = $("#image_url") ;
+              file.after(file.clone().val(""));
+              file.remove();
+              $(this).parent().remove();
+              return false;
+          }
+          $(files).each(function(index, obj) {
+              imgPathArr.push(obj);
+              // 通过这个 file 对象生成一个可用的图像 URL
+              // 获取 window 的 URL 工具
+              var URL = window.URL || window.webkitURL;
+              // 通过 file 生成目标 url
+              var imgURL = URL.createObjectURL(obj);
+              // 用这个 URL 产生一个 <img> 将其显示出来
+              var html = '';
+              html += ' <li class="weui-uploader__file" id="fileshow">' +
+                  '  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+                  '</li>';
+              $("#uploaderFiles").prepend(html);
+              // 使用下面这句可以在内存中释放对此 url 的伺服，跑了之后那个 URL 就无效了
+              // URL.revokeObjectURL(imgURL);
+          });
+      }
+	});
+
     selectMySupplyInfo($("#checkInfo").val());
     function selectMySupplyInfo(checkInfo){	 //查询
         $.ajax({
@@ -257,44 +252,44 @@ $(function(){
             },
          });
       }
-        //提交，最终验证。btn-custom-theme
-        $("#btn-custom-theme").click(function() {
-           	 $.showLoading('正在添加');
-             setTimeout(function() {
-                 $.hideLoading();
-             }, 3000)
-            var formData = new FormData($( "#supplyForm" )[0]);
-            formData.append('id',sessionUserId);
-    		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
-    			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
-    			 $(document).scrollTop(0);
-    			 return false;
-    		 }
-      
-            $.ajax({
-                type: 'post',
-                url:HOST+'mobile.php?c=index&a=my_supply',
-                data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (result) {
-                    var message=eval('(' + result+ ')').message;
-                    if (eval('(' + result+ ')').statusCode=='0'){
-                        $.toast(message, "cancel");
-                        return false;
-                    }
-                    if (eval('(' + result+ ')').statusCode=='1'){
-                        $.toast('操作成功');
-                        setTimeout(function() {
-                            window.location.href = 'mySupply.php';
-                        }, 3000) 
-                    }
-
-                }
-            });
-       });
+    //提交，最终验证。btn-custom-theme
+    $("#btn-custom-theme").click(function() {
+      var formData = new FormData($( "#supplyForm" )[0]);
+      formData.append('checkInfo',$( "#checkInfo").val());
+      formData.append('id',sessionUserId);
+      formData.append('dotype','edit');
+    	 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
+    		 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+    		 $(document).scrollTop(0);
+    		 return false;
+    	 }
+    	 $.showLoading('正在编辑');
+         setTimeout(function() {
+             $.hideLoading();
+         }, 3000)
+      $.ajax({
+          type: 'post',
+          url:HOST+'mobile.php?c=index&a=my_supply',
+          data: formData,
+          async: false,
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (result) {
+              var message=eval('(' + result+ ')').message;
+              if (eval('(' + result+ ')').statusCode=='0'){
+            	  $.toast(message, "cancel");
+                  $(document).scrollTop(0);
+              }
+              if (eval('(' + result+ ')').statusCode=='1'){
+                  $.toast(message);
+                  setTimeout(function() {
+                      window.location.href = 'mySupply.php';
+                  }, 3000)
+              }
+          }
+      });
+    });
     $(document).on("click", ".deletePicture", function() {
         if($(this).attr('data')=='1'){
             $(this).parent().remove();
