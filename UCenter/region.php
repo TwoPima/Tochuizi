@@ -54,7 +54,6 @@
 				//如果数据不为空
 				if(res.statusCode==1) {
 					that.$set('dataNull', 1);
-<<<<<<< HEAD
 					console.log(res.data);
 					console.log(res.data.area);
 					$.ajax({

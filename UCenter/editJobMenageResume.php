@@ -381,9 +381,6 @@ $(function(){
             processData: false,
             //data:$('#myInfoForm').serialize(),
             async: false,
-            error: function(request) {
-                $.toast("上传失败，请检查网络后重试", "cancel");
-            },
             success: function(result) {
                 if (eval('(' + result+ ')').statusCode=='0'){
                     $.toast("上传失败，请检查网络后重试", "cancel");
@@ -434,10 +431,7 @@ $(function(){
         var education=$('#education option:selected').val();
         var job_year=$('#job_year option:selected').val();
         var dui_type=$('#dui_type option:selected').val();
-<<<<<<< HEAD
         var cate_id=$('#job_type option:selected').val();
-=======
->>>>>>> origin/master
         var area=$('#dpArea option:selected').val();
         var zhuan_type=$('#zhuan_type option:selected').val();
         var peo_count=$('#peo_count option:selected').val();
@@ -462,11 +456,7 @@ $(function(){
             type: 'post',
             url: url,
             data: {
-<<<<<<< HEAD
                 area:area,cate_id:cate_id,
-=======
-                area:area,
->>>>>>> origin/master
                 mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,id_type:id_type,
                 dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
                 sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type,email:$("#email").val()},
