@@ -1,8 +1,4 @@
 /* 我的供求开始*/
-html,body{
-    height: 100%;
-    font-family:  'Microsoft YaHei', 'Helvetica Neue', Helvetica, Roboto, STHeiTi, Arial, sans-serif ;
-}
 #main{
     margin-top: 0 !important;
 }
@@ -14,9 +10,6 @@ html,body{
 }
 .sipply_nav .weui-flex__item{
     padding:13px 0;
-}
-.action{
-    border-bottom:3px solid red;
 }
 #wrapper {
     position: fixed;
@@ -134,7 +127,6 @@ html,body{
     -webkit-line-clamp: 1;
 }
 #wrapper .weui_panel{
-    padding:0 15px;
     margin-top:0;
 }
 #wrapper .weui_media_box.weui_media_text .weui_media_info_meta{

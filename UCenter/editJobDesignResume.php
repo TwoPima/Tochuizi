@@ -167,7 +167,7 @@
 			                <ul class="weui-uploader__files" id="uploaderFiles">
 			                </ul>
 			                <div class="weui-uploader__input-box">
-								<input class="weui-uploader__input file"  name="image_url" id="image_url" type="file" accept="image/*" >
+								<input class="weui-uploader__input file"  name="image_url[]" multiple id="image_url" type="file" accept="image/*" >
 								<input  name="checkInfo" value="<?php echo md5(date('Ymd')."add_picture"."tuchuinet");?>"	type="hidden" id="checkInfoAddImg"/>
 								<input  name="id" id="userId" type="hidden"  >
 			                </div>
@@ -194,6 +194,7 @@
 <!--学历id：18 薪资要求：19  有效期：21 福利要求:20  -->
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>  
 <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
+<input value="<?php if(empty($_GET['id_type'])){ echo '';}else{ $_GET['id_type'];}?> "	type="hidden" id="id_type"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -202,7 +203,6 @@
 <!--  <script src="../Public/js/there-category.js"></script> -->
 <script src="../Public/js/common.js"></script>
 <script>
-
 $(function(){
 	sessionUserId=$.session.get('userId');
 	if(sessionUserId==null){
@@ -247,7 +247,7 @@ $(function(){
            }
         }
 	});
-	selectMyResumeInfo(sessionUserId,$("#checkInfo").val());//查询简历信息
+	selectMyResumeInfo(sessionUserId,$("#checkInfoResume").val());//查询简历信息
 	$("#birthday").calendar();//日历
 	getEduction($("#checkInfoZidian").val());//学历
 	getJobYear($("#checkInfoZidian").val());//工作年限
@@ -271,7 +271,7 @@ $(function(){
 						$('#zu').attr("value",result.data.zu);
 						$('#Resumeid').attr("value",result.data.id);
 						$('#mobile').attr("value",result.data.mobile);
-						$('#desc').attr("value",result.data.desc);
+						$('#desc').html(result.data.desc);
 						$('#home').attr("value",result.data.home);
 						$('#birthday').attr("value",result.data.birthday);
 						$('#email').attr("value",result.data.email);
@@ -322,23 +322,36 @@ $(function(){
 	}
 	//点击input 转换成预览图
 	$('#image_url').change(function(event) {
+			imgPathArr=[];
 			var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 			if (files && files.length > 0) {
 				file = files[0];// 获取目前上传的文件
-				/*if(file.size > 1024 * 1024 * 2) {
-					alert('图片大小不能超过 2MB!');
+				var count_li = $("#uploaderFiles").children().length;
+				if (count_li >= '5') {
+					$("#uploaderInput").css('display', 'none');
+					$.toast("不能超过五张图片！", "cancel");
+					var file = $("#image_url") ;
+					file.after(file.clone().val(""));
+					file.remove();
+					$(this).parent().remove();
 					return false;
-				}*/
-				var URL = window.URL || window.webkitURL;
-				var imgURL = URL.createObjectURL(file);
-				var html = '';
-				html += ' <li class="weui-uploader__file" id="fileshow">' +
-					'  <img class="deletePicture" src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
-					'</li>';
-				$("#uploaderFiles").prepend(html);
+				} else {
+					$(files).each(function(index, obj) {
+						imgPathArr.push(obj);
+						var URL = window.URL || window.webkitURL;
+						var imgURL = URL.createObjectURL(obj);
+						var html = '';
+						html += ' <li class="weui-uploader__file" id="fileshow">' +
+							'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="' + imgURL + '" class="fileshow thumb-img" />' +
+							'</li>';
+						$("#uploaderFiles").prepend(html);
+					});
 					uploadImage();
 				}
-			});
+
+			}
+	});
+
 	function uploadImage() {
 		var url =HOST+'mobile.php?c=index&a=add_picture';
 		var formData = new FormData($( "#uploadForm" )[0]);
@@ -360,12 +373,14 @@ $(function(){
 				$.toast("上传失败，请检查网络后重试", "cancel");
 			},
 			success: function(result) {
-				if(result.statusCode=='0'){
-					$.toast("上传失败，请检查网络后重试", "cancel");
-				}else{
-					//window.location.reload();//刷新当前页面.
+				var message=eval('(' + result+ ')').message;
+				if (eval('(' + result+ ')').statusCode=='0'){
+					$.toast(message, "cancel");
+					$(document).scrollTop(0);
 				}
-
+				if (eval('(' + result+ ')').statusCode=='1'){
+					$.toast(result.message);
+				}
 			}
 		});
 	}
@@ -384,8 +399,9 @@ $(function(){
 						$.toast(message, "cancel");
 					}else{
 						$.toast("操作成功！");
-						window.location.reload();//刷新当前页面.
-						//window.location.href='myJob.php';
+						setTimeout(function() {
+							window.location.reload();//刷新当前页面.
+						}, 3000)
 					}
 				}
 			});
@@ -397,6 +413,10 @@ $(function(){
 			var name = $("#name").val();
 			var email = $("#email").val();
 			var zu = $("#zu").val();
+			var id_type = $("#id_type").val();
+			 if (id_type==null){
+				 id_type='';
+			 }
 			var mobile = $("#mobile").val();
 			var desc = $("#desc").val();
 			var home = $("#home").val();
@@ -429,7 +449,7 @@ $(function(){
 				type: 'post',
 				url: url,
 				data: {
-					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,
+					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,id_type:id_type,
 					education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,
 					home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex,wages:wages,zu:zu
 					},
@@ -441,10 +461,10 @@ $(function(){
 						$(document).scrollTop(0);
 					}
 					if (result.statusCode=='1'){
-						setTimeout(function() {
-							$.toast("操作成功");
-							window.location.href='myJob.php';
-						}, 3000)
+							$.toast("操作成功！");
+							setTimeout(function() {
+								window.location.href='myJob.php';
+							}, 3000)
 					}
 				}
 			});

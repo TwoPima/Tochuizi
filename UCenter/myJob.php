@@ -44,6 +44,7 @@ $(function(){
 		el: '#app',
 		data: {
 			listJob: {},
+			dataNull:'',
 			url:{
 				checkInfo:$("#checkInfoRecruit").val(),
 				id:sessionUserId,
@@ -55,15 +56,22 @@ $(function(){
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=recruit_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
-				that.$set('listJob', res.data);  //把数据传给页面
-				 Vue.nextTick(function () {
-				 })
+				//如果数据为空
+				if (res.statusCode==0){
+					that.$set('dataNull', 2);
+				}
+				//如果数据不为空
+				if(res.statusCode==1) {
+					that.$set('dataNull', 1);
+					that.$set('listJob', res.data);  //把数据传给页面
+					Vue.nextTick(function () {
+					})
+				}
 			});
 		},//created 结束
 		methods: {
 			jump_url: function (msg1){
 				window.location.href='editJob.php?recruit_id='+msg1;
-
 			}
 		}
 	});
@@ -99,15 +107,6 @@ $(function(){
 		else result="刚刚发表";
 		return result;
 	}
-});
-if ('addEventListener' in document) {
-	document.addEventListener('DOMContentLoaded', function() {
-		FastClick.attach(document.body);
-	}, false);
-}
-//如果你想使用jquery
-$(function() {
-	FastClick.attach(document.body);
 });
  function selectMyResumeInfo(id,checkInfo){
 		 //查询
@@ -159,22 +158,39 @@ $(function() {
             <div class="box_bg"></div>
 
         <div class="weui-cells">
-			<template v-for="item in listJob "><!--三层  -->
-	           	  <div class="weui-cell weui-cell_access" v-on:click="jump_url(item.id)"  >
-								<div  class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
-								<div class="weui-cell__ft" style="font-size: 0">
-									<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
-									<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
-								</div>
-					  <div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
-              		  </div>
-
+			<template v-if="dataNull==1">
+					<template v-for="item in listJob "><!--三层  -->
+						 		 <div class="weui-cell weui-cell_access" >
+									<div v-on:click="jump_url(item.id)" class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
+									<div class="weui-cell__ft" style="font-size: 0">
+										<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
+										<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
+									</div>
+						 			 <div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
+							  </div>
+					</template>
+			</template>
+			<template v-if="dataNull==2">
+				<div class="nodata">
+					<img src="../Public/img/no-info.png">
+					<div class="height20px"></div>
+					<p>暂时还没有职位信息！</p>
+				</div>
 			</template>
         </div>
     </div><!--main-->
 </div><!--app-->
 </body>
 <script>
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+	//如果你想使用jquery
+	$(function() {
+		FastClick.attach(document.body);
+	});
 	/*
 	 * 描述：html5苹果手机向左滑动删除特效
 	 */
@@ -184,7 +200,7 @@ $(function() {
 		var X = 0;        //移动距离
 		var objX = 0;    //目标对象位置
 		window.addEventListener('touchstart',function(event){
-			event.preventDefault();
+			//event.preventDefault();
 			var obj = event.target.parentNode;
 			console.log(obj.className);
 			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
@@ -193,7 +209,7 @@ $(function() {
 			}
 			if( objX == 0){
 				window.addEventListener('touchmove',function(event) {
-					event.preventDefault();
+					//event.preventDefault();
 					var obj = event.target.parentNode;
 					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
 						moveX = event.targetTouches[0].pageX;
@@ -214,7 +230,7 @@ $(function() {
 			}
 			else if(objX<0){
 				window.addEventListener('touchmove',function(event) {
-					event.preventDefault();
+					//event.preventDefault();
 					var obj = event.target.parentNode;
 					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
 						moveX = event.targetTouches[0].pageX;
@@ -236,7 +252,7 @@ $(function() {
 
 		})
 		window.addEventListener('touchend',function(event){
-			event.preventDefault();
+			//event.preventDefault();
 			var obj = event.target.parentNode;
 			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
 				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
@@ -250,8 +266,17 @@ $(function() {
 			}
 		})
 	})
-	function confirmDelete(value){
-		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,value,'3');
+	function confirmDelete(id,name){
+		 $.confirm({
+			  title: '确认删除',
+			  //text: name,
+			  onOK: function () {
+				  delete_supply_recuirt_job($("#del_list").val(),sessionUserId,id,'3');
+			  },
+			  onCancel: function () {
+				  return false;
+			  }
+			});
 	}
 	
 </script>

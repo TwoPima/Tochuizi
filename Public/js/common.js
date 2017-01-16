@@ -43,7 +43,7 @@ function getVipList(checkInfo){
 					if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
 						//定位
 						var data=JSON.parse(sessionStorage.getItem('key_area'));
-						if(data==null){
+						if(data==null||data==undefined){
 							var cityHtml='<option  value="" selected="selected">请选择</option>';
 							var provinceHtml='<option  value="" selected="selected">请选择</option>';
 							
@@ -238,7 +238,7 @@ function getBenefit(checkInfoZidian){
 		dataType: 'json',
 		success: function (result) {
 			$.each(result.data, function (index,obj) {
-				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="benefit" id="'+obj.id+'" value="'+obj.id+'"></div>';
+				var getBenefitHtml=' <div class="daiyu_checkbox"><label for="one">'+obj.name+'</label><input type="checkbox" name="benefit" id="benefit'+obj.id+'" value="'+obj.id+'"></div>';
 				$('#benefit').append(getBenefitHtml);
 			});
 			return false;
@@ -715,10 +715,18 @@ function getSupplyCollectNumber(checkInfo,id){
 				$(".product_num").html(result.data.total_procount);//商品收藏总数
 				$(".supply_num").html(result.data.total_gqcount);//供求收藏总数
 				$(".shop_num").html(result.data.total_stcount);//店铺收藏总数
-			}else{
-				
 			}
-
+			if(result.statusCode=='0'){
+				varHtml='0';
+				//供求
+				$(".supply_number_count").html(varHtml);//帖子总数
+				$(".supply_see_num").html(varHtml);//总浏览数
+				//收藏
+				$(".count_number").html(varHtml);//收藏总数
+				$(".product_num").html(varHtml);//商品收藏总数
+				$(".supply_num").html(varHtml);//供求收藏总数
+				$(".shop_num").html(varHtml);//店铺收藏总数
+			}
 			
 		}
 	}); 
@@ -738,13 +746,16 @@ function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){
 		data: {checkInfo:checkInfo,id:id,list_id:list_id,model_id:model_id},
 		dataType: 'json',
 		success: function (result) {
-			var message=result.message;
-			if (result.statusCode=='0'){
-				$.toast('删除出错，请重试', "cancel");
-			}else{
-				$.toast('操作成功');
-				window.location.reload();//刷新当前页面.
-			}
+				var message=result.message;
+				if (result.statusCode=='0'){
+					$.toast("删除错误，请重试", "cancel");
+				}
+				if (result.statusCode=='1'){
+					$.toast("删除成功");
+					 setTimeout(function(){
+		  				 window.location.reload();	
+		  			},1500); 
+				} 
 		}
 	});
 }

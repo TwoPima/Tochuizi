@@ -62,11 +62,11 @@ if(window.sessionStorage){
 						$.toptip(tips,2000, 'error');
 					}else{
 						//判断是否进入店铺中心
-						/*if(result.data.is_partner=='0'){
+						if(result.data.is_partner=='0'){
 							$("#BusinessCenter").hide();
 						}else{
 							$("#addBusiness").hide();
-						}*/
+						}
     					var mobile=$.session.get('mobileSession');
 						$("#mobile").html(mobile);
     					if(eval('(' + result.data.idtype+ ')')==null){

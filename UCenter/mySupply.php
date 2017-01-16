@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>个人主页-我的供求</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../Public/css/weui.css">
+	<link rel="stylesheet" href="../Public/css/weui.min.css">
 	<link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css"/>
 	<link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -15,7 +15,10 @@
 	<script src="../Public/js/jquery-2.1.4.js"></script>
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/jquery-weui.min.js"></script>
+	<script src="../Public/js/fastclick.js"></script>
 	<script src="../Public/js/common.js"></script>
+	
 </head>
 <body id="body_box" >
 	<div id="topback-header">
@@ -60,28 +63,29 @@
 			<div id="scroller">
 				<template v-for="item in demoData" >
 					<div class="weui_panel">
-						<div class="list-data">
-								<div class="weui_media_box weui_media_text">
-									<a v-on:click="jump_url(item.id)" style="display: block;">
-									<p class="weui_media_desc">{{item.title}}</p>
-									<ul class="weui_media_info">
-										<li class="weui_media_info_meta">
-											{{item.update_time|time}}
-										</li>
-										<li class="weui_media_info_meta weui_media_info_meta_extra">
-											查阅次数:&nbsp;&nbsp;
-											<span>{{item.hits}}</span>
-										</li>
-									</ul>
+						<div class="list-data" style="padding: 0px 0px;">
+									<a style="height-line:1;" class="weui-cell weui-cell_access">
+    									<div  v-on:click="jump_url(item.id)" class="weui_media_box weui_media_text" style="width:100%;">
+        									<h4 class="weui-media-box__title" >{{item.title}}</h4>
+        									<ul class="weui_media_info">
+        										<li class="weui_media_info_meta">
+        											{{item.update_time|time}}
+        										</li>
+        										<li class="weui_media_info_meta weui_media_info_meta_extra">
+        											查阅次数:&nbsp;&nbsp;
+        											<span>{{item.hits}}</span>
+        										</li>
+        									</ul>
+        									 <img class="jiantou" src="../Public/img/supply/jiantou.png" >
+    									</div>
+    									<div style="line-height:113px;"class="del-btn">
+    									<span onClick="confirmDelete({{item.id}});" >删除</span>
+										</div>
 									</a>
-								</div>
-								<img class="jiantou" src="../Public/img/supply/jiantou.png" >
-
-
-							<!--<div style="line-height:67px;"class="del-btn">
-							<span onClick="confirmDelete('+obj.id+');" >删除</span>
-							</div> -->
+									
+								
 						</div>
+							
 					</div>
 				</template>
 			</div>
@@ -92,11 +96,15 @@
 		</div>
 	</template>
 	<template v-else>
-		<p style="text-align: center;color: red;height: 30px;line-height: 30px;z-index: 5000;">{{message}}</p>
+		<div class="nodata">
+			<img src="../Public/img/no-info.png">
+			<p>收藏夹空空如也</p>
+		</div>
 	</template>
 </div>
 <input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
 <input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
+<input value="<?php echo md5(date('Ymd')."del_list"."tuchuinet");?>"	type="hidden" id="del_list"/>
 <script type="text/javascript" src="../Public/js/vue.min.js"></script>
 <script type="text/javascript" src="../Public/js/vue-resource.js"></script>
 <!--<script src="../Public/js/iscroll.js"></script>-->
@@ -107,6 +115,7 @@
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
+	$.toast("删除错误，请重试", "cancel");
 	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
 	var demoApp = new Vue({
 		el: '#body_box',
@@ -169,9 +178,6 @@
 			}
 			function scrollaction(){
 					if (that.is_refresh=='1'  || -(this.y) + $('#wrapper').height()>= $('#scroller').height()) {
-						console.log('上拉加载');
-						console.log(that.is_refresh);
-						console.log(that.is_scroll);
 						if( that.is_refresh == 1){
 							that.$set('demoData', '');
 							that.$set('url.start',0);
@@ -180,7 +186,6 @@
 						if (that.is_scroll=='1'){
 							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data;
-							console.log(res);
 							var listdata=res.data;
 							console.log(listdata);
 							if (that.is_refresh == 1){
@@ -239,7 +244,9 @@
 						_self.$set('url.is_true', '');
 				}
 				_self.$http.get(HOST+'mobile.php?c=index&a=supply_list',_self.url).then(function (response) {
-						_self.myScroll.destroy(); //把滑动注销掉
+						if(_self.myScroll){
+							_self.myScroll.destroy(); //把滑动注销掉
+						}
 						var res = response.data; //取出的数据
 						if(res.statusCode==1){
 							_self.$set('is_nodata', '1');
@@ -355,6 +362,94 @@
 		else if(_min>=1) {result=  ~~(_min) +" 分钟前"}
 		else result="刚刚";
 		return result;
+	}
+	
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+	//如果你想使用jquery
+	$(function() {
+		FastClick.attach(document.body);
+	});
+	/*
+	 * 描述：html5苹果手机向左滑动删除特效
+	 */
+	window.addEventListener('load',function(){
+		var initX;        //触摸位置
+		var moveX;        //滑动时的位置
+		var X = 0;        //移动距离
+		var objX = 0;    //目标对象位置
+		window.addEventListener('touchstart',function(event){
+			//event.preventDefault();
+			var obj = event.target.parentNode;
+			console.log(obj.className);
+			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
+				initX = event.targetTouches[0].pageX;
+				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+			}
+			if( objX == 0){
+				window.addEventListener('touchmove',function(event) {
+					//event.preventDefault();
+					var obj = event.target.parentNode;
+					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
+						moveX = event.targetTouches[0].pageX;
+						X = moveX - initX;
+						if (X >= 0) {
+							obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+						}
+						else if (X < 0) {
+							var l = Math.abs(X);
+							obj.style.WebkitTransform = "translateX(" + -l + "px)";
+							if(l>80){
+								l=80;
+								obj.style.WebkitTransform = "translateX(" + -l + "px)";
+							}
+						}
+					}
+				});
+			}
+			else if(objX<0){
+				window.addEventListener('touchmove',function(event) {
+					//event.preventDefault();
+					var obj = event.target.parentNode;
+					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
+						moveX = event.targetTouches[0].pageX;
+						X = moveX - initX;
+						if (X >= 0) {
+							var r = -80 + Math.abs(X);
+							obj.style.WebkitTransform = "translateX(" + r + "px)";
+							if(r>0){
+								r=0;
+								obj.style.WebkitTransform = "translateX(" + r + "px)";
+							}
+						}
+						else {     //向左滑动
+							obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+						}
+					}
+				});
+			}
+
+		})
+		window.addEventListener('touchend',function(event){
+			//event.preventDefault();
+			var obj = event.target.parentNode;
+			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
+				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+				if(objX>-40){
+					obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+					objX = 0;
+				}else{
+					obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+					objX = -80;
+				}
+			}
+		})
+	})
+	function confirmDelete(id){
+		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,id,'1');
 	}
 	</script>
 </body>

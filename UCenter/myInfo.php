@@ -120,10 +120,10 @@ $('form :input').blur(function(){
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='0'){
-						$.toptip(message,2000, 'error');
-						window.location.href='./Login/login.php';
-					}else{
+					if (result.statusCode=='0'){
+						$.toast(message, "cancel");
+					}
+					if (result.statusCode=='1'){
 						var sex=result.data.sex;
 						//var localSex=$("input[name='sex'][checked]").val();
 						if(sex=='1'){
@@ -139,9 +139,8 @@ $('form :input').blur(function(){
     						$("#avatar").attr("src",HOST+result.data.avatar);//头像
     					}
 					}
-				},
+				}
 			});
-	 
  }
 //提交，最终验证。
  $("#btn-custom-theme").click(function() {
@@ -161,15 +160,18 @@ $('form :input').blur(function(){
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toast(message);
-				}else{
-					$.toast(message);
+				if (result.statusCode=='0'){
+					$.toast(message, "cancel");
 				}
-				window.location.reload();//刷新当前页面
+				if (result.statusCode=='1'){
+					$.toast("操作成功");
+					setTimeout(function() {
+						window.location.href='index.php';
+					}, 3000)
+				}
 			}
 		});
-  });
-});
+ });
+ });
 </script>
 </html>

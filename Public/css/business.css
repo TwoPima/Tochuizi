@@ -193,7 +193,7 @@ body{
 #waitJudge .weui-cell{
 	clear:both;
 }
-#waitJudge .description{
+#waitJudge .description-comment{
 	float:left;
 	font-size:14px;
 	padding-left:20px;

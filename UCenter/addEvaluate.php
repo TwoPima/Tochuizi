@@ -8,39 +8,111 @@
     <link rel="stylesheet" href="../Public/css/center.css"/>
       <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
       <link rel="stylesheet" href="../Public/css/common.css"/>
-<input value="<?php echo md5(date('Ymd')."add_comment"."tuchuinet");?>"	type="hidden" id="checkInfoAddComment"/>  
+<input value="<?php echo md5(date('Ymd')."add_comment"."tuchuinet");?>"	type="hidden" id="add_comment"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+<script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
+<script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
 <script>
-	sessionUserId=$.session.get('userId');
+	//sessionUserId=$.session.get('userId');
+	sessionUserId='18';
 	if(sessionUserId==null){
 		//没有登陆
 		$.toptip('您还没有登陆！',2000, 'error');
 		window.location.href='../Login/login.php';
 	}
-	//已经登陆  取会员类别
-  	var url =HOST+'mobile.php?c=index&a=comment_list';
-   var checkInfoAddComment = $("#checkInfoAddComment").val();
-	 $.ajax({
+$(function(){
+	$('.file').change(function(event) {
+		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
+		if (files && files.length > 0) {
+			file = files[0];// 获取目前上传的文件
+			$(files).each(function(index, obj) {
+				var count_li = $("#uploaderFiles").children().length;
+				if (count_li >= '5') {
+					$("#uploaderInput").css('display', 'none');
+					$.toast("不能超过五张图片！", "cancel");
+					var file = $("#image_url") ;
+					file.after(file.clone().val(""));
+					file.remove();
+					$(this).parent().remove();
+					return false;
+				} else {
+					imgPathArr.push(obj);
+					// 通过这个 file 对象生成一个可用的图像 URL
+					// 获取 window 的 URL 工具
+					var URL = window.URL || window.webkitURL;
+					// 通过 file 生成目标 url
+					var imgURL = URL.createObjectURL(obj);
+					// 用这个 URL 产生一个 <img> 将其显示出来
+					var html = '';
+					html += ' <li class="weui-uploader__file" id="fileshow">' +
+						'  <img class="deletePicture"   src="../Public/img/delete-icon-picture.png"/><img src="' + imgURL + '" class="fileshow thumb-img" />' +
+						'</li>';
+					$("#uploaderFiles").prepend(html);
+					uploadImage();
+				}
+
+			});
+		}
+	});
+
+	//收藏启动
+	$.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
+	$('#description-raty').raty({
+		score: function() {
+			return $(this).attr('data-score');
+		}
+	});
+	$('#logistic-raty').raty({
+		score: function() {
+			liu_star=$(this).attr('data-score');
+			return $(this).attr('data-score');
+		}
+	});
+	$('#server-raty').raty({
+		score: function() {
+			return $(this).attr('data-score');
+		}
+	});
+	$("#btn-custom-theme").click(function() {
+		var formData = new FormData($( "#addEvaluateForm" )[0]);
+		formData.append('checkInfo',$( "#add_comment").val());
+		formData.append('id',sessionUserId);
+		formData.append('dotype','add');
+		formData.append('miao_star',$('#description-raty').find('input').val());
+		formData.append('liu_star',$('#logistic-raty').find('input').val());
+		formData.append('fuwu_star',$('#server-raty').find('input').val());
+		$.showLoading('正在添加');
+		setTimeout(function() {
+			$.hideLoading();
+		}, 3000)
+		$.ajax({
 			type: 'post',
-			url: url,
-			data: {
-				checkInfo:checkInfoAddComment,goods_id:goods_id,id:sessionUserId,desc:desc,miao_star:miao_star,
-				liu_star:liu_star,fuwu_star:fuwu_star,image_url:image_url
-			},
-			dataType: 'json',
+			url:HOST+'mobile.php?c=index&a=add_comment',
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
 			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					
-				}else{
-					//返回成功信息
-					$.toast(message);
+				var message=eval('(' + result+ ')').message;
+				if (eval('(' + result+ ')').statusCode=='0'){
+					$.toptip(message,2000, 'error');
+					$(document).scrollTop(0);
+				}
+				if (eval('(' + result+ ')').statusCode=='1'){
+					$.toast("操作成功");
+					window.location.href = 'evaluate.php';
 				}
 			}
 		});
+	});
+});
+	$(document).on("click", ".deletePicture", function() {
+		$(this).parent().remove();
+	});
 </script>
 </head>
 <body>
@@ -57,11 +129,13 @@
 		</div>
     <div id="main">
         <div class="addEvaluate">
-			<form>
+			<form action="" method="post"  id="addEvaluateForm" enctype="multipart/form-data">
 	            <div class="weui-cells">
 	                <a class="weui-cell weui-cell_access" href="javascript:;">
 	                    <div class="weui-cell__bd">
-	                        <p id="good_name">宁夏亿次元科技有限公司</p>
+	                        <p id="good_name"><?php echo $_GET['good_title'];?></p>
+							<input name="order_id" value="<?php echo $_GET['order_id'];?>" type="hidden"/>
+							<input name="goods_id" value="<?php echo $_GET['goods_id'];?>" type="hidden"/>
 	                    </div>
 	                    <div class="weui-cell__ft"></div>
 	                </a>
@@ -69,37 +143,31 @@
 	                    <div class="weui-cell">
 	                        <div class="weui-cell__bd">
 	                            <textarea class="weui-textarea" name="desc" id="desc" placeholder="评论描述" rows="3"></textarea>
-	                           <!-- <div class="weui-textarea-counter"><span>0</span>/200</div>-->
 	                        </div>
 	                    </div>
 	                </div>
 	            </div>
                 <div class="weui-uploader">
                         <div class="weui-cells">
-                       <!-- <p class="weui-uploader__title">图片上传</p>
-                        <div class="weui-uploader__info">0/2</div>-->
-                        <a class="weui-cell weui-cell_access" href="javascript:;">
-                            <div class="weui-cell__bd">
-                                <p id="name">晒图</p>
-                            </div>
-                            <div class="weui-cell__ft"></div>
-                        </a>
-
-                            <div class="weui-uploader__bd">
-                                <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
-                                        <div class="weui-uploader__file-content">
-                                            <i class="weui-icon-warn"></i>
-                                        </div>
-                                    </li>
-                                   <!-- <li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(./images/pic_160.png)">
-                                          <div class="weui-uploader__file-content">50%</div>
-                                      </li>-->
-                                </ul>
-                                <div class="weui-uploader__input-box">
-                                    <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
-                                </div>
-                            </div>
+							<div class="weui-uploader__bd margin_fix">
+								<ul class="weui-uploader__files" id="uploaderFiles">
+								</ul>
+								<div class="weui-uploader__input-box">
+									<input class="weui-uploader__input file" name="image_url1" id="image_url1" type="file" accept="image/*" >
+								</div>
+								<div class="weui-uploader__input-box">
+									<input class="weui-uploader__input file" name="image_url2" id="image_url2" type="file" accept="image/*" >
+								</div>
+								<div class="weui-uploader__input-box">
+									<input class="weui-uploader__input file" name="image_url3" id="image_url3" type="file" accept="image/*" >
+								</div>
+								<div class="weui-uploader__input-box">
+									<input class="weui-uploader__input file" name="image_url4" id="image_url4" type="file" accept="image/*" >
+								</div>
+								<div class="weui-uploader__input-box">
+									<input class="weui-uploader__input file" name="image_url5" id="image_url5" type="file" accept="image/*" >
+								</div>
+							</div>
                     </div>
             </div>
 
@@ -133,109 +201,4 @@
     </div><!--main-->
 </div><!--app-->
 </body>
-<input value="<?php echo md5(date('Ymd')."edit_self"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
- <script src="../Public/js/require.config.js"></script>
-<script src="../Public/js/jquery-2.1.4.js"></script>
-<script src="../Public/js/jquery-session.js"></script>
-<script src="../Public/js/vue.2.1.0.js"></script>
-<script src="../Public/js/center.js"></script>
-<script type="text/javascript" src="../Public/plugins/raty-2.5.2/demo/js/jquery.min.js"></script>
-  <script type="text/javascript" src="../Public/plugins/raty-2.5.2/lib/jquery.raty.min.js"></script>
-<script>
-$(function(){
-	sessionUserId=$.session.get('userId');
-	if(sessionUserId=='undefined'){
-		//没有登陆
-		$.toptip('您还没有登陆！',2000, 'error');
-		window.location.href='../Login/login.php';
-	}else{
-		//已经登陆
-		//收藏启动
-		 $.fn.raty.defaults.path = '../Public/plugins/raty-2.5.2/lib/img';
-		    $('#description-raty').raty({ 
-		    	  score: function() { 
-		    	    return $(this).attr('data-score'); 
-		    	  } 
-		    	}); 
-		    $('#logistic-raty').raty({ 
-		    	  score: function() { 
-		    	    return $(this).attr('data-score'); 
-		    	  } 
-		    	}); 
-		    $('#server-raty').raty({ 
-		    	  score: function() { 
-		    	    return $(this).attr('data-score'); 
-		    	  } 
-		    	}); 
-	    	
-  	var checkInfo = $("#checkInfo").val();
-  	var url =HOST+'mobile.php?c=index&a=edit_self';
-	 $.ajax({
-			type: 'post',
-			url: url,
-			data: {checkInfo:checkInfo,id:sessionUserId},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					//数据取回成功
-					var mobile=$.session.get('mobileSession');
-					new Vue({
-						  el: '#mobile',
-						  data: {
-						   mobile: mobile
-						  }
-						/*   el: '#nickname',
-						  data: {
-							  nickname: nickname
-						  }
-						  el: '#typeMember',
-						  data: {
-							  typeMember: typeMember
-						  } */
-						})
-				}
-			},
-		});
-	  //文本框失去焦点后
-	   $('form :input').blur(function(){
-	        //验证手机
-	        if( $(this).is('#mobile') ){
-	       	 if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.value))){ 
-	                $.toptip('手机号码有误，请重填！', 2000, 'warning');
-	                return false; 
-	            } 
-	      }
-	}
-});
- //提交，最终验证。
- $("#btn-custom-theme").click(function() {
-		var sex = $("#sex").val();
-		var nickname = $("#nickname").val();
-		var sex=$("input[name='sex':checked").val();
-       	var url =HOST+'mobile.php?c=index&a=edit_self';
-        if(mobile==""|| nickname==""){
-       		$.toptip('手机号昵称均不能为空！', 200, 'warning');
-       	    return false; 
-       	 }
-		 $.ajax({
-			type: 'post',
-			url: url,
-			data: {mobile:mobile,id:sessionUserId,nickname:nickname,checkInfo:checkInfo,sex:sex},
-			dataType: 'json',
-			success: function (result) {
-				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-				}else{
-					$.toptip(message,2000, 'success');
-					window.location.href='./UCenter/index.php';
-				}
-			},
-		});
-  });
-});
-</script>
 </html>

@@ -35,7 +35,20 @@
 	//提交，最终验证。
 		 $("#btn-custom-theme").click(function() {
 				var id_type=$("input[name='typeMember']:checked").val();
-				var  checkInfoMemberType = $("#checkInfoMemberType").val();
+				 switch (id_type) {
+					 case ("2"):
+						 window.location.href='editJobDesignResume.php?id_type=2';//设计师
+						 break;
+					 case ("3"):
+						 window.location.href='editJobHeadmanResume.php?id_type=3';//组长
+						 break;
+					 case ("4"):
+						 window.location.href='editJobMenageResume.php?id_type=4';//管理人
+						 break;
+					 default:
+						 window.location.href='editJobSkillResume.php?id_type=1';//技工
+				 }
+				/*var  checkInfoMemberType = $("#checkInfoMemberType").val();
 		       	var url =HOST+'mobile.php?c=index&a=my_idtype';
 				 $.ajax({
 					type: 'post',
@@ -51,7 +64,7 @@
 							 setTimeout(window.location.href='noMyJob.php',8000);
 						}
 					}
-				});
+				});*/
 		});
 });
 </script>

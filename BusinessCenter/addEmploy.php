@@ -258,13 +258,15 @@
 					$.toast("添加失败，请检查网络后重试", "cancel");
 				},
 				success: function(result) {
-					if(result.statusCode=='0'){
-						$.toast(result.message, "cancel");
-					}else{
+					var message=eval('(' + result+ ')').message;
+					if (eval('(' + result+ ')').statusCode=='0'){
+						$.toast(message, "cancel");
+						$(document).scrollTop(0);
+					}
+					if (eval('(' + result+ ')').statusCode=='1'){
 						$.toast(result.message);
 						window.location.href('employ.php');
 					}
-
 				}
 			});
 		});
