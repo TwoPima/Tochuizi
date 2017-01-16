@@ -288,7 +288,7 @@ $(function(){
                     if (eval('(' + result+ ')').statusCode=='1'){
                         $.toast('操作成功');
                         setTimeout(function() {
-                            //window.location.href = 'mySupply.php';
+                            window.location.href = 'mySupply.php';
                         }, 3000) 
                     }
 

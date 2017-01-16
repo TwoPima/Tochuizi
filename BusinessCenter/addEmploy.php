@@ -265,7 +265,9 @@
 					}
 					if (eval('(' + result+ ')').statusCode=='1'){
 						$.toast(result.message);
-						window.location.href('employ.php');
+						setTimeout(function() {
+							window.location.href='employ.php';
+						}, 3000)
 					}
 				}
 			});

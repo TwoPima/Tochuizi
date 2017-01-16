@@ -331,6 +331,7 @@ $(function(){
 //点击input 转换成预览图
     $('#image_url').change(function(event) {
         var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
+        imgPathArr=[];
         if (files && files.length > 0) {
             file = files[0];// 获取目前上传的文件
             $(files).each(function(index, obj) {

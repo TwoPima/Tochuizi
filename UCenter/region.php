@@ -54,6 +54,7 @@
 				//如果数据不为空
 				if(res.statusCode==1) {
 					that.$set('dataNull', 1);
+<<<<<<< HEAD
 					console.log(res.data);
 					console.log(res.data.area);
 					$.ajax({
@@ -75,7 +76,6 @@
 
 					});
 					that.$set('listData', res.data);  //把数据传给页面
-
 				}
 			});
 		},//created 结束
@@ -87,7 +87,6 @@
 	});
 	Vue.filter('detailAddress', function (value) {
 		var a;
-		
 		return a;
 	});
 	});
