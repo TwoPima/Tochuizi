@@ -46,7 +46,7 @@
         <div class="main_box">
           			  <div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
-					    <div class="weui_cell_bd weui_cell_primary font14px">
+					    <div class="weui_cell_bd weui_cell_primary font14px custom-select">
 					      <select class="supplyCate" name="firstMenu" id="firstMenu">
 					      </select>
 					      <select class="supplyCate" name="subMenu" id="subMenu">
@@ -57,7 +57,7 @@
 					  </div>
 				<div class="weui_cell">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-					    <div class="weui_cell_bd weui_cell_primary font14px">
+					    <div class="weui_cell_bd weui_cell_primary font14px custom-select">
 					      <select class="area" name="dpProvince" id="dpProvince">
 					      </select>
 					      <select class="area" name="dpCity" id="dpCity">
@@ -66,11 +66,11 @@
 					      </select>
 					    </div>
 					  </div> 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
+                 <div class="weui-cell textarea-cell">
+                        <div class="weui-cell__bd">
+                            <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
+                        </div>
                     </div>
-                </div>
         </div>
         <div class="main_box jiage">
             <div class="weui-cells">
@@ -103,6 +103,9 @@
                 </div>
             </div>
         </div>
+          <input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" name="checkInfo" id="checkInfo"/>
+            <input type="hidden" value="edit" name="dotype" />
+            <input value="<?php echo $_GET['supply_id'];?>"	type="hidden" name="supply_id" id="supply_id"/>
         <div style="margin-top: 20px;">
             <a  class="weui-btn weui-btn_plain-default" id="btn-custom-theme">确认发布</a>
         </div>
@@ -110,17 +113,17 @@
         </div>
     </div>
 </body>
-<input value="<?php echo md5(date('Ymd')."my_supply"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <input value="<?php echo md5(date('Ymd')."supply_cat"."tuchuinet");?>"	type="hidden" id="supply_cat"/>
 <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
 <input value="<?php echo md5(date('Ymd')."del_picture"."tuchuinet");?>"	type="hidden" id="checkInfoDelImg"/>
 <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
-<input value="<?php echo $_GET['supply_id'];?>"	type="hidden" id="supply_id"/>
+
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
  <script src="../Public/js/jquery-weui.min.js"></script>
 <script src="../Public/js/common.js"></script>
+  <script src="../Public/js/fastclick.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -256,20 +259,18 @@ $(function(){
       }
         //提交，最终验证。btn-custom-theme
         $("#btn-custom-theme").click(function() {
+           	 $.showLoading('正在添加');
+             setTimeout(function() {
+                 $.hideLoading();
+             }, 3000)
             var formData = new FormData($( "#supplyForm" )[0]);
-            formData.append('checkInfo',$( "#checkInfo").val());
-            formData.append('supply_id',$( "#supply_id").val());
             formData.append('id',sessionUserId);
-            formData.append('dotype','edit');
     		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
     			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
     			 $(document).scrollTop(0);
     			 return false;
     		 }
-            $.showLoading('正在添加');
-            setTimeout(function() {
-                $.hideLoading();
-            }, 3000)
+      
             $.ajax({
                 type: 'post',
                 url:HOST+'mobile.php?c=index&a=my_supply',
@@ -282,13 +283,13 @@ $(function(){
                     var message=eval('(' + result+ ')').message;
                     if (eval('(' + result+ ')').statusCode=='0'){
                         $.toast(message, "cancel");
-                        $(document).scrollTop(0);
+                        return false;
                     }
                     if (eval('(' + result+ ')').statusCode=='1'){
-                        $.toast(message);
+                        $.toast('操作成功');
                         setTimeout(function() {
-                            window.location.href = 'mySupply.php';
-                        }, 3000)
+                            //window.location.href = 'mySupply.php';
+                        }, 3000) 
                     }
 
                 }
@@ -322,6 +323,16 @@ $(function(){
             });
         }
     });
+});
+
+if ('addEventListener' in document) {
+	document.addEventListener('DOMContentLoaded', function() {
+		FastClick.attach(document.body);
+	}, false);
+}
+//如果你想使用jquery
+$(function() {
+	FastClick.attach(document.body);
 });
 </script>
 </html>

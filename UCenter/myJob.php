@@ -156,28 +156,27 @@ $(function(){
                <a  id="judgeMemberResumeType"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
             </div>
             <div class="box_bg"></div>
-
-        <div class="weui-cells">
 			<template v-if="dataNull==1">
-					<template v-for="item in listJob "><!--三层  -->
-						 		 <div class="weui-cell weui-cell_access" >
-									<div v-on:click="jump_url(item.id)" class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
-									<div class="weui-cell__ft" style="font-size: 0">
-										<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
-										<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
-									</div>
-						 			 <div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
-							  </div>
-					</template>
-			</template>
-			<template v-if="dataNull==2">
+                <div class="weui-cells">
+        					<template v-for="item in listJob "><!--三层  -->
+        						 		 <div class="weui-cell weui-cell_access" >
+        									<div v-on:click="jump_url(item.id)" class="weui-cell__bd" style="vertical-align:middle; font-size: 16px;">{{item.title}}</div>
+        									<div class="weui-cell__ft" style="font-size: 0">
+        										<span style="vertical-align:middle; font-size: 14px;">{{item.update_time|time}}</span>
+        										<span class="weui-badge weui-badge_dot" style="margin-left: 5px;margin-right: 5px;"></span>
+        									</div>
+        						 			 <div style="line-height:42px;"class="del-btn"><span onClick="confirmDelete({{item.id}});" >删除</span></div>
+        							  </div>
+        					</template>
+                </div>
+       	 </template>
+        	<template v-if="dataNull==2">
 				<div class="nodata">
 					<img src="../Public/img/no-info.png">
 					<div class="height20px"></div>
 					<p>暂时还没有职位信息！</p>
 				</div>
 			</template>
-        </div>
     </div><!--main-->
 </div><!--app-->
 </body>

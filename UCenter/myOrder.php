@@ -63,7 +63,7 @@
 											</div>
 											 <div class="button-sp-area float-right order-del clear">
 												 <a v-on:click="jump_url_to_delete(item.order_id,item.url)" class="weui-btn weui-btn_mini weui-btn_default">取消订单</a>
-												 <a v-on:click="jump_url_to_pay(item.order_id,item.url)"  class="weui-btn weui-btn_mini weui-btn_default button-pay">&nbsp;付款&nbsp;</a>
+												 <a v-on:click="jump_url_to_pay(item.order_id,item.url)"  class="weui-btn weui-btn_mini weui-btn_default button-pay">&nbsp;&nbsp;付款&nbsp;&nbsp;</a>
 											 </div>
 									</div><!--待付款结束-->
 							  </template>

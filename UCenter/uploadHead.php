@@ -148,5 +148,15 @@ function uploadImage() {
 			});
 	 
  }
+	
+	if ('addEventListener' in document) {
+		document.addEventListener('DOMContentLoaded', function() {
+			FastClick.attach(document.body);
+		}, false);
+	}
+	//如果你想使用jquery
+	$(function() {
+		FastClick.attach(document.body);
+	});
 </script>
 </html>

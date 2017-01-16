@@ -115,12 +115,10 @@
 	if(sessionUserId==null){
 		window.location.href='../Login/login.php';
 	}
-	$.toast("删除错误，请重试", "cancel");
 	getSupplyCollectNumber($('#sum_count').val(),sessionUserId);//获取统计合计
 	var demoApp = new Vue({
 		el: '#body_box',
 		data: {
-
 			demoData:'',
 			is_refresh:'0',
 			is_scroll:1,

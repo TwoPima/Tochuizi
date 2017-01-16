@@ -40,26 +40,43 @@ function getVipList(checkInfo){
 				}
 				if(result.statusCode==1){
 					var currentAreaId = $("#dpArea").find("option:selected").val();//从数据库中查询出来的
+					//有数据的时候去取值
+					$.each(result.data, function (index, obj) {
+						var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
+						$('#dpProvince').append(proviceHtml);
+					});
 					if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
 						//定位
 						var data=JSON.parse(sessionStorage.getItem('key_area'));
 						if(data==null||data==undefined){
 							var cityHtml='<option  value="" selected="selected">请选择</option>';
 							var provinceHtml='<option  value="" selected="selected">请选择</option>';
-							
 						}else{
-							var cityHtml='<option selected="selected" value="'+data.city.id+'">'+data.city.name+'</option>';
-							var provinceHtml='<option selected="selected" value="'+data.province.id+'">'+data.provic.name+'</option>';
+							  loadAreasCity($("#checkInfoArea").val(), data.province.id); //加载市
+							  loadAreasDistrict($("#checkInfoArea").val(), data.city.id); //加载区
+							  $("#dpProvince").find("option").each(function(){
+								  	var optionId = $(this).val();     
+							         if( optionId == data.province.id ) {
+							        	 $("#dpProvince").val(optionId);
+							         }else {
+										var provinceHtml='<option selected="selected" value="'+data.province.id+'">'+data.province.name+'</option>';
+							         }
+							  });
+							  $("#dpCity").find("option").each(function(){
+								  var optionCityId = $(this).val();     
+								  if( optionCityId == data.city.id ) {
+									  $("#dpProvince").val(optionCityId);
+								  }else {
+									  var cityHtml='<option selected="selected" value="'+data.city.id+'">'+data.city.name+'</option>';
+								  }
+							  });
+							  $("#dpCity").fadeIn('show');
+							  $("#dpArea").fadeIn("slow");
 						}
-						
 						$('#dpProvince').append(provinceHtml);
 						$('#dpCity').append(cityHtml);
 					}
-					//有数据的时候去取值
-					$.each(result.data, function (index, obj) {
-						var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
-						$('#dpProvince').append(proviceHtml);
-					});
+				
 				}
 				
 			}
@@ -74,7 +91,7 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
-				$('#dpCity').append("<option value='' selected='selected'>请选择</option>");
+				//$('#dpCity').append("<option value='' selected='selected'>请选择</option>");
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpCity').append(proviceHtml);
@@ -735,7 +752,7 @@ function getSupplyCollectNumber(checkInfo,id){
 删除操作
  id： 用户id
  list_id：列表id
- model_id：供求信息：1  招聘信息：2   求职信息：3  取消订单4
+ model_id：供求信息：1  招聘信息：2   求职信息：3  取消订单4 5收藏
  model:a的值
  */
 function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){

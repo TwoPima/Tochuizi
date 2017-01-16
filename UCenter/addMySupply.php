@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="../Public/css/common.css"/>
     <link rel="stylesheet" href="../Public/css/center.css"/>
     <link rel="stylesheet" href="../Public/css/addmysupply.css"/>
-    <style>
-
-    </style>
 </head>
 <body>
 <div id="addmysupply_form">
@@ -47,9 +44,9 @@
                 </div>
             </div>
             <div class="main_box">
-                          <div class="weui_cell">
+                          <div class="weui_cell weui-cells_form">
                             <div class="weui_cell_hd"><label class="weui_label font14px">选择分类</label></div>
-                            <div class="weui_cell_bd weui_cell_primary font14px">
+                            <div class="weui_cell_bd weui_cell_primary font14px custom-select">
                               <select class="supplyCate font14px" name="firstMenu" id="firstMenu">
                               </select>
                               <select class="supplyCate font14px" name="subMenu" id="subMenu">
@@ -58,9 +55,9 @@
                               </select>
                             </div>
                           </div>
-                    <div class="weui_cell">
+                    <div class="weui_cell weui-cells_form">
                             <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-                            <div class="weui_cell_bd weui_cell_primary font14px">
+                            <div class="weui_cell_bd weui_cell_primary font14px custom-select">
                               <select class="area" name="dpProvince" id="dpProvince">
                               </select>
                               <select class="area" name="dpCity" id="dpCity">
@@ -69,13 +66,11 @@
                               </select>
                             </div>
                           </div>
-                <div class="weui-cells weui-cells_form">
-                    <div class="weui-cell">
+                    <div class="weui-cell textarea-cell">
                         <div class="weui-cell__bd">
                             <textarea name="desc" id="desc" class="weui-textarea" placeholder="描述备注" rows="3"></textarea>
                         </div>
                     </div>
-                </div>
             </div>
             <div class="main_box jiage">
                 <div class="weui-cells">
@@ -150,6 +145,7 @@ $(function(){
 	//给二级绑定事件，触发事件后填充三级的数据 
 	jQuery(dp2).bind("change keyup", function () { 
 		var subID = dp2.prop("value"); 
+		  $("#thereMenu").empty();
 		loadSupplyThereCate($("#supply_cat").val(), subID); 
 		dp3.fadeIn("slow"); 
 	});

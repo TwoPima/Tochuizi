@@ -56,8 +56,89 @@ body{
 	padding-bottom:20px;
 	min-height:480px;overflow-y:auto;
 }
- /*手机端a select会有阴影*/
-select,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+/* --------------  */
+/*  custom-select  */
+/* --------------  */
+.custom-select {
+  position: relative;
+}
+.custom-select select {
+  margin:0;
+  background:none;
+  border: 1px solid transparent;
+  outline: none;
+	width: 30%; 
+  /* Prefixed box-sizing rules necessary for older browsers */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Remove select styling */
+  appearance: none;
+  -webkit-appearance: none;
+  /* Font size must the 16px or larger to prevent iOS page zoom on focus */
+  /* General select styles: change as needed */
+  font-family: helvetica, sans-serif;
+  color: #444;
+/*   padding: .6em 1.9em .5em .8em; */
+  line-height:1.3;
+}
+.custom-select::after {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  top: 50%;
+  right: 8px;
+  margin-top:-4px;
+  border:8px solid #929497;
+  border-width: 8px 5px 8px;
+  border-color: #929497 transparent transparent transparent;
+  z-index: 2;
+  pointer-events:none;
+}
+/* Hover style */
+.custom-select:hover {
+  /* border:1px solid #888; */
+}
+/* Focus style */
+.custom-select select:focus {
+  outline:none;
+  box-shadow: 0 0 1px 3px rgba(180,222,250, 1);
+  background-color:transparent;
+  color: #222;
+  border:1px solid #aaa;
+}
+/* Set options to normal weight */
+.custom-select option {
+  font-weight:normal;
+}
+x:-o-prefocus, .custom-select::after {
+  display:none;
+}    
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+  .custom-select select::-ms-expand {
+    display: none;
+  }
+  .custom-select select:focus::-ms-value {
+    background: transparent;
+    color: #222;
+  }
+}  
+@-moz-document url-prefix() { 
+  .custom-select {
+    overflow: hidden;
+  }
+  .custom-select select {
+    width: 30%; 
+    width: -moz-calc(20% + 3em);
+    width: calc(30% + em);
+  }
+  
+}
+.custom-select select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
 /* 无信息显示 */
 .noinfo {
     margin-top: 50px;
@@ -105,7 +186,7 @@ select,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
  	 background: #ffffff;
  }
 /*tab 选中边框  */
-.weui_navbar_item .weui_bar_item_on ,.action{
+.weui_bar_item_on ,.action{
    	  background-color: #ffffff; 
 	border-bottom:5px solid #E54E1F;
 }
@@ -333,6 +414,9 @@ select,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
 .area option{
 	
 }
+.textarea-cell:before {
+    right: 25px;
+}
 #dpCity,#dpArea{ display:none; position:relative;} 
 #subMenu,#thereMenu{ display:none; position:relative;} 
 /* 地址管理 结束*/
@@ -400,12 +484,29 @@ select,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
 	margin-left:13px;
 }
 .button-pay{
-	border:1px solid red;
 	color:red;
 	 border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     overflow: hidden;
 	background-color:#ffffff;
+}
+.button-pay:after {
+    content: " ";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+	border:1px solid red;
+	 -webkit-tap-highlight-color: rgba(0,0,0,0);
+	   overflow: hidden;
+    /* border: 1px solid rgba(0,0,0,.2); */
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    border-radius: 10px;
 }
 #submitOrder .order-content .weui_cell_bd{
 	color:#555;

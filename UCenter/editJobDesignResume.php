@@ -137,7 +137,7 @@
                 </div>
                 	<div class="weui_cell weui-cell_select weui-cell_select-after">
 					    <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-					    <div class="weui_cell_bd weui_cell_primary font14px">
+					    <div class="weui_cell_bd weui_cell_primary font14px custom-select">
 					      <select class="area" name="dpProvince" id="dpProvince">
 					      </select>
 					      <select class="area" name="dpCity" id="dpCity">

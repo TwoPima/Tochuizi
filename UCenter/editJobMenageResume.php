@@ -118,6 +118,15 @@
                         </select>
                     </div>
                 </div>
+                  <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label for="" class="weui-label">工作类别</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="cate_id"  id="job_type" >
+                        </select>
+                    </div>
+                </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label for="" class="weui-label">队伍人数</label>
@@ -129,7 +138,7 @@
                 </div>
             <div class="weui_cell weui-cell_select weui-cell_select-after">
                 <div class="weui_cell_hd"><label class="weui_label font14px">地区</label></div>
-                <div class="weui_cell_bd weui_cell_primary font14px">
+                <div class="weui_cell_bd weui_cell_primary font14px custom-select">
                     <select class="area" name="dpProvince" id="dpProvince">
                     </select>
                     <select class="area" name="dpCity" id="dpCity">
@@ -253,6 +262,7 @@ $(function(){
 	getTroopsAptitude($("#checkInfoZidian").val());//队伍资质
 	getTroopsCount($("#checkInfoZidian").val());//队伍人数
 	getZhuanYeType($("#checkInfoZidian").val());//专业类型
+	JobType($("#checkInfoJobType").val(),$.session.get('idType'));//工作类别
     function selectMyResumeInfo(id,checkInfo){	 //查询
         var url =HOST+'mobile.php?c=index&a=my_resume';
         $.ajax({
@@ -322,6 +332,7 @@ $(function(){
 //点击input 转换成预览图
     $('#image_url').change(function(event) {
         var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
+        imgPathArr=[];
         if (files && files.length > 0) {
             file = files[0];// 获取目前上传的文件
             $(files).each(function(index, obj) {
@@ -423,6 +434,7 @@ $(function(){
         var education=$('#education option:selected').val();
         var job_year=$('#job_year option:selected').val();
         var dui_type=$('#dui_type option:selected').val();
+        var cate_id=$('#job_type option:selected').val();
         var area=$('#dpArea option:selected').val();
         var zhuan_type=$('#zhuan_type option:selected').val();
         var peo_count=$('#peo_count option:selected').val();
@@ -447,7 +459,7 @@ $(function(){
             type: 'post',
             url: url,
             data: {
-                area:area,
+                area:area,cate_id:cate_id,
                 mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,id_type:id_type,
                 dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
                 sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type,email:$("#email").val()},

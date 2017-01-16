@@ -144,7 +144,7 @@ $(function(){
 					<article class="weui-article"><section><p id="evaluate-content">{{item.desc}}</p>
 							</section><section>
 							<p id="description">描述评级：
-								<span class="description-raty"><!-- data-score="{{item.miao_star}}"-->
+								<span class="description-raty">
 									<template v-for = "n in item.miao_star">
 										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
 									</template>

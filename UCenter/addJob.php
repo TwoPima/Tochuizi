@@ -92,10 +92,12 @@ $(function(){
 		 }).get().join(',');//复选框处理
 		 if(!(/^1(3|4|5|7|8)\d{9}$/.test($("#mobile").val()))){
 			 $.toptip('手机号码有误，请重填！', 2000, 'warning');
+			 $(document).scrollTop(0);
 			 return false;
 		 }
 		 if( $("#email").val()=="" || ($("#email").val()!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test($("#email").val()) ) ){
            $.toptip('邮箱地址有误，请重填！', 2000, 'warning');
+           $(document).scrollTop(0);
            return false;
          }
 		 $.showLoading('正在添加');
@@ -115,9 +117,10 @@ $(function(){
                 var message=result.message;
                 if (result.statusCode=='0'){
                     $.toptip(message,2000, 'error');
+                    $(document).scrollTop(0);
                 }
                 if (result.statusCode=='1'){
-                  	 $.showLoading('添加成功');
+              	  $.toast('操作成功');
           			setTimeout(function() {
                         window.location.href='myJob.php';
               		}, 3000)
@@ -200,8 +203,8 @@ $(function(){
 
             <div class="push_box push_daiyu">
                 <div class="weui_cell weui-cell_select weui-cell_select-after">
-                    <div class="weui_cell_hd"><label class="weui_label font14px">期望工作地</label></div>
-                    <div class="weui_cell_bd weui_cell_primary font14px">
+                    <div class="weui_cell_hd"><label class="weui_label font14px ">期望工作地</label></div>
+                    <div class="weui_cell_bd weui_cell_primary font14px custom-select">
                         <select class="area" name="dpProvince" id="dpProvince">
                         </select>
                         <select class="area" name="dpCity" id="dpCity">
@@ -219,11 +222,14 @@ $(function(){
                         </select>
                     </div>
                 </div>
-                <div class="height1px"></div>
-                <div class="push_checkbox" id="benefit"><!--多选框-->
-                </div>
-            </div>
-
+              
+                  <div class="weui-cell textarea-cell">
+                        <div class="weui-cell__bd">
+                           <div class="push_checkbox" id="benefit"><!--多选框-->
+              		  		</div>
+                        </div>
+                  </div>
+                    </div>
             <div class="push_box">
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
