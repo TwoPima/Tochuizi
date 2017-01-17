@@ -118,6 +118,16 @@ $(function(){
         		$.toptip('手机号密码均不能为空！', 2000, 'warning');
         	    return false; 
         	 } 
+           //验证密码
+          	 if (password.length > 16 || password.length < 6)
+            	  {
+            	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
+            	    return false;
+            	  }
+           if($("#repassword").val()!== password){
+        	   $.toptip('前后密码不一致！', 2000, 'warning');
+        	    return false; 
+        	 } 
             var hasChk = $('#weuiAgree').is(':checked');
             if(!hasChk){
           	  $.toptip('必须同意本网站的注册协议！', 2000, 'warning');
@@ -133,13 +143,16 @@ $(function(){
 					if (result.statusCode=='0'){
 						$.toptip(tips,2000, 'error');
 						return false;
-					}else{
+					}
+					if (result.statusCode=='1'){
 						var userId = result.data.id;//将数据中用户信息的ID赋值给变量 
 						var mobileSession = result.data.mobile;//将数据中用户信息的ID赋值给变量 
 						$.session.set('userId', userId); 
 						$.session.set('mobileSession', mobileSession); 
 						$.toptip(tips,2000, 'success');
-						window.location.href='login.php';
+						 setTimeout(function() {
+							 window.location.href='login.php';
+						 }, 3000)
 					} 
 				}
 			});

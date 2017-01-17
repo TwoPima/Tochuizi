@@ -14,7 +14,7 @@
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height()*60/100; //浏览器当前窗口可视区域高度
+		var height=$(window).height()*80/100; //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>

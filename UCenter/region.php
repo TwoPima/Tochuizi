@@ -54,26 +54,6 @@
 				//如果数据不为空
 				if(res.statusCode==1) {
 					that.$set('dataNull', 1);
-					console.log(res.data);
-					console.log(res.data.area);
-					$.ajax({
-						type: 'post',
-						url: HOST+'mobile.php?c=allcategory&a=find_category',
-						data: {checkInfo:$("#find_category").val(),moudle:'7',cate_id:res.data.area},
-						dataType: 'json',
-						//asyn:false,
-						success: function (result) {
-							if (result.statusCode=='0'){
-								//没有地址
-							}
-							if (result.statusCode=='1'){
-								dataJson=eval('(' + result.data+')');
-								myAddress=dataJson.top.name+dataJson.two.name+dataJson.name;
-								that.$set('listData', myAddress);  //把数据传给页面
-							}
-						}
-
-					});
 					that.$set('listData', res.data);  //把数据传给页面
 				}
 			});
@@ -84,11 +64,7 @@
 			}
 		}
 	});
-	Vue.filter('detailAddress', function (value) {
-		var a;
-		return a;
-	});
-	});
+});
  function confirmDelete(id,name){
 	 $.confirm({
 		  title: '确认删除',
@@ -110,12 +86,11 @@
  			dataType: 'json',
  			success: function (result) {
  				var message=result.message;
- 				var tips=result.message;
  				if (result.statusCode=='0'){
- 					$.toast("删除错误，请重试", "cancel");
+ 					$.toast(message, "cancel");
  				}
  				if (result.statusCode=='1'){
- 					$.toast("删除成功");
+ 					$.toast(message);
  					 setTimeout(function(){
  		  				 location.reload();	
  		  			},1500); 
@@ -143,14 +118,14 @@
 				<template v-if="dataNull==1">
 					<template v-for="item in listData ">
 						<div class="weui-cell">
-							<div class="weui-cell__bd region-main">
+							<div class="weui-cell__bd region-main" v-on:click="jump_url(item.id)">
 								<p class="region-title">
 									<span id="name">{{item.name}}</span>
 									<span id="tel">{{item.mobile}}</span>
 								</p>
-								<p class="region-content clear">{{item.myAddress}}{{item.address}}</p>
+								<p class="region-content clear">{{item.areaname}}{{item.address}}</p>
 							</div>
-							<div class="weui-cell__bd" v-on:click="jump_url(item.id)">
+							<div class="weui-cell__bd" >
 								<a >
 									<p class="region-right">
 										<img alt="" src="../Public/img/edit.png">

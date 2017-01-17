@@ -265,6 +265,12 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
+			var count_li = $("#uploaderFiles").children().length;
+			if(count_li >= '2'){
+				$("#uploaderInput").css('display','none');
+				$.toast("只能上传一张照片！", "cancel");
+				return false;
+			}
 			var URL = window.URL || window.webkitURL;
 			var imgURL = URL.createObjectURL(file);
 			var html = '';

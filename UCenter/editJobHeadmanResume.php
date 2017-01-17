@@ -203,7 +203,8 @@
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
 <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
 <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
-<input value="<?php if(empty($_GET['id_type'])){ echo '';}else{ $_GET['id_type'];}?> "	type="hidden" id="id_type"/>
+    <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
+<input value="<?php if(empty($_GET['id_type'])){ echo '';}else{ echo $_GET['id_type'];}?> "	type="hidden" id="id_type"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -261,7 +262,7 @@ $(function(){
 	getTroopsAptitude($("#checkInfoZidian").val());//队伍资质
 	getTroopsCount($("#checkInfoZidian").val());//队伍人数
 	getZhuanYeType($("#checkInfoZidian").val());//专业类型
-	JobType($("#checkInfoJobType").val(),$.session.get('idType'));//工作类别
+	JobType($("#checkInfoJobType").val(),3);//工作类别
     function selectMyResumeInfo(id,checkInfo){	 //查询
         var url =HOST+'mobile.php?c=index&a=my_resume';
         $.ajax({
@@ -270,10 +271,7 @@ $(function(){
             data: {id:sessionUserId,checkInfo:checkInfo,dotype:'gain'},
             dataType: 'json',
             success: function (result) {
-                var message=result.message;
-                if (result.statusCode==='0'){
-                    $.toptip(message,2000, 'error');
-                    window.location.href='./Login/login.php';
+                if (result.statusCode=='0'){
                 }else{
                     $('#name').attr("value",result.data.name);
                     $('#zu').attr("value",result.data.zu);

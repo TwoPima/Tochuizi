@@ -66,6 +66,19 @@
 			Vue.filter('time', function (value) {
 				return goodTime(value);
 			});
+			/*截取字符串*/
+			Vue.filter('replaceString', function (value) {
+				if(value==null){
+					text='';
+				}else{
+					if(value.length<14){
+						text=value;
+					}else{
+						var text=value.substring(0,14)+"...";
+					}
+				}
+				return text;
+			});
 			/*时间处理*/
 			function goodTime(str){
 				var now = Date.parse( new Date() ).toString();
@@ -127,7 +140,7 @@
 					<div class="weui-cells">
 					<template v-for="item in listJob "><!--三层  -->
 						<div class="weui-cell weui-cell_access"  >
-							<div v-on:click="jump_url(item.id)"  class="weui-cell__bd " style="color: #666;" >{{item.title}}</div>
+							<div v-on:click="jump_url(item.id)"  class="weui-cell__bd " style="color: #666;" >{{item.title|replaceString}}</div>
 							<div class="weui-cell__ft font14px" >
 								<span style="vertical-align:middle; font-size: 13px;margin-right: 13px;">{{item.update_time|time}}</span>
 							</div>

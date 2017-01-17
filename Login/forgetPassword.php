@@ -25,6 +25,7 @@
                 </div>
 		</div>
 			<div class="weui_cells weui_cells_form login-form clear">
+			 <form action="">
 				  <div class="weui_cell">
 				    <div class="weui_cell_hd"><img src="../Public/img/login/mobile.png"></div>
 				    <div class="weui_cell_bd weui_cell_primary">
@@ -54,10 +55,11 @@
 				  </div>
 				</div>
 					<div class="height20px"></div> 
-			  <a href="" id="btn-custom-theme" class="weui-btn weui_btn_primary ">找回密码</a> 
+					  <a id="btn-custom-theme" class="weui-btn weui_btn_primary ">找回密码</a> 
 			  </div>
+			</form>
     </body>
-<input value="<?php echo md5(date('Ymd')."login"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
+<input value="<?php echo md5(date('Ymd')."find_password"."tuchuinet");?>"	type="hidden" id="find_password"/>  
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
@@ -96,10 +98,20 @@ $(function(){
         	var mobile = $("#mobile").val();
         	var password = $("#password").val();
         	var code = $("#code").val();
-        	var checkInfo = $("#checkInfo").val();
-        	var url =HOST+'mobile.php?c=index&a=register';
+        	var checkInfo = $("#find_password").val();
+        	var url =HOST+'mobile.php?c=index&a=find_password';
            if(mobile==""|| password==""){//判断两个均不为空（其他判断规则在其输入时已经判断） 
         		$.toptip('手机号密码均不能为空！', 2000, 'warning');
+        	    return false; 
+        	 } 
+           //验证密码
+      		 if (password.length > 16 || password.length < 6)
+        	  {
+        	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
+        	    return false;
+        	  }
+           if($("#repassword").val()!== password){
+        	   $.toptip('前后密码不一致！', 2000, 'warning');
         	    return false; 
         	 } 
 			 $.ajax({
@@ -109,12 +121,14 @@ $(function(){
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
-					var tips=result.message;
 					if (result.statusCode=='0'){
-						$.toptip(tips,2000, 'error');
-					}else{
-						$.toptip(tips,2000, 'success');
-						window.location.href='login.php';
+						$.toptip(message,2000, 'error');
+					}
+					if (result.statusCode=='1'){
+						$.toptip(message,2000, 'success');
+						 setTimeout(function() {
+							window.location.href='login.php';
+						 }, 3000)
 					} 
 				}
 			});

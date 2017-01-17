@@ -46,12 +46,14 @@ function getVipList(checkInfo){
 						$('#dpProvince').append(proviceHtml);
 					});
 					if (typeof(currentAreaId)=="undefined"||currentAreaId==null){
-						//定位
+						
 						var data=JSON.parse(sessionStorage.getItem('key_area'));
 						if(data==null||data==undefined){
+							//定位失败
 							var cityHtml='<option  value="" selected="selected">请选择</option>';
 							var provinceHtml='<option  value="" selected="selected">请选择</option>';
 						}else{
+							//定位成功 有数据
 							  loadAreasCity($("#checkInfoArea").val(), data.province.id); //加载市
 							  loadAreasDistrict($("#checkInfoArea").val(), data.city.id); //加载区
 							  $("#dpProvince").find("option").each(function(){
@@ -108,7 +110,6 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
-				$('#dpArea').append("<option value='' selected='selected'>请选择</option>");
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpArea').append(proviceHtml);
@@ -792,6 +793,8 @@ function  initialieSelectValue(checkInfo,cate_id,moudle){
 				dataJson=eval('(' + result.data+')');
 				//地区
 				if (moudle=='7'){
+					$("#dpArea").empty();
+					$("#dpCity").empty();//清除定位信息
 					var proviceHtml='<option selected="selected" value="'+dataJson.top.id+'">'+dataJson.top.name+'</option>';
 					var cityHtml='<option selected="selected" value="'+dataJson.two.id+'">'+dataJson.two.name+'</option>';
 					var areaHtml='<option selected="selected" value="'+dataJson.id+'">'+dataJson.name+'</option>';

@@ -13,7 +13,7 @@
 <script src="../Public/js/jquery-weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var height=$(window).height()*60/100; //浏览器当前窗口可视区域高度
+		var height=$(window).height(); //浏览器当前窗口可视区域高度
 		$(".zck").css("height",height);
 		});
 </script>
@@ -48,7 +48,12 @@
 			<a href="addBusinessInfo.php" id="btn-custom-theme" class="weui-btn">下一步</a>
 		</div>
 		<div class="height20px"></div>
-		<div class="height20px"></div>	<div class="height20px"></div>
+		<div class="height20px"></div>	
+		<div class="height20px"></div>
+		<div class="height20px"></div>
+		<div class="height20px"></div>
+		<div class="height20px"></div>
+		<div class="height20px"></div>
 		<div class="height20px"></div>
 			</article>
 	</div>

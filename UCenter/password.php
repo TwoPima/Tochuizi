@@ -91,6 +91,16 @@ $(function(){
        		$.toptip('新旧密码不能为空！', 2000, 'warning');
        	    return false; 
        	 }
+        //验证密码
+		 if (new_password.length > 16 || new_password.length < 6)
+  	  {
+  	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
+  	    return false;
+  	  }
+         if($("#repassword").val()!== password){
+      	   $.toptip('前后密码不一致！', 2000, 'warning');
+      	    return false; 
+      	 } 
 		 $.ajax({
 			type: 'post',
 			url: url,

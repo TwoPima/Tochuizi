@@ -59,8 +59,8 @@ $(function(){
     jobValueTime($("#checkInfoZidian").val());//有效期
     jobDayWages($("#checkInfoZidian").val());//薪资要求
     getBenefit($("#checkInfoZidian").val());//福利
-    judgeJobType(memberType,1);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
-    JobType($("#checkInfoJobType").val(),memberType);//提取具体类别信息
+    judgeJobType(memberType,2);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
+    selectDefault();//取默认值
     //文本框失去焦点后
    $('form :input').blur(function(){
         //验证手机
@@ -98,31 +98,35 @@ $(function(){
                 }else{
                     //$.toptip(message,2000, 'success');
                     $('#title').attr("value",result.data.title);
-                    $('#mobile').attr("value",result.data.mobile);
                     $('#desc').attr("value",result.data.bei);
                     $('#email').attr("value",result.data.email);
+                    $('#mobile').attr("value",result.data.mobile);
                     //下拉框
                    /* if(eval('(' + result.data.job_year+ ')')!=null){
                         $('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>');
                     }*/
-                    if(eval('(' + result.data.valuetime+ ')')!=null){
+                    if(eval('(' + result.data.valuetime+ ')')!==null){
                         $('#education').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
                     }
                     var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox 的值
-                     $.each(benefit, function (index, obj) {
-                    	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
-                    		 if(obj.id==obj1.value){
-                        		 $("#"+obj1.id).prop('checked','true');
-							}
-                    	 });
-					}); 
-                    if(eval('(' + result.data.wages+ ')')!=null){
+                    if(benefit!==null){
+                         $.each(benefit, function (index, obj) {
+                        	 console.log(benefit);
+                        	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
+                            	 console.log(obj.id);
+                            	 console.log(obj1.value);
+                        		 if(obj.id == obj1.value){
+                        			 console.log(obj.id);
+                                	 console.log(obj1.value);
+                            			 $("#"+obj1.id).prop('checked','true');
+    								}
+                        	 });
+    					}); 
+                    }
+                    if(eval('(' + result.data.wages+ ')')!==null){
                         $('#wage').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
                     }
-                    if(eval('(' + result.data.job_type+ ')')!=null){
-                        $('#job_type').append('<option value="'+result.data.cate_id.cate_id+'" selected="selected">'+result.data.cate_id.cate_name+'</option>');
-                    }
-                    if(eval('(' + result.data.area+')')!=null){
+                    if(eval('(' + result.data.area+')')!==null){
                         //用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
                         initialieSelectValue($("#find_category").val(),eval('(' + result.data.area+')'),7);
                         dpCity.fadeIn("slow");
@@ -133,19 +137,33 @@ $(function(){
             }
         });
     }
+   //取默认值
+   function selectDefault(){
+       $.ajax({
+           type: 'post',
+           url: HOST+'mobile.php?c=index&a=my_recruit',
+           data: {
+              recruit_id:recruit_id,checkInfo:$("#checkInfo").val(),id:sessionUserId
+           },
+           dataType: 'json',
+           success: function (result) {
+               if (result.statusCode=='1'){
+                   $('#job_type').attr("value",result.data.job_type);
+               }
+           }
+       });
+   }
     //提交，最终验证。
     $("#btn-custom-theme").click(function() {
-        
         var title = $("#title").val();
         var bei = $("#desc").val();
         var email = $("#email").val();
-        var cate_id=$('#job_type option:selected').val();
         var valuetime=$('#valuetime option:selected').val();
         var wages=$('#wages option:selected').val();
         var area=$('#dpArea option:selected').val();
         var url =HOST+'mobile.php?c=index&a=my_recruit';
         if($("#mobile").val()==""|| title==""){
-            $.toptip('手机号标题均不能为空！', 2000, 'warning');
+            $.toptip('手机号均标题不能为空！', 2000, 'warning');
             $(document).scrollTop(0);
             return false;
         }
@@ -171,7 +189,6 @@ $(function(){
             url: url,
             data: {
                 mobile:$("#mobile").val(),id:sessionUserId,recruit_id:recruit_id,checkInfo:$("#checkInfo").val(),
-                cate_id:cate_id,
                 dotype:'edit',title:title,email:email,area:area,wages:wages,valuetime:valuetime,benefit:benefit,
                 bei:bei
             },
@@ -234,31 +251,28 @@ $(function(){
                             <input class="weui-input"  name="email"  id="email" type="email" >
                         </div>
                     </div>
-                      <div class="weui-cell weui-cell_select weui-cell_select-after" id="skillCate">
+                      <div class="weui-cell"  id="skillCate">
                             <div class="weui-cell__hd">
                                 <label for="" class="weui-label">工种</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <select class="weui-select" name="job_type"  id="job_type" >
-                                </select>
+                               <input class="weui-input"  name="job_type"  readonly="readonly" id="job_type"  >
                             </div>
                         </div>
-                    <div class="weui-cell weui-cell_select weui-cell_select-after" id="designCate" >
-                            <div class="weui-cell__hd">
-                                <label for="" class="weui-label">设计特长</label>
-                            </div>
-                            <div class="weui-cell__bd">
-                                <select class="weui-select" name="job_type"  id="job_type" >
-                                </select>
-                            </div>
-                        </div>
-                    <div class="weui-cell weui-cell_select weui-cell_select-after"  id="professionCate">
+                      <div class="weui-cell" id="professionCate">
                             <div class="weui-cell__hd">
                                 <label for="" class="weui-label">专业类别</label>
                             </div>
                             <div class="weui-cell__bd">
-                                <select class="weui-select" name="job_type"  id="job_type" >
-                                </select>
+                               <input class="weui-input"  name="job_type"  readonly="readonly" id="job_type" >
+                            </div>
+                        </div>
+                      <div class="weui-cell" id="designCate">
+                            <div class="weui-cell__hd">
+                                <label for="" class="weui-label">设计特长</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                               <input class="weui-input"  name="job_type"  readonly="readonly" id="job_type">
                             </div>
                         </div>
                 </div>

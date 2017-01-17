@@ -43,7 +43,6 @@ $(function(){
 			var that = this;
 			that.$http.get(HOST+'mobile.php?c=index&a=comment_list',that.url).then(function (response) {
 				var res = response.data; //取出的数据
-				console.log(res);
 				//如果数据为空
 				if (res.statusCode==0){
 					that.$set('dataNull', 2);
@@ -77,7 +76,11 @@ $(function(){
 		if(value==null){
 			text='';
 		}else{
-			var text=value.substring(0,14)+"...";
+			if(value.length<14){
+				text=value;
+			}else{
+				var text=value.substring(0,14)+"...";
+			}
 		}
 		return text;
 	});
@@ -136,7 +139,7 @@ $(function(){
 				<template v-for="item in listData "><!--三层  -->
 					<div class="weui-panel">
 					<a class="weui-cell weui-cell_access clear"  v-on:click="jump_url(item.goods_id)">
-						<div class="weui-cell__bd"><p id="company_name">{{item.goods_name|replaceString}} <span id="price" class="red">{{item.price}}元</span></p></div>
+						<div class="weui-cell__bd"><p id="company_name">{{item.goods_name|14|replaceString}} <span id="price" class="red">{{item.price}}元</span></p></div>
 						<div class="weui-cell__ft"></div>
 					</a>
 					<div class="height1px"></div>
@@ -185,19 +188,6 @@ $(function(){
 					</div>
 				</template>
 			</template>
-					<!--	<p id="description">描述评级：
-							<span class="description-raty" data-score="3">
-								<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="bad">&nbsp;
-								<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="2" title="poor">&nbsp;
-								<img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="3" title="regular">&nbsp;
-								<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="4" title="good">&nbsp;
-								<img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="5" title="gorgeous">
-								<input type="hidden" name="score" value="3"></span>
-							</span>
-						</p>
-						<p id="logistic">物流评级：<span class="logistic-raty" data-score="4" ></span></p>
-						<p id="server">服务评级：<span class="server-raty" data-score="{{item.fuwu_star}}"></span></p> -->
-
             </div>
         </div><!--main-->
     </div><!--app-->

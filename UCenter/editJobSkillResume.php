@@ -186,7 +186,8 @@
 <!--分类id（技工：1，设计师：2，组长：3，管理人：4）  -->
 <input value="<?php echo md5(date('Ymd')."zidian"."tuchuinet");?>"	type="hidden" id="checkInfoZidian"/>
 <input value="<?php echo md5(date('Ymd')."find_category"."tuchuinet");?>"	type="hidden" id="find_category"/>
-<input value="<?php if(empty($_GET['id_type'])){ echo '';}else{ $_GET['id_type'];}?> "	type="hidden" id="id_type"/>
+    <input value="<?php echo md5(date('Ymd')."get_area"."tuchuinet");?>"	type="hidden" id="checkInfoArea"/>
+<input value="<?php if(empty($_GET['id_type'])){ echo '';}else{ echo $_GET['id_type'];}?> "	type="hidden" id="id_type"/>
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -242,7 +243,7 @@ $(function(){
 	getEduction($("#checkInfoZidian").val());//学历
 	getJobYear($("#checkInfoZidian").val());//工作年限
 	jobDayWages($("#checkInfoZidian").val());//薪资
-	JobType($("#checkInfoJobType").val(),$.session.get('idType'));//工种类别
+	JobType($("#checkInfoJobType").val(),1);//工种类别
     function selectMyResumeInfo(id,checkInfo){	 //查询
         var url =HOST+'mobile.php?c=index&a=my_resume';
         $.ajax({
@@ -251,10 +252,7 @@ $(function(){
             data: {id:sessionUserId,checkInfo:checkInfo,dotype:'gain'},
             dataType: 'json',
             success: function (result) {
-                var message=result.message;
-                if (result.statusCode==='0'){
-                    $.toptip(message,2000, 'error');
-                    window.location.href='./Login/login.php';
+                if (result.statusCode=='0'){
                 }else{
                     $('#name').attr("value",result.data.name);
                     $('#zu').attr("value",result.data.zu);
@@ -406,6 +404,9 @@ $(function(){
         var id_type = $("#id_type").val();
         if (id_type==null){
             id_type='';
+            dotype="edit";
+        }else{
+        	dotype='add';
         }
         var area=$('#dpArea option:selected').val();
         var mobile = $("#mobile").val();
@@ -415,6 +416,7 @@ $(function(){
         var birthday = $("#birthday").val();
         var cate_id=$('#job_type option:selected').val();
         var education=$('#education option:selected').val();
+        var wages=$('#wages option:selected').val();
         var job_year = $("#job_year").val();
         var checkInfo = $("#checkInfo").val();
         var url =HOST+'mobile.php?c=index&a=my_resume';
@@ -437,7 +439,7 @@ $(function(){
             url: url,
             data: {
                 mobile:mobile,cate_id:cate_id,zu:zu,education:education,job_year:job_year,id_type:id_type,
-                id:sessionUserId,dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,
+                id:sessionUserId,dotype:dotype,desc:desc,home:home,birthday:birthday,name:name,wages:wages,
                 checkInfo:checkInfo,sex:sex,email:email,area,area
             },
             dataType: 'json',

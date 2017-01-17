@@ -107,10 +107,11 @@
 						$('#zu').attr("value",result.data.zu);
 						$('#mobile').attr("value",result.data.mobile);
 						$('#address').attr("value",result.data.address);
+						$('#licence').attr("value",result.data.licence);
 						$('#desc').html(result.data.desc);
 						if(eval('(' + result.data.status+ ')')=='1'){
 							//正在审核
-							getTips('您的资料正在审核中，大概2个工作日内回复！');
+							getTipsLong('您的资料正在审核中，大概2个工作日内回复！');
 							$("#btn-custom-theme").css("background-color","#696562").attr("data","1");
 						}
 						if(eval('(' + result.data.status+ ')')=='2'){
@@ -335,6 +336,12 @@ $(function(){
 		var files = event.target.files, file;	// 根据这个 <input> 获取文件的 HTML5 js 对象
 		if (files && files.length > 0) {
 			file = files[0];// 获取目前上传的文件
+			var count_li = $("#uploaderFiles").children().length;
+			if(count_li >= '2'){
+				$("#uploaderInput").css('display','none');
+				$.toast("只能上传一张照片！", "cancel");
+				return false;
+			}
 			/*if(file.size > 1024 * 1024 * 2) {
 				alert('图片大小不能超过 2MB!');
 				return false;
@@ -481,6 +488,10 @@ function getTips(message){
 	setTimeout(function () {
 		$("#topTips").fadeOut("slow");
 	}, 3000)
+}
+function getTipsLong(message){
+	$(".addbuin_title_info").html(message);
+	$("#topTips").fadeIn("slow");
 }
 </script>
 </html>

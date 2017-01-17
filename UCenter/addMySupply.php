@@ -235,9 +235,7 @@ $(function(){
             });
        });
 });
-	$(document).on("click", ".deletePicture", function() {
-			$(this).parent().remove();
-		});
+
 </script>
 </html>
 </div>

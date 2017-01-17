@@ -72,13 +72,17 @@ $(function(){
 						$('#wages').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
 					}
 				     var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox 的值
-                     $.each(benefit, function (index, obj) {
-                    	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
-                    		 if(obj.id==obj1.value){
-                        		 $("#"+obj1.id).prop('checked','true');
-							}
-                    	 });
-					}); 
+				     if(benefit!==null){
+				    	 $.each(benefit, function (index, obj) {
+	                    	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
+	                        	 console.log(obj1.value);
+	                    		 if(obj.id==obj1.value){
+	                        		 $("#"+obj1.id).prop('checked','true');
+								}
+	                    	 });
+						}); 
+				     }
+                    
 					//有效期
 					valtime=eval('(' + result.data.valuetime+ ')');
 					if(valtime!=null){
@@ -189,6 +193,9 @@ $(function(){
 					 }
 					 if (eval('(' + result+ ')').statusCode=='1'){
 						 $.toast(result.message);
+						 setTimeout(function() {
+		                        window.location.href='employ.php';
+		                    }, 3000)
 					 }
 				 }
 			 });

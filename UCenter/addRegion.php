@@ -79,7 +79,10 @@
 							$.toast(message);
 						}
 						if (result.statusCode=='1'){
-							 setTimeout(window.location.href='region.php',8000)
+							$.toast(message);
+							 setTimeout(function() {
+								 window.location.href='region.php';
+							 }, 3000)
 						}
 					}
 				});

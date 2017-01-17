@@ -47,6 +47,7 @@
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
+	<script src="../Public/js/jquery-weui.min.js"></script>
 <script>
 $(function(){
 	sessionUserId=$.session.get('userId');
@@ -75,7 +76,9 @@ $(function(){
 					$.toast(message, "forbidden");
 				}else{
 					$.toast(message);
-					window.location.href='./UCenter/index.php';
+					 setTimeout(function(){
+						 window.location.href='index.php';
+ 		  			},1500);
 				}
 			}
 		});

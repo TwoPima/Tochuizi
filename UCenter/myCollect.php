@@ -152,7 +152,7 @@
 											<img class="weui-media-box__thumb" src="{{item.avatar|addUrl}}" alt="">
 										</div>
 										<div class="weui-media-box__bd">
-											<h4 class="weui-media-box__title">{{item.title}}{{item.store_name}}</h4>
+											<h4 class="weui-media-box__title">{{item.title|replaceString}}{{item.store_name|replaceString}}</h4>
 											<p class="weui-media-box__desc">
 												<template v-for = "n in item.miao_star">
             										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
@@ -160,6 +160,9 @@
             									<template v-for = "n in item.miao_star_none">
             										<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-off.png" alt="1" title="poor">&nbsp;</span>
             									</template>
+            									<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
+            									<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
+            									<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
             									<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
             									<span><img src="../Public/plugins/raty-2.5.2/lib/img/star-on.png" alt="1" title="poor">&nbsp;</span>
 											</p>
@@ -427,6 +430,19 @@
 	Vue.filter('distance', function (lat1,lng1,lat2,lng2) {
 		getFlatternDistance(lat1,lng1,lat2,lng2);
 		return HOST+value;
+	});
+	/*截取字符串*/
+	Vue.filter('replaceString', function (value) {
+		if(value==null){
+			text='';
+		}else{
+			if(value.length<14){
+				text=value;
+			}else{
+				var text=value.substring(0,14)+"...";
+			}
+		}
+		return text;
 	});
 	/** 
      * approx distance between two points on earth ellipsoid 

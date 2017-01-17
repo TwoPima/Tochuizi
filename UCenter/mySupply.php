@@ -18,7 +18,109 @@
 	<script src="../Public/js/jquery-weui.min.js"></script>
 	<script src="../Public/js/fastclick.js"></script>
 	<script src="../Public/js/common.js"></script>
+	<script type="text/javascript">
+
+	/*
+	 * 描述：html5苹果手机向左滑动删除特效
+	 */
+	window.addEventListener('load',function(){
+	     var initX;        //触摸位置
+	    var moveX;        //滑动时的位置
+	     var X = 0;        //移动距离
+	    var objX = 0;    //目标对象位置
+	    window.addEventListener('touchstart',function(event){
+	         //event.preventDefault();
+	        var obj = event.target.parentNode;
+	        //console.log(obj.className);
+	         if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
+	            initX = event.targetTouches[0].pageX;
+	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+	         }
+	       if( objX == 0){
+	            window.addEventListener('touchmove',function(event) {
+	                 //event.preventDefault();
+	                var obj = event.target.parentNode;
+	                if (obj.className == "weui-cell"||obj.className == "weui-cell__bd") {
+	                    moveX = event.targetTouches[0].pageX;
+	                     X = moveX - initX;
+	                    if (X >= 0) {
+	                         obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+	                   }
+	                    else if (X < 0) {
+	                        var l = Math.abs(X);
+	                         obj.style.WebkitTransform = "translateX(" + -l + "px)";
+	                        if(l>80){
+	                            l=80;
+	                           obj.style.WebkitTransform = "translateX(" + -l + "px)";
+	                        }
+	                     }
+	                 }
+	             });
+	        }
+	        else if(objX<0){
+	          window.addEventListener('touchmove',function(event) {
+	                // event.preventDefault();
+	                var obj = event.target.parentNode;
+	                 if (obj.className == "weui-cell"||obj.className == "weui-cell__bd") {
+	                     moveX = event.targetTouches[0].pageX;
+	                    X = moveX - initX;
+	                     if (X >= 0) {
+	                         var r = -80 + Math.abs(X);
+	                         obj.style.WebkitTransform = "translateX(" + r + "px)";
+	                        if(r>0){
+	                             r=0;
+	                             obj.style.WebkitTransform = "translateX(" + r + "px)";
+	                         }
+	                     }
+	                     else {     //向左滑动
+	                        obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+	                     }
+	                }
+	            });
+	        }
+
+	    })
+	     window.addEventListener('touchend',function(event){
+	        //event.preventDefault(); 阻止点击事件
+	        var obj = event.target.parentNode;
+	        if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
+	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
+	             if(objX>-40){
+	                obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+	                 objX = 0;
+	            }else{
+	                 obj.style.WebkitTransform = "translateX(" + -80 + "px)";
+	                objX = -80;
+	             }
+	         }
+	      })
+	 })
+	if ('addEventListener' in document) {
+	  document.addEventListener('DOMContentLoaded', function() {  
+	  FastClick.attach(document.body);  
+	}, false);  
+	}
+	//如果你想使用jquery
+	$(function() {
+	  FastClick.attach(document.body);  
+	});
+		$(document).on("click", ".deletePicture", function() {
+				$(this).parent().remove();
+			});
+	$(function(){
+		$('#jumpURl').on('touchstart',function(e) {
+			 alert('sd');
+		});
+		$('#jumpURl').on('touchmove',function(e) {
+			alert('sd');
+		});
+		 
+		$('#jumpURl').on('touchend',function(e) {
+			alert('sd');
+		});
+	});
 	
+	</script>
 </head>
 <body id="body_box" >
 	<div id="topback-header">
@@ -63,10 +165,10 @@
 			<div id="scroller">
 				<template v-for="item in demoData" >
 					<div class="weui_panel">
-						<div class="list-data" style="padding: 0px 0px;">
-									<a style="height-line:1;" class="weui-cell weui-cell_access">
-    									<div  v-on:click="jump_url(item.id)" class="weui_media_box weui_media_text" style="width:100%;">
-        									<h4 class="weui-media-box__title" >{{item.title}}</h4>
+						<div class="list-data"  style="padding: 0px 0px;">
+									<a  class="weui-cell weui-cell_access">
+    									<div   id="jumpURl" v-on:click="jump_url(item.id)" attr_id="{{item.id}}" class="weui_media_box weui_media_text" style="width:100%;">
+        									<h4 class="weui-media-box__title" >{{item.title|replaceString}}</h4>
         									<ul class="weui_media_info">
         										<li class="weui_media_info_meta">
         											{{item.update_time|time}}
@@ -82,8 +184,6 @@
     									<span onClick="confirmDelete({{item.id}});" >删除</span>
 										</div>
 									</a>
-									
-								
 						</div>
 							
 					</div>
@@ -332,6 +432,19 @@
 	Vue.filter('time', function (value) {
 		return goodTime(value);
 	});
+	/*截取字符串*/
+	Vue.filter('replaceString', function (value) {
+		if(value==null){
+			text='';
+		}else{
+			if(value.length<14){
+				text=value;
+			}else{
+				var text=value.substring(0,14)+"...";
+			}
+		}
+		return text;
+	});
 	/*时间处理*/
 	function goodTime(str){
 		var now = Date.parse( new Date() ).toString();
@@ -361,91 +474,6 @@
 		else result="刚刚";
 		return result;
 	}
-	
-	if ('addEventListener' in document) {
-		document.addEventListener('DOMContentLoaded', function() {
-			FastClick.attach(document.body);
-		}, false);
-	}
-	//如果你想使用jquery
-	$(function() {
-		FastClick.attach(document.body);
-	});
-	/*
-	 * 描述：html5苹果手机向左滑动删除特效
-	 */
-	window.addEventListener('load',function(){
-		var initX;        //触摸位置
-		var moveX;        //滑动时的位置
-		var X = 0;        //移动距离
-		var objX = 0;    //目标对象位置
-		window.addEventListener('touchstart',function(event){
-			//event.preventDefault();
-			var obj = event.target.parentNode;
-			console.log(obj.className);
-			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
-				initX = event.targetTouches[0].pageX;
-				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
-			}
-			if( objX == 0){
-				window.addEventListener('touchmove',function(event) {
-					//event.preventDefault();
-					var obj = event.target.parentNode;
-					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
-						moveX = event.targetTouches[0].pageX;
-						X = moveX - initX;
-						if (X >= 0) {
-							obj.style.WebkitTransform = "translateX(" + 0 + "px)";
-						}
-						else if (X < 0) {
-							var l = Math.abs(X);
-							obj.style.WebkitTransform = "translateX(" + -l + "px)";
-							if(l>80){
-								l=80;
-								obj.style.WebkitTransform = "translateX(" + -l + "px)";
-							}
-						}
-					}
-				});
-			}
-			else if(objX<0){
-				window.addEventListener('touchmove',function(event) {
-					//event.preventDefault();
-					var obj = event.target.parentNode;
-					if (obj.className == "list-data"||obj.className == "weui-cell weui-cell_access") {
-						moveX = event.targetTouches[0].pageX;
-						X = moveX - initX;
-						if (X >= 0) {
-							var r = -80 + Math.abs(X);
-							obj.style.WebkitTransform = "translateX(" + r + "px)";
-							if(r>0){
-								r=0;
-								obj.style.WebkitTransform = "translateX(" + r + "px)";
-							}
-						}
-						else {     //向左滑动
-							obj.style.WebkitTransform = "translateX(" + -80 + "px)";
-						}
-					}
-				});
-			}
-
-		})
-		window.addEventListener('touchend',function(event){
-			//event.preventDefault();
-			var obj = event.target.parentNode;
-			if(obj.className == "list-data"||obj.className == "weui-cell weui-cell_access"){
-				objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
-				if(objX>-40){
-					obj.style.WebkitTransform = "translateX(" + 0 + "px)";
-					objX = 0;
-				}else{
-					obj.style.WebkitTransform = "translateX(" + -80 + "px)";
-					objX = -80;
-				}
-			}
-		})
-	})
 	function confirmDelete(id){
 		delete_supply_recuirt_job($("#del_list").val(),sessionUserId,id,'1');
 	}

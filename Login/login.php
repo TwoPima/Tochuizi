@@ -104,7 +104,7 @@
 						//sessionStorage.setItem('userId', userId);
 						//sessionStorage.setItem('mobileSession', mobileSession);
 						//$.toptip(tips,2000, 'success');
-						window.location.href='../UCenter/index.php';
+						window.location.href='../index.html';
 					} 
 				}
 				/*  error: function(XMLHttpRequest,textStatus,errorThrown) {
