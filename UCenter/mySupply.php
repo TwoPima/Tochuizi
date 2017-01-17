@@ -31,7 +31,7 @@
 	    window.addEventListener('touchstart',function(event){
 	         //event.preventDefault();
 	        var obj = event.target.parentNode;
-	        //console.log(obj.className);
+	        console.log(obj.className);
 	         if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
 	            initX = event.targetTouches[0].pageX;
 	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;

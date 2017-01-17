@@ -108,17 +108,17 @@ $(function(){
                     if(eval('(' + result.data.valuetime+ ')')!==null){
                         $('#education').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
                     }
-                    var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox 的值
+                    var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox数据库的值
                     if(benefit!==null){
-                         $.each(benefit, function (index, obj) {
+                         $.each(benefit, function (index, obj) {//遍历每个值
                         	 console.log(benefit);
-                        	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
+                        	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {//遍历本地的checkbox的值
                             	 console.log(obj.id);
                             	 console.log(obj1.value);
-                        		 if(obj.id == obj1.value){
+                        		 if(obj.id == obj1.value){//数据库的和本地做对比
                         			 console.log(obj.id);
                                 	 console.log(obj1.value);
-                            			 $("#"+obj1.id).prop('checked','true');
+                            			 $("#"+obj1.id).prop('checked','true');//选中
     								}
                         	 });
     					}); 
