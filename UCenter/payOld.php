@@ -18,16 +18,55 @@
  				<div id="header-left">
 	 				 <a href="javascript:history.go(-1);" >
 	                      <i class="icon iconfont icon-xiangzuo"></i>
-	                  	    <span class="title">选择支付方式</span>
+	                  	    <span class="title">提交订单</span>
 	               	 </a>
  				</div>
                 <div id="header-right">
                 </div>
 		</div>
 		<div id="submitOrder">
-
+			<div class="order-content">
+				<div class="weui_cells">
+				
+				  <div class="weui_cell">
+				    <div class="weui_cell_bd weui_cell_primary">
+				      <p>银川兴庆区海上国际3吨</p>
+				    </div>
+				    <div class="weui_cell_ft">
+				 	     <span class="price"><span id="key">￥1200</span><span id="val">x1</span></span>
+				 	     <span  class="freight"><span id="key">运费</span><span id="val">￥10</span></span>
+				    </div>
+				  </div>
+				  <div class="weui_cell">
+				    <div class="weui_cell_bd weui_cell_primary">
+				      <p>银川兴庆区海上国际3吨</p>
+				    </div>
+				    <div class="weui_cell_ft">
+				 	     <span class="price"><span id="key">￥1200</span><span id="val">x1</span></span>
+				 	     <span  class="freight"><span id="key">运费</span><span id="val">￥10</span></span>
+				    </div>
+				  </div>
+				  <div class="weui_cell">
+				    <div class="weui_cell_bd weui_cell_primary">
+				      <p>银川兴庆区海上国际3吨</p>
+				    </div>
+				    <div class="weui_cell_ft">
+				 	     <span class="price"><span id="key">￥1200</span><span id="val">x1</span></span>
+				 	     <span  class="freight"><span id="key">运费</span><span id="val">￥10</span></span>
+				    </div>
+				  </div>
+				    <div class="weui_panel_ft count"><span class="key float-left">合计支付</span><span class="val float-right">￥2333.00</span></div>
+				</div>
+			</div>
 				<div class="vip_box ">
-
+		<div class="weui-panel menu_order">
+			<div class="weui-cell ">
+				<div class="weui-cell__hd"><img src="../Public/img/vip/vip009.jpg" alt="" style="width:20px;margin-right:5px;display:block"></div>
+				<div class="weui-cell__bd">
+					<p>选择支付方式</p>
+				</div>
+			</div>
+		</div>
 		<div  class="weui-flex zhifu_vip">
 
 			<div class="weui-flex__item zhifu-method" >
@@ -104,37 +143,6 @@ $(function(){
 		  }); 
 	});
 });
-/*
-* <form id="payForm" action="http://zszypay.91lds.com/zszy-pay/trade/payApply" method="post">
- <input type="hidden" name="returnUrl" id="returnUrl" value="">
- <input type="hidden" name="orderId" id="orderId" value="">
- <input type="hidden" name="payType" id="payType" value="">
- <input type="hidden" name="openid" id="openid" value="">
- <input type="hidden" name="orderType" id="orderType" value="">
- </form>
 
-
- //支付宝
- function aliPay(orderId, orderType) {
- $("#orderId").val(orderId);
- $("#payType").val("3"); //支付宝wap支付    //   3   支付类型
- $("#openid").val("");
- $("#orderType").val(orderType); //支付
- $("#payForm").submit();
- }
- //微信
- function wxPay(orderId, orderType) {
- var openid = $.cookie('openid');
- if(openid == null || openid == "" || openid == undefined || openid == "null") {
- var href = document.location.href;
- var strs = href.substring(href.lastIndexOf("/") + 1, href.length);
- window.location.href='http://blog.163.com/w_yue1314/blog/index.html?' + strs;
- }
- $("#orderId").val(orderId);
- $("#payType").val("1"); //微信wap支付
- $("#openid").val(openid);
- $("#orderType").val(orderType); //支付
- $("#payForm").submit();
- }*/
 </script>
 </html>

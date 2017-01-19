@@ -413,9 +413,12 @@ $(function(){
 			var name = $("#name").val();
 			var email = $("#email").val();
 			var zu = $("#zu").val();
-			var id_type = $("#id_type").val();
-			 if (id_type==null){
+			 var id_type = $("#id_type").val();
+			 if(id_type==='' || id_type===null ||id_type==0){
 				 id_type='';
+				 dotype="edit";
+			 }else{
+				 dotype='add';
 			 }
 			var mobile = $("#mobile").val();
 			var desc = $("#desc").val();
@@ -450,7 +453,7 @@ $(function(){
 				url: url,
 				data: {
 					mobile:mobile,cate_id:cate_id,she_type:she_type,area:area,email:email,id_type:id_type,
-					education:education,job_year:job_year,id:sessionUserId,dotype:'edit',desc:desc,
+					education:education,job_year:job_year,id:sessionUserId,dotype:dotype,desc:desc,
 					home:home,birthday:birthday,name:name,checkInfo:checkInfo,sex:sex,wages:wages,zu:zu
 					},
 				dataType: 'json',

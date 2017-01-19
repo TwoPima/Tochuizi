@@ -207,7 +207,7 @@ $(function(){
 				 $(document).scrollTop(0);
 				 return false;
 			 }
-			 $.showLoading('正在编辑');
+			 $.showLoading('正在添加');
 	         setTimeout(function() {
 	             $.hideLoading();
 	         }, 3000)

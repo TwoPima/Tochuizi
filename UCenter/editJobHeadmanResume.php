@@ -422,8 +422,11 @@ $(function(){
         var mobile = $("#mobile").val();
         var desc = $("#desc").val();
         var id_type = $("#id_type").val();
-        if (id_type==null){
+        if(id_type==='' || id_type===null ||id_type==0){
             id_type='';
+            dotype="edit";
+        }else{
+            dotype='add';
         }
         var area=$('#dpArea option:selected').val();
         var home = $("#home").val();
@@ -454,7 +457,7 @@ $(function(){
             data: {
             	cate_id:cate_id,
                 mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,id_type:id_type,
-                dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,area:area,
+                dotype:dotype,desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,area:area,
                 sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type,email: $("#email").val()
             },
             dataType: 'json',

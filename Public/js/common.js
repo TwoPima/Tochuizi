@@ -57,6 +57,7 @@ function getVipList(checkInfo){
 							  loadAreasCity($("#checkInfoArea").val(), data.province.id); //加载市
 							  loadAreasDistrict($("#checkInfoArea").val(), data.city.id); //加载区
 							  $("#dpProvince").find("option").each(function(){
+								  //选出当前的值
 								  	var optionId = $(this).val();     
 							         if( optionId == data.province.id ) {
 							        	 $("#dpProvince").val(optionId);
@@ -110,6 +111,7 @@ function getVipList(checkInfo){
 			data: {checkInfo:checkInfo,pid:pid},
 			dataType:"json",
 			success: function(result){
+				//$('#dpArea').append("<option value='' selected='selected'>请选择</option>");//定位成功后显示
 				$.each(result.data, function (index, obj) {
 					var proviceHtml='<option value="'+obj.id+'">'+obj.name+'</option>';
 					$('#dpArea').append(proviceHtml);

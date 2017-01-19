@@ -64,8 +64,6 @@ $(function(){
 				if(res.statusCode==1) {
 					that.$set('dataNull', 1);
 					that.$set('listJob', res.data);  //把数据传给页面
-					Vue.nextTick(function () {
-					})
 				}
 			});
 		},//created 结束
@@ -131,12 +129,12 @@ $(function(){
 				dataType: 'json',
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='0'){
+					if (result.statusCode=='0'){
 						$.toptip(message,2000, 'error');
 						window.location.href='./Login/login.php';
 					}else{
 						$.session.set('idType',result.data.id_type);
-						typeMember=$.session.get('typeMember');
+						var typeMember=getMemberType(result.data.idtype);
 						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+typeMember+'>'+result.data.cate_id.cate_name+'</p>';
 							$('.job_top_info').append(jobDetailHtml);
 					}
@@ -165,6 +163,7 @@ $(function(){
             <div class="job_top">
                 <img class="job_top_people" src="../Public/img/myjob/people.jpg" alt="">
                 <div class="job_top_info">
+
                 </div>
                <a  id="judgeMemberResumeType"><img class="job_top_edit" src="../Public/img/myjob/edit.jpg" alt=""></a> 
             </div>

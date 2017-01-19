@@ -99,7 +99,7 @@
 				dataType:'json',
 				success: function (result) {
 					var message=result.message;
-					if (result.statusCode==='0'){
+					if (result.statusCode=='0'){
 						$.toptip(message,2000, 'error');
 						//window.location.href='./Login/login.php';
 					}else{
@@ -131,7 +131,7 @@
 						});
 						var licence_thumb = '';
 						licence_thumb += ' <li class="weui-uploader__file" id="fileshow">' +
-							' <img src="'+HOST+result.data.licence_thumb+'" class="fileshow thumb-img" id="licence_thumb_url" />'+
+							' <img src="'+HOST+result.data.licence_thumb+'" class="fileshow thumb-img licence_thumb_url" id="licence_thumb_url" />'+
 							'</li>';
 						$("#uploaderFiles").prepend(licence_thumb);
 						//下拉框
@@ -226,12 +226,21 @@
 								<input class="weui-input" type="text" name="licence" id="licence"  >
 							</div>
 						</div>
-
-						<div class="weui-cell">
+						<!--	<div class="weui-cell">
+                                <div class="demos-content-padded">
+                                    <a href="javascript:;" class="weui-btn weui-btn_primary" id="pb1">只有图片</a>
+                                    <a href="javascript:;" class="weui-btn weui-btn_primary" id="pb2">带说明文案</a>
+                                </div>
+						</div>-->
+							<div  class="weui-cell">
 								<div class="weui-cell__bd">
 									<div class="weui-uploader">
 										<div class="weui-uploader__bd">
 											<ul class="weui-uploader__files" id="uploaderFiles">
+												<!-- <li class="weui-uploader__file" id="fileshow">
+													  <img class="deletePicture"  data="1"  src="../Public/img/delete-icon-picture.png"/>
+													 <img src="''" id="lincence" class="fileshow thumb-img" />
+													</li>-->
 											</ul>
 											<div class="weui-uploader__input-box">
 												<input class="weui-uploader__input" name="licence_thumb" id="licence_thumb" type="file" accept="image/*"  />
@@ -349,8 +358,8 @@ $(function(){
 			var URL = window.URL || window.webkitURL;
 			var imgURL = URL.createObjectURL(file);
 			var html = '';
-			html += ' <li class="weui-uploader__file" id="fileshow">' +
-				'  <img class="deletePicture"  data="1"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
+			html += ' <li class="weui-uploader__file">' +
+				'  <img class="deletePicture"  data="1"  src="../Public/img/delete-icon-picture.png"/><img id="licence_thumb_url" src="'+imgURL+'" class="fileshow thumb-img" />'+
 				'</li>';
 			$("#uploaderFiles").prepend(html);
 		}
@@ -375,7 +384,7 @@ $(function(){
 					var imgURL = URL.createObjectURL(obj);
 					// 用这个 URL 产生一个 <img> 将其显示出来
 					var html = '';
-					html += ' <li class="weui-uploader__file" id="fileshow">' +
+					html += ' <li class="weui-uploader__file" >' +
 						'  <img class="deletePicture" data="1"  src="../Public/img/delete-icon-picture.png"/><img src="'+imgURL+'" class="fileshow thumb-img" />'+
 						'</li>';
 					$("#uploaderFiles1").prepend(html);
@@ -406,7 +415,7 @@ $(function(){
 					}
 					if (eval('(' + result+ ')').statusCode=='1'){
 						var html = '';
-						html += ' <li class="weui-uploader__file" id="fileshow">' +
+						html += ' <li class="weui-uploader__file">' +
 							'  <img class="deletePicture"  data-mainkey="'+result.data.id+'" data-userid="'+result.data.partner_id+'" src="../Public/img/delete-icon-picture.png"/><img src="'+HOST+thumb+'" class="fileshow thumb-img" />'+
 							'</li>';
 						$("#uploaderFiles1").prepend(html);
@@ -418,6 +427,7 @@ $(function(){
 	//提交，最终验证。
 	$("#btn-custom-theme").click(function() {
 		if($(this).attr('data')=='1'){
+			//目前审核期 禁止提交
 			return false;
 		}else {
 			var formData = new FormData($( "#addBusinessForm" )[0]);
@@ -480,6 +490,23 @@ $(function(){
 					}
 				});
 			}
+	});
+	var pb1 = $.photoBrowser({
+		items: [ "'http://121.42.207.20//Public/UploadPic/2017-01-17/587e1aca5a237.png"],
+		onSlideChange: function(index) {
+			console.log(this, index);
+		},
+		onOpen: function() {
+			console.log("onOpen", this);
+		},
+		onClose: function() {
+			console.log("onClose", this);
+		}
+	});
+	$("#uploaderFiles").click(function() {
+		imgBrower=$('#uploaderFiles').find('img').prop('src');
+		console.log(imgBrower);
+		pb1.open();
 	});
 });
 function getTips(message){

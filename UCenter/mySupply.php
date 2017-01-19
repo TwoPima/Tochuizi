@@ -16,10 +16,13 @@
 	<script src="../Public/js/require.config.js"></script>
 	<script src="../Public/js/jquery-session.js"></script>
 	<script src="../Public/js/jquery-weui.min.js"></script>
+<!--	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>-->
+	<script type="text/javascript" src="../Public/js/vue.min.js"></script>
+	<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
+	<script src="../Public/js/iscroll-probe.js"></script>
 	<script src="../Public/js/fastclick.js"></script>
 	<script src="../Public/js/common.js"></script>
 	<script type="text/javascript">
-
 	/*
 	 * 描述：html5苹果手机向左滑动删除特效
 	 */
@@ -32,7 +35,7 @@
 	         //event.preventDefault();
 	        var obj = event.target.parentNode;
 	        console.log(obj.className);
-	         if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
+	         if(obj.className == "weui-cell weui-cell_access"||obj.className == "weui-cell__bd"){
 	            initX = event.targetTouches[0].pageX;
 	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
 	         }
@@ -40,7 +43,7 @@
 	            window.addEventListener('touchmove',function(event) {
 	                 //event.preventDefault();
 	                var obj = event.target.parentNode;
-	                if (obj.className == "weui-cell"||obj.className == "weui-cell__bd") {
+	                if (obj.className == "weui-cell weui-cell_access"||obj.className == "weui-cell__bd") {
 	                    moveX = event.targetTouches[0].pageX;
 	                     X = moveX - initX;
 	                    if (X >= 0) {
@@ -61,7 +64,7 @@
 	          window.addEventListener('touchmove',function(event) {
 	                // event.preventDefault();
 	                var obj = event.target.parentNode;
-	                 if (obj.className == "weui-cell"||obj.className == "weui-cell__bd") {
+	                 if (obj.className == "weui-cell weui-cell_access"||obj.className == "weui-cell__bd") {
 	                     moveX = event.targetTouches[0].pageX;
 	                    X = moveX - initX;
 	                     if (X >= 0) {
@@ -83,7 +86,7 @@
 	     window.addEventListener('touchend',function(event){
 	        //event.preventDefault(); 阻止点击事件
 	        var obj = event.target.parentNode;
-	        if(obj.className == "weui-cell"||obj.className == "weui-cell__bd"){
+	        if(obj.className == "weui-cell weui-cell_access"||obj.className == "weui-cell__bd"){
 	             objX =(obj.style.WebkitTransform.replace(/translateX\(/g,"").replace(/px\)/g,""))*1;
 	             if(objX>-40){
 	                obj.style.WebkitTransform = "translateX(" + 0 + "px)";
@@ -95,7 +98,8 @@
 	         }
 	      })
 	 })
-	if ('addEventListener' in document) {
+/* 加上后苹果手机点击不动
+if ('addEventListener' in document) {
 	  document.addEventListener('DOMContentLoaded', function() {  
 	  FastClick.attach(document.body);  
 	}, false);  
@@ -103,23 +107,10 @@
 	//如果你想使用jquery
 	$(function() {
 	  FastClick.attach(document.body);  
-	});
+	});*/
 		$(document).on("click", ".deletePicture", function() {
 				$(this).parent().remove();
 			});
-	$(function(){
-		$('#jumpURl').on('touchstart',function(e) {
-			 alert('sd');
-		});
-		$('#jumpURl').on('touchmove',function(e) {
-			alert('sd');
-		});
-		 
-		$('#jumpURl').on('touchend',function(e) {
-			alert('sd');
-		});
-	});
-	
 	</script>
 </head>
 <body id="body_box" >
@@ -166,8 +157,8 @@
 				<template v-for="item in demoData" >
 					<div class="weui_panel">
 						<div class="list-data"  style="padding: 0px 0px;">
-									<a  class="weui-cell weui-cell_access">
-    									<div   id="jumpURl" v-on:click="jump_url(item.id)" attr_id="{{item.id}}" class="weui_media_box weui_media_text" style="width:100%;">
+									<a  class="weui-cell weui-cell_access" style="border:1px solid red;">
+    									<div  v-on:click="jump_url(item.id)" attr_id="{{item.id}}" class="weui_media_box weui_media_text" style="width:100%;">
         									<h4 class="weui-media-box__title" >{{item.title|replaceString}}</h4>
         									<ul class="weui_media_info">
         										<li class="weui_media_info_meta">
@@ -181,7 +172,7 @@
         									 <img class="jiantou" src="../Public/img/supply/jiantou.png" >
     									</div>
     									<div style="line-height:113px;"class="del-btn">
-    									<span onClick="confirmDelete({{item.id}});" >删除</span>
+    										<span onClick="confirmDelete({{item.id}});" >删除</span>
 										</div>
 									</a>
 						</div>
@@ -205,10 +196,6 @@
 <input value="<?php echo md5(date('Ymd')."supply_list"."tuchuinet");?>"	type="hidden" id="supply_list"/>
 <input value="<?php echo md5(date('Ymd')."sum_count"."tuchuinet");?>"	type="hidden" id="sum_count"/>
 <input value="<?php echo md5(date('Ymd')."del_list"."tuchuinet");?>"	type="hidden" id="del_list"/>
-<script type="text/javascript" src="../Public/js/vue.min.js"></script>
-<script type="text/javascript" src="../Public/js/vue-resource.js"></script>
-<!--<script src="../Public/js/iscroll.js"></script>-->
-<script src="../Public/js/iscroll-probe.js"></script>
 <script>
 	var checkInfo=$('#supply_list').val();
 	var sessionUserId=$.session.get('userId');
@@ -246,12 +233,17 @@
 					Vue.nextTick(function () {
 						//初始化滚动插件
 						that.myScroll = new IScroll('#wrapper', {
+							//为true就是阻止事件冒泡,所以onclick没用
+							//preventDefault为false这行就是解决onclick失效问题
+							preventDefault:false,
 							mouseWheel: true,
 							wheelAction: 'zoom',
 							click: true,
 							scrollX: false,
 							scrollY: true,
 							probeType: 3,
+							tap: true,
+							preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|A)$/ },  //（这个后面加|A,因为iscroll阻止了A的默认事件）
 						});
 						//滚动监听
 						that.myScroll.on('scroll',is_upload);
@@ -285,7 +277,6 @@
 							that.$http.get(HOST+'mobile.php?c=index&a=supply_list',that.url).then(function (response) {
 							var res = response.data;
 							var listdata=res.data;
-							console.log(listdata);
 							if (that.is_refresh == 1){
 								that.$set('demoData', listdata);  //把数据传给页面
 								that.$set('url.start', listdata.length);
@@ -354,9 +345,12 @@
 							Vue.nextTick(function () {
 								//初始化滚动插件
 								_self.myScroll = new IScroll('#wrapper', {
+									preventDefault:false,
 									mouseWheel: true,
 									wheelAction: 'zoom',
 									click: true,
+									tap: true,
+									preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|A)$/ },  //（这个后面加|A,因为iscroll阻止了A的默认事件）
 									scrollX: false,
 									scrollY: true,
 									probeType: 3,

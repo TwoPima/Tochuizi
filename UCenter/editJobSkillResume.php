@@ -402,7 +402,7 @@ $(function(){
         var name = $("#name").val();
         var zu = $("#zu").val();
         var id_type = $("#id_type").val();
-        if (id_type==null){
+        if(id_type==='' || id_type===null ||id_type==0){
             id_type='';
             dotype="edit";
         }else{
@@ -451,7 +451,7 @@ $(function(){
                 if (result.statusCode=='1'){
                     $.toast("操作成功");
                     setTimeout(function() {
-                        window.location.href='myJob.php';
+                        //window.location.href='myJob.php';
                     }, 3000)
                 }
             },

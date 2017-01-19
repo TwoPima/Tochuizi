@@ -421,8 +421,11 @@ $(function(){
         var name = $("#name").val();
         var zu = $("#zu").val();
         var id_type = $("#id_type").val();
-        if (id_type==null){
+        if(id_type==='' || id_type===null ||id_type==0){
             id_type='';
+            dotype="edit";
+        }else{
+            dotype='add';
         }
         var mobile = $("#mobile").val();
         var desc = $("#desc").val();
@@ -458,7 +461,7 @@ $(function(){
             data: {
                 area:area,cate_id:cate_id,
                 mobile:mobile,zu:zu,education:education,job_year:job_year,id:sessionUserId,id_type:id_type,
-                dotype:'edit',desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
+                dotype:dotype,desc:desc,home:home,birthday:birthday,name:name,checkInfo:checkInfo,
                 sex:sex,dui_type:dui_type,peo_count:peo_count,zhuan_type:zhuan_type,email:$("#email").val()},
             dataType: 'json',
             success: function (result) {

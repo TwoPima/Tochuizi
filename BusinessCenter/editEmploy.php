@@ -40,9 +40,14 @@ $(function(){
 	var dp1 = $("#dpProvince");
 	var dp2 = $("#dpCity");
 	var dp3 = $("#dpArea");
+	getEduction($("#checkInfoZidian").val());//学历
+	getJobYear($("#checkInfoZidian").val());//工作年限
+	getRecruitCountPeople($("#checkInfoZidian").val(),24);//招聘人数分类
+	jobDayWages($("#checkInfoZidian").val());//薪资要求
+	getBenefit($("#checkInfoZidian").val()); //福利
+	jobValueTime($("#checkInfoZidian").val());//有效期
 	//查询信息
 	selectMyResumeInfo(sessionUserId,$("#checkInfo").val(),$("#recruit_id").val());//查询简历信息
-
 	function selectMyResumeInfo(id,checkInfo,recruit_id){	 //查询
 		var url =HOST+'mobile.php?c=index&a=recruit_job';
 		$.ajax({
@@ -71,18 +76,25 @@ $(function(){
 					if(eval('(' + result.data.wages+ ')')!=null){
 						$('#wages').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
 					}
-				     var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox 的值
-				     if(benefit!==null){
-				    	 $.each(benefit, function (index, obj) {
-	                    	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {
-	                        	 console.log(obj1.value);
-	                    		 if(obj.id==obj1.value){
-	                        		 $("#"+obj1.id).prop('checked','true');
-								}
-	                    	 });
-						}); 
-				     }
-                    
+					var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox数据库的值
+					if(benefit!==null) {
+						if (benefit.id !==undefined) {
+							//只存在一个值
+							$(":checkbox[value='" + benefit.id + "']").prop("checked", true);
+						} else {
+							//存在多个值
+							var benefitLocal=$("[name='benefit']:checkbox");//获取到本地集合
+							$.each(benefitLocal, function () {//遍历本地的checkbox的值
+								var self = $(this);
+								var selfId = $(this).val();
+								$.each(benefit, function (index, obj) {//遍历每个值
+									if (selfId == obj.id) {
+										self.prop('checked', 'true');
+									}
+								});
+							});
+						}
+					}
 					//有效期
 					valtime=eval('(' + result.data.valuetime+ ')');
 					if(valtime!=null){
@@ -117,28 +129,25 @@ $(function(){
 	//给二级绑定事件，触发事件后填充市的数据
 	$(getCat).bind("change keyup", function () {
 		var firstId = getCat.prop("value");
+		getCatSub.empty();
+		getCatThere.empty();
 		getRecruitCatSub($("#checkInfoRecruitCat").val(), firstId);
 		getCatSub.fadeIn("slow");
-		$(".jobCategory-sub-line").fadeIn("slow");
 	});
 	//给三级绑定事件，触发事件后填充区的数据
 	$(getCatSub).bind("change keyup", function () {
 		var subId = getCatSub.prop("value");
 		getRecruitCatThere($("#checkInfoRecruitCat").val(), subId);
 		getCatThere.fadeIn("slow");
-		$(".jobCategory-there-line").fadeIn("slow");
 	});
-	getEduction($("#checkInfoZidian").val());//学历
-	getJobYear($("#checkInfoZidian").val());//工作年限
-	getRecruitCountPeople($("#checkInfoZidian").val(),24);//招聘人数分类
-	jobDayWages($("#checkInfoZidian").val());//薪资要求
-	getBenefit($("#checkInfoZidian").val()); //福利
-	jobValueTime($("#checkInfoZidian").val());//有效期
+
 	//填充省的数据
 	loadAreasProvince($("#checkInfoArea").val(), 0);
 	//给省绑定事件，触发事件后填充市的数据
 	jQuery(dp1).bind("change keyup", function () {
 		var provinceID = dp1.prop("value");
+		$("#dpArea").empty();
+		$("#dpCity").empty();
 		loadAreasCity($("#checkInfoArea").val(), provinceID);
 		dp2.fadeIn("slow");
 	});

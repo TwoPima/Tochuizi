@@ -54,11 +54,11 @@ $(function(){
         loadAreasDistrict($("#checkInfoArea").val(), cityID);
         dpArea.fadeIn("slow");
     });
-
+    getBenefit($("#checkInfoZidian").val());//福利
     selectMyRecuitInfo(recruit_id);//具体信息
     jobValueTime($("#checkInfoZidian").val());//有效期
     jobDayWages($("#checkInfoZidian").val());//薪资要求
-    getBenefit($("#checkInfoZidian").val());//福利
+
     judgeJobType(memberType,2);//{设计特长，工种类别  ，专业类型 1增加 2是编辑;页面显示}
     selectDefault();//取默认值
     //文本框失去焦点后
@@ -102,29 +102,35 @@ $(function(){
                     $('#email').attr("value",result.data.email);
                     $('#mobile').attr("value",result.data.mobile);
                     //下拉框
-                   /* if(eval('(' + result.data.job_year+ ')')!=null){
-                        $('#job_year').append('<option value="'+eval('(' + result.data.job_year+ ')').id+'" selected="selected">'+eval('(' + result.data.job_year+ ')').name+'</option>');
-                    }*/
+                   if(eval('(' + result.data.valuetime+ ')')!=null){
+                        $('#valuetime').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
+                    }
                     if(eval('(' + result.data.valuetime+ ')')!==null){
                         $('#education').append('<option value="'+eval('(' + result.data.valuetime+ ')').id+'" selected="selected">'+eval('(' + result.data.valuetime+ ')').name+'</option>');
                     }
+
                     var benefit=eval('(' + result.data.benefit+ ')');//获取到的checkbox数据库的值
-                    if(benefit!==null){
-                         $.each(benefit, function (index, obj) {//遍历每个值
-                        	 console.log(benefit);
-                        	 $.each($("[name='benefit']:checkbox"), function (index, obj1) {//遍历本地的checkbox的值
-                            	 console.log(obj.id);
-                            	 console.log(obj1.value);
-                        		 if(obj.id == obj1.value){//数据库的和本地做对比
-                        			 console.log(obj.id);
-                                	 console.log(obj1.value);
-                            			 $("#"+obj1.id).prop('checked','true');//选中
-    								}
-                        	 });
-    					}); 
+                    if(benefit!==null) {
+                        if (benefit.id !==undefined) {
+                            //只存在一个值
+                            $(":checkbox[value='" + benefit.id + "']").prop("checked", true);
+                        } else {
+                            //存在多个值
+                            var benefitLocal=$("[name='benefit']:checkbox");//获取到本地集合
+                            $.each(benefitLocal, function () {//遍历本地的checkbox的值
+                                var self = $(this);
+                                var selfId = $(this).val();
+                                $.each(benefit, function (index, obj) {//遍历每个值
+                                    if (selfId == obj.id) {
+                                        self.prop('checked', 'true');
+                                    }
+                                });
+                            });
+                        }
                     }
+
                     if(eval('(' + result.data.wages+ ')')!==null){
-                        $('#wage').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
+                        $('#wages').append('<option value="'+eval('(' + result.data.wages+ ')').id+'" selected="selected">'+eval('(' + result.data.wages+ ')').name+'</option>');
                     }
                     if(eval('(' + result.data.area+')')!==null){
                         //用三级id查询前面2级并显示出来 商品1 文章2 加盟商3 招聘4 5简历 6供求 7地区
