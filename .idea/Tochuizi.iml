@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
     <content url="file://$MODULE_DIR$/../alipay" />
+    <content url="file://$MODULE_DIR$/../eciyuanWebsite" />
     <content url="file://$MODULE_DIR$/../qwadmin" />
     <content url="file://$MODULE_DIR$/../tuchuiwang" />
     <content url="file://$MODULE_DIR$/../yimei" />

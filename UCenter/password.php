@@ -97,7 +97,7 @@ $(function(){
   	    $.toptip('密码长度应该在 6-16 位', 2000, 'warning');
   	    return false;
   	  }
-         if($("#repassword").val()!== password){
+         if($("#repassword").val()!== new_password){
       	   $.toptip('前后密码不一致！', 2000, 'warning');
       	    return false; 
       	 } 
@@ -108,12 +108,14 @@ $(function(){
 			dataType: 'json',
 			success: function (result) {
 				var message=result.message;
-				if (result.statusCode==='0'){
-					$.toptip(message,2000, 'error');
-					 return false; 
+				if (result.statusCode=='0'){
+					$.toast(message, "forbidden");
+					 return false;
 				}else{
-					$.toptip('修改成功，请用新密码重新登陆！',2000, 'success');
-					window.location.href='../Login/login.php';
+					$.toast('修改成功，请用新密码重新登陆！');
+					setTimeout(function() {
+						window.location.href='../Login/login.php';
+					}, 3000)
 				}
 			},
 		});

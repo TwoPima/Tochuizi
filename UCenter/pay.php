@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>个人主页-订单中心</title>
 	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-	 <link rel="stylesheet" href="../Public/css/weui.min.css"/>
+	 <link rel="stylesheet" href="../../Public/css/weui.min.css"/>
 	 <link rel="stylesheet" href="../Public/css/weui.min.0.4.3.css"/>
 	 	<link rel="stylesheet" href="../Public/css/jquery-weui.min.css">
           <link rel="stylesheet" type="text/css" href="../Public/font/iconfont.css">
@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="../Public/css/center.css"/>
         	<link rel="stylesheet" href="../Public/css/addvip.css"/>
 </head>
-<body >
+<body>
 	<div id="app">
 		<div id="topback-header">
  				<div id="header-left">
@@ -54,10 +54,18 @@
 			</div>
 		</div>
 	</div>
-			<div class="height20px"></div>
-            <div class="button-sp-area">
-                <a href="javascript:;" class="weui-btn weui-btn_plain-default "id="btn-custom-theme">提&nbsp;&nbsp;&nbsp;&nbsp;交</a>
-            </div>
+			<form  name=alipayment action='' method=post target="_blank">
+				<input type="hidden" name="returnUrl" id="returnUrl" value="">
+				<input type="hidden" name="orderId" id="orderId" value="">
+				<input type="hidden" name="payType" id="payType" value="">
+				<input type="hidden" name="openid" id="openid" value="">
+				<input type="hidden" name="orderType" id="orderType" value="">
+
+				<div class="height20px"></div>
+				<div class="button-sp-area">
+					<a href="javascript:;" class="weui-btn weui-btn_plain-default "id="btn-custom-theme">提&nbsp;&nbsp;&nbsp;&nbsp;交</a>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

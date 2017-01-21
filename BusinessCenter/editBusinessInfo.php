@@ -246,8 +246,7 @@
 												<input class="weui-uploader__input" name="licence_thumb" id="licence_thumb" type="file" accept="image/*"  />
 											</div>
 											<div class="weui-uploader__input-box_title">
-												点击查看营业执照图片 <br>
-												图片保证清晰
+												点击查看<br>营业执照
 											</div>
 										</div>
 									</div>
@@ -257,7 +256,7 @@
 
 						<div class="weui_cell">
 							<div class="weui_cell_hd"><label class="weui_label font14px">经营类别</label></div>
-							<div class="weui_cell_bd weui_cell_primary font14px">
+							<div class="weui_cell_bd weui_cell_primary font14px custom-select">
 								<select class="area" name="cate_id_first" id="partner_cate_first">
 								</select>
 								<select class="area" name="cate_id_sub" id="partner_cate_sub">
@@ -294,11 +293,9 @@
 						</form>
 					</div>
 				</div>
-
 					<div class="addbuin_form_button">
 						<a id="btn-custom-theme" class="weui-btn">申请加盟</a>
 					</div>
-
 					</div>
 		</div>
 </body>
@@ -358,8 +355,8 @@ $(function(){
 			var URL = window.URL || window.webkitURL;
 			var imgURL = URL.createObjectURL(file);
 			var html = '';
-			html += ' <li class="weui-uploader__file">' +
-				'  <img class="deletePicture"  data="1"  src="../Public/img/delete-icon-picture.png"/><img id="licence_thumb_url" src="'+imgURL+'" class="fileshow thumb-img" />'+
+			html += ' <li class="weui-uploader__file" id="fileshow">' +
+				'  <img class="deletePicture"  data="1"  src="../Public/img/delete-icon-picture.png"/><img id="licence_thumb_url" src="'+imgURL+'" class="fileshow thumb-img licence_thumb_url" />'+
 				'</li>';
 			$("#uploaderFiles").prepend(html);
 		}
@@ -491,22 +488,27 @@ $(function(){
 				});
 			}
 	});
-	var pb1 = $.photoBrowser({
-		items: [ "'http://121.42.207.20//Public/UploadPic/2017-01-17/587e1aca5a237.png"],
-		onSlideChange: function(index) {
-			console.log(this, index);
-		},
-		onOpen: function() {
-			console.log("onOpen", this);
-		},
-		onClose: function() {
-			console.log("onClose", this);
-		}
-	});
+	var items=[];
 	$("#uploaderFiles").click(function() {
-		imgBrower=$('#uploaderFiles').find('img').prop('src');
+		imgBrower=$('#uploaderFiles').find('.licence_thumb_url').prop('src');
 		console.log(imgBrower);
+		items.push(imgBrower);
+		//items.push(imgBrower);
+		var pb1 = $.photoBrowser({
+			items:items,
+			onSlideChange: function(index) {
+				//console.log(this, index);
+			},
+			onOpen: function() {
+				//console.log("onOpen", this);
+			},
+			onClose: function() {
+				items.length = 0;
+				//console.log("onClose", this);
+			}
+		});
 		pb1.open();
+
 	});
 });
 function getTips(message){

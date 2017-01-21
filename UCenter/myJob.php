@@ -134,7 +134,8 @@ $(function(){
 						window.location.href='./Login/login.php';
 					}else{
 						$.session.set('idType',result.data.id_type);
-						var typeMember=getMemberType(result.data.idtype);
+						var typeMember=getMemberType(result.data.id_type);
+						console.log(typeMember);
 						 var jobDetailHtml='<p>'+result.data.name+'&nbsp;'+result.data.mobile+'</p><p>'+typeMember+'>'+result.data.cate_id.cate_name+'</p>';
 							$('.job_top_info').append(jobDetailHtml);
 					}

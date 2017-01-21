@@ -126,8 +126,7 @@ var url =HOST+'mobile.php?c=index&a=login';
 												<input class="weui-uploader__input" name="licence_thumb" id="licence_thumb" type="file" accept="image/*"  />
 											</div>
 											<div class="weui-uploader__input-box_title">
-												点击查看营业执照图片 <br>
-												图片保证清晰
+												点击查看<br>营业执照
 											</div>
 										</div>
 									</div>

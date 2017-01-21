@@ -98,8 +98,8 @@
 	         }
 	      })
 	 })
-/* 加上后苹果手机点击不动
-if ('addEventListener' in document) {
+// 加上后苹果手机点击不动
+/*if ('addEventListener' in document) {
 	  document.addEventListener('DOMContentLoaded', function() {  
 	  FastClick.attach(document.body);  
 	}, false);  
@@ -157,7 +157,7 @@ if ('addEventListener' in document) {
 				<template v-for="item in demoData" >
 					<div class="weui_panel">
 						<div class="list-data"  style="padding: 0px 0px;">
-									<a  class="weui-cell weui-cell_access" style="border:1px solid red;">
+									<a  class="weui-cell weui-cell_access">
     									<div  v-on:click="jump_url(item.id)" attr_id="{{item.id}}" class="weui_media_box weui_media_text" style="width:100%;">
         									<h4 class="weui-media-box__title" >{{item.title|replaceString}}</h4>
         									<ul class="weui_media_info">

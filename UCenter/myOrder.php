@@ -186,6 +186,7 @@
 </div>
 <input value="<?php echo md5(date('Ymd')."my_order"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <input value="<?php echo md5(date('Ymd')."order_status"."tuchuinet");?>"	type="hidden" id="order_status"/>
+<input value="<?php echo md5(date('Ymd')."del_list"."tuchuinet");?>"	type="hidden" id="del_list"/>
 <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -250,28 +251,13 @@
 				jump_url_to_status: function (msg1,msg2){
 				},
 				//取消订单
-				jump_url_to_del: function (msg1,msg2){
+				jump_url_to_del: function (msg1){
 					//执行删除操作
-					var url =HOST+'mobile.php?c=index&a=del_order';
-					var checkInfoResume=$("#checkInfoResume").val();
-					$.ajax({
-						type: 'post',
-						url: url,
-						data: {checkInfo:$("#order_status").val(),id:sessionUserId,},
-						dataType: 'json',
-						success: function (result) {
-							var name=result.data.name;
-							if(name==null){
-								window.location.href='noMyJob.php';
-							}else{
-								window.location.href='myJob.php';
-							}
-						}
-					});
+					delete_supply_recuirt_job($("del_list").val(),sessionUserId,msg1,3);
 				},
 				//增加评价
-				jump_url_to_add_evaluate: function (msg1,msg2){
-
+				jump_url_to_add_evaluate: function (msg1){
+					window.location.href='addEvaluate.php?order_id='+msg1;
 				},
 				classdata: function (msg) {
 					$('.weui_navbar .weui_bar_item_on').removeClass('weui_bar_item_on');
