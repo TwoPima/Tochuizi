@@ -755,7 +755,7 @@ function getSupplyCollectNumber(checkInfo,id){
 删除操作
  id： 用户id
  list_id：列表id
- model_id：供求信息：1  招聘信息：2   求职信息：3  取消订单 4 5收藏
+ model_id：供求信息：1  招聘信息：2   求职信息：3  取消订单 ：4 5：收藏
  model:a的值
  */
 function delete_supply_recuirt_job(checkInfo,id,list_id,model_id){

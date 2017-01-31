@@ -253,7 +253,7 @@
 				//取消订单
 				jump_url_to_del: function (msg1){
 					//执行删除操作
-					delete_supply_recuirt_job($("del_list").val(),sessionUserId,msg1,3);
+					delete_supply_recuirt_job($("del_list").val(),sessionUserId,msg1,4);
 				},
 				//增加评价
 				jump_url_to_add_evaluate: function (msg1){

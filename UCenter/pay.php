@@ -71,6 +71,7 @@
 </body>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-weui.min.js"></script>
+<input value="<?php echo md5(date('Ymd')."makeOrder2"."tuchuinet");?>"	type="hidden" id="checkInfo"/>
 <script type="text/javascript">
 $(function(){
 	$('.zhifu-method').click(function(){
@@ -81,19 +82,8 @@ $(function(){
 	//提交，最终验证。
 	$("#btn-custom-theme").click(function() {
 			var method=$("#selectMethod").children(".vip_money").attr("value");//支付方式
-			var class_id=$("#selectClassId").children(".vip_money").attr("value");//套餐类别
-			var checkInfoRecharge = $("#checkInfoRecharge").val();
-		/*	if ($("#price-count").val()&&$("#price-count").val()){
-				$.toast("自定义支付和选择套餐只能选择一个！", "cancel");
-			}
-			if($("#price-count").val()!==null){
-				price=$("#price-count").val();
-			}
-			if($("#price-count").val()!==null){
-				price=$("#price-count").val();
-			}*/
-			var price = $("#price-count").val();
-			var vip_count = $("#price-count").val();//充值次数
+			var checkInfo = $("#checkInfo").val();
+			var order_id = $("#order_id").val();
 			var url =HOST+'mobile.php?c=index&a=vip_recharge';
 	       if(method==""|| class_id==""){
 	    	  	 $.toast("支付方式和套餐均不能为空！", "cancel");

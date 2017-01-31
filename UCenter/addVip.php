@@ -10,7 +10,7 @@
             <link rel="stylesheet" href="../Public/css/center.css"/>
 	<link rel="stylesheet" href="../Public/css/addvip.css"/>
 	<input value="<?php echo md5(date('Ymd')."vip_category"."tuchuinet");?>"	type="hidden" id="checkInfo"/>  
-<input value="<?php echo md5(date('Ymd')."vip_recharge"."tuchuinet");?>"	type="hidden" id="checkInfoRecharge"/>  
+<input value="<?php echo md5(date('Ymd')."vip_makeorder"."tuchuinet");?>"	type="hidden" id="vip_makeorder"/>  
  <script src="../Public/js/require.config.js"></script>
 <script src="../Public/js/jquery-2.1.4.js"></script>
 <script src="../Public/js/jquery-session.js"></script>
@@ -161,15 +161,19 @@
 		}); 
     	//套餐类型
 		$(document).on("click", ".packageCategory", function() {
+			$("#price-count").empty();
 			 $(this).siblings().children(".vip_category_action").css("visibility","hidden");
 	  		$(this).children(".vip_category_action").css("visibility","visible");  
 	  		$(this).children(".menu_3_box").attr("id","selectClassId");  
+		});
+		$("#price-count").on("click",function(){
+			
 		});
     	//提交，最终验证。
     	$("#btn-custom-theme").click(function() {
     			var method=$("#selectMethod").children(".vip_money").attr("value");//支付方式
     			var class_id=$("#selectClassId").children(".vip_money").attr("value");//套餐类别
-    			var checkInfoRecharge = $("#checkInfoRecharge").val();
+    			var checkInfoRecharge = $("#vip_makeorder").val();
 			/*	if ($("#price-count").val()&&$("#price-count").val()){
 					$.toast("自定义支付和选择套餐只能选择一个！", "cancel");
 				}
@@ -181,7 +185,7 @@
 				}*/
     			var price = $("#price-count").val();
     			var vip_count = $("#price-count").val();//充值次数
-    			var url =HOST+'mobile.php?c=index&a=vip_recharge';
+    			var url =HOST+'mobile.php?c=pay&a=vip_makeorder';
     	       if(method==""|| class_id==""){
     	    	  	 $.toast("支付方式和套餐均不能为空！", "cancel");
     	      	    return false; 
